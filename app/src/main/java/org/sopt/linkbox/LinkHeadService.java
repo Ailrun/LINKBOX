@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +30,8 @@ public class LinkHeadService extends Service {
             WindowManager.LayoutParams.TYPE_PHONE,
             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
             PixelFormat.TRANSLUCENT);
+    private DisplayMetrics metrics = new DisplayMetrics();
+    private int displayWidth, displayHeight;
 
     @Override
     public void onCreate() {
@@ -52,31 +55,52 @@ public class LinkHeadService extends Service {
         imageView.setOnTouchListener(new View.OnTouchListener() {
             private int initialX, initialY;
             private float initialTouchX, initialTouchY;
+            private final long removeTime = 1000;
+            private int removeDiff;
+            private boolean move = false;
 
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+                windowManager.getDefaultDisplay().getMetrics(metrics);
+                displayWidth = metrics.widthPixels - imageView.getWidth();
+                displayHeight = metrics.heightPixels - imageView.getHeight();
+                removeDiff = imageView.getWidth() > imageView.getHeight() ? imageView.getWidth() : imageView.getHeight();
+
+                if (motionEvent.getEventTime() - motionEvent.getDownTime() > removeTime) {
+                    exitAddView();
+                }
+
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN :
+                        move = false;
                         initialX = layoutParams.x;
                         initialY = layoutParams.y;
-                        initialTouchX = motionEvent.getX();
-                        initialTouchY = motionEvent.getY();
+                        initialTouchX = motionEvent.getRawX();
+                        initialTouchY = motionEvent.getRawY();
                         return true;
                     case MotionEvent.ACTION_UP :
-                        exitRemoveView();
-                        if ((motionEvent.getEventTime() > 1000) &&
-                                (Math.abs(layoutParams.x - exitParam.x) < 20) &&
-                                (Math.abs(layoutParams.y - exitParam.y) < 20)) {
+                        if ((motionEvent.getEventTime() > removeTime) &&
+                                (Math.abs(layoutParams.x - displayWidth/2) < removeDiff) &&
+                                (Math.abs(layoutParams.y - displayHeight) < removeDiff)) {
                             removeView();
+                            exitRemoveView();
                             stopSelf();
                         }
+                        if (!move) {
+                            Intent intent = new Intent(LinkHeadService.this, LinkItActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            removeView();
+                            exitRemoveView();
+                            startActivity(intent);
+                        }
+                        exitRemoveView();
                         return true;
                     case MotionEvent.ACTION_MOVE :
-                        if (motionEvent.getEventTime() > 1000) {
-                            exitAddView();
-                        }
+                        move = true;
                         layoutParams.x = initialX + (int) (motionEvent.getRawX() - initialTouchX);
+                        layoutParams.x = layoutParams.x < 0 ? 0 : layoutParams.x > displayWidth ? displayWidth : layoutParams.x;
                         layoutParams.y = initialY + (int) (motionEvent.getRawY() - initialTouchY);
+                        layoutParams.y = layoutParams.y < 0 ? 0 : layoutParams.y > displayHeight ? displayHeight : layoutParams.y;
                         windowManager.updateViewLayout(imageView, layoutParams);
                         return true;
                 }
