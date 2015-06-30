@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-// 로그인 액티비티 구현
 public class MainActivity extends Activity {
 
     @Override
