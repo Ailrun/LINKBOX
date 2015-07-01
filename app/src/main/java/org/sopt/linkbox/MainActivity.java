@@ -24,31 +24,19 @@ import com.facebook.login.widget.LoginButton;
 import org.json.JSONObject;
 
 
-// 로그인 액티비티 구현
-class LoginActivity extends Activity {
-
-    CallbackManager callbackManager;
-    LoginButton loginButton;
-
-}
-
 public class MainActivity extends Activity {
 
     CallbackManager callbackManager;
-    LoginButton button_login;
     LoginButton loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         FacebookSdk.sdkInitialize(getApplicationContext());
-
         setContentView(R.layout.activity_main);
 
-        callbackManager = CallbackManager.Factory.create();
 
+        callbackManager = CallbackManager.Factory.create();
         loginButton=(LoginButton) findViewById(R.id.button_login);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -66,18 +54,6 @@ public class MainActivity extends Activity {
 
             @Override
             public void onError(FacebookException e) {
-
-            }
-        });
-        button_login = (LoginButton) findViewById(R.id.button_login);
-        button_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LoginManager.getInstance().logOut();
-
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
-                finish();
 
             }
         });
