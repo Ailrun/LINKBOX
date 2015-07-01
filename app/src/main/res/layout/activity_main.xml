@@ -47,11 +47,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:text="Password"/>
-        <Button
+        <com.facebook.login.widget.LoginButton
             android:id="@+id/button_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="로그인"/>
+            android:text="로그인"
+            android:visibility="invisible"/>
         <Button
             android:id="@+id/button_signin"
             android:layout_width="wrap_content"
