@@ -65,7 +65,7 @@ public class LinkItActivity extends Activity {
         sp_box = (Spinner) findViewById(R.id.SP_BOX);
         iv_thumb = (ImageView) findViewById(R.id.IV_THUMB);
         et_title = (EditText) findViewById(R.id.ET_TITLE);
-        et_title.setText(link_name);
+        et_title.setHint(link_name);
         bt_linkit = (Button) findViewById(R.id.BT_LINKIT);
         bt_cancel = (Button) findViewById(R.id.BT_CANCEL);
     }

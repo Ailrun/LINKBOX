@@ -40,7 +40,7 @@ public class LinkHeadService extends Service {
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         imageView = new ImageView(this);
-        imageView.setImageResource(R.mipmap.ic_launcher);
+        imageView.setImageResource(R.mipmap.logo);
 
         layoutParams.gravity = Gravity.TOP | Gravity.LEFT;
 
@@ -48,7 +48,7 @@ public class LinkHeadService extends Service {
 
         // TouchListener Implementing Part
         exitImageView = new ImageView(getApplicationContext());
-        exitImageView.setImageResource(R.mipmap.ic_launcher);
+        exitImageView.setImageResource(R.mipmap.logo);
 
         exitParam.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
 

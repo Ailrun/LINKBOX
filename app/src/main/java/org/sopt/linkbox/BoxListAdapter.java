@@ -51,7 +51,7 @@ public class BoxListAdapter extends BaseAdapter {
 
         if (view == null) {
             boxListViewHolder = new BoxListViewHolder();
-            view = layoutInflater.inflate(R.layout.box_list, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.layout_box_list, viewGroup, false);
 
             boxListViewHolder.tv_boxname = (TextView) view.findViewById(R.id.TV_boxname);
 
