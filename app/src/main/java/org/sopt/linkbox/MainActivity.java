@@ -25,9 +25,17 @@ import org.json.JSONObject;
 
 
 // 로그인 액티비티 구현
-class LoginActivity extends ActionBarActivity {
+class LoginActivity extends Activity {
 
     CallbackManager callbackManager;
+    LoginButton loginButton;
+
+}
+
+public class MainActivity extends Activity {
+
+    CallbackManager callbackManager;
+    LoginButton button_login;
     LoginButton loginButton;
 
     @Override
@@ -36,14 +44,17 @@ class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_main);
-        callbackManager=CallbackManager.Factory.create();
+
+        callbackManager = CallbackManager.Factory.create();
+
         loginButton=(LoginButton) findViewById(R.id.button_login);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 loginButton.setVisibility(View.INVISIBLE);
-                Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -58,48 +69,7 @@ class LoginActivity extends ActionBarActivity {
 
             }
         });
-    }
-
-    protected void onResume(){
-        super.onResume();
-        if(AccessToken.getCurrentAccessToken()!=null){
-            loginButton.setVisibility(View.INVISIBLE);
-            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        else{
-            loginButton.setVisibility(View.VISIBLE);
-        }
-    }
-
-
-    protected void onActivityResult(int requestCode,int resultCode, Intent data){
-
-        super.onActivityResult(requestCode,resultCode,data);
-
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-
-    }
-}
-
-public class MainActivity extends Activity {
-
-    CallbackManager callbackManager;
-    Button button_login;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
-
-        setContentView(R.layout.activity_main);
-
-        callbackManager = CallbackManager.Factory.create();
-
-        button_login = (Button) findViewById(R.id.button_login);
+        button_login = (LoginButton) findViewById(R.id.button_login);
         button_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,10 +108,14 @@ public class MainActivity extends Activity {
 
     protected void onResume(){
         super.onResume();
-        if(AccessToken.getCurrentAccessToken()==null){
-            Intent intent=new Intent(getApplicationContext(),LoginActivity.class);
+        if(AccessToken.getCurrentAccessToken()!=null){
+            loginButton.setVisibility(View.INVISIBLE);
+            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
+        }
+        else{
+            loginButton.setVisibility(View.VISIBLE);
         }
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data){
