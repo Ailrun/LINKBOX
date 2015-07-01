@@ -37,9 +37,11 @@ public class LinkBoxActivity extends Activity {
         boxnameView = (TextView)findViewById(R.id.boxNameView);
         editUrl = (EditText)findViewById(R.id.editUrl);
         addUrl = (ImageButton)findViewById(R.id.addUrl);
-        invite = (ImageButton)findViewById(R.id.editorsInfo);
+        invite = (ImageButton)findViewById(R.id.invite);
+        editorsInfo = (ImageButton)findViewById(R.id.editorsInfo);
 
         drawerView = (View)findViewById(R.id.drawer);
+        boxName = (EditText)findViewById(R.id.boxName);
         addBox = (Button)findViewById(R.id.addBox);
         toSettings = (ImageButton)findViewById(R.id.toSettings);
 
