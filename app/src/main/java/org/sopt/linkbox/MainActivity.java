@@ -3,6 +3,7 @@ package org.sopt.linkbox;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,11 @@ public class MainActivity extends Activity {
     CallbackManager callbackManager;
     Button button_login;
 
+=======
+
+public class MainActivity extends Activity {
+
+>>>>>>> f3e7bc6f3fa40bd65d462b32ef80da6d50a8ee54
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -35,6 +41,7 @@ public class MainActivity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_main);
+<<<<<<< HEAD
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -89,5 +96,7 @@ public class MainActivity extends Activity {
 
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
+=======
+>>>>>>> f3e7bc6f3fa40bd65d462b32ef80da6d50a8ee54
     }
 }
