@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.sopt.linkbox" >
+    package="org.sopt.linkbox"
+    android:versionCode="1"
+    android:versionName="1.0">
 
+    <uses-sdk
+        android:minSdkVersion="21"
+        android:targetSdkVersion="22" />
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--
@@ -20,7 +25,7 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat" >
         <activity
-            android:name=".MainActivity"
+            android:name="org.sopt.linkbox.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,13 +61,13 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name=".LinkHeadService"
+            android:name="org.sopt.linkbox.LinkHeadService"
             android:enabled="true"
             android:exported="true" >
         </service>
 
         <activity
-            android:name=".LinkItActivity"
+            android:name="org.sopt.linkbox.LinkItActivity"
             android:label="@string/title_activity_link_it"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter android:label="LINKBOX" >
@@ -76,7 +81,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".BoxActivity"
+            android:name="org.sopt.linkbox.BoxActivity"
             android:label="@string/title_activity_box" >
         </activity>
     </application>
