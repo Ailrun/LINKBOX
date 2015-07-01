@@ -3,7 +3,7 @@ package org.sopt.linkbox;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-<<<<<<< HEAD
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,27 +12,82 @@ import android.widget.TextView;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONObject;
 
 
 // 로그인 액티비티 구현
+class LoginActivity extends ActionBarActivity {
 
+    CallbackManager callbackManager;
+    LoginButton loginButton;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        setContentView(R.layout.activity_main);
+        callbackManager=CallbackManager.Factory.create();
+        loginButton=(LoginButton) findViewById(R.id.button_login);
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                loginButton.setVisibility(View.INVISIBLE);
+                Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
+            }
+        });
+    }
+
+    protected void onResume(){
+        super.onResume();
+        if(AccessToken.getCurrentAccessToken()!=null){
+            loginButton.setVisibility(View.INVISIBLE);
+            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        else{
+            loginButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+
+    protected void onActivityResult(int requestCode,int resultCode, Intent data){
+
+        super.onActivityResult(requestCode,resultCode,data);
+
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+
+    }
+}
 
 public class MainActivity extends Activity {
 
     CallbackManager callbackManager;
     Button button_login;
 
-=======
-
-public class MainActivity extends Activity {
-
->>>>>>> f3e7bc6f3fa40bd65d462b32ef80da6d50a8ee54
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,7 +96,6 @@ public class MainActivity extends Activity {
         FacebookSdk.sdkInitialize(getApplicationContext());
 
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -95,8 +149,5 @@ public class MainActivity extends Activity {
         super.onActivityResult(requestCode,resultCode,data);
 
         callbackManager.onActivityResult(requestCode, resultCode, data);
-
-=======
->>>>>>> f3e7bc6f3fa40bd65d462b32ef80da6d50a8ee54
     }
 }
