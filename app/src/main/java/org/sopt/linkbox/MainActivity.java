@@ -23,28 +23,38 @@ import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONObject;
 
+
 public class MainActivity extends Activity {
 
     CallbackManager callbackManager;
-    Button button_login;
+    LoginButton loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-
         FacebookSdk.sdkInitialize(getApplicationContext());
-
         setContentView(R.layout.activity_main);
 
-        callbackManager = CallbackManager.Factory.create();
 
-        button_login = (Button) findViewById(R.id.button_login);
-        button_login.setOnClickListener(new View.OnClickListener() {
+        callbackManager = CallbackManager.Factory.create();
+        loginButton=(LoginButton) findViewById(R.id.button_login);
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onClick(View v) {
-                LoginManager.getInstance().logOut();
+            public void onSuccess(LoginResult loginResult) {
+                loginButton.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
                 finish();
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+
             }
         });
         Bundle parameter=new Bundle();
@@ -74,8 +84,14 @@ public class MainActivity extends Activity {
 
     protected void onResume(){
         super.onResume();
-        if(AccessToken.getCurrentAccessToken()==null){
+        if(AccessToken.getCurrentAccessToken()!=null){
+            loginButton.setVisibility(View.INVISIBLE);
+            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
             finish();
+        }
+        else{
+            loginButton.setVisibility(View.VISIBLE);
         }
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data){

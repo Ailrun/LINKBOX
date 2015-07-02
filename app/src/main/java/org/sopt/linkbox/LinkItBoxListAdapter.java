@@ -13,12 +13,12 @@ import java.util.ArrayList;
  * Created by Junyoung on 2015-06-30.
  *
  */
-public class BoxListAdapter extends BaseAdapter {
+class LinkItBoxListAdapter extends BaseAdapter {
 
     private ArrayList<BoxListData> source = null;
     private LayoutInflater layoutInflater = null;
 
-    public BoxListAdapter(Context context, ArrayList<BoxListData> source) {
+    public LinkItBoxListAdapter(Context context, ArrayList<BoxListData> source) {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
@@ -51,9 +51,9 @@ public class BoxListAdapter extends BaseAdapter {
 
         if (view == null) {
             boxListViewHolder = new BoxListViewHolder();
-            view = layoutInflater.inflate(R.layout.layout_box_list, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
 
-            boxListViewHolder.tv_boxname = (TextView) view.findViewById(R.id.TV_boxname);
+            boxListViewHolder.tvBoxName = (TextView) view.findViewById(R.id.TV_box_name_link_box);
 
             view.setTag(boxListViewHolder);
         }
@@ -63,16 +63,16 @@ public class BoxListAdapter extends BaseAdapter {
 
         BoxListData boxListData = (BoxListData)getItem(i);
 
-        boxListViewHolder.tv_boxname.setText(boxListData.box_name);
+        boxListViewHolder.tvBoxName.setText(boxListData.boxName);
 
         return view;
     }
 }
 
 class BoxListData {
-    String box_name;
+    String boxName;
 }
 
 class BoxListViewHolder {
-    TextView tv_boxname;
+    TextView tvBoxName;
 }
