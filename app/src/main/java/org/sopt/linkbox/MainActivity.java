@@ -3,11 +3,7 @@ package org.sopt.linkbox;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -17,7 +13,6 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -34,10 +29,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
-
+        startActivity(new Intent(this, LinkBoxActivity.class));
 
         callbackManager = CallbackManager.Factory.create();
-        loginButton=(LoginButton) findViewById(R.id.button_login);
+        loginButton=(LoginButton) findViewById(R.id.LB_login_main);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -46,15 +41,11 @@ public class MainActivity extends Activity {
                 startActivity(intent);
                 finish();
             }
-
             @Override
             public void onCancel() {
-
             }
-
             @Override
             public void onError(FacebookException e) {
-
             }
         });
         Bundle parameter=new Bundle();
@@ -63,23 +54,17 @@ public class MainActivity extends Activity {
         GraphRequest request= GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+                TextView tvId, tvPassword;
 
-                TextView textView_id,textView_name,textView_password;
+                tvId=(TextView) findViewById(R.id.TV_id_main);
+                tvPassword=(TextView) findViewById(R.id.TV_password_main);
 
-
-                textView_id=(TextView) findViewById(R.id.textView_id);
-                textView_password=(TextView) findViewById(R.id.textView_password);
-
-
-                textView_id.setText(jsonObject.optString("id"));
-                textView_password.setText(jsonObject.optString("password"));
-
+//                tvId.setText(jsonObject.optString("id"));
+//                tvPassword.setText(jsonObject.optString("password"));
             }
         });
         request.setParameters(parameter);
         request.executeAsync();
-
-
     }
 
     protected void onResume(){
@@ -95,7 +80,6 @@ public class MainActivity extends Activity {
         }
     }
     protected void onActivityResult(int requestCode,int resultCode, Intent data){
-
         super.onActivityResult(requestCode,resultCode,data);
 
         callbackManager.onActivityResult(requestCode, resultCode, data);

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.sopt.linkbox"
     android:versionCode="1"
-    android:versionName="1.0">
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -19,19 +19,26 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="18" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat" >
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
-            android:name="org.sopt.linkbox.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN" />
-                <category
-                    android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -62,29 +69,30 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name="org.sopt.linkbox.LinkHeadService"
+            android:name=".LinkHeadService"
             android:enabled="true"
             android:exported="true" >
         </service>
 
         <activity
-            android:name="org.sopt.linkbox.LinkItActivity"
+            android:name=".LinkBoxActivity"
+            android:label="@string/title_activity_link_box" >
+        </activity>
+
+        <activity
+            android:name=".LinkItActivity"
             android:label="@string/title_activity_link_it"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-            <intent-filter
-                android:label="LINKBOX" >
-                <action
-                    android:name="android.intent.action.SEND" />
-                <category
-                    android:name="android.intent.category.DEFAULT" />
+            <intent-filter android:label="LINKBOX" >
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="http"
                     android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="org.sopt.linkbox.BoxActivity"
-            android:label="@string/title_activity_box" >
-        </activity>
+
     </application>
 </manifest>

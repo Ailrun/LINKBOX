@@ -4,9 +4,7 @@
     android:layout_width="240dp"
     android:layout_height="match_parent"
     android:background="#FFFFFFFF"
-    android:gravity="start"
-    android:orientation="vertical"
-    android:fitsSystemWindows="true">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_alignParentTop="true"
             android:layout_above="@+id/IB_premium_link_box">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -31,8 +30,7 @@
             <ListView
                 android:id="@+id/LV_box_list_link_box"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </ListView>
+                android:layout_height="match_parent"/>
         </LinearLayout>
         <ImageButton
             android:id="@+id/IB_premium_link_box"

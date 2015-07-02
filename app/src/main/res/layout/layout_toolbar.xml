@@ -1,19 +1,9 @@
-<Toolbar
+<android.support.v7.widget.Toolbar
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/toolbar"
     android:minHeight="@dimen/abc_action_button_min_width_material"
     android:background="#FFFFFFFF"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/Widget.AppCompat.ActionBar"
-    android:paddingEnd="15dp">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/logo"/>
-    </RelativeLayout>
-</Toolbar>
+    android:layout_height="50dp"
+    android:paddingEnd="15dp"
+    android:gravity="center_horizontal">
+</android.support.v7.widget.Toolbar>

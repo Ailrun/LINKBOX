@@ -8,51 +8,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
-        <ImageView android:src="@mipmap/logo"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
+        <ImageView
+            android:src="@mipmap/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="100dp"
-            ></ImageView>
-
+            android:layout_marginTop="100dp"/>
         <TextView
-            android:id="@+id/textView_id"
+            android:id="@+id/TV_id_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
             android:text="ID"/>
-
-        <AutoCompleteTextView android:id="@+id/email" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="@string/prompt_email"
-            android:inputType="textEmailAddress" android:maxLines="1"
+        <AutoCompleteTextView
+            android:id="@+id/AC_email_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/prompt_email"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
             android:singleLine="true" />
 
         <TextView
-            android:id="@+id/textView_password"
+            android:id="@+id/TV_password_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"/>
 
-        <EditText android:id="@+id/password" android:layout_width="match_parent"
+        <EditText android:id="@+id/ET_password_main" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:hint="@string/prompt_password"
             android:imeActionId="@+id/login"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified" android:inputType="textPassword"
-            android:layout_toRightOf="@+id/textView_password"
+            android:layout_toRightOf="@+id/TV_password_main"
             android:maxLines="1" android:singleLine="true" />
 
         <com.facebook.login.widget.LoginButton
             android:layout_marginTop="30dp"
-            android:id="@+id/button_login"
+            android:id="@+id/LB_login_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="로그인"/>
         <Button
-            android:id="@+id/button_signin"
+            android:id="@+id/B_signin_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/button_login"
+            android:layout_toRightOf="@+id/LB_login_main"
             android:layout_gravity="center_horizontal"
             android:text="회원가입"/>
     </LinearLayout>

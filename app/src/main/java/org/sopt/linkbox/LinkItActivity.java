@@ -17,13 +17,13 @@ import java.util.ArrayList;
 
 public class LinkItActivity extends Activity {
 
-    Spinner sp_box = null;
-    ImageView iv_thumb = null;
-    EditText et_title = null;
-    Button bt_linkit = null, bt_cancel = null;
+    private Spinner spBox = null;
+    private ImageView ivThumb = null;
+    private EditText etTitle = null;
+    private Button btLinkit = null, btCancel = null;
 
-    private String box_name = null;
-    private String link_name = null;
+    private String boxName = null;
+    private String linkName = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,63 +42,62 @@ public class LinkItActivity extends Activity {
         initControl();
     }
 
-    ArrayList<BoxListData> source = null;
+    private ArrayList<LinkItBoxListData> source = null;
 
     private void initData() {
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-            link_name = intent.getStringExtra(Intent.EXTRA_TEXT);
+            linkName = intent.getStringExtra(Intent.EXTRA_TEXT);
         }
         else {
-            link_name = "";
+            linkName = "";
         }
         source = new ArrayList<>();
-        BoxListData boxListData = new BoxListData();
-        boxListData.box_name = "요리";
-        source.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.box_name = "아이";
-        source.add(boxListData);
+        LinkItBoxListData linkItBoxListData = new LinkItBoxListData();
+        linkItBoxListData.boxName = "요리";
+        source.add(linkItBoxListData);
+        linkItBoxListData = new LinkItBoxListData();
+        linkItBoxListData.boxName = "아이";
+        source.add(linkItBoxListData);
     }
 
     private void initView() {
-        sp_box = (Spinner) findViewById(R.id.SP_BOX);
-        iv_thumb = (ImageView) findViewById(R.id.IV_THUMB);
-        et_title = (EditText) findViewById(R.id.ET_TITLE);
-        et_title.setHint(link_name);
-        bt_linkit = (Button) findViewById(R.id.BT_LINKIT);
-        bt_cancel = (Button) findViewById(R.id.BT_CANCEL);
+        spBox = (Spinner) findViewById(R.id.SP_box_link_it);
+        ivThumb = (ImageView) findViewById(R.id.IV_thumb_link_it);
+        etTitle = (EditText) findViewById(R.id.ET_title_link_it);
+        etTitle.setHint(linkName);
+        btLinkit = (Button) findViewById(R.id.BT_linkit_link_it);
+        btCancel = (Button) findViewById(R.id.BT_cancel_link_it);
     }
 
-    BoxListAdapter boxListAdapter = null;
-
     private void initListener() {
-        sp_box.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 boxCheck(adapterView, i);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 boxCheck(adapterView, 0);
             }
+
             private void boxCheck(AdapterView<?> adapterView, int i) {
-                BoxListData boxListData = (BoxListData) adapterView.getItemAtPosition(i);
-                if (boxListData != null) {
-                    box_name = boxListData.box_name;
-                }
-                else {
-                    box_name = "";
+                LinkItBoxListData linkItBoxListData = (LinkItBoxListData) adapterView.getItemAtPosition(i);
+                if (linkItBoxListData != null) {
+                    boxName = linkItBoxListData.boxName;
+                } else {
+                    boxName = "";
                 }
             }
         });
-        bt_linkit.setOnClickListener(new View.OnClickListener() {
+        btLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-        bt_cancel.setOnClickListener(new View.OnClickListener() {
+        btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startService(new Intent(getApplicationContext(), LinkHeadService.class));
@@ -107,8 +106,10 @@ public class LinkItActivity extends Activity {
         });
     }
 
+    private LinkItBoxListAdapter linkItBoxListAdapter = null;
+
     private void initControl() {
-        boxListAdapter = new BoxListAdapter(getApplicationContext(), source);
-        sp_box.setAdapter(boxListAdapter);
+        linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), source);
+        spBox.setAdapter(linkItBoxListAdapter);
     }
 }
