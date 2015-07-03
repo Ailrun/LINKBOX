@@ -1,0 +1,21 @@
+var express = require('express');
+var mysql = require('mysql');
+
+var router = express.Router();
+var connection = mysql.createConnection({
+
+	'host' : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com',
+	'user' : 'LINKBOX',
+	'password' : 'dlrpqkfhdnflek',
+	'database' : 'linkbox',
+});
+
+router.get('/', function(req, res, next) {
+  
+	connection.query('select urlid, url, address,timestamp from board order by timestamp desc;', function (error, cursor) {
+		
+		res.json(cursor);
+	});
+});
+
+module.exports = router;
