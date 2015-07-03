@@ -7,30 +7,32 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@color/indigo500">
         <ImageView
-            android:id="@+id/IV_profile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:id="@+id/IV_profile_link_box"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"/>
     </RelativeLayout>
+    <!-- divider start -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/realWhite"/>
+    <!-- divider end -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="220dp">
         <LinearLayout
             android:id="@+id/LL_box_info_link_box"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/indigo500">
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:padding="5dp"
-                android:src="@drawable/abc_ic_menu_selectall_mtrl_alpha"/>
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@android:drawable/ic_menu_report_image"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
@@ -51,10 +53,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/LL_box_info_link_box"/>
     </RelativeLayout>
+    <!-- divider start -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/indigo500"/>
+    <!-- divider end -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
