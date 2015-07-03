@@ -5,9 +5,10 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <TextView
-            android:id="@+id/TV_add_box_link_box"
+        android:layout_height="40dp"
+        android:clickable="true">
+        <Button
+            android:id="@+id/RL_footer_button_link_box"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:paddingStart="60dp"
@@ -22,8 +23,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:background="#FFFFFFFF">
-            <ImageButton
-                android:id="@+id/IB_add_box_link_box"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFFFF"

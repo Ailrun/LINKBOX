@@ -5,15 +5,23 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,13 +37,22 @@ public class LinkBoxActivity extends AppCompatActivity {
     //main layout
     private ListView lvUrlList = null;
     private LinearLayout llUrlEmptyView = null;
-    //drawerlayout
+    //drawer layout
+    private ImageView ivProfile = null;
+    private TextView tvBoxNumber = null;
     private ListView lvBoxList = null;
     private LinearLayout llBoxFooterViewAdd = null;
+    private Button rlFooterButton = null;
     private LinearLayout llBoxFooterViewEdit = null;
+    private EditText etAddBoxName = null;
+    private Button bAddBoxCancel = null;
+    private Button bToSettings = null;
+    private Button bToPremium = null;
+
     private DrawerLayout dlBoxList = null;
     private ActionBarDrawerToggle abBoxList = null;
 
+    //others
     private ArrayList<LinkBoxUrlListData> urlListSource = null;
     private ArrayList<LinkBoxBoxListData> boxListSource = null;
 
@@ -84,10 +101,9 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private  void initView() {
         layoutInflater = getLayoutInflater();
-
         //toolbar init
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
-        tToolbar.setTitleTextColor(getResources().getColor(R.color.indigo500));
+        tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
         if (boxListSource.size() > 0)
         {
             tToolbar.setTitle((boxListSource.get(0)).boxName);
@@ -103,9 +119,16 @@ public class LinkBoxActivity extends AppCompatActivity {
         llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, null);
         lvUrlList.setEmptyView(llUrlEmptyView);
         //drawer init
+        ivProfile = (ImageView) findViewById(R.id.IV_profile_link_box);
+        tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
         lvBoxList = (ListView) findViewById(R.id.LV_box_list_link_box);
         llBoxFooterViewAdd = (LinearLayout) layoutInflater.inflate(R.layout.layout_footer_button_link_box, null);
+        rlFooterButton = (Button) llBoxFooterViewAdd.findViewById(R.id.RL_footer_button_link_box);
+        llBoxFooterViewEdit = (LinearLayout) layoutInflater.inflate(R.layout.layout_footer_edit_link_box, null);
+        etAddBoxName = (EditText) llBoxFooterViewEdit.findViewById(R.id.ET_add_box_name_link_box);
+        bAddBoxCancel = (Button) llBoxFooterViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
         lvBoxList.addFooterView(llBoxFooterViewAdd);
+        rlFooterButton.setFocusable(true);
         dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
     }
 
@@ -151,8 +174,33 @@ public class LinkBoxActivity extends AppCompatActivity {
                 return false;
             }
         });
-        abBoxList = new ActionBarDrawerToggle(this, dlBoxList,
-               tToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+        rlFooterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lvBoxList.removeFooterView(llBoxFooterViewAdd);
+                Toast.makeText(getApplicationContext(), "clicked", Toast.LENGTH_SHORT).show();
+                lvBoxList.addFooterView(llBoxFooterViewEdit);
+            }
+        });
+        etAddBoxName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    lvBoxList.removeFooterView(llBoxFooterViewEdit);
+                    lvBoxList.addFooterView(llBoxFooterViewAdd);
+                }
+                return false;
+            }
+        });
+        bAddBoxCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lvBoxList.removeFooterView(llBoxFooterViewEdit);
+                lvBoxList.addFooterView(llBoxFooterViewAdd);
+            }
+        });
+        abBoxList = new ActionBarDrawerToggle(this, dlBoxList, tToolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -186,6 +234,12 @@ public class LinkBoxActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         abBoxList.onConfigurationChanged(newConfig);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_link_box , menu);
+        return true;
     }
 
     @Override
