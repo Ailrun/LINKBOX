@@ -59,8 +59,8 @@ public class MainActivity extends Activity {
                 tvId=(TextView) findViewById(R.id.TV_id_main);
                 tvPassword=(TextView) findViewById(R.id.TV_password_main);
 
-//                tvId.setText(jsonObject.optString("id"));
-//                tvPassword.setText(jsonObject.optString("password"));
+                tvId.setText(jsonObject.optString("id"));
+                tvPassword.setText(jsonObject.optString("password"));
             }
         });
         request.setParameters(parameter);
