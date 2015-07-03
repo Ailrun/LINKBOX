@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/contents', contents);             // 컨텐츠 라우팅  
-app.use('/thumbnails', thumbnails);         // 썸네일 라우팅
+app.use('/insert', insert);             // 컨텐츠 라우팅  
+app.use('/read', read);         // 썸네일 라우팅
 
 
 // catch 404 and forward to error handler
