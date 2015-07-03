@@ -10,6 +10,7 @@ var Router = require('router');
 var connection = mysql.createConnection({
    
     user : 'LINKBOX',              // appjam mysql server id
+    host : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com',
     password : 'dlrpqkfhdnflek',   // appjam mysql server password
     database : 'LINKBOX'           // appjam mysql default database
 });
