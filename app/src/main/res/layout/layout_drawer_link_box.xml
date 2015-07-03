@@ -5,39 +5,71 @@
     android:layout_height="match_parent"
     android:background="#FFFFFFFF"
     android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/indigo500">
+        <ImageView
+            android:id="@+id/IV_profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/realWhite"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentTop="true"
-            android:layout_above="@+id/IB_premium_link_box">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:background="#FF3f51b5">
-                <ImageButton
-                    android:id="@+id/IB_to_settings_link_box"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"/>
-            </RelativeLayout>
-            <ListView
-                android:id="@+id/LV_box_list_link_box"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-        <ImageButton
-            android:id="@+id/IB_premium_link_box"
+            android:id="@+id/LL_box_info_link_box"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_alignParentBottom="true"
-            android:gravity="right|center_vertical"
-            android:background="#FF3f51b5"/>
+            android:background="@color/indigo500">
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:src="@drawable/abc_ic_menu_selectall_mtrl_alpha"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="내 박스"
+                android:textColor="#FFFFFFFF"/>
+            <TextView
+                android:id="@+id/TV_box_number_link_box"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#FFEEEEFF"/>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/LV_box_list_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LL_box_info_link_box"/>
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/indigo500"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/B_to_settings_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#FFFFFFFF"
+            android:text="설정"/>
+        <Button
+            android:id="@+id/B_to_premium_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/B_to_settings_link_box"
+            android:background="#FFFFFFFF"
+            android:text="프리미엄"/>
     </RelativeLayout>
 </LinearLayout>
