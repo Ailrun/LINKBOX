@@ -61,7 +61,7 @@ router.get('/insert', function (request, response) {
 router.post('/insert', function (request, response) {
                     // /insert query문 실행 candiate table에 name, part, introduce vlaue에 ? ? ? 대입
     connection.query('insert into url (url, urlname) values (?, ?);',
-                  [ request.body.name, request.body.part, request.body.introduce ]);
+                  [ request.body.url, request.body.urlname, ]);
     
     response.writeHead(302, { 'Location' : '/' });
     response.end();
