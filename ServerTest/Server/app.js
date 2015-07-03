@@ -3,8 +3,8 @@ var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 
-var contents = require('./routes/contents');
-var thumbnails = require('./routes/thumbnails');
+var contents = require('./routes/insert');
+var thumbnails = require('./routes/read');
 
 var app = express();
 

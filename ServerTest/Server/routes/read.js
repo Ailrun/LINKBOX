@@ -12,7 +12,7 @@ var connection = mysql.createConnection({
 
 router.get('/', function(req, res, next) {
   
-	connection.query('select urlid, url, address,timestamp from board order by timestamp desc;', function (error, cursor) {
+	connection.query('select urlid, name, address from board order;', function (error, cursor) {
 		
 		res.json(cursor);
 	});

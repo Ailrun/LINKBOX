@@ -12,7 +12,7 @@ var connection = mysql.createConnection({       //mysql 연결 생성
 
 router.get('/:urlid', function(req, res, next) {       // /:content_id get 오면 
   
-	connection.query('select * from url where id=?;', [req.params.urlid], function (error, cursor) {
+	connection.query('select * from url where urlid=?;', [req.params.urlid], function (error, cursor) {
                                                             // 위 query문 실행
                 if (cursor.length > 0) {
 
@@ -35,7 +35,7 @@ router.post('/', function(req, res, next) {                   // / post오면
 
                 if (error == null) {
 
-                        connection.query('select * from url where id=?;', [info.insertId], function (error, cursor) {
+                        connection.query('select * from url where urlid=?;', [info.insertId], function (error, cursor) {
                                                                 // error가 아니면 query 문 수행
                                 if (cursor.length > 0) {
 
@@ -45,7 +45,7 @@ router.post('/', function(req, res, next) {                   // / post오면
 
 												result : true,      // 값 post
                                                 urlid : result.urlid,
-                                                url : result.url,
+                                                name : result.name,
                                                 address : result.address,
                                         });
                                 }
