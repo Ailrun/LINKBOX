@@ -17,4 +17,6 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_login_data">LoginDataActivity</string>
 </resources>
