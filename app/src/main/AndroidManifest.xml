@@ -95,6 +95,10 @@
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup" >
         </activity>
+        <activity
+            android:name=".LoginDataActivity"
+            android:label="@string/title_activity_login_data" >
+        </activity>
     </application>
 
 </manifest>
