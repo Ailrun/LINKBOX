@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -48,38 +47,22 @@ class LinkBoxUrlListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LinkBoxUrlListViewHolder linkBoxUrlListViewHolder;
-
         if (view == null) {
-            linkBoxUrlListViewHolder = new LinkBoxUrlListViewHolder();
             view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
-
-            linkBoxUrlListViewHolder.tvUrlName = (TextView) view.findViewById(R.id.TV_url_name_link_box);
-            linkBoxUrlListViewHolder.ivThumb = (ImageView) view.findViewById(R.id.IV_thumb_link_box);
-            linkBoxUrlListViewHolder.ivFavorite = (ImageView) view.findViewById(R.id.IV_favorite_link_box);
-
-            view.setTag(linkBoxUrlListViewHolder);
         }
-        else {
-            linkBoxUrlListViewHolder = (LinkBoxUrlListViewHolder) view.getTag();
-        }
-
         LinkBoxUrlListData linkBoxUrlListData = (LinkBoxUrlListData)getItem(i);
-
-        linkBoxUrlListViewHolder.tvUrlName.setText(linkBoxUrlListData.urlName);
-
+        TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_title_link_box);
+        TextView tvUrlWriterDate = ViewHolder.get(view, R.id.TV_url_writer_date_link_box);
+        tvUrlTitle.setText(linkBoxUrlListData.urlTitle);
+        tvUrlWriterDate.setText(linkBoxUrlListData.urlWriter);
         return view;
     }
 }
 
 class LinkBoxUrlListData {
     String url;
-    String urlName;
+    String urlTitle;
+    String urlWriter;
+    String urlDate;
     String urlImage;
-}
-
-class LinkBoxUrlListViewHolder {
-    TextView tvUrlName;
-    ImageView ivThumb;
-    ImageView ivFavorite;
 }

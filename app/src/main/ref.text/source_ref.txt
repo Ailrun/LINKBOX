@@ -1,0 +1,10 @@
+    private ImageView ivProfile = null;
+    private TextView tvBoxNumber = null;
+    private ListView lvBoxList = null;
+    private LinearLayout llBoxFooterViewAdd = null;
+    private RelativeLayout rlFooterButton = null;
+    private LinearLayout llBoxFooterViewEdit = null;
+    private EditText etAddBoxName = null;
+    private Button bAddBoxCancel = null;
+    private Button bToSettings = null;
+    private Button bToPremium = null;

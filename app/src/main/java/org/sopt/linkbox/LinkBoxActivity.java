@@ -5,14 +5,23 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageButton;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,18 +31,33 @@ import java.util.ArrayList;
  */
 public class LinkBoxActivity extends AppCompatActivity {
 
+    private LayoutInflater layoutInflater = null;
     //toolbar layout
     private Toolbar tToolbar = null;
     //main layout
-    private TextView tvBoxName = null;
-    private ImageButton ibEditorsInfo = null;
-    private ImageButton ibInvite = null;
     private ListView lvUrlList = null;
-    //drawerlayout
-    private ImageButton ibToSettings = null;
+    private LinearLayout llUrlEmptyView = null;
+    //drawer layout
+    private ImageView ivProfile = null;
+    private TextView tvBoxNumber = null;
     private ListView lvBoxList = null;
+    private LinearLayout llBoxFooterViewAdd = null;
+    private Button rlFooterButton = null;
+    private LinearLayout llBoxFooterViewEdit = null;
+    private EditText etAddBoxName = null;
+    private Button bAddBoxCancel = null;
+    private Button bToSettings = null;
+    private Button bToPremium = null;
+
     private DrawerLayout dlBoxList = null;
     private ActionBarDrawerToggle abBoxList = null;
+
+    //others
+    private ArrayList<LinkBoxUrlListData> urlListSource = null;
+    private ArrayList<LinkBoxBoxListData> boxListSource = null;
+
+    private LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
+    private LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +70,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         initControl();
     }
 
-    private ArrayList<LinkBoxUrlListData> urlListSource = null;
-    private ArrayList<LinkBoxBoxListData> boxListSource = null;
-
     private void initData() {
         urlListSource = new ArrayList<>();
         boxListSource = new ArrayList<>();
@@ -58,37 +79,61 @@ public class LinkBoxActivity extends AppCompatActivity {
         linkBoxBoxListData = new LinkBoxBoxListData();
         linkBoxBoxListData.boxName = "육아";
         boxListSource.add(linkBoxBoxListData);
+        linkBoxBoxListData = new LinkBoxBoxListData();
+        linkBoxBoxListData.boxName = "개발";
+        boxListSource.add(linkBoxBoxListData);
+        linkBoxBoxListData = new LinkBoxBoxListData();
+        linkBoxBoxListData.boxName = "일상";
+        boxListSource.add(linkBoxBoxListData);
+        linkBoxBoxListData = new LinkBoxBoxListData();
+        linkBoxBoxListData.boxName = "주방";
+        boxListSource.add(linkBoxBoxListData);
+        linkBoxBoxListData = new LinkBoxBoxListData();
+        linkBoxBoxListData.boxName = "맛집";
+        boxListSource.add(linkBoxBoxListData);
+        linkBoxBoxListData = new LinkBoxBoxListData();
+        linkBoxBoxListData.boxName = "위생";
+        boxListSource.add(linkBoxBoxListData);
+        linkBoxBoxListData = new LinkBoxBoxListData();
+        linkBoxBoxListData.boxName = "공부";
+        boxListSource.add(linkBoxBoxListData);
     }
 
     private  void initView() {
+        layoutInflater = getLayoutInflater();
         //toolbar init
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
+        tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
+        if (boxListSource.size() > 0)
+        {
+            tToolbar.setTitle((boxListSource.get(0)).boxName);
+        }
+        else
+        {
+            tToolbar.setTitle("새 박스");
+        }
         setSupportActionBar(tToolbar);
-        tToolbar.setLogo(R.mipmap.logo);
 
         //main init
-        tvBoxName = (TextView) findViewById(R.id.TV_box_name_link_box);
-        ibEditorsInfo = (ImageButton) findViewById(R.id.IB_editors_info_link_box);
-        ibInvite = (ImageButton) findViewById(R.id.IB_invite_link_box);
         lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
+        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, null);
+        lvUrlList.setEmptyView(llUrlEmptyView);
         //drawer init
-        ibToSettings = (ImageButton) findViewById(R.id.IB_to_settings_link_box);
+        ivProfile = (ImageView) findViewById(R.id.IV_profile_link_box);
+        tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
         lvBoxList = (ListView) findViewById(R.id.LV_box_list_link_box);
+        llBoxFooterViewAdd = (LinearLayout) layoutInflater.inflate(R.layout.layout_footer_button_link_box, null);
+        rlFooterButton = (Button) llBoxFooterViewAdd.findViewById(R.id.RL_footer_button_link_box);
+        llBoxFooterViewEdit = (LinearLayout) layoutInflater.inflate(R.layout.layout_footer_edit_link_box, null);
+        etAddBoxName = (EditText) llBoxFooterViewEdit.findViewById(R.id.ET_add_box_name_link_box);
+        bAddBoxCancel = (Button) llBoxFooterViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
+        lvBoxList.addFooterView(llBoxFooterViewAdd);
+        rlFooterButton.setFocusable(true);
         dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
     }
 
     private void initListener() {
         //main init
-        ibEditorsInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-        ibInvite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -109,20 +154,17 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         });
         //drawer init
-        ibToSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
         lvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LinkBoxBoxListData linkBoxBoxListData = (LinkBoxBoxListData) adapterView.getItemAtPosition(i);
+                String str = null;
                 if (linkBoxBoxListData != null) {
-                    tvBoxName.setText(linkBoxBoxListData.boxName);
+                    str = linkBoxBoxListData.boxName;
                 } else {
-                    tvBoxName.setText("새 박스");
+                    str = "새 박스";
                 }
+                tToolbar.setTitle(str);
                 dlBoxList.closeDrawers();
             }
         });
@@ -132,8 +174,33 @@ public class LinkBoxActivity extends AppCompatActivity {
                 return false;
             }
         });
-        abBoxList = new ActionBarDrawerToggle(this, dlBoxList,
-               tToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+        rlFooterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lvBoxList.removeFooterView(llBoxFooterViewAdd);
+                Toast.makeText(getApplicationContext(), "clicked", Toast.LENGTH_SHORT).show();
+                lvBoxList.addFooterView(llBoxFooterViewEdit);
+            }
+        });
+        etAddBoxName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    lvBoxList.removeFooterView(llBoxFooterViewEdit);
+                    lvBoxList.addFooterView(llBoxFooterViewAdd);
+                }
+                return false;
+            }
+        });
+        bAddBoxCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lvBoxList.removeFooterView(llBoxFooterViewEdit);
+                lvBoxList.addFooterView(llBoxFooterViewAdd);
+            }
+        });
+        abBoxList = new ActionBarDrawerToggle(this, dlBoxList, tToolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -145,9 +212,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         };
         dlBoxList.setDrawerListener(abBoxList);
     }
-
-    private LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
-    private LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
 
     private void initControl() {
         linkBoxUrlListAdapter =
@@ -170,6 +234,12 @@ public class LinkBoxActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         abBoxList.onConfigurationChanged(newConfig);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_link_box , menu);
+        return true;
     }
 
     @Override

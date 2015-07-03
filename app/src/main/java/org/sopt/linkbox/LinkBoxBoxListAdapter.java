@@ -1,6 +1,7 @@
 package org.sopt.linkbox;
 
 import android.content.Context;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,32 +48,16 @@ class LinkBoxBoxListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LinkBoxBoxListViewHolder linkBoxBoxListViewHolder;
-
         if (view == null) {
-            linkBoxBoxListViewHolder = new LinkBoxBoxListViewHolder();
-            view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
-
-            linkBoxBoxListViewHolder.tvBoxName = (TextView) view.findViewById(R.id.TV_box_name_link_box);
-
-            view.setTag(linkBoxBoxListViewHolder);
+            view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
-        else {
-            linkBoxBoxListViewHolder = (LinkBoxBoxListViewHolder) view.getTag();
-        }
-
-        LinkBoxBoxListData linkBoxBoxListData = (LinkBoxBoxListData)getItem(i);
-
-        linkBoxBoxListViewHolder.tvBoxName.setText(linkBoxBoxListData.boxName);
-
+        LinkBoxBoxListData linkBoxBoxListData = (LinkBoxBoxListData) getItem(i);
+        TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
+        tvBoxName.setText(linkBoxBoxListData.boxName);
         return view;
     }
 }
 
 class LinkBoxBoxListData {
     String boxName;
-}
-
-class LinkBoxBoxListViewHolder {
-    TextView tvBoxName;
 }
