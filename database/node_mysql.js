@@ -10,9 +10,9 @@ var Router = require('router');
 var connection = mysql.createConnection({
    
     user : 'LINKBOX',              // appjam mysql server id
-    host : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com',
+    host : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com', //appjam mysql rds endpoint
     password : 'dlrpqkfhdnflek',   // appjam mysql server password
-    database : 'LINKBOX'           // appjam mysql default database
+    database : 'linkbox'           // appjam mysql default database
 });
 
 var connect = new Connect();
@@ -27,7 +27,7 @@ router.get('/', function (request, response) {
         if (!error) {
             
             connection.query('select * from url;', function (error, query) {
-                        // candidate table select query 실행
+                        // url table select query 실행
                 response.writeHead(200, { 'Content-Type' : 'text/html; charset=utf-8;' });
                 response.end(ejs.render(data, { 'query' : query }));
             });
