@@ -13,8 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/contents', contents);
 app.use('/thumbnails', thumbnails);
-// catch 404 and forward to error handler app.use(function(req, res, next) {
-var err = new Error('Not Found'); err.status = 404;
+// catch 404 and forward to error handler 
+app.use(function(req, res, next) {
+var err = new Error('Not Found');
+err.status = 404;
 next(err);
 });
 // error handlers
