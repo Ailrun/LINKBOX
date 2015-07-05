@@ -2,11 +2,19 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <PreferenceCategory android:title="@string/pref_user_profile" >
+    <PreferenceCategory android:title="@sring/pref_user_profile" >
+        <EditTextPreference
+            android:title="@string/pref_user_mail"
+            android:summary="@string/pref_user_mail_summary"
+            android:key="prefUsermail"/>
         <EditTextPreference
             android:title="@string/pref_user_name"
             android:summary="@string/pref_user_name_summary"
             android:key="prefUsername"/>
+        <EditTextPreference
+            android:title="@string/pref_user_passwd"
+            android:summary="@string/pref_user_passwd_summary"
+            android:key="prefUserpasswd"/>
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_update_setting" >
