@@ -1,12 +1,7 @@
 package org.sopt.linkbox;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -25,12 +21,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -40,6 +34,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  */
 public class LinkBoxActivity extends AppCompatActivity {
 
+    private InputMethodManager immLinkBox = null;
     private LayoutInflater layoutInflater = null;
     //toolbar layout
     private Toolbar tToolbar = null;
@@ -72,6 +67,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
+        startService(new Intent(getApplicationContext(), LinkHeadService.class));
 
         initData();
         initView();
@@ -80,6 +76,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         urlListSource = new ArrayList<>();
         boxListSource = new ArrayList<>();
         LinkBoxBoxListData linkBoxBoxListData = new LinkBoxBoxListData();
@@ -114,6 +111,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         //toolbar init
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
+        tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
         if (boxListSource.size() > 0)
         {
             tToolbar.setTitle((boxListSource.get(0)).boxName);
@@ -138,6 +136,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         etAddBoxName = (EditText) llBoxFooterViewEdit.findViewById(R.id.ET_add_box_name_link_box);
         bAddBoxCancel = (Button) llBoxFooterViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
         lvBoxList.addFooterView(llBoxFooterViewAdd);
+        lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
         rlFooterButton.setFocusable(true);
         dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
     }
@@ -189,12 +188,16 @@ public class LinkBoxActivity extends AppCompatActivity {
             public void onClick(View view) {
                 lvBoxList.removeFooterView(llBoxFooterViewAdd);
                 lvBoxList.addFooterView(llBoxFooterViewEdit);
+                etAddBoxName.requestFocus();
+                etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                immLinkBox.showSoftInput(etAddBoxName, InputMethodManager.SHOW_FORCED);
             }
         });
         etAddBoxName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
                     lvBoxList.removeFooterView(llBoxFooterViewEdit);
                     lvBoxList.addFooterView(llBoxFooterViewAdd);
                 }
@@ -212,6 +215,10 @@ public class LinkBoxActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
+                immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
+                lvBoxList.removeFooterView(llBoxFooterViewEdit);
+                lvBoxList.removeFooterView(llBoxFooterViewAdd);
+                lvBoxList.addFooterView(llBoxFooterViewAdd);
                 super.onDrawerClosed(drawerView);
             }
             @Override
