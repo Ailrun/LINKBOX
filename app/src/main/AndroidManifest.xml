@@ -115,6 +115,14 @@
             android:name=".LoginDataActivity"
             android:label="@string/title_activity_login_data" >
         </activity>
+        <activity
+            android:name=".SettingActivity"
+            android:label="@string/title_activity_setting" >
+        </activity>
+        <activity
+            android:name=".UserSettingActivity"
+            android:label="@string/title_activity_user_setting" >
+        </activity>
     </application>
 
 </manifest>
