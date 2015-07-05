@@ -1,36 +1,28 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <include
+        android:id="@+id/T_toolbar_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/layout_toolbar"/>
 
-    <PreferenceCategory android:title="@sring/pref_user_profile" >
-        <EditTextPreference
-            android:title="@string/pref_user_mail"
-            android:summary="@string/pref_user_mail_summary"
-            android:key="prefUsermail"/>
-        <EditTextPreference
-            android:title="@string/pref_user_name"
-            android:summary="@string/pref_user_name_summary"
-            android:key="prefUsername"/>
-        <EditTextPreference
-            android:title="@string/pref_user_passwd"
-            android:summary="@string/pref_user_passwd_summary"
-            android:key="prefUserpasswd"/>
-    </PreferenceCategory>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-    <PreferenceCategory android:title="@string/pref_update_setting" >
-        <CheckBoxPreference
-            android:defaultValue="false"
-            android:key="prefSendReport"
-            android:summary="@string/pref_send_report_summary"
-            android:title="@string/pref_send_report" >
-        </CheckBoxPreference>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/textView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="24dp" />
+    </RelativeLayout>
 
-        <ListPreference
-            android:key="prefSyncFrequency"
-            android:entries="@array/syncFrequency"
-            android:summary="@string/pref_sync_frequency_summary"
-            android:entryValues="@array/syncFrequencyValues"
-            android:title="@string/pref_sync_frequency" />
-    </PreferenceCategory>
-
-</PreferenceScreen>
+</LinearLayout>
