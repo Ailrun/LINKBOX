@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 loginButton.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginDataActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
         super.onResume();
         if(AccessToken.getCurrentAccessToken()!=null){
             loginButton.setVisibility(View.INVISIBLE);
-            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent=new Intent(getApplicationContext(), LoginDataActivity.class);
             startActivity(intent);
             finish();
         }
@@ -85,3 +85,4 @@ public class MainActivity extends Activity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
+
