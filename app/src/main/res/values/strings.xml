@@ -19,4 +19,8 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_login_data">LoginDataActivity</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main_activity2">MainActivity2Activity</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>
