@@ -5,7 +5,7 @@ import android.view.View;
 
 /**
  * Created by Junyoung on 2015-07-02.
- *
+ * Dynamic ViewHolder
  */
 public class ViewHolder {
     @SuppressWarnings("unchecked")

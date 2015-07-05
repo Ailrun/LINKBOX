@@ -3,62 +3,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.sopt.linkbox.LinkItActivity">
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="400dp"
+        android:orientation="vertical"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="100dp"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:background="#FFFEFEFE">
+        android:layout_marginTop="70dp"
+        android:background="@color/indigo500">
         <Spinner
             android:id="@+id/SP_box_link_it"
             android:layout_width="150dp"
             android:layout_height="30dp"
+            android:layout_margin="20dp"
             android:spinnerMode="dropdown"
-            android:background="#FF999999"/>
+            android:background="@color/realWhite"/>
         <RelativeLayout
-            android:id="@+id/RL_title_link_it"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/SP_box_link_it">
-            <ImageView
-                android:id="@+id/IV_thumb_link_it"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"/>
-            <EditText
-                android:id="@+id/ET_title_link_it"
+            android:background="@color/realWhite">
+            <RelativeLayout
+                android:id="@+id/RL_title_link_it"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/IV_thumb_link_it"/>
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/indigo500">
+                <ImageView
+                    android:id="@+id/IV_thumb_link_it"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_margin="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/realWhite"/>
+                <EditText
+                    android:id="@+id/ET_title_link_it"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/IV_thumb_link_it"
+                    android:background="@color/realWhite"/>
+            </RelativeLayout>
         </RelativeLayout>
         <RelativeLayout
             android:id="@+id/RL_button_link_it"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/RL_title_link_it"
-            android:layout_centerHorizontal="true">
-            <Button
-                android:id="@+id/BT_cancel_link_it"
+            android:layout_margin="20dp">
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="40dp"
-                android:background="#FFFFFFFF"
-                android:text="취소"/>
-            <Button
-                android:id="@+id/BT_linkit_link_it"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/BT_cancel_link_it"
-                android:layout_marginLeft="40dp"
-                android:background="#FFFFFFFF"
-                android:text="Link it!"/>
+                android:layout_centerInParent="true">
+                <Button
+                    android:id="@+id/BT_cancel_link_it"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="40dp"
+                    android:background="#FFFFFFFF"
+                    android:text="취소"/>
+                <Button
+                    android:id="@+id/BT_linkit_link_it"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_toRightOf="@+id/BT_cancel_link_it"
+                    android:layout_marginLeft="40dp"
+                    android:background="#FFFFFFFF"
+                    android:text="Link it!"/>
+            </LinearLayout>
         </RelativeLayout>
-    </RelativeLayout>
+    </LinearLayout>
 </RelativeLayout>
