@@ -1,6 +1,12 @@
 package org.sopt.linkbox;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,6 +30,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 /**
  * Created by user on 2015-06-30.
@@ -100,6 +109,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
 
     private  void initView() {
+        ShortcutBadger.with(getApplicationContext()).count(1);
         layoutInflater = getLayoutInflater();
         //toolbar init
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
@@ -178,7 +188,6 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 lvBoxList.removeFooterView(llBoxFooterViewAdd);
-                Toast.makeText(getApplicationContext(), "clicked", Toast.LENGTH_SHORT).show();
                 lvBoxList.addFooterView(llBoxFooterViewEdit);
             }
         });
@@ -199,7 +208,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                 lvBoxList.addFooterView(llBoxFooterViewAdd);
             }
         });
-        abBoxList = new ActionBarDrawerToggle(this, dlBoxList, tToolbar,
+        abBoxList = new ActionBarDrawerToggle(this, dlBoxList,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
@@ -225,8 +234,6 @@ public class LinkBoxActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
-// Sync the toggle state after onRestoreInstanceState has occurred.
         abBoxList.syncState();
     }
 
@@ -236,6 +243,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         abBoxList.onConfigurationChanged(newConfig);
     }
 
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_link_box , menu);
@@ -247,7 +255,15 @@ public class LinkBoxActivity extends AppCompatActivity {
         if (abBoxList.onOptionsItemSelected(item)) {
             return true;
         }
-
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId())
+        {
+            case R.id.action_editors :
+                break;
+            case R.id.action_info :
+                break;
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 }
