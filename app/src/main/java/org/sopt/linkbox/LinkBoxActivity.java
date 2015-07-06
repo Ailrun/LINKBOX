@@ -27,14 +27,13 @@ import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxBoxListData;
 import org.sopt.linkbox.custom.data.LinkBoxUrlListData;
-import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
 /**
- * Created by user on 2015-06-30.
+ * Created by Junyoung on 2015-06-30.
  *
  */
 public class LinkBoxActivity extends AppCompatActivity {
@@ -212,6 +211,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         bAddBoxCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                etAddBoxName.setText("");
+                immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
                 lvBoxList.removeFooterView(llBoxFooterViewEdit);
                 lvBoxList.addFooterView(llBoxFooterViewAdd);
             }

@@ -83,7 +83,7 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name=".service.LinkHeadService"
+            android:name=".LinkHeadService"
             android:enabled="true"
             android:exported="true">
         </service>
