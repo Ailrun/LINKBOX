@@ -39,6 +39,16 @@
     <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
     <!--for apex badge-->
     <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
+    
+    <!--for Push Notification-->
+    <permission
+        android:name="org.sopt.linkbox.permission.C2D_MESSAGE"
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="org.sopt.appjamtest.permission.C2D_MESSAGE"/>
 
     <application
         android:allowBackup="true"
@@ -86,8 +96,7 @@
 
         <service
             android:name=".service.LinkHeadService"
-            android:enabled="true"
-            android:exported="true">
+            android:exported="false">
         </service>
 
         <activity
@@ -126,5 +135,34 @@
             android:parentActivityName=".LinkBoxActivity"
             android:screenOrientation="portrait">
         </activity>
+        
+        <!-- for Push -->
+        <service
+            android:name=".service.pushService.LinkGcmListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.pushService.LinkInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+        <service
+            android:name=".service.pushService.LinkRegistrationService"
+            android:exported="false">
+        </service>
+        <receiver android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <category android:name="org.sopt.appjamtest"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

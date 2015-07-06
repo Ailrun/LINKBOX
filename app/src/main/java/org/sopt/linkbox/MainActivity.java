@@ -66,7 +66,6 @@ public class MainActivity extends Activity {
         request.setParameters(parameter);
         request.executeAsync();
     }
-
     protected void onResume(){
         super.onResume();
         if(AccessToken.getCurrentAccessToken()!=null){

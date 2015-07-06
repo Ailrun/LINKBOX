@@ -25,12 +25,10 @@ public class ClearableEditText extends EditText implements TextWatcher, View.OnT
         super(context);
         init(null, 0);
     }
-
     public ClearableEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
-
     public ClearableEditText(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(attrs, defStyle);
@@ -39,15 +37,12 @@ public class ClearableEditText extends EditText implements TextWatcher, View.OnT
     public Drawable getClearIcon() {
         return clearIcon;
     }
-
     public float getClearPadding() {
         return clearPadding;
     }
-
     public void setClearIcon(Drawable clearIcon) {
         this.clearIcon = clearIcon;
     }
-
     public void setClearPadding(float clearPadding) {
         this.clearPadding = clearPadding;
     }
@@ -60,17 +55,14 @@ public class ClearableEditText extends EditText implements TextWatcher, View.OnT
     public void setOnTouchListener(OnTouchListener t) {
         this.t = t;
     }
-
     @Override
     public  void setOnFocusChangeListener(OnFocusChangeListener f) {
         this.f = f;
     }
-
     @Override
     public void addTextChangedListener(TextWatcher w) {
         this.w = w;
     }
-
     @Override
     public boolean onTouch(View v, MotionEvent motionEvent) {
         if (getCompoundDrawables()[2] != null) {
@@ -87,7 +79,6 @@ public class ClearableEditText extends EditText implements TextWatcher, View.OnT
         }
         return false;
     }
-
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
@@ -99,21 +90,18 @@ public class ClearableEditText extends EditText implements TextWatcher, View.OnT
             f.onFocusChange(v, hasFocus);
         }
     }
-
     @Override
     public void afterTextChanged(Editable s) {
         if (w != null) {
             w.afterTextChanged(s);
         }
     }
-
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         if (w != null) {
             w.beforeTextChanged(s, start, count, after);
         }
     }
-
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         setClearIconVisible(isNotEmpty());

@@ -37,6 +37,10 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  * Created by Junyoung on 2015-06-30.
  *
  */
+
+/** TODO : make this as Single Instance
+ * REFERENCE : http://www.androidpub.com/796480
+ */
 public class LinkBoxActivity extends AppCompatActivity {
 
     private InputMethodManager immLinkBox = null;
@@ -50,7 +54,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     private ImageView ivProfile = null;
     private TextView tvBoxNumber = null;
     private ListView lvBoxList = null;
-    private LinearLayout llBoxHeaderViewAdd = null;
+    private LinearLayout llBoxHeaderViewButton = null;
     private Button rlHeaderButton = null;
     private LinearLayout llBoxHeaderViewEdit = null;
     private EditText etAddBoxName = null;
@@ -73,16 +77,50 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         startService(new Intent(getApplicationContext(), LinkHeadService.class));
+//      For Debug : Start
         if (!getIntent().hasExtra("aa")) {
             Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
             intent.putExtra("aa", 5);
             startActivity(intent);
         }
+//      For Debug : End
 
         initData();
         initView();
         initListener();
         initControl();
+    }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        abBoxList.syncState();
+    }
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        abBoxList.onConfigurationChanged(newConfig);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_link_box , menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (abBoxList.onOptionsItemSelected(item)) {
+            return true;
+        }
+        switch (item.getItemId())
+        {
+            case R.id.action_editors :
+                break;
+            case R.id.action_info :
+                break;
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
     }
 
     private void initData() {
@@ -114,11 +152,39 @@ public class LinkBoxActivity extends AppCompatActivity {
         linkBoxBoxListData.boxName = "공부";
         boxListSource.add(linkBoxBoxListData);
     }
-
     private  void initView() {
-        ShortcutBadger.with(getApplicationContext()).count(1);
         layoutInflater = getLayoutInflater();
+
         //toolbar init
+        initToolbarView();
+
+        //main init
+        initMainView();
+
+        //drawer init
+        initDrawerView();
+        initDrawerButtonHeaderView();
+        initDrawerEditHeaderView();
+    }
+    private void initListener() {
+        //main init
+        initMainListener();
+
+        //drawer init
+        initDrawerListener();
+        initDrawerButtonHeaderListener();
+        initDrawerEditHeaderListener();
+    }
+    private void initControl() {
+        linkBoxUrlListAdapter =
+                new LinkBoxUrlListAdapter(getApplicationContext(), urlListSource);
+        linkBoxBoxListAdapter =
+                new LinkBoxBoxListAdapter(getApplicationContext(), boxListSource);
+        lvUrlList.setAdapter(linkBoxUrlListAdapter);
+        lvBoxList.setAdapter(linkBoxBoxListAdapter);
+    }
+
+    private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
@@ -129,29 +195,14 @@ public class LinkBoxActivity extends AppCompatActivity {
             tToolbar.setTitle("새 박스");
         }
         setSupportActionBar(tToolbar);
-        //main init
+    }
+
+    private void initMainView() {
         lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
         llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, null);
         lvUrlList.setEmptyView(llUrlEmptyView);
-        //drawer init
-        ivProfile = (ImageView) findViewById(R.id.IV_profile_link_box);
-        tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
-        lvBoxList = (ListView) findViewById(R.id.LV_box_list_link_box);
-        llBoxHeaderViewAdd = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_button_link_box, null);
-        rlHeaderButton = (Button) llBoxHeaderViewAdd.findViewById(R.id.RL_header_button_link_box);
-        llBoxHeaderViewEdit = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_edit_link_box, null);
-        etAddBoxName = (EditText) llBoxHeaderViewEdit.findViewById(R.id.ET_add_box_name_link_box);
-        etAddBoxName.setSingleLine(true);
-        etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        bAddBoxCancel = (Button) llBoxHeaderViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
-        lvBoxList.addHeaderView(llBoxHeaderViewAdd);
-        lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        rlHeaderButton.setFocusable(true);
-        dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
     }
-
-    private void initListener() {
-        //main init
+    private void initMainListener() {
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -171,7 +222,16 @@ public class LinkBoxActivity extends AppCompatActivity {
             public void onScroll(AbsListView absListView, int i, int i2, int i3) {
             }
         });
-        //drawer init
+    }
+
+    private void initDrawerView() {
+        ivProfile = (ImageView) findViewById(R.id.IV_profile_link_box);
+        tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
+        lvBoxList = (ListView) findViewById(R.id.LV_box_list_link_box);
+        lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
+    }
+    private void initDrawerListener() {
         lvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -192,10 +252,41 @@ public class LinkBoxActivity extends AppCompatActivity {
                 return false;
             }
         });
+        abBoxList = new ActionBarDrawerToggle(this, dlBoxList,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
+                lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
+                lvBoxList.removeHeaderView(llBoxHeaderViewButton);
+                lvBoxList.addHeaderView(llBoxHeaderViewButton);
+                super.onDrawerClosed(drawerView);
+            }
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+        };
+        dlBoxList.setDrawerListener(abBoxList);
+    }
+
+    private void initDrawerButtonHeaderView() {
+        llBoxHeaderViewButton = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_button_link_box, null);
+        rlHeaderButton = (Button) llBoxHeaderViewButton.findViewById(R.id.RL_header_button_link_box);
+        lvBoxList.addHeaderView(llBoxHeaderViewButton);
+    }
+    private void initDrawerEditHeaderView() {
+        llBoxHeaderViewEdit = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_edit_link_box, null);
+        etAddBoxName = (EditText) llBoxHeaderViewEdit.findViewById(R.id.ET_add_box_name_link_box);
+        etAddBoxName.setSingleLine(true);
+        etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        bAddBoxCancel = (Button) llBoxHeaderViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
+    }
+    private void initDrawerButtonHeaderListener() {
         rlHeaderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lvBoxList.removeHeaderView(llBoxHeaderViewAdd);
+                lvBoxList.removeHeaderView(llBoxHeaderViewButton);
                 lvBoxList.addHeaderView(llBoxHeaderViewEdit);
                 etAddBoxName.setText("");
                 etAddBoxName.requestFocus();
@@ -203,13 +294,15 @@ public class LinkBoxActivity extends AppCompatActivity {
                 immLinkBox.showSoftInput(etAddBoxName, InputMethodManager.SHOW_FORCED);
             }
         });
+    }
+    private void initDrawerEditHeaderListener() {
         etAddBoxName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
                     lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
-                    lvBoxList.addHeaderView(llBoxHeaderViewAdd);
+                    lvBoxList.addHeaderView(llBoxHeaderViewButton);
                     return true;
                 }
                 return false;
@@ -221,69 +314,12 @@ public class LinkBoxActivity extends AppCompatActivity {
                 etAddBoxName.setText("");
                 immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
                 lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
-                lvBoxList.addHeaderView(llBoxHeaderViewAdd);
+                lvBoxList.addHeaderView(llBoxHeaderViewButton);
             }
         });
-        abBoxList = new ActionBarDrawerToggle(this, dlBoxList,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
-                lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
-                lvBoxList.removeHeaderView(llBoxHeaderViewAdd);
-                lvBoxList.addHeaderView(llBoxHeaderViewAdd);
-                super.onDrawerClosed(drawerView);
-            }
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
-        dlBoxList.setDrawerListener(abBoxList);
     }
 
-    private void initControl() {
-        linkBoxUrlListAdapter =
-                new LinkBoxUrlListAdapter(getApplicationContext(), urlListSource);
-        linkBoxBoxListAdapter =
-                new LinkBoxBoxListAdapter(getApplicationContext(), boxListSource);
-        lvUrlList.setAdapter(linkBoxUrlListAdapter);
-        lvBoxList.setAdapter(linkBoxBoxListAdapter);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        abBoxList.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        abBoxList.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_link_box , menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (abBoxList.onOptionsItemSelected(item)) {
-            return true;
-        }
-        switch (item.getItemId())
-        {
-            case R.id.action_editors :
-                break;
-            case R.id.action_info :
-                break;
-            default :
-                return super.onOptionsItemSelected(item);
-        }
-        return true;
+    private void setIconBadge(int i) {
+        ShortcutBadger.with(getApplicationContext()).count(1);
     }
 }

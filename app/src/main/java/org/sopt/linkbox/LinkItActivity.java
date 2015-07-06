@@ -19,6 +19,9 @@ import org.sopt.linkbox.service.LinkHeadService;
 import java.util.ArrayList;
 
 
+/** TODO : make this as Single Instance
+ * REFERENCE : http://www.androidpub.com/796480
+ */
 public class LinkItActivity extends Activity {
 
     private Spinner spBox = null;
@@ -32,22 +35,27 @@ public class LinkItActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-        layoutParams.dimAmount = 0.7f;
-        getWindow().setAttributes(layoutParams);
         setContentView(R.layout.activity_link_it);
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+        initWindow();
 
         initData();
+
         initView();
         initListener();
         initControl();
     }
 
     private ArrayList<LinkItBoxListData> source = null;
+    private LinkItBoxListAdapter linkItBoxListAdapter = null;
 
+    private void initWindow() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.dimAmount = 0.7f;
+        getWindow().setAttributes(layoutParams);
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+    }
     private void initData() {
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
@@ -64,7 +72,6 @@ public class LinkItActivity extends Activity {
         linkItBoxListData.boxName = "아이";
         source.add(linkItBoxListData);
     }
-
     private void initView() {
         spBox = (Spinner) findViewById(R.id.SP_box_link_it);
         ivThumb = (ImageView) findViewById(R.id.IV_thumb_link_it);
@@ -73,7 +80,6 @@ public class LinkItActivity extends Activity {
         btLinkit = (Button) findViewById(R.id.BT_linkit_link_it);
         btCancel = (Button) findViewById(R.id.BT_cancel_link_it);
     }
-
     private void initListener() {
         spBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -111,9 +117,6 @@ public class LinkItActivity extends Activity {
             }
         });
     }
-
-    private LinkItBoxListAdapter linkItBoxListAdapter = null;
-
     private void initControl() {
         linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), source);
         spBox.setAdapter(linkItBoxListAdapter);

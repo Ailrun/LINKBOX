@@ -37,18 +37,15 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
     public int getCount() {
         return (source != null) ? source.size() : 0;
     }
-
     @Override
     public Object getItem(int i) {
         return (source != null && i < source.size() && i >= 0) ?
                 source.get(i) : null;
     }
-
     @Override
     public long getItemId(int i) {
         return i;
     }
-
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {

@@ -43,10 +43,10 @@ public class LinkHeadService extends Service {
             WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
             PixelFormat.TRANSLUCENT
     );
-    //Property For Exit
-    private ImageView ivExit = null;
-    private boolean isivExitAttached = false;
-    private final WindowManager.LayoutParams lpExit = new WindowManager.LayoutParams(
+    //Property For Delete
+    private ImageView ivDelete = null;
+    private boolean isivDeleteAttached = false;
+    private final WindowManager.LayoutParams lpDelete = new WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.TYPE_PHONE,
@@ -58,39 +58,53 @@ public class LinkHeadService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+        initWindow();
 
+        initView();
+        initListener();
+    }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        addServiceView();
+        return super.onStartCommand(intent, flags, startId);
+    }
+    @Override
+    public void onDestroy() {
+        removeServiceView();
+        removeDeleteView();
+        super.onDestroy();
+    }
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    private void initWindow() {
         wmService = (WindowManager) getSystemService(WINDOW_SERVICE);
         wmService.getDefaultDisplay().getMetrics(dmService);
-
-        ivService = new ImageView(this);
-        ivService.setImageResource(R.mipmap.floating_button);
-
-        int serviceWidth = ((BitmapDrawable)ivService.getDrawable()).getBitmap().getWidth();
-        int serviceHeight = ((BitmapDrawable)ivService.getDrawable()).getBitmap().getHeight();
-        displayWidth = dmService.widthPixels - serviceWidth;
-        displayHeight = dmService.heightPixels - serviceHeight;
-        lpService.gravity = Gravity.START|Gravity.TOP;
-        lpService.x = displayWidth;
-        lpService.y = displayHeight;
-
+    }
+    private void initView() {
+        // Image Setting Part
+        initServiceView();
         addServiceView();
 
-        // TouchListener Implementing Part
-        cetEdit = new ClearableEditText(getApplicationContext());
-        cetEdit.setHint("http://URL.address/input");
-        cetEdit.setBackgroundColor(getResources().getColor(R.color.indigo500));
-        cetEdit.setSingleLine();
-        cetEdit.setImeOptions(EditorInfo.IME_ACTION_SEND);
+        // TouchListener Setting Part
+        initEditView();
 
-        immService = (InputMethodManager) cetEdit.getContext().getSystemService(INPUT_METHOD_SERVICE);
-        lpEdit.gravity = Gravity.BOTTOM;
-        lpEdit.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
-
-        ivExit = new ImageView(getApplicationContext());
-        ivExit.setImageResource(R.mipmap.logo);
-        lpExit.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
-
+        // Delete Image Setting Part
+        initDeleteView();
+    }
+    private void initListener() {
         ivService.setOnTouchListener(new View.OnTouchListener() {
+            class MotionControlData {
+                final long removeTime = 1000;
+
+                int initialX, initialY;
+                float initialTouchX, initialTouchY;;
+                int removeDiff;
+                boolean move;
+            }
+
             MotionControlData motionControlData = null;
 
             @Override
@@ -112,6 +126,48 @@ public class LinkHeadService extends Service {
                 }
                 return false;
             }
+
+            private void readyMotionEvent(MotionEvent me, MotionControlData mcd) {
+                mcd.removeDiff = ivService.getWidth() > ivService.getHeight() ? ivService.getWidth() : ivService.getHeight();
+
+                if (me.getEventTime() - me.getDownTime() > mcd.removeTime) {
+                    addDeleteView();
+                }
+            }
+
+            private void startMotionEvent(MotionEvent me, MotionControlData mcd) {
+                mcd.move =  false;
+                mcd.initialX = lpService.x;
+                mcd.initialY = lpService.y;
+                mcd.initialTouchX = me.getRawX();
+                mcd.initialTouchY = me.getRawY();
+            }
+
+            private void endMotionEvent(MotionEvent me, MotionControlData mcd) {
+                if ((me.getEventTime() > mcd.removeTime) &&
+                        (Math.abs(lpService.x - displayWidth / 2) < mcd.removeDiff) &&
+                        (Math.abs(lpService.y - displayHeight) < mcd.removeDiff)) {
+                    removeServiceView();
+                    removeDeleteView();
+                    stopSelf();
+                }
+                if (!mcd.move) {
+                    addEditView();
+                    removeServiceView();
+                    removeDeleteView();
+                }
+                removeDeleteView();
+            }
+
+            private void whileMotionEvent(MotionEvent me, MotionControlData mcd) {
+                mcd.move = true;
+                lpService.x = mcd.initialX + (int) (me.getRawX() - mcd.initialTouchX);
+                lpService.x = lpService.x < 0 ? 0 : lpService.x > displayWidth ? displayWidth : lpService.x;
+                lpService.y = mcd.initialY + (int) (me.getRawY() - mcd.initialTouchY);
+                lpService.y = lpService.y < 0 ? 0 : lpService.y > displayHeight ? displayHeight : lpService.y;
+                wmService.updateViewLayout(ivService, lpService);
+            }
+
         });
         cetEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -137,33 +193,27 @@ public class LinkHeadService extends Service {
                 return false;
             }
         });
+
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        addServiceView();
-        return super.onStartCommand(intent, flags, startId);
-    }
+    private void initServiceView() {
+        ivService = new ImageView(this);
+        ivService.setImageResource(R.mipmap.floating_button);
 
-    @Override
-    public void onDestroy() {
-        removeServiceView();
-        removeExitView();
-        super.onDestroy();
+        int serviceWidth = ((BitmapDrawable)ivService.getDrawable()).getBitmap().getWidth();
+        int serviceHeight = ((BitmapDrawable)ivService.getDrawable()).getBitmap().getHeight();
+        displayWidth = dmService.widthPixels - serviceWidth;
+        displayHeight = dmService.heightPixels - serviceHeight;
+        lpService.gravity = Gravity.START|Gravity.TOP;
+        lpService.x = displayWidth;
+        lpService.y = displayHeight;
     }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
     private void addServiceView() {
         if (!isIvServiceAttached) {
             wmService.addView(ivService, lpService);
             isIvServiceAttached = true;
         }
     }
-
     private void removeServiceView() {
         if (isIvServiceAttached) {
             wmService.removeView(ivService);
@@ -171,6 +221,17 @@ public class LinkHeadService extends Service {
         }
     }
 
+    private void initEditView() {
+        cetEdit = new ClearableEditText(getApplicationContext());
+        cetEdit.setHint("http://URL.address/input");
+        cetEdit.setBackgroundColor(getResources().getColor(R.color.indigo500));
+        cetEdit.setSingleLine();
+        cetEdit.setImeOptions(EditorInfo.IME_ACTION_SEND);
+
+        immService = (InputMethodManager) cetEdit.getContext().getSystemService(INPUT_METHOD_SERVICE);
+        lpEdit.gravity = Gravity.BOTTOM;
+        lpEdit.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
+    }
     private void addEditView() {
         if (!isEtEditAttached) {
             wmService.addView(cetEdit, lpEdit);
@@ -179,7 +240,6 @@ public class LinkHeadService extends Service {
             isEtEditAttached = true;
         }
     }
-
     private void removeEditView() {
         if (isEtEditAttached) {
             immService.hideSoftInputFromWindow(cetEdit.getWindowToken(), 0);
@@ -188,67 +248,21 @@ public class LinkHeadService extends Service {
         }
     }
 
-    private void addExitView() {
-        if (!isivExitAttached) {
-            wmService.addView(ivExit, lpExit);
-            isivExitAttached = true;
+    private void initDeleteView() {
+        ivDelete = new ImageView(getApplicationContext());
+        ivDelete.setImageResource(R.mipmap.logo);
+        lpDelete.gravity = Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL;
+    }
+    private void addDeleteView() {
+        if (!isivDeleteAttached) {
+            wmService.addView(ivDelete, lpDelete);
+            isivDeleteAttached = true;
         }
     }
-
-    private void removeExitView() {
-        if (isivExitAttached) {
-            wmService.removeView(ivExit);
-            isivExitAttached = false;
+    private void removeDeleteView() {
+        if (isivDeleteAttached) {
+            wmService.removeView(ivDelete);
+            isivDeleteAttached = false;
         }
-    }
-
-    private class MotionControlData {
-        final long removeTime = 1000;
-
-        int initialX, initialY;
-        float initialTouchX, initialTouchY;;
-        int removeDiff;
-        boolean move;
-    }
-
-    private void readyMotionEvent(MotionEvent me, MotionControlData mcd) {
-        mcd.removeDiff = ivService.getWidth() > ivService.getHeight() ? ivService.getWidth() : ivService.getHeight();
-
-        if (me.getEventTime() - me.getDownTime() > mcd.removeTime) {
-            addExitView();
-        }
-    }
-
-    private void startMotionEvent(MotionEvent me, MotionControlData mcd) {
-        mcd.move =  false;
-        mcd.initialX = lpService.x;
-        mcd.initialY = lpService.y;
-        mcd.initialTouchX = me.getRawX();
-        mcd.initialTouchY = me.getRawY();
-    }
-
-    private void endMotionEvent(MotionEvent me, MotionControlData mcd) {
-        if ((me.getEventTime() > mcd.removeTime) &&
-                (Math.abs(lpService.x - displayWidth / 2) < mcd.removeDiff) &&
-                (Math.abs(lpService.y - displayHeight) < mcd.removeDiff)) {
-            removeServiceView();
-            removeExitView();
-            stopSelf();
-        }
-        if (!mcd.move) {
-            addEditView();
-            removeServiceView();
-            removeExitView();
-        }
-        removeExitView();
-    }
-
-    private void whileMotionEvent(MotionEvent me, MotionControlData mcd) {
-        mcd.move = true;
-        lpService.x = mcd.initialX + (int) (me.getRawX() - mcd.initialTouchX);
-        lpService.x = lpService.x < 0 ? 0 : lpService.x > displayWidth ? displayWidth : lpService.x;
-        lpService.y = mcd.initialY + (int) (me.getRawY() - mcd.initialTouchY);
-        lpService.y = lpService.y < 0 ? 0 : lpService.y > displayHeight ? displayHeight : lpService.y;
-        wmService.updateViewLayout(ivService, lpService);
     }
 }
