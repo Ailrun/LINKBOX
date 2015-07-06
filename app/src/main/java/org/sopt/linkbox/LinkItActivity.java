@@ -14,6 +14,7 @@ import android.widget.Spinner;
 
 import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.data.LinkItBoxListData;
+import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
 

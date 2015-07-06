@@ -27,6 +27,7 @@ import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxBoxListData;
 import org.sopt.linkbox.custom.data.LinkBoxUrlListData;
+import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
 
