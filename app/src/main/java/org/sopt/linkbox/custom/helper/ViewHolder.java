@@ -1,11 +1,11 @@
-package org.sopt.linkbox;
+package org.sopt.linkbox.custom.helper;
 
 import android.util.SparseArray;
 import android.view.View;
 
 /**
  * Created by Junyoung on 2015-07-02.
- *
+ * Dynamic ViewHolder
  */
 public class ViewHolder {
     @SuppressWarnings("unchecked")

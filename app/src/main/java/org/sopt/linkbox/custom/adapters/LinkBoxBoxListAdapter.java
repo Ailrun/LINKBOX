@@ -1,12 +1,15 @@
-package org.sopt.linkbox;
+package org.sopt.linkbox.custom.adapters;
 
 import android.content.Context;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import org.sopt.linkbox.custom.data.LinkBoxBoxListData;
+import org.sopt.linkbox.custom.helper.ViewHolder;
+import org.sopt.linkbox.R;
 
 import java.util.ArrayList;
 
@@ -14,7 +17,7 @@ import java.util.ArrayList;
  * Created by Junyoung on 2015-07-02.
  *
  */
-class LinkBoxBoxListAdapter extends BaseAdapter {
+public class LinkBoxBoxListAdapter extends BaseAdapter {
 
     private ArrayList<LinkBoxBoxListData> source = null;
     private LayoutInflater layoutInflater = null;
@@ -34,18 +37,15 @@ class LinkBoxBoxListAdapter extends BaseAdapter {
     public int getCount() {
         return (source != null) ? source.size() : 0;
     }
-
     @Override
     public Object getItem(int i) {
         return (source != null && i < source.size() && i >= 0) ?
                 source.get(i) : null;
     }
-
     @Override
     public long getItemId(int i) {
         return i;
     }
-
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
@@ -56,8 +56,4 @@ class LinkBoxBoxListAdapter extends BaseAdapter {
         tvBoxName.setText(linkBoxBoxListData.boxName);
         return view;
     }
-}
-
-class LinkBoxBoxListData {
-    String boxName;
 }

@@ -15,7 +15,7 @@
             android:background="#FFFFFFFF"
             android:hint="박스 이름"
             android:textAppearance="@android:style/TextAppearance.Small"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionSend"/>
         <RelativeLayout
             android:layout_width="60dp"
             android:layout_height="match_parent"
