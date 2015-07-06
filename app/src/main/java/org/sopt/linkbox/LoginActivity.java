@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
 
         tabHost.addTab(tabHost.newTabSpec("tab2")
                 .setIndicator("sign up")
-                .setContent(R.id.signup));
+                .setContent(new Intent(this, SignupActivity.class)));
     }
 
 }
