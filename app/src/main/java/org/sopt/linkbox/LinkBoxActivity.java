@@ -22,7 +22,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.data.LinkBoxBoxListData;
+import org.sopt.linkbox.custom.data.LinkBoxUrlListData;
 
 import java.util.ArrayList;
 

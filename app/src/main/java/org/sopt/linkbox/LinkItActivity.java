@@ -12,6 +12,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
+import org.sopt.linkbox.custom.data.LinkItBoxListData;
+
 import java.util.ArrayList;
 
 
