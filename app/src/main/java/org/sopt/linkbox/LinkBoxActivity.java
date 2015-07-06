@@ -112,16 +112,13 @@ public class LinkBoxActivity extends AppCompatActivity {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
-        if (boxListSource.size() > 0)
-        {
+        if (boxListSource.size() > 0) {
             tToolbar.setTitle((boxListSource.get(0)).boxName);
         }
-        else
-        {
+        else {
             tToolbar.setTitle("새 박스");
         }
         setSupportActionBar(tToolbar);
-
         //main init
         lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
         llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, null);
@@ -134,6 +131,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlFooterButton = (Button) llBoxFooterViewAdd.findViewById(R.id.RL_footer_button_link_box);
         llBoxFooterViewEdit = (LinearLayout) layoutInflater.inflate(R.layout.layout_footer_edit_link_box, null);
         etAddBoxName = (EditText) llBoxFooterViewEdit.findViewById(R.id.ET_add_box_name_link_box);
+        etAddBoxName.setSingleLine(true);
+        etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         bAddBoxCancel = (Button) llBoxFooterViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
         lvBoxList.addFooterView(llBoxFooterViewAdd);
         lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -189,17 +188,18 @@ public class LinkBoxActivity extends AppCompatActivity {
                 lvBoxList.removeFooterView(llBoxFooterViewAdd);
                 lvBoxList.addFooterView(llBoxFooterViewEdit);
                 etAddBoxName.requestFocus();
-                etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                 immLinkBox.showSoftInput(etAddBoxName, InputMethodManager.SHOW_FORCED);
             }
         });
         etAddBoxName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
                     lvBoxList.removeFooterView(llBoxFooterViewEdit);
                     lvBoxList.addFooterView(llBoxFooterViewAdd);
+                    return true;
                 }
                 return false;
             }
