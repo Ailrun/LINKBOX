@@ -50,9 +50,9 @@ public class LinkBoxActivity extends AppCompatActivity {
     private ImageView ivProfile = null;
     private TextView tvBoxNumber = null;
     private ListView lvBoxList = null;
-    private LinearLayout llBoxFooterViewAdd = null;
-    private Button rlFooterButton = null;
-    private LinearLayout llBoxFooterViewEdit = null;
+    private LinearLayout llBoxHeaderViewAdd = null;
+    private Button rlHeaderButton = null;
+    private LinearLayout llBoxHeaderViewEdit = null;
     private EditText etAddBoxName = null;
     private Button bAddBoxCancel = null;
     private Button bToSettings = null;
@@ -73,6 +73,11 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         startService(new Intent(getApplicationContext(), LinkHeadService.class));
+        if (!getIntent().hasExtra("aa")) {
+            Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
+            intent.putExtra("aa", 5);
+            startActivity(intent);
+        }
 
         initData();
         initView();
@@ -132,16 +137,16 @@ public class LinkBoxActivity extends AppCompatActivity {
         ivProfile = (ImageView) findViewById(R.id.IV_profile_link_box);
         tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
         lvBoxList = (ListView) findViewById(R.id.LV_box_list_link_box);
-        llBoxFooterViewAdd = (LinearLayout) layoutInflater.inflate(R.layout.layout_footer_button_link_box, null);
-        rlFooterButton = (Button) llBoxFooterViewAdd.findViewById(R.id.RL_footer_button_link_box);
-        llBoxFooterViewEdit = (LinearLayout) layoutInflater.inflate(R.layout.layout_footer_edit_link_box, null);
-        etAddBoxName = (EditText) llBoxFooterViewEdit.findViewById(R.id.ET_add_box_name_link_box);
+        llBoxHeaderViewAdd = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_button_link_box, null);
+        rlHeaderButton = (Button) llBoxHeaderViewAdd.findViewById(R.id.RL_header_button_link_box);
+        llBoxHeaderViewEdit = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_edit_link_box, null);
+        etAddBoxName = (EditText) llBoxHeaderViewEdit.findViewById(R.id.ET_add_box_name_link_box);
         etAddBoxName.setSingleLine(true);
         etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        bAddBoxCancel = (Button) llBoxFooterViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
-        lvBoxList.addFooterView(llBoxFooterViewAdd);
+        bAddBoxCancel = (Button) llBoxHeaderViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
+        lvBoxList.addHeaderView(llBoxHeaderViewAdd);
         lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        rlFooterButton.setFocusable(true);
+        rlHeaderButton.setFocusable(true);
         dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
     }
 
@@ -187,11 +192,12 @@ public class LinkBoxActivity extends AppCompatActivity {
                 return false;
             }
         });
-        rlFooterButton.setOnClickListener(new View.OnClickListener() {
+        rlHeaderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                lvBoxList.removeFooterView(llBoxFooterViewAdd);
-                lvBoxList.addFooterView(llBoxFooterViewEdit);
+                lvBoxList.removeHeaderView(llBoxHeaderViewAdd);
+                lvBoxList.addHeaderView(llBoxHeaderViewEdit);
+                etAddBoxName.setText("");
                 etAddBoxName.requestFocus();
                 etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
                 immLinkBox.showSoftInput(etAddBoxName, InputMethodManager.SHOW_FORCED);
@@ -202,8 +208,8 @@ public class LinkBoxActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
-                    lvBoxList.removeFooterView(llBoxFooterViewEdit);
-                    lvBoxList.addFooterView(llBoxFooterViewAdd);
+                    lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
+                    lvBoxList.addHeaderView(llBoxHeaderViewAdd);
                     return true;
                 }
                 return false;
@@ -214,8 +220,8 @@ public class LinkBoxActivity extends AppCompatActivity {
             public void onClick(View view) {
                 etAddBoxName.setText("");
                 immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
-                lvBoxList.removeFooterView(llBoxFooterViewEdit);
-                lvBoxList.addFooterView(llBoxFooterViewAdd);
+                lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
+                lvBoxList.addHeaderView(llBoxHeaderViewAdd);
             }
         });
         abBoxList = new ActionBarDrawerToggle(this, dlBoxList,
@@ -223,9 +229,9 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onDrawerClosed(View drawerView) {
                 immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
-                lvBoxList.removeFooterView(llBoxFooterViewEdit);
-                lvBoxList.removeFooterView(llBoxFooterViewAdd);
-                lvBoxList.addFooterView(llBoxFooterViewAdd);
+                lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
+                lvBoxList.removeHeaderView(llBoxHeaderViewAdd);
+                lvBoxList.addHeaderView(llBoxHeaderViewAdd);
                 super.onDrawerClosed(drawerView);
             }
             @Override

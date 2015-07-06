@@ -98,6 +98,8 @@ public class LinkItActivity extends Activity {
         btLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(), LinkBoxActivity.class));
                 finish();
             }
         });
