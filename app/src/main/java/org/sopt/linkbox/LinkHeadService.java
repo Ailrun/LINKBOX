@@ -2,10 +2,9 @@ package org.sopt.linkbox;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.PixelFormat;
-import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
@@ -15,11 +14,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import org.droidparts.widget.ClearableEditText;
 
 public class LinkHeadService extends Service {
     private WindowManager wmService = null;
@@ -34,9 +32,7 @@ public class LinkHeadService extends Service {
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT);
     //Property For Edit
-    private LinearLayout llEdit = null;
-    private TextView tvEdit = null;
-    private EditText etEdit = null;
+    private ClearableEditText cetEdit = null;
     private boolean isEtEditAttached = false;
     private final WindowManager.LayoutParams lpEdit = new WindowManager.LayoutParams(
             WindowManager.LayoutParams.MATCH_PARENT,
@@ -66,7 +62,7 @@ public class LinkHeadService extends Service {
         wmService.getDefaultDisplay().getMetrics(dmService);
 
         ivService = new ImageView(this);
-        ivService.setImageResource(R.mipmap.logo);
+        ivService.setImageResource(R.mipmap.floating_button);
 
         int serviceWidth = ((BitmapDrawable)ivService.getDrawable()).getBitmap().getWidth();
         int serviceHeight = ((BitmapDrawable)ivService.getDrawable()).getBitmap().getHeight();
@@ -80,15 +76,16 @@ public class LinkHeadService extends Service {
         addServiceView();
 
         // TouchListener Implementing Part
-        llEdit = new LinearLayout(getApplicationContext());
-        tvEdit = new TextView(getApplicationContext());
-        etEdit = new EditText(getApplicationContext());
-        etEdit.setHint("http://URL.address/input");
-        etEdit.setBackgroundColor(getResources().getColor(R.color.indigo500));
-        etEdit.setSingleLine();
-        etEdit.setImeOptions(EditorInfo.IME_ACTION_SEND);
+        cetEdit = new ClearableEditText(getApplicationContext());
+        cetEdit.setHint("http://URL.address/input");
+        cetEdit.setBackgroundColor(getResources().getColor(R.color.indigo500));
+        cetEdit.setSingleLine();
+        cetEdit.setImeOptions(EditorInfo.IME_ACTION_SEND);
+        Drawable drawable[] = cetEdit.getCompoundDrawables();
+        cetEdit.setCompoundDrawables(drawable[0], drawable[1],
+                getResources().getDrawable(R.drawable.abc_ic_menu_cut_mtrl_alpha), drawable[3]);
 
-        immService = (InputMethodManager) etEdit.getContext().getSystemService(INPUT_METHOD_SERVICE);
+        immService = (InputMethodManager) cetEdit.getContext().getSystemService(INPUT_METHOD_SERVICE);
         lpEdit.gravity = Gravity.BOTTOM;
         lpEdit.softInputMode = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
 
@@ -119,7 +116,7 @@ public class LinkHeadService extends Service {
                 return false;
             }
         });
-        etEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        cetEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
@@ -131,7 +128,7 @@ public class LinkHeadService extends Service {
                 return false;
             }
         });
-        etEdit.setOnTouchListener(new View.OnTouchListener() {
+        cetEdit.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_OUTSIDE) {
@@ -177,17 +174,17 @@ public class LinkHeadService extends Service {
 
     private void addEditView() {
         if (!isEtEditAttached) {
-            wmService.addView(etEdit, lpEdit);
-            etEdit.requestFocus();
-            immService.showSoftInputFromInputMethod(etEdit.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED);
+            wmService.addView(cetEdit, lpEdit);
+            cetEdit.requestFocus();
+            immService.showSoftInputFromInputMethod(cetEdit.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED);
             isEtEditAttached = true;
         }
     }
 
     private void removeEditView() {
         if (isEtEditAttached) {
-            immService.hideSoftInputFromWindow(etEdit.getWindowToken(), 0);
-            wmService.removeView(etEdit);
+            immService.hideSoftInputFromWindow(cetEdit.getWindowToken(), 0);
+            wmService.removeView(cetEdit);
             isEtEditAttached = false;
         }
     }
