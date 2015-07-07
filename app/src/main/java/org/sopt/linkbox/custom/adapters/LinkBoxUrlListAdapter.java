@@ -1,11 +1,16 @@
-package org.sopt.linkbox;
+package org.sopt.linkbox.custom.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.sopt.linkbox.custom.data.LinkBoxUrlListData;
+import org.sopt.linkbox.custom.helper.ViewHolder;
+import org.sopt.linkbox.R;
 
 import java.util.ArrayList;
 
@@ -13,18 +18,18 @@ import java.util.ArrayList;
  * Created by Junyoung on 2015-07-02.
  *
  */
-class LinkBoxBoxListAdapter extends BaseAdapter {
+public class LinkBoxUrlListAdapter extends BaseAdapter {
 
-    private ArrayList<LinkBoxBoxListData> source = null;
+    private ArrayList<LinkBoxUrlListData> source = null;
     private LayoutInflater layoutInflater = null;
 
-    public LinkBoxBoxListAdapter(Context context, ArrayList<LinkBoxBoxListData> source) {
+    public LinkBoxUrlListAdapter(Context context, ArrayList<LinkBoxUrlListData> source) {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
     }
 
-    public void setSource(ArrayList<LinkBoxBoxListData> source) {
+    public void setSource(ArrayList<LinkBoxUrlListData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -33,46 +38,26 @@ class LinkBoxBoxListAdapter extends BaseAdapter {
     public int getCount() {
         return (source != null) ? source.size() : 0;
     }
-
     @Override
     public Object getItem(int i) {
         return (source != null && i < source.size() && i >= 0) ?
                 source.get(i) : null;
     }
-
     @Override
     public long getItemId(int i) {
         return i;
     }
-
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LinkBoxBoxListViewHolder linkBoxBoxListViewHolder;
-
         if (view == null) {
-            linkBoxBoxListViewHolder = new LinkBoxBoxListViewHolder();
             view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
-
-            linkBoxBoxListViewHolder.tvBoxName = (TextView) view.findViewById(R.id.TV_box_name_link_box);
-
-            view.setTag(linkBoxBoxListViewHolder);
         }
-        else {
-            linkBoxBoxListViewHolder = (LinkBoxBoxListViewHolder) view.getTag();
-        }
-
-        LinkBoxBoxListData linkBoxBoxListData = (LinkBoxBoxListData)getItem(i);
-
-        linkBoxBoxListViewHolder.tvBoxName.setText(linkBoxBoxListData.boxName);
-
+        LinkBoxUrlListData linkBoxUrlListData = (LinkBoxUrlListData)getItem(i);
+        TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_title_link_box);
+        TextView tvUrlWriterDate = ViewHolder.get(view, R.id.TV_url_writer_date_link_box);
+        ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
+        tvUrlTitle.setText(linkBoxUrlListData.urlTitle);
+        tvUrlWriterDate.setText(linkBoxUrlListData.urlWriter);
         return view;
     }
-}
-
-class LinkBoxBoxListData {
-    String boxName;
-}
-
-class LinkBoxBoxListViewHolder {
-    TextView tvBoxName;
 }

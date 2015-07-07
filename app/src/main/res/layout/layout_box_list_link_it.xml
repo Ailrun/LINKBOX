@@ -4,10 +4,12 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/TV_box_name_link_box"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
-        android:textColor="#FF000000"/>
+        android:id="@+id/TV_box_name_link_it"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+        android:textColor="#FF000000"
+        android:gravity="center_vertical"
+        android:text="aaa"/>
 
 </LinearLayout>

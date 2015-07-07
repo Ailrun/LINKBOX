@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        startActivity(new Intent(this, LoginActivity.class));
         startActivity(new Intent(this, LinkBoxActivity.class));
 
         callbackManager = CallbackManager.Factory.create();
@@ -37,7 +38,7 @@ public class MainActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 loginButton.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginDataActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -59,19 +60,18 @@ public class MainActivity extends Activity {
                 tvId=(TextView) findViewById(R.id.TV_id_main);
                 tvPassword=(TextView) findViewById(R.id.TV_password_main);
 
-                tvId.setText(jsonObject.optString("id"));
-                tvPassword.setText(jsonObject.optString("password"));
+//                tvId.setText(jsonObject.optString("id"));
+//                tvPassword.setText(jsonObject.optString("password"));
             }
         });
         request.setParameters(parameter);
         request.executeAsync();
     }
-
     protected void onResume(){
         super.onResume();
         if(AccessToken.getCurrentAccessToken()!=null){
             loginButton.setVisibility(View.INVISIBLE);
-            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+            Intent intent=new Intent(getApplicationContext(), LoginDataActivity.class);
             startActivity(intent);
             finish();
         }
@@ -85,3 +85,4 @@ public class MainActivity extends Activity {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
+

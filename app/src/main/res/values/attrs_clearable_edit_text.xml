@@ -1,0 +1,6 @@
+<resources>
+    <declare-styleable name="ClearableEditText">
+        <attr name="clearIcon" format="color|reference" />
+        <attr name="clearPadding" format="dimension" />
+    </declare-styleable>
+</resources>

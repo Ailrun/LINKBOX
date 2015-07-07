@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
-
     <LinearLayout
         android:id="@+id/LL_activity_link_box"
         android:orientation="vertical"
@@ -17,36 +16,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             layout="@layout/layout_toolbar"/>
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="#FFFFFFFF">
-            <TextView
-                android:id="@+id/TV_box_name_link_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="25dp"
-                android:text="BOX"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"/>
-            <ImageButton
-                android:id="@+id/IB_editors_info_link_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"/>
-            <ImageButton
-                android:id="@+id/IB_invite_link_box"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toStartOf="@+id/IB_editors_info_link_box"/>
-        </RelativeLayout>
         <ListView
             android:id="@+id/LV_url_list_link_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </LinearLayout>
-
     <include
         android:id="@+id/D_box_list_link_box"
         android:layout_width="240dp"
@@ -54,5 +28,4 @@
         android:layout_gravity="start"
         layout="@layout/layout_drawer_link_box"
         android:fitsSystemWindows="true"/>
-
 </android.support.v4.widget.DrawerLayout>

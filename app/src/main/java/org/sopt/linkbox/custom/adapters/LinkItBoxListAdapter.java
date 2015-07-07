@@ -1,4 +1,4 @@
-package org.sopt.linkbox;
+package org.sopt.linkbox.custom.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,13 +7,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.sopt.linkbox.custom.data.LinkItBoxListData;
+import org.sopt.linkbox.custom.helper.ViewHolder;
+import org.sopt.linkbox.R;
+
 import java.util.ArrayList;
 
 /**
  * Created by Junyoung on 2015-06-30.
  *
  */
-class LinkItBoxListAdapter extends BaseAdapter {
+public class LinkItBoxListAdapter extends BaseAdapter {
 
     private ArrayList<LinkItBoxListData> source = null;
     private LayoutInflater layoutInflater = null;
@@ -33,46 +37,23 @@ class LinkItBoxListAdapter extends BaseAdapter {
     public int getCount() {
         return (source != null) ? source.size() : 0;
     }
-
     @Override
     public Object getItem(int i) {
         return (source != null && i < source.size() && i >= 0) ?
                 source.get(i) : null;
     }
-
     @Override
     public long getItemId(int i) {
         return i;
     }
-
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        LinkItBoxListViewHolder linkItBoxListViewHolder;
-
         if (view == null) {
-            linkItBoxListViewHolder = new LinkItBoxListViewHolder();
             view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
-
-            linkItBoxListViewHolder.tvBoxName = (TextView) view.findViewById(R.id.TV_box_name_link_box);
-
-            view.setTag(linkItBoxListViewHolder);
         }
-        else {
-            linkItBoxListViewHolder = (LinkItBoxListViewHolder) view.getTag();
-        }
-
         LinkItBoxListData linkItBoxListData = (LinkItBoxListData)getItem(i);
-
-        linkItBoxListViewHolder.tvBoxName.setText(linkItBoxListData.boxName);
-
+        TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_it);
+        tvBoxName.setText(linkItBoxListData.boxName);
         return view;
     }
-}
-
-class LinkItBoxListData {
-    String boxName;
-}
-
-class LinkItBoxListViewHolder {
-    TextView tvBoxName;
 }
