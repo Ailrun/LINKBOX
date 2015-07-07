@@ -35,7 +35,6 @@ public class LinkItActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_link_it);
         initWindow();
 
         initData();
@@ -55,6 +54,7 @@ public class LinkItActivity extends Activity {
         layoutParams.dimAmount = 0.7f;
         getWindow().setAttributes(layoutParams);
         stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+        setContentView(R.layout.activity_link_it);
     }
     private void initData() {
         Intent intent = getIntent();
@@ -104,8 +104,11 @@ public class LinkItActivity extends Activity {
         btLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startActivity(new Intent(getApplicationContext(), LinkBoxActivity.class));
+                Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
+                intent.putExtra("cbid", 1);
+                intent.putExtra("cbname", boxName);
+                intent.putExtra("urlname", etTitle.getText().toString());
+                startActivity(intent);
                 finish();
             }
         });

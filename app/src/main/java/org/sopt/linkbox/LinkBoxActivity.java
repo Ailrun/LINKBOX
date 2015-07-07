@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -32,6 +33,8 @@ import org.sopt.linkbox.service.LinkHeadService;
 import java.util.ArrayList;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
+
+import static org.sopt.linkbox.debugging.TaskDebugging.debug;
 
 /**
  * Created by Junyoung on 2015-06-30.
@@ -67,10 +70,10 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     //others
     private ArrayList<LinkBoxUrlListData> urlListSource = null;
-    private ArrayList<LinkBoxBoxListData> boxListSource = null;
+    ArrayList<LinkBoxBoxListData> boxListSource = null;
 
     private LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
-    private LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
+    LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,13 +81,13 @@ public class LinkBoxActivity extends AppCompatActivity {
         setContentView(R.layout.activity_link_box);
         startService(new Intent(getApplicationContext(), LinkHeadService.class));
 //      For Debug : Start
+        debug(this);
         if (!getIntent().hasExtra("aa")) {
             Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
             intent.putExtra("aa", 5);
             startActivity(intent);
         }
 //      For Debug : End
-
         initData();
         initView();
         initListener();
@@ -199,7 +202,9 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private void initMainView() {
         lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
-        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, null);
+        ViewGroup viewGroup = (ViewGroup) lvUrlList.getParent();
+        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
+        viewGroup.addView(llUrlEmptyView);
         lvUrlList.setEmptyView(llUrlEmptyView);
     }
     private void initMainListener() {

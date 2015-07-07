@@ -17,6 +17,7 @@ import org.sopt.linkbox.R;
  *
  */
 public class ClearableEditText extends EditText implements TextWatcher, View.OnTouchListener, View.OnFocusChangeListener {
+    private static final String TAG = "TEST/" + ClearableEditText.class.getName() + " : ";
 
     private Drawable clearIcon = null;
     private float clearPadding = 0.0f;
