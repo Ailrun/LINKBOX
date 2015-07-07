@@ -72,7 +72,8 @@
             android:name=".LoginActivity"
             android:label="LoginActivity"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask">
+        </activity>
 
         <!-- 아래 부분은 SDK 4.0.0 버전 이후로설정해줘야 하는 부분으로 가이드 라인에 나와있습니다 -->
         <!-- https://developers.facebook.com/docs/android/getting-started#login_share -->
