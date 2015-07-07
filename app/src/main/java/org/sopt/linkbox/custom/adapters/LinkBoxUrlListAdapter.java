@@ -54,7 +54,7 @@ public class LinkBoxUrlListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.layout_url_list_link_box, viewGroup, false);
         }
         LinkBoxUrlListData linkBoxUrlListData = (LinkBoxUrlListData)getItem(i);
         TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_title_link_box);

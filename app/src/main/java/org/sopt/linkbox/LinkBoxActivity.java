@@ -129,6 +129,12 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initData() {
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         urlListSource = new ArrayList<>();
+        LinkBoxUrlListData linkBoxUrlListData = new LinkBoxUrlListData();
+        linkBoxUrlListData.url = "www.facebook.com";
+        linkBoxUrlListData.urlTitle = "페북";
+        linkBoxUrlListData.urlThumb = "https://www.facebook.com/images/fb_icon_325x325.png";
+        linkBoxUrlListData.urlWriter = "나";
+        urlListSource.add(linkBoxUrlListData);
         boxListSource = new ArrayList<>();
         LinkBoxBoxListData linkBoxBoxListData = new LinkBoxBoxListData();
         linkBoxBoxListData.boxName = "요리";

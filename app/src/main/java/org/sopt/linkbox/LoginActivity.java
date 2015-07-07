@@ -27,16 +27,16 @@ public class LoginActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+//        TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
 
-        tabHost.setup();
-        tabHost.addTab(tabHost.newTabSpec("tab1")
-                .setIndicator("log in")
-                .setContent(new Intent(this, MainActivity.class)));
+//        tabHost.setup();
+//        tabHost.addTab(tabHost.newTabSpec("tab1")
+//                .setIndicator("log in")
+//                .setContent(new Intent(this, MainActivity.class)));
 
-        tabHost.addTab(tabHost.newTabSpec("tab2")
-                .setIndicator("sign up")
-                .setContent(new Intent(this, SignupActivity.class)));
+//        tabHost.addTab(tabHost.newTabSpec("tab2")
+//                .setIndicator("sign up")
+//                .setContent(new Intent(this, SignupActivity.class)));
     }
 
 }

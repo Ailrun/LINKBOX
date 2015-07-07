@@ -17,9 +17,9 @@ import retrofit.client.OkClient;
  * Created by Junyoung on 2015-07-07.
  *
  */
-public class LinkBox extends Application {
-    private static LinkBox application;
-    public static LinkBox getApplication() {
+public class LinkBoxController extends Application {
+    private static LinkBoxController application;
+    public static LinkBoxController getApplication() {
         return application;
     }
 
@@ -27,8 +27,8 @@ public class LinkBox extends Application {
     public void onCreate() {
         super.onCreate();
 
-        LinkBox.application = this;
-        LinkBox.application.init();
+        LinkBoxController.application = this;
+        LinkBoxController.application.init();
     }
 
     private LinkNetworkInterface.EmbedlyInterface linkNetworkEmbedlyInterface;
