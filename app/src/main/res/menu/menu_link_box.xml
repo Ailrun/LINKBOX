@@ -1,10 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="org.sopt.linkbox.LinkBoxActivity">
-    <item android:id="@+id/action_editors" android:title="editors"
+    <item android:id="@+id/action_editors" android:title="share"
         android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="50" app:showAsAction="ifRoom"/>
-    <item android:id="@+id/action_info" android:title="info"
+    <item android:id="@+id/action_info" android:title="editors"
         android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="100" app:showAsAction="ifRoom" />
 </menu>

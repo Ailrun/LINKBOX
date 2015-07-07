@@ -29,6 +29,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        startActivity(new Intent(this, LoginActivity.class));
         startActivity(new Intent(this, LinkBoxActivity.class));
 
         callbackManager = CallbackManager.Factory.create();
@@ -66,7 +67,6 @@ public class MainActivity extends Activity {
         request.setParameters(parameter);
         request.executeAsync();
     }
-
     protected void onResume(){
         super.onResume();
         if(AccessToken.getCurrentAccessToken()!=null){
