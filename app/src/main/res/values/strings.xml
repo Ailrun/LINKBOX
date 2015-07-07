@@ -19,6 +19,4 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_login_data">LoginDataActivity</string>
-    <string name="title_activity_setting">SettingActivity</string>
-    <string name="title_activity_user_setting">UserSettingActivity</string>
 </resources>
