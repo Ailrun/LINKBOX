@@ -39,4 +39,16 @@ public class LoginActivity extends Activity {
                 .setContent(new Intent(this, SignupActivity.class)));
     }
 
+   /** SectionsPagerAdapter 내 getItem 을 아래와 같이 수정한다.
+    @Override
+    public Fragment getItem(int position) {
+        if (position == 0)
+            return new RedFragment();
+        else if(position==1)
+            return new GreenFragment();
+        else
+            return new BlueFragment();
+    }
+    */
+
 }

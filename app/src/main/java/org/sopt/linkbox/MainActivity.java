@@ -38,7 +38,7 @@ public class MainActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 loginButton.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getApplicationContext(), LoginDataActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
