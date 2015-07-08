@@ -37,19 +37,20 @@
             android:layout_toRightOf="@+id/TV_password_main"
             android:maxLines="1" android:singleLine="true" />
 
+        <Button
+            android:id="@+id/B_signin_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="로그인"/>
+
         <com.facebook.login.widget.LoginButton
             android:layout_marginTop="30dp"
             android:id="@+id/LB_login_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="로그인"/>
-        <Button
-            android:id="@+id/B_signin_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/LB_login_main"
-            android:layout_gravity="center_horizontal"
-            android:text="회원가입"/>
+            android:text="페이스북 로그인"/>
+
     </LinearLayout>
 </RelativeLayout>

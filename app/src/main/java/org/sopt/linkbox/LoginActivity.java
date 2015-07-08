@@ -1,6 +1,7 @@
 package org.sopt.linkbox;
 
 import java.util.Locale;
+import com.loopj.android.http.*;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -21,6 +22,9 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import org.sopt.linkbox.service.LoginFragment;
+import org.sopt.linkbox.service.SignupFragment;
+
 
 public class LoginActivity extends Activity {
     @Override
@@ -30,13 +34,13 @@ public class LoginActivity extends Activity {
         TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
 
         tabHost.setup();
-        tabHost.addTab(tabHost.newTabSpec("tab1")
+        tabHost.addTab(tabHost.newTabSpec("로그인")
                 .setIndicator("log in")
-                .setContent(new Intent(this, MainActivity.class)));
+                .setContent(new Intent(this, LoginFragment.class)));
 
-        tabHost.addTab(tabHost.newTabSpec("tab2")
+        tabHost.addTab(tabHost.newTabSpec("회원가입")
                 .setIndicator("sign up")
-                .setContent(new Intent(this, SignupActivity.class)));
+                .setContent(new Intent(this, SignupFragment.class)));
     }
 
    /** SectionsPagerAdapter 내 getItem 을 아래와 같이 수정한다.
