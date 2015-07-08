@@ -1,9 +1,16 @@
 package org.sopt.linkbox.custom.network;
 
+import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.custom.data.LinkUrlListData;
+import org.sopt.linkbox.custom.data.LinkUserData;
+
 import java.util.HashMap;
+import java.util.List;
 
 import retrofit.Callback;
+import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.Headers;
 import retrofit.http.POST;
 import retrofit.http.Path;
 import retrofit.http.QueryMap;
@@ -18,60 +25,70 @@ public class LinkNetworkInterface {
         public static final String KEY = "7859e019f280493c89e030a41a135a79";
 
         @GET("/1/oembed")
-        Object getDataSync(@QueryMap HashMap<String, String> parameters);
-        @GET("/1/oembed")
-        Object getDataAsync(@QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void getDataAsync(@QueryMap HashMap<String, String> parameters, Callback<LinkNetwork.Embedly.ResultEmbedly> callback);
     }
 
     public interface MainServerInterface {
 //        public static final String API_KEY = "???"; // Maybe Not needed
+        @Headers("Content-Type: application/json")
         @POST("/usr/login")
-        Object postLoginSync(@QueryMap HashMap<String, String> parameters);
-        @POST("/usr/login")
-        Object postLoginAsync(@QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postLoginAsync(@Body LinkUserData linkUserData, Callback<LinkUserData> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/usr/signup")
-        Object postSignUpSync(@QueryMap HashMap<String, String> parameters);
-        @POST("/usr/signup")
-        Object postSignUpAsync(@QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postSignUpAsync(@Body LinkUserData linkUserData, Callback<LinkUserData> callback);
+
         @GET("/collectbox/{usrid}/boxlist")
-        Object getBoxListSync(@Path("usrid") String usrid, @QueryMap HashMap<String, String> parameters);
-        @GET("/collectbox/{usrid}/boxlist")
-        Object getBoxListAsync(@Path("usrid") String usrid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void getBoxListAsync(@Path("usrid") String usrid, Callback<List<LinkBoxListData>> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/collectbox/{usrid}/addbox")
-        Object postAddBoxSync(@Path("usrid") String usrid, @QueryMap HashMap<String, String> parameters);
-        @POST("/collectbox/{usrid}/addbox")
-        Object postAddBoxAsync(@Path("usrid") String usrid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postAddBoxAsync(@Path("usrid") String usrid, @Body LinkBoxListData linkBoxListData, Callback<LinkBoxListData> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/collectbox/{usrid}/removebox")
-        Object postRemoveBoxSync(@Path("usrid") String usrid, @QueryMap HashMap<String, String> parameters);
-        @POST("/collectbox/{usrid}/removebox")
-        Object postRemoveBoxAsync(@Path("usrid") String usrid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postRemoveBoxAsync(@Path("usrid") String usrid, @Body LinkBoxListData linkBoxListData, Callback<Object> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/collectbox/{usrid}/editbox")
-        Object postEditBoxSync(@Path("usrid") String usrid, @QueryMap HashMap<String, String> parameters);
-        @POST("/collectbox/{usrid}/editbox")
-        Object postEditBoxAsync(@Path("usrid") String usrid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postEditBoxAsync(@Path("usrid") String usrid, @Body LinkBoxListData linkBoxListData, Callback<LinkBoxListData> callback);
+
         @GET("/collecturl/{cbid}/urllist")
-        Object getUrlListSync(@Path("cbid") String cbid, @QueryMap HashMap<String, String> parameters);
-        @GET("/collecturl/{cbid}/urllist")
-        Object getUrlListAsync(@Path("cbid") String cbid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void getUrlListAsync(@Path("cbid") String cbid, Callback<List<LinkUrlListData>> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/addurl")
-        Object postAddUrlSync(@Path("cbid") String cbid, @QueryMap HashMap<String, String> parameters);
-        @POST("/collecturl/{cbid}/addurl")
-        Object postAddUrlAsync(@Path("cbid") String cbid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postAddUrlAsync(@Path("cbid") String cbid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/removeurl")
-        Object postRemoveUrlSync(@Path("cbid") String cbid, @QueryMap HashMap<String, String> parameters);
-        @POST("/collecturl/{cbid}/removeurl")
-        Object postRemoveUrlAsync(@Path("cbid") String cbid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postRemoveUrlAsync(@Path("cbid") String cbid, @Body LinkUrlListData linkUrlListData, Callback<Object> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/editurl")
-        Object postEditUrlSync(@Path("cbid") String cbid, @QueryMap HashMap<String, String> parameters);
-        @POST("/collecturl/{cbid}/editurl")
-        Object postEditUrlAsync(@Path("cbid") String cbid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postEditUrlAsync(@Path("cbid") String cbid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/{urlid}/editgood")
-        Object postEditGoodSync(@Path("cbid") String cbid, @Path("urlid") String urlid, @QueryMap HashMap<String, String> parameters);
-        @POST("/collecturl/{cbid}/{urlid}/editgood")
-        Object postEditGoodAsync(@Path("cbid") String cbid, @Path("urlid") String urlid, @QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postEditGoodAsync(@Path("cbid") String cbid, @Path("urlid") String urlid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
+
+        @Headers("Content-Type: application/json")
         @POST("/usr/signdown")
-        Object postSignDownSync(@QueryMap HashMap<String, String> parameters);
-        @POST("/usr/signdown")
-        Object postSignDownAsync(@QueryMap HashMap<String, String> parameters, Callback<Object> callback);
+        public void postSignDownAsync(@Body LinkUserData linkUserData, Callback<Object> callback);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

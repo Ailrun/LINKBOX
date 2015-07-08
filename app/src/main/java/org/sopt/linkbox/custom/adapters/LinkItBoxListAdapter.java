@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import org.sopt.linkbox.custom.data.LinkItBoxListData;
+import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 import org.sopt.linkbox.R;
 
@@ -19,16 +19,16 @@ import java.util.ArrayList;
  */
 public class LinkItBoxListAdapter extends BaseAdapter {
 
-    private ArrayList<LinkItBoxListData> source = null;
+    private ArrayList<LinkBoxListData> source = null;
     private LayoutInflater layoutInflater = null;
 
-    public LinkItBoxListAdapter(Context context, ArrayList<LinkItBoxListData> source) {
+    public LinkItBoxListAdapter(Context context, ArrayList<LinkBoxListData> source) {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
     }
 
-    public void setSource(ArrayList<LinkItBoxListData> source) {
+    public void setSource(ArrayList<LinkBoxListData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -51,9 +51,9 @@ public class LinkItBoxListAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
         }
-        LinkItBoxListData linkItBoxListData = (LinkItBoxListData)getItem(i);
+        LinkBoxListData linkBoxListData = (LinkBoxListData)getItem(i);
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_it);
-        tvBoxName.setText(linkItBoxListData.boxName);
+        tvBoxName.setText(linkBoxListData.cbname);
         return view;
     }
 }

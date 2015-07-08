@@ -24,13 +24,10 @@ import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
-import org.sopt.linkbox.custom.data.LinkBoxBoxListData;
-import org.sopt.linkbox.custom.data.LinkBoxUrlListData;
+import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.custom.data.LinkUrlListData;
+import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
-
-import java.util.ArrayList;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -67,13 +64,6 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private DrawerLayout dlBoxList = null;
     private ActionBarDrawerToggle abBoxList = null;
-
-    //others
-    private ArrayList<LinkBoxUrlListData> urlListSource = null;
-    ArrayList<LinkBoxBoxListData> boxListSource = null;
-
-    private LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
-    LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,38 +118,36 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private void initData() {
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        urlListSource = new ArrayList<>();
-        LinkBoxUrlListData linkBoxUrlListData = new LinkBoxUrlListData();
-        linkBoxUrlListData.url = "www.facebook.com";
-        linkBoxUrlListData.urlTitle = "페북";
-        linkBoxUrlListData.urlThumb = "https://www.facebook.com/images/fb_icon_325x325.png";
-        linkBoxUrlListData.urlWriter = "나";
-        urlListSource.add(linkBoxUrlListData);
-        boxListSource = new ArrayList<>();
-        LinkBoxBoxListData linkBoxBoxListData = new LinkBoxBoxListData();
-        linkBoxBoxListData.boxName = "요리";
-        boxListSource.add(linkBoxBoxListData);
-        linkBoxBoxListData = new LinkBoxBoxListData();
-        linkBoxBoxListData.boxName = "육아";
-        boxListSource.add(linkBoxBoxListData);
-        linkBoxBoxListData = new LinkBoxBoxListData();
-        linkBoxBoxListData.boxName = "개발";
-        boxListSource.add(linkBoxBoxListData);
-        linkBoxBoxListData = new LinkBoxBoxListData();
-        linkBoxBoxListData.boxName = "일상";
-        boxListSource.add(linkBoxBoxListData);
-        linkBoxBoxListData = new LinkBoxBoxListData();
-        linkBoxBoxListData.boxName = "주방";
-        boxListSource.add(linkBoxBoxListData);
-        linkBoxBoxListData = new LinkBoxBoxListData();
-        linkBoxBoxListData.boxName = "맛집";
-        boxListSource.add(linkBoxBoxListData);
-        linkBoxBoxListData = new LinkBoxBoxListData();
-        linkBoxBoxListData.boxName = "위생";
-        boxListSource.add(linkBoxBoxListData);
-        linkBoxBoxListData = new LinkBoxBoxListData();
-        linkBoxBoxListData.boxName = "공부";
-        boxListSource.add(linkBoxBoxListData);
+        LinkUrlListData linkUrlListData = new LinkUrlListData();
+        linkUrlListData.url = "www.facebook.com";
+        linkUrlListData.urlname = "페북";
+        LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData);
+        linkUrlListData.urlwriter = "나";
+        LinkBoxController.urlListSource.add(linkUrlListData);
+        LinkBoxListData linkBoxListData = new LinkBoxListData();
+        linkBoxListData.cbname = "요리";
+        LinkBoxController.boxListSource.add(linkBoxListData);
+        linkBoxListData = new LinkBoxListData();
+        linkBoxListData.cbname = "육아";
+        LinkBoxController.boxListSource.add(linkBoxListData);
+        linkBoxListData = new LinkBoxListData();
+        linkBoxListData.cbname = "개발";
+        LinkBoxController.boxListSource.add(linkBoxListData);
+        linkBoxListData = new LinkBoxListData();
+        linkBoxListData.cbname = "일상";
+        LinkBoxController.boxListSource.add(linkBoxListData);
+        linkBoxListData = new LinkBoxListData();
+        linkBoxListData.cbname = "주방";
+        LinkBoxController.boxListSource.add(linkBoxListData);
+        linkBoxListData = new LinkBoxListData();
+        linkBoxListData.cbname = "맛집";
+        LinkBoxController.boxListSource.add(linkBoxListData);
+        linkBoxListData = new LinkBoxListData();
+        linkBoxListData.cbname = "위생";
+        LinkBoxController.boxListSource.add(linkBoxListData);
+        linkBoxListData = new LinkBoxListData();
+        linkBoxListData.cbname = "공부";
+        LinkBoxController.boxListSource.add(linkBoxListData);
     }
     private  void initView() {
         layoutInflater = getLayoutInflater();
@@ -185,20 +173,16 @@ public class LinkBoxActivity extends AppCompatActivity {
         initDrawerEditHeaderListener();
     }
     private void initControl() {
-        linkBoxUrlListAdapter =
-                new LinkBoxUrlListAdapter(getApplicationContext(), urlListSource);
-        linkBoxBoxListAdapter =
-                new LinkBoxBoxListAdapter(getApplicationContext(), boxListSource);
-        lvUrlList.setAdapter(linkBoxUrlListAdapter);
-        lvBoxList.setAdapter(linkBoxBoxListAdapter);
+        lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
+        lvBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
     }
 
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
-        if (boxListSource.size() > 0) {
-            tToolbar.setTitle((boxListSource.get(0)).boxName);
+        if (LinkBoxController.boxListSource.size() > 0) {
+            tToolbar.setTitle((LinkBoxController.boxListSource.get(0)).cbname);
         }
         else {
             tToolbar.setTitle("새 박스");
@@ -246,10 +230,10 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LinkBoxBoxListData linkBoxBoxListData = (LinkBoxBoxListData) adapterView.getItemAtPosition(i);
+                LinkBoxListData linkBoxListData = (LinkBoxListData) adapterView.getItemAtPosition(i);
                 String str = null;
-                if (linkBoxBoxListData != null) {
-                    str = linkBoxBoxListData.boxName;
+                if (linkBoxListData != null) {
+                    str = linkBoxListData.cbname;
                 } else {
                     str = "새 박스";
                 }
