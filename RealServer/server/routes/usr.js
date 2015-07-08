@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
-var uuid = require('node-uuid');
-var ejs = require('ejs');
 
 /*//해시 키 for password : 이건 클라쪽에서 준영이가 하겠대 패스워드 암호화.
 var myHash = function myHash(key){
