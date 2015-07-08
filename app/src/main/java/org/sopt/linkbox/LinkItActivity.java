@@ -13,10 +13,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
-import org.sopt.linkbox.custom.data.LinkItBoxListData;
+import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.service.LinkHeadService;
-
-import java.util.ArrayList;
 
 
 /** TODO : make this as Single Instance
@@ -44,9 +42,6 @@ public class LinkItActivity extends Activity {
         initControl();
     }
 
-    private ArrayList<LinkItBoxListData> source = null;
-    private LinkItBoxListAdapter linkItBoxListAdapter = null;
-
     private void initWindow() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -64,13 +59,6 @@ public class LinkItActivity extends Activity {
         else {
             linkName = "";
         }
-        source = new ArrayList<>();
-        LinkItBoxListData linkItBoxListData = new LinkItBoxListData();
-        linkItBoxListData.boxName = "요리";
-        source.add(linkItBoxListData);
-        linkItBoxListData = new LinkItBoxListData();
-        linkItBoxListData.boxName = "아이";
-        source.add(linkItBoxListData);
     }
     private void initView() {
         spBox = (Spinner) findViewById(R.id.SP_box_link_it);
@@ -93,9 +81,9 @@ public class LinkItActivity extends Activity {
             }
 
             private void boxCheck(AdapterView<?> adapterView, int i) {
-                LinkItBoxListData linkItBoxListData = (LinkItBoxListData) adapterView.getItemAtPosition(i);
-                if (linkItBoxListData != null) {
-                    boxName = linkItBoxListData.boxName;
+                LinkBoxListData linkBoxListData = (LinkBoxListData) adapterView.getItemAtPosition(i);
+                if (linkBoxListData != null) {
+                    boxName = linkBoxListData.cbname;
                 } else {
                     boxName = "";
                 }
@@ -121,7 +109,7 @@ public class LinkItActivity extends Activity {
         });
     }
     private void initControl() {
-        linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), source);
-        spBox.setAdapter(linkItBoxListAdapter);
+        LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
+        spBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
     }
 }

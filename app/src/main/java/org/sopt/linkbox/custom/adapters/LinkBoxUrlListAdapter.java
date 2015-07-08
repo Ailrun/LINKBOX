@@ -9,11 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.engine.cache.DiskCache;
+import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
-import org.sopt.linkbox.custom.data.LinkBoxUrlListData;
+import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 import org.sopt.linkbox.R;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -22,18 +26,28 @@ import java.util.ArrayList;
  */
 public class LinkBoxUrlListAdapter extends BaseAdapter {
 
-    private ArrayList<LinkBoxUrlListData> source = null;
+    private ArrayList<LinkUrlListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
 
-    public LinkBoxUrlListAdapter(Context context, ArrayList<LinkBoxUrlListData> source) {
+    public LinkBoxUrlListAdapter(Context context, ArrayList<LinkUrlListData> source) {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
         this.context = context;
+        synchronized (Glide.class){
+            if(!Glide.isSetup()){
+                File file = Glide.getPhotoCacheDir(context);
+                int size = 1024*1024*1024;
+                DiskCache cache = DiskLruCacheWrapper.get(file, size);
+                GlideBuilder builder = new GlideBuilder(context);
+                builder.setDiskCache(cache);
+                Glide.setup(builder);
+            }
+        }
     }
 
-    public void setSource(ArrayList<LinkBoxUrlListData> source) {
+    public void setSource(ArrayList<LinkUrlListData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -54,16 +68,16 @@ public class LinkBoxUrlListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.layout_url_list_link_box, viewGroup, false);
         }
-        LinkBoxUrlListData linkBoxUrlListData = (LinkBoxUrlListData)getItem(i);
-        TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_title_link_box);
+        LinkUrlListData linkUrlListData = (LinkUrlListData)getItem(i);
+        TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_name_link_box);
         TextView tvUrlWriterDate = ViewHolder.get(view, R.id.TV_url_writer_date_link_box);
 
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
-        tvUrlTitle.setText(linkBoxUrlListData.urlTitle);
-        tvUrlWriterDate.setText(linkBoxUrlListData.urlWriter);
-        Glide.with(context).load(linkBoxUrlListData.urlThumb).into(ivUrlThumb);
+        tvUrlTitle.setText(linkUrlListData.urlname);
+        tvUrlWriterDate.setText(linkUrlListData.urlwriter);
+        Glide.with(context).load(linkUrlListData.urlthumb).into(ivUrlThumb);
 
         return view;
     }

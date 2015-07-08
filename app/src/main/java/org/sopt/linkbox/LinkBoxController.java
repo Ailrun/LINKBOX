@@ -4,10 +4,17 @@ import android.app.Application;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
+import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.custom.data.LinkUrlListData;
+import org.sopt.linkbox.custom.data.LinkUserData;
 import org.sopt.linkbox.custom.network.LinkNetworkInterface;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.ArrayList;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
@@ -17,9 +24,9 @@ import retrofit.client.OkClient;
  * Created by Junyoung on 2015-07-07.
  *
  */
-public class LinkBox extends Application {
-    private static LinkBox application;
-    public static LinkBox getApplication() {
+public class LinkBoxController extends Application {
+    private static LinkBoxController application;
+    public static LinkBoxController getApplication() {
         return application;
     }
 
@@ -27,8 +34,8 @@ public class LinkBox extends Application {
     public void onCreate() {
         super.onCreate();
 
-        LinkBox.application = this;
-        LinkBox.application.init();
+        LinkBoxController.application = this;
+        LinkBoxController.application.init();
     }
 
     private LinkNetworkInterface.EmbedlyInterface linkNetworkEmbedlyInterface;
@@ -61,11 +68,6 @@ public class LinkBox extends Application {
                 request.addQueryParam("key", LinkNetworkInterface.EmbedlyInterface.KEY);
             }
         });
-        builderServer.setRequestInterceptor(new RequestInterceptor() {
-            @Override
-            public void intercept(RequestFacade request) {
-            }
-        });
 
         builderEmbedly.setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
         builderServer.setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
@@ -77,5 +79,37 @@ public class LinkBox extends Application {
 
         linkNetworkEmbedlyInterface = restAdapterEmbedly.create(LinkNetworkInterface.EmbedlyInterface.class);
         linkNetworkMainServerInterface = restAdapterServer.create(LinkNetworkInterface.MainServerInterface.class);
+
+        boxListSource = new ArrayList<>();
+        linkBoxBoxListAdapter =
+                new LinkBoxBoxListAdapter(getApplicationContext(), boxListSource);
+        linkItBoxListAdapter =
+                new LinkItBoxListAdapter(getApplicationContext(), boxListSource);
+
+        urlListSource = new ArrayList<>();
+        linkBoxUrlListAdapter =
+                new LinkBoxUrlListAdapter(getApplicationContext(), urlListSource);
+
+        linkUserData = new LinkUserData();
     }
+
+    public static ArrayList<LinkBoxListData> boxListSource = null;
+
+    public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
+    public static LinkItBoxListAdapter linkItBoxListAdapter = null;
+    public static void notifyBoxDataSetChanged() {
+        linkBoxBoxListAdapter.notifyDataSetChanged();
+        linkItBoxListAdapter.notifyDataSetChanged();
+    }
+
+    public static int currentBox = 0;
+
+    public static ArrayList<LinkUrlListData> urlListSource = null;
+
+    public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
+    public static void notifyUrlDataSetChanged() {
+        linkBoxUrlListAdapter.notifyDataSetChanged();
+    }
+
+    public static LinkUserData linkUserData = null;
 }
