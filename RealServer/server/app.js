@@ -4,7 +4,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 
 var collectbox = require('./routes/collectbox');
-var collectlink = require('./routes/collectlink');
+var collecturl = require('./routes/collecturl');
 var usr = require('./routes/usr');
 var routes = require('./routes/index');
 
