@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.sopt.linkbox.LinkBoxController;
@@ -20,25 +19,18 @@ import java.util.ArrayList;
 public class NotificationListAdapter extends BaseExpandableListAdapter {
 
     private ArrayList<LinkBoxListData> group = null;
-    private ArrayList<Integer> groupResource = null;
     private ArrayList<ArrayList<LinkBoxListData>> source = null;
     private LayoutInflater layoutInflater = null;
 
-    public NotificationListAdapter(Context context, ArrayList<LinkBoxListData> group, ArrayList<Integer> groupResource,
+    public NotificationListAdapter(Context context, ArrayList<LinkBoxListData> group,
                                    ArrayList<ArrayList<LinkBoxListData>> source) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.group = group;
-        this.groupResource = groupResource;
         this.source = source;
     }
 
     public void setGroup(ArrayList<LinkBoxListData> group) {
         this.group = group;
-        notifyDataSetChanged();
-    }
-
-    public void setGroupResource(ArrayList<Integer> groupResource) {
-        this.groupResource = groupResource;
         notifyDataSetChanged();
     }
 
@@ -80,13 +72,9 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_notification_list_header, viewGroup, false);
         }
-        LinkBoxListData linkBoxListData = (LinkBoxListData) getGroup(i);
-        ImageButton ibExpand = (ImageButton) ViewHolder.get(view, R.id.IB_expand_user_setting);
-        TextView tvGroupNotification = (TextView) ViewHolder.get(view, R.id.TV_group_notification_user_setting);
-        CheckBox cbGroupNotification = (CheckBox) ViewHolder.get(view, R.id.CB_group_notification_user_setting);
-        if (groupResource.get(i) != null) {
-            ibExpand.setImageResource(groupResource.get(i).intValue());
-        }
+        LinkBoxListData linkBoxListData = getGroup(i);
+        TextView tvGroupNotification = ViewHolder.get(view, R.id.TV_group_notification_user_setting);
+        CheckBox cbGroupNotification = ViewHolder.get(view, R.id.CB_group_notification_user_setting);
         tvGroupNotification.setText(linkBoxListData.cbname);
         cbGroupNotification.setChecked(LinkBoxController.defaultAlarm);
         cbGroupNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -102,9 +90,9 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_notification_list_item, viewGroup, false);
         }
-        LinkBoxListData linkBoxListData = (LinkBoxListData) getChild(i, i2);
-        TextView tvChildNotification = (TextView) ViewHolder.get(view, R.id.TV_child_notification_user_setting);
-        CheckBox cbChildNotification = (CheckBox) ViewHolder.get(view, R.id.CB_child_notification_user_setting);
+        LinkBoxListData linkBoxListData = getChild(i, i2);
+        TextView tvChildNotification = ViewHolder.get(view, R.id.TV_child_notification_user_setting);
+        CheckBox cbChildNotification = ViewHolder.get(view, R.id.CB_child_notification_user_setting);
         tvChildNotification.setText(linkBoxListData.cbname);
         cbChildNotification.setChecked(LinkBoxController.defaultAlarm);
         return view;

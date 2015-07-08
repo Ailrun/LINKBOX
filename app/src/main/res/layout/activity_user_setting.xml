@@ -60,7 +60,7 @@
                 android:ems="10"
                 android:layout_alignBottom="@+id/TV_display_name_user_setting"
                 android:layout_alignParentEnd="true"
-                android:editable="false"/>
+                android:inputType="none"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                 android:ems="10"
                 android:layout_below="@+id/ET_name_user_setting"
                 android:layout_alignParentEnd="true"
-                android:editable="false"/>
+                android:inputType="none"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                 android:layout_below="@+id/TV_display_email_user_setting"
                 android:layout_alignStart="@+id/TV_display_email_user_setting"
                 android:layout_alignParentEnd="true"
-                android:editable="false"/>
+                android:inputType="none"/>
 
 
         </RelativeLayout>
@@ -99,7 +99,13 @@
             android:layout_height="120dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/IB_expand_user_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/abc_btn_radio_to_on_mtrl_015"/>
 
             <ExpandableListView
                 android:id="@+id/ELV_notification_list_user_setting"

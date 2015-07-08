@@ -32,8 +32,6 @@ import org.sopt.linkbox.service.LinkHeadService;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
-import static org.sopt.linkbox.debugging.TaskDebugging.debug;
-
 /**
  * Created by Junyoung on 2015-06-30.
  *
@@ -71,14 +69,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         startService(new Intent(getApplicationContext(), LinkHeadService.class));
-//      For Debug : Start
-        debug(this);
-        if (!getIntent().hasExtra("aa")) {
-            Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
-            intent.putExtra("aa", 5);
-            startActivity(intent);
-        }
-//      For Debug : End
         initData();
         initView();
         initControl();

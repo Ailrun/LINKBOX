@@ -1,10 +1,10 @@
 package org.sopt.linkbox;
 
 import android.content.SharedPreferences;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.KeyListener;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
 
 import org.sopt.linkbox.custom.adapters.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
@@ -37,7 +36,6 @@ public class UserSettingActivity extends AppCompatActivity {
     SharedPreferences.Editor sharedEditor;
 
     ArrayList<LinkBoxListData> groupList = null;
-    ArrayList<Integer> groupResourceList = null;
     ArrayList<ArrayList<LinkBoxListData>> childList = null;
 
     @Override
@@ -76,9 +74,6 @@ public class UserSettingActivity extends AppCompatActivity {
         linkBoxListData.cbname = "박스 설정";
         groupList = new ArrayList<>();
         groupList.add(linkBoxListData);
-        Integer integer = new Integer(R.drawable.abc_btn_check_material);
-        groupResourceList = new ArrayList<>();
-        groupResourceList.add(integer);
         childList = new ArrayList<>();
         childList.add(LinkBoxController.boxListSource);
     }
@@ -87,8 +82,14 @@ public class UserSettingActivity extends AppCompatActivity {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
         setSupportActionBar(tToolbar);
         etName = (EditText)findViewById(R.id.ET_name_user_setting);
+        etName.setTag(etName.getKeyListener());
+        etName.setKeyListener(null);
         etMail = (EditText)findViewById(R.id.ET_mail_user_setting);
+        etMail.setTag(etName.getKeyListener());
+        etMail.setKeyListener(null);
         etChangePassword = (EditText)findViewById(R.id.ET_changepass_user_setting);
+        etChangePassword.setTag(etChangePassword.getKeyListener());
+        etChangePassword.setKeyListener(null);
         elvNotification = (ExpandableListView)findViewById(R.id.ELV_notification_list_user_setting);
         cbFloating = (CheckBox)findViewById(R.id.CB_floating_user_setting);
 
@@ -105,69 +106,111 @@ public class UserSettingActivity extends AppCompatActivity {
         etName.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                etName.setFocusableInTouchMode(true);
-                etName.setFocusable(true);
+                etName.setKeyListener((KeyListener) etName.getTag());
                 return false;
             }
         });
-
+        etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    etName.setKeyListener(null);
+                }
+            }
+        });
         etName.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
                     // 이전 설정 이름 삭제
-                    sharedEditor.remove("userName");
+                    sharedEditor.remove("usrname");
                     sharedEditor.commit();
 
                     String name = etName.getText().toString();
 
                     etName.setText(name);
-                    sharedEditor.putString("userName", name);
+                    sharedEditor.putString("usrname", name);
                     sharedEditor.commit();
                 }
                 return false;
             }
         });
 
-
         etMail.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                etName.setFocusableInTouchMode(true);
+                etMail.setKeyListener((KeyListener)etMail.getTag());
                 return false;
             }
         });
-
+        etMail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    etMail.setKeyListener(null);
+                }
+            }
+        });
         etMail.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
-                    sharedEditor.remove("userEmail");
+                    sharedEditor.remove("usremail");
                     sharedEditor.commit();
 
                     String email = etMail.getText().toString();
 
                     etName.setText(email);
-                    sharedEditor.putString("userEmail", email);
+                    sharedEditor.putString("usremail", email);
                     sharedEditor.commit();
                 }
                 return false;
             }
         });
-        ((ImageButton)LinkBoxController.notificationListAdapter.getGroupView(0, true, null, null)
-                .findViewById(R.id.IB_expand_user_setting))
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Log.d("TAG", "TEST/nofi : " + "in click");
-                        if (elvNotification.isGroupExpanded(0)) {
-                            elvNotification.collapseGroup(0);
-                        }
-                        else {
-                            elvNotification.expandGroup(0);
-                        }
-                    }
-                });
+
+        etChangePassword.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                etChangePassword.setKeyListener((KeyListener)etChangePassword.getTag());
+                return false;
+            }
+        });
+        etChangePassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    etChangePassword.setKeyListener(null);
+                }
+            }
+        });
+        etChangePassword.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+                if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
+                    sharedEditor.remove("pass");
+                    sharedEditor.commit();
+
+                    String pass = etChangePassword.getText().toString();
+
+                    etName.setText(pass);
+                    sharedEditor.putString("pass", pass);
+                    sharedEditor.commit();
+                }
+                return false;
+            }
+        });
+
+        findViewById(R.id.IB_expand_user_setting).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("TAG", "TEST/nofi : " + "out class click");
+                if (elvNotification.isGroupExpanded(0)) {
+                    elvNotification.collapseGroup(0);
+                } else {
+                    elvNotification.expandGroup(0);
+                }
+            }
+        });
 
         // sharedPref - userProfile파일에 저장하고 막판에 DB 갱신?
         /******************************************************/
@@ -183,7 +226,7 @@ public class UserSettingActivity extends AppCompatActivity {
     }
 
     void initControl() {
-        LinkBoxController.notificationListAdapter = new NotificationListAdapter(getApplicationContext(), groupList, groupResourceList, childList);
+        LinkBoxController.notificationListAdapter = new NotificationListAdapter(getApplicationContext(), groupList, childList);
         elvNotification.setAdapter(LinkBoxController.notificationListAdapter);
         elvNotification.expandGroup(0);
     }

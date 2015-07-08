@@ -5,22 +5,14 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30dp">
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/IB_expand_user_setting"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true" />
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/indigo500"
             android:text="BOX 알림설정"
             android:id="@+id/TV_group_notification_user_setting"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/IB_expand_user_setting" />
+            android:layout_alignParentTop="true" />
 
         <CheckBox
             android:layout_width="wrap_content"

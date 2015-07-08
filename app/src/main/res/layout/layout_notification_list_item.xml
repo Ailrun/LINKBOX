@@ -8,17 +8,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearance"
+            android:layout_marginStart="30dp"
             android:text="Medium Text"
             android:id="@+id/TV_child_notification_user_setting"
-            android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/IB_expand_user_setting" />
-
+            android:layout_centerVertical="true"/>
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/CB_child_notification_user_setting"
-            android:layout_alignBottom="@+id/TV_child_notification_user_setting"
+            android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/TV_child_notification_user_setting" />
     </RelativeLayout>
 </LinearLayout>
