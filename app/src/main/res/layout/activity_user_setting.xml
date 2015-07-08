@@ -104,7 +104,7 @@
             <include
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/layout_notifiList_header"/>
+                layout="@layout/layout_notification_list_header"/>
             <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
