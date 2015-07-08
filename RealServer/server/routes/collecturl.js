@@ -21,7 +21,8 @@ router.post('/collecturl/{cbid}/addurl', function(request, response, next) {
             res.json({
                         result : 'fail'
                     });
-  } else {
+        }
+        else {
         console.log("result", result);
             res.json({
                         result : 'success'
@@ -29,7 +30,7 @@ router.post('/collecturl/{cbid}/addurl', function(request, response, next) {
                     });
                 }
         });
-};
+});
 
 
 
