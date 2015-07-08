@@ -86,4 +86,8 @@ public class LinkNetworkData {
             int thumbnail_height;
         }
     }
+    public static class ServerData {
+        private static String TAG = "TEST/" + ServerData.class.getName() + " : ";
+        private static LinkNetworkInterface.MainServerInterface mainServerInterface;
+    }
 }

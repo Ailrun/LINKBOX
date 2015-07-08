@@ -20,4 +20,5 @@
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_login_data">LoginDataActivity</string>
     <string name="title_activity_user_setting">UserSettingActivity</string>
+    <string name="title_activity_notification_list_adapter">NotificationListAdapter</string>
 </resources>
