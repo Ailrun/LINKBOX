@@ -4,28 +4,84 @@ var mysql = require('mysql');
 var router = express.Router();
 var connection = mysql.createConnection({
 
-	'host' : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com',
-	'user' : 'LINKBOX',
-	'password' : 'dlrpqkfhdnflek',
-	'database' : 'LINKBOX',
+    'host' : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com'
+    'user' : 'LINKBOX',  
+    'password' : 'dlrpqkfhdnflek',
+    'database' : 'LINKBOX'
 });
 
-router.get('/{usrid}/cbid', function(req, res, next) {
-  
-	connection.query('select * from collectbox where cbid=?;', [req.params.cbid], function (error, cursor) {
 
-                if (cursor.length > 0) {
+//박스 추가
+router.post('/collectbox/{usrid}/addbox', function(request, response, next) {
 
-                        res.json(cursor[0]);
-                }
-                else {
-                        res.status(503).json({
-                            result : false,
-							reason : "Cannot find selected article"
-						});
+ connection.query('insert into collectbox(cbname) values (?);', [ request.body.cbname ], function (error, result) {
+     if (error) {
+        console.log("err", error);
+            res.json({
+                        result : 'fail'
+                    });
+  } else {
+        console.log("result", result);
+            res.json({
+                        result : 'success'
+
+                    });
                 }
         });
+};
+
+
+
+//박스삭제
+router.post('/collectbox/{usrid}/removebox', function(req, res, next) {
+    
+        connection.query('delete * from collectbox where cbname;', [req.body.cbname], function (error, cursor) {
+
+                                if (cursor.length > 0) {
+                                        var result = cursor[0];
+                                        res.json({
+                                    result : true,
+                                                                                                
+                                        });
+                                }
+                                else {
+                                        res.status(503).json({
+                                 result : false,
+                                });
+                                }
+                        });
+
+                      
+               });
+
+
+
+//박스 수정
+router.post('/collectbox/{usrid}/editbox', function(req, res, next) {
+    
+ connection.query("UPDATE collectbox WHERE cbname=;", [cbname], function(error, result) {
+     if (error) {
+            console.log("err", error);
+            res.json({
+                        result : 'fail'
+                    });
+  } else {
+            console.log("result", result);
+            res.json({
+                        result : 'success'
+                    });
+            }
+    });
+
 });
 
+//박스 리스트 보내기
+router.get('/collectbox/{usrid}/boxlist', function(req, res, next) {
+  
+   connection.query('select cbname, cbid from collectbox order by timestamp desc;', function (error, cursor) {
+      
+      res.json(cursor);
+   });
+});
 
 module.exports = router;
