@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.google.android.gms.gcm.GcmListenerService;
 
 import org.sopt.linkbox.LinkBoxActivity;
+import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 
 /**
@@ -33,10 +34,10 @@ public class LinkGcmListenerService extends GcmListenerService{
         builder.setNumber(1);
         builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         builder.setContentTitle("LINK BOX");
-        builder.setContentText(data.getString("cb_name") + "박스의 " + data.getString("user_name") + " 님이 "+ data.getString("address") + "를 추가하셨습니다.");
+        builder.setContentText(data.getString("cbname") + "박스의 " + data.getString("username") + " 님이 "+ data.getString("address") + "를 추가하셨습니다.");
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
         builder.setPriority(Notification.PRIORITY_MAX);
-        nm.notify(Integer.getInteger(data.getString("cb_id")) + 1, builder.build());
+        nm.notify(data.getInt("cbid") + 1, builder.build());
     }
 }

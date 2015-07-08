@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30dp">
@@ -10,7 +9,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageButton"
+            android:id="@+id/IB_expand_user_setting"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true" />
 
@@ -19,15 +18,15 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="BOX 알림설정"
-            android:id="@+id/textView3"
+            android:id="@+id/TV_group_notification_user_setting"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageButton" />
+            android:layout_toEndOf="@+id/IB_expand_user_setting" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/CB_setAll_noti"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3" />
+            android:id="@+id/CB_group_notification_user_setting"
+            android:layout_alignBottom="@+id/TV_group_notification_user_setting"
+            android:layout_toEndOf="@+id/TV_group_notification_user_setting" />
     </RelativeLayout>
 </LinearLayout>

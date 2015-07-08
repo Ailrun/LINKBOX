@@ -190,13 +190,13 @@ public class LinkNetwork {
         public static void postEditBoxFromServerAsync(final int ind, final String newname) {
             fillInterface();
 
-            LinkBoxListData linkBoxListData = LinkBoxController.boxListSource.get(ind);
-            linkBoxListData.cbname = newname;
+            final LinkBoxListData linkBoxListDataOrig = LinkBoxController.boxListSource.get(ind);
+            linkBoxListDataOrig.cbname = newname;
 
             Log.d(TAG, "EditBox by usrid : " + LinkBoxController.linkUserData.usrid +
-                    " as cbid : " + linkBoxListData.cbid +
+                    " as cbid : " + linkBoxListDataOrig.cbid +
                     " to new name : " + newname);
-            mainServerInterface.postEditBoxAsync(LinkBoxController.linkUserData.usrid, linkBoxListData, new Callback<LinkBoxListData>() {
+            mainServerInterface.postEditBoxAsync(LinkBoxController.linkUserData.usrid, linkBoxListDataOrig, new Callback<LinkBoxListData>() {
                 @Override
                 public void success(LinkBoxListData linkBoxListData, Response response) {
                     //LinkBoxController.boxListSource.set(ind, linkBoxListData);
@@ -266,10 +266,10 @@ public class LinkNetwork {
             fillInterface();
 
             final LinkBoxListData linkBoxListData = LinkBoxController.boxListSource.get(LinkBoxController.currentBox);
-            LinkUrlListData linkUrlListData = LinkBoxController.urlListSource.get(ind);
-            linkUrlListData.urlname = newname;
+            LinkUrlListData linkUrlListDataOrig = LinkBoxController.urlListSource.get(ind);
+            linkUrlListDataOrig.urlname = newname;
 
-            mainServerInterface.postEditUrlAsync(linkBoxListData.cbid, linkUrlListData, new Callback<LinkUrlListData>() {
+            mainServerInterface.postEditUrlAsync(linkBoxListData.cbid, linkUrlListDataOrig, new Callback<LinkUrlListData>() {
                 @Override
                 public void success(LinkUrlListData linkUrlListData, Response response) {
                     //LinkBoxController.urlListSource.set(ind, linkUrlListData);

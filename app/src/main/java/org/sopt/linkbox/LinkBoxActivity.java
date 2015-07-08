@@ -24,6 +24,7 @@ import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.network.LinkNetwork;
@@ -80,8 +81,8 @@ public class LinkBoxActivity extends AppCompatActivity {
 //      For Debug : End
         initData();
         initView();
-        initListener();
         initControl();
+        initListener();
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -173,6 +174,9 @@ public class LinkBoxActivity extends AppCompatActivity {
         initDrawerEditHeaderListener();
     }
     private void initControl() {
+        LinkBoxController.linkBoxBoxListAdapter =
+            new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
+
         lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
         lvBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
     }
@@ -225,6 +229,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvBoxList = (ListView) findViewById(R.id.LV_box_list_link_box);
         lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
         dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
+        bToPremium = (Button) findViewById(R.id.B_to_premium_link_box);
+        bToSettings = (Button) findViewById(R.id.B_to_settings_link_box);
     }
     private void initDrawerListener() {
         lvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -263,6 +269,12 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         };
         dlBoxList.setDrawerListener(abBoxList);
+        bToSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
+            }
+        });
     }
 
     private void initDrawerButtonHeaderView() {

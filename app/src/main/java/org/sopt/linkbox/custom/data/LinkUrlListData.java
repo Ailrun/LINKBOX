@@ -5,11 +5,11 @@ package org.sopt.linkbox.custom.data;
  *
  */
 public class LinkUrlListData {
+    public int urlid;
     public String url;
     public String urlname;
     public String urlwriter;
     public String urldate;
     public String urlthumb;
-    public String urlid;
     public boolean isgood;
 }

@@ -109,6 +109,8 @@ public class LinkItActivity extends Activity {
         });
     }
     private void initControl() {
+        LinkBoxController.linkItBoxListAdapter =
+                new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         spBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
     }

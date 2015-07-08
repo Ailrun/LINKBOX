@@ -7,6 +7,7 @@ import com.squareup.okhttp.OkHttpClient;
 import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.data.LinkUserData;
@@ -81,10 +82,6 @@ public class LinkBoxController extends Application {
         linkNetworkMainServerInterface = restAdapterServer.create(LinkNetworkInterface.MainServerInterface.class);
 
         boxListSource = new ArrayList<>();
-        linkBoxBoxListAdapter =
-                new LinkBoxBoxListAdapter(getApplicationContext(), boxListSource);
-        linkItBoxListAdapter =
-                new LinkItBoxListAdapter(getApplicationContext(), boxListSource);
 
         urlListSource = new ArrayList<>();
         linkBoxUrlListAdapter =
@@ -97,10 +94,19 @@ public class LinkBoxController extends Application {
 
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
+    public static NotificationListAdapter notificationListAdapter = null;
     public static void notifyBoxDataSetChanged() {
-        linkBoxBoxListAdapter.notifyDataSetChanged();
-        linkItBoxListAdapter.notifyDataSetChanged();
+        if (linkBoxBoxListAdapter != null) {
+            linkBoxBoxListAdapter.notifyDataSetChanged();
+        }
+        if (linkItBoxListAdapter != null) {
+            linkItBoxListAdapter.notifyDataSetChanged();
+        }
+        if (notificationListAdapter != null) {
+            notificationListAdapter.notifyDataSetChanged();
+        }
     }
+
 
     public static int currentBox = 0;
 
@@ -108,8 +114,13 @@ public class LinkBoxController extends Application {
 
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
     public static void notifyUrlDataSetChanged() {
-        linkBoxUrlListAdapter.notifyDataSetChanged();
+        if (linkBoxUrlListAdapter != null) {
+            linkBoxUrlListAdapter.notifyDataSetChanged();
+        }
     }
 
     public static LinkUserData linkUserData = null;
+
+
+    public static boolean defaultAlarm = false;
 }

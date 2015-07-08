@@ -2,25 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:orientation="vertical">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="30dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Medium Text"
-            android:id="@+id/textView3"
+            android:id="@+id/TV_child_notification_user_setting"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/imageButton" />
+            android:layout_toEndOf="@+id/IB_expand_user_setting" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/checkBox"
-            android:layout_alignBottom="@+id/textView3"
-            android:layout_toEndOf="@+id/textView3" />
+            android:id="@+id/CB_child_notification_user_setting"
+            android:layout_alignBottom="@+id/TV_child_notification_user_setting"
+            android:layout_toEndOf="@+id/TV_child_notification_user_setting" />
     </RelativeLayout>
 </LinearLayout>

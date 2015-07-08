@@ -39,38 +39,38 @@ public class LinkNetworkInterface {
         public void postSignUpAsync(@Body LinkUserData linkUserData, Callback<LinkUserData> callback);
 
         @GET("/collectbox/{usrid}/boxlist")
-        public void getBoxListAsync(@Path("usrid") String usrid, Callback<List<LinkBoxListData>> callback);
+        public void getBoxListAsync(@Path("usrid") int usrid, Callback<List<LinkBoxListData>> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collectbox/{usrid}/addbox")
-        public void postAddBoxAsync(@Path("usrid") String usrid, @Body LinkBoxListData linkBoxListData, Callback<LinkBoxListData> callback);
+        public void postAddBoxAsync(@Path("usrid") int usrid, @Body LinkBoxListData linkBoxListData, Callback<LinkBoxListData> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collectbox/{usrid}/removebox")
-        public void postRemoveBoxAsync(@Path("usrid") String usrid, @Body LinkBoxListData linkBoxListData, Callback<Object> callback);
+        public void postRemoveBoxAsync(@Path("usrid") int usrid, @Body LinkBoxListData linkBoxListData, Callback<Object> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collectbox/{usrid}/editbox")
-        public void postEditBoxAsync(@Path("usrid") String usrid, @Body LinkBoxListData linkBoxListData, Callback<LinkBoxListData> callback);
+        public void postEditBoxAsync(@Path("usrid") int usrid, @Body LinkBoxListData linkBoxListData, Callback<LinkBoxListData> callback);
 
         @GET("/collecturl/{cbid}/urllist")
-        public void getUrlListAsync(@Path("cbid") String cbid, Callback<List<LinkUrlListData>> callback);
+        public void getUrlListAsync(@Path("cbid") int cbid, Callback<List<LinkUrlListData>> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/addurl")
-        public void postAddUrlAsync(@Path("cbid") String cbid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
+        public void postAddUrlAsync(@Path("cbid") int cbid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/removeurl")
-        public void postRemoveUrlAsync(@Path("cbid") String cbid, @Body LinkUrlListData linkUrlListData, Callback<Object> callback);
+        public void postRemoveUrlAsync(@Path("cbid") int cbid, @Body LinkUrlListData linkUrlListData, Callback<Object> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/editurl")
-        public void postEditUrlAsync(@Path("cbid") String cbid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
+        public void postEditUrlAsync(@Path("cbid") int cbid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/{urlid}/editgood")
-        public void postEditGoodAsync(@Path("cbid") String cbid, @Path("urlid") String urlid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
+        public void postEditGoodAsync(@Path("cbid") int cbid, @Path("urlid") int urlid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/usr/signdown")
