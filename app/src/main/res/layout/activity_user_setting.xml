@@ -38,20 +38,9 @@
                 android:text="Name"
                 android:id="@+id/textView2"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="8dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="user_name"
-                android:id="@+id/textView3"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="8dp"
-                android:layout_alignTop="@+id/textView2"
-                android:layout_alignParentEnd="true" />
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,24 +52,35 @@
                 android:layout_alignStart="@+id/textView2"
                 android:layout_marginBottom="8dp" />
 
-            <TextView
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="user_email"
-                android:id="@+id/textView5"
-                android:layout_below="@+id/textView3"
-                android:layout_alignEnd="@+id/textView3"
-                android:layout_marginBottom="8dp" />
+                android:id="@+id/ET_name_user_setting"
+                android:text="userID"
+                android:ems="10"
+                android:layout_alignBottom="@+id/textView2"
+                android:layout_alignParentEnd="true"
+                android:editable="false"/>
 
-            <Button
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New Button"
-                android:id="@+id/button"
-                android:layout_below="@+id/textView5"
-                android:layout_alignEnd="@+id/textView5"
-                android:layout_alignStart="@+id/textView4" />
+                android:id="@+id/ET_mail_user_setting"
+                android:text="userEmail"
+                android:ems="10"
+                android:layout_below="@+id/ET_name_user_setting"
+                android:layout_alignParentEnd="true"
+                android:editable="false"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ET_changepass_user_setting"
+                android:hint="Long Press to Change Password"
+                android:layout_below="@+id/textView4"
+                android:layout_alignStart="@+id/textView4"
+                android:layout_alignParentEnd="true"
+                android:editable="false"/>
 
 
         </RelativeLayout>
@@ -94,20 +94,23 @@
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"/>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="116dp"
+            android:layout_height="120dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:layout_weight="0.15">
+            android:orientation="vertical">
 
-
-            <ExpandableListView
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/layout_notifiList_header"/>
+            <ListView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/expandableListView"
-                android:layout_alignParentStart="true" />
-        </RelativeLayout>
+                android:layout_marginStart="25dp"
+                android:id="@+id/LV_notiList_user_setting" />
+        </LinearLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -117,6 +120,40 @@
             android:id="@+id/textView6"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hide Floating Button"
+            android:id="@+id/CB_user_setting"
+            android:layout_marginStart="30dp"
+            android:layout_marginBottom="10dp"
+            android:checked="false" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOG OUT"
+                android:id="@+id/BTN_logout_user_setting"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QUIT"
+                android:id="@+id/BTN_quit_user_setting"
+                android:layout_below="@+id/BTN_logout_user_setting"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
     </LinearLayout>
+
+    <!--회원탈퇴, 로그아웃 위젯-->
 
 </LinearLayout>
