@@ -1,10 +1,9 @@
 var express = require('express');
-var mysql = require('mysql');
-
 var router = express.Router();
+var mysql = require('mysql');
 var connection = mysql.createConnection({
 
-    'host' : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com'
+    'host' : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com',
     'user' : 'LINKBOX',  
     'password' : 'dlrpqkfhdnflek',
     'database' : 'LINKBOX'
@@ -59,7 +58,7 @@ router.post('/collectbox/{usrid}/removebox', function(req, res, next) {
 //박스 수정
 router.post('/collectbox/{usrid}/editbox', function(req, res, next) {
     
- connection.query("UPDATE collectbox WHERE cbname=;", [cbname], function(error, result) {
+ connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.body.cbid], function(error, result) {
      if (error) {
             console.log("err", error);
             res.json({

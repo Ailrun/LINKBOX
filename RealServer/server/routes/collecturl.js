@@ -2,6 +2,7 @@ var express = require('express');
 var mysql = require('mysql');
 var router = express.Router();
 
+
 var connection = mysql.createConnection({
 
     'host' : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com',
@@ -59,7 +60,7 @@ router.post('/collecturl/{cbid}/removeurl', function(req, res, next) {
 //링크 수정
 router.post('/collecturl/{cbid}/editurl', function(req, res, next) {
     
- connection.query("UPDATE collecturl WHERE urlname=;", [req.body.urlname], function(error, result) {
+ connection.query("UPDATE collecturl SET urlname=? Where urlid=?;", [req.body.urlname, req.body.urlid], function(error, result) {
      if (error) {
             console.log("err", error);
             res.json({
