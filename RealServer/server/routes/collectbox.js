@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mysql = require('mysql');
+
 var connection = mysql.createConnection({
 
     'host' : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com',
@@ -27,7 +28,7 @@ router.post('/collectbox/{usrid}/addbox', function(request, response, next) {
                     });
                 }
         });
-};
+});
 
 
 
