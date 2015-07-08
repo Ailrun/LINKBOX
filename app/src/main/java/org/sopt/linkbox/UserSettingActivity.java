@@ -21,7 +21,7 @@ import android.widget.TextView;
 public class UserSettingActivity extends Activity {
     EditText editName = null;
     EditText editMail = null;
-    Button changePasswrd = null;
+    EditText changePassword = null;
     ImageButton openList = null;
     CheckBox setAllNotification = null;
     ListView notificationLV = null;
@@ -45,7 +45,7 @@ public class UserSettingActivity extends Activity {
     void initView(){
         editName = (EditText)findViewById(R.id.ET_name_user_setting);
         editMail = (EditText)findViewById(R.id.ET_mail_user_setting);
-        changePasswrd = (Button)findViewById(R.id.BTN_password_user_setting);
+        changePassword = (EditText)findViewById(R.id.ET_changepass_user_setting);
         setAllNotification = (CheckBox)findViewById(R.id.CB_setAll_noti);
         notificationLV = (ListView)findViewById(R.id.LV_notiList_user_setting);
         hideFloatingBTN = (CheckBox)findViewById(R.id.CB_user_setting);
