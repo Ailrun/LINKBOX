@@ -45,7 +45,7 @@ public class UserSettingActivity extends Activity {
     void initView(){
         editName = (EditText)findViewById(R.id.ET_name_user_setting);
         editMail = (EditText)findViewById(R.id.ET_mail_user_setting);
-        changePasswrd = (Button)findViewById(R.id.BT_password_user_setting);
+        changePasswrd = (Button)findViewById(R.id.BTN_password_user_setting);
         setAllNotification = (CheckBox)findViewById(R.id.CB_setAll_noti);
         notificationLV = (ListView)findViewById(R.id.LV_notiList_user_setting);
         hideFloatingBTN = (CheckBox)findViewById(R.id.CB_user_setting);
