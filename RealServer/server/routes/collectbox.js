@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
     'database' : 'LINKBOX'
 });
 
-
+/*
 //박스 추가
 router.post('/collectbox/{usrid}/addbox', function(req, res, next) {
 
@@ -48,7 +48,7 @@ router.post('/collectbox/{usrid}/addbox', function(req, res, next) {
 
 
 
-/*//박스삭제
+//박스삭제
 router.post('/collectbox/{usrid}/removebox', function(req, res, next) {
     
         connection.query('delete * from collectbox where cbid;', [req.body.cbid], function (error, cursor) {
@@ -90,14 +90,15 @@ router.post('/collectbox/{usrid}/editbox', function(req, res, next) {
     });
 
 });
+*/
 
 //박스 리스트 보내기
-router.get('/collectbox/{usrid}/boxlist', function(req, res, next) {
+router.get('/:usrid', function(req, res, next) {
   
-   connection.query('select cbname, cbid from collectbox order by timestamp desc;', function (error, cursor) {
+   connection.query('select cbname, cbid from collectbox where usrid=?;', [req.param.usrid], function (error, cursor) {
       
       res.json(cursor);
    });
 });
-*/
+
 module.exports = router;
