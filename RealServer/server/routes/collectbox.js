@@ -13,8 +13,6 @@ var connection = mysql.createConnection({
 
 //박스추가
 router.post('/:usrid/addbox', function(request, response, next){
-    
-      // var cbname = request.body.cbname;
   
         connection.query('insert into collectbox(cbname) values(?);', [request.body.cbname],function(error,info){
             
