@@ -45,7 +45,7 @@ connection.query('SELECT MAX(usrid)+1 from usr;', function(error, cursor){
                 response.sendStatus(503);
             else{
                 response.json({
-                    "result":cursor[0]
+                    "result":cursor[0][0]
                 })
             }
         });
