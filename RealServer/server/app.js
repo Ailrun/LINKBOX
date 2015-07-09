@@ -20,7 +20,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
 app.use('/collectbox', collectbox);
 app.use('/collecturl', collecturl);
 app.use('/usr', usr);
