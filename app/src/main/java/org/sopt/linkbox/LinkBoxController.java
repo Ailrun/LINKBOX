@@ -6,6 +6,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.adapters.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
@@ -84,14 +85,13 @@ public class LinkBoxController extends Application {
         boxListSource = new ArrayList<>();
 
         urlListSource = new ArrayList<>();
-        linkBoxUrlListAdapter =
-                new LinkBoxUrlListAdapter(getApplicationContext(), urlListSource);
+
+        editorListSource = new ArrayList<>();
 
         linkUserData = new LinkUserData();
     }
 
     public static ArrayList<LinkBoxListData> boxListSource = null;
-
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
@@ -110,14 +110,23 @@ public class LinkBoxController extends Application {
 
     public static int currentBox = 0;
 
-    public static ArrayList<LinkUrlListData> urlListSource = null;
-
+    public static ArrayList<ArrayList<LinkUrlListData>> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.notifyDataSetChanged();
         }
     }
+
+
+    public static ArrayList<ArrayList<String>> editorListSource = null;
+    public static LinkEditorListAdapter linkEditorListAdapter = null;
+    public static void notifyEditorDataSetChanged() {
+        if (linkEditorListAdapter != null) {
+            linkEditorListAdapter.notifyDataSetChanged();
+        }
+    }
+
 
     public static LinkUserData linkUserData = null;
 

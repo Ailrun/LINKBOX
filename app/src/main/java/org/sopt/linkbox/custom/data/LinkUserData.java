@@ -7,5 +7,7 @@ public class LinkUserData {
     public int usrid;
     public String usremail;
     public String usrname;
+    public String usrprofile;
     public String pass;
+    public boolean premium;
 }

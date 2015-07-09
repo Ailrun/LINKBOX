@@ -11,6 +11,7 @@
             android:textAppearance="?android:attr/textAppearance"
             android:layout_marginStart="30dp"
             android:text="Medium Text"
+            android:textColor="@color/realBlack"
             android:id="@+id/TV_child_notification_user_setting"
             android:layout_centerVertical="true"/>
         <CheckBox
