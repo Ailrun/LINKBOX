@@ -26,8 +26,6 @@ router.get('/', function(req, res, next) {
 router.post('/signup', function(request, response, next){
     
     connection.query('SELECT MAX(usrid)+1 AS max from usr;', function(error, cursor){
-        console.log(request.body.usrname);
-        console.log(cursor[0]);
     connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?);', [cursor[0].max, request.body.usrname, request.body.usremail, request.body.pass], function(error, info) {
             if(error != undefined)
                 response.sendStatus(503);
