@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/signup', function(req, res, next){
     console.log(req);
-    connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) value((SELECT MAX(usrid)+1 FROM usr),?,?,?);', [req.body.usrname, req.body.usremail, req.body.pass], function(error, cursor){
+    connection.query('INSERT INTO usr usrid, (usrname, usremail, pass) SELECT MAX(usrid)+1 FROM usr values (?,?,?);', [req.body.usrname, req.body.usremail, req.body.pass], function(error, cursor){
         
         console.log(cursor[0]);
             if(error == undefined)
