@@ -37,15 +37,15 @@ router.post('/:usrid/removebox', function(req, res, next) {
 
             console.log(cursor);
                                 if (error != undefined) {
-                                        var result = cursor[0];
+                                        
                                         res.json({
                                                     result : true,
                                                                                                                                         });
                                             }
                                 else {
                                         res.status(503).json({
-                                 result : false,
-                                });
+                                                    result : false,
+                                                });
                                 }
                         });
 
