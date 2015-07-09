@@ -38,14 +38,14 @@ router.post('/', function(request, response, next){
     
     ///////////////////////////////////////////
     //files은 path 주소에 넣고, 경로명이다.
-connection.query('SELECT MAX(usrid)+1 from usr;', function(error, cursor){
+connection.query('SELECT MAX(usrid)+1 AS max from usr;', function(error, cursor){
     console.log(cursor[0]);
     connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?)', [cursor[0], usrname, usremail, pass], function(error, info) {
             if(error == undefined)
                 response.sendStatus(503);
             else{
                 response.json({
-                    "result":cursor[0][0]
+                    "result":cursor[0]
                 })
             }
         });
