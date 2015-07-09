@@ -28,7 +28,16 @@ router.post('/',function(req,res){
                 'pass' :req.body.pass,
                 'usrname':req.body.usrname,
                 'usremail':req.body.usremail};
-    var query = connection.query('insert into usr set ?',user,function(err,result){
+    var query = connection.query('insert into usr(usrid, pass, usrname, usremail) values (?, ?, ?, ?);', [req.body.usrid, req.body.pass, req.body.usrname, req.body.usremail], function(err,result){
+        connection.query('select * from usr where id=?;', [info.insertId], function(error, cursor){
+            res.json({
+                result : true,
+                usrid : cursor[0].usrid,
+                pass : cursor[0].pass,
+                usrname : cursor[0].usrname,
+                usremail : cursor[0].usremail
+            });
+        });
         if (err) {
             console.error(err);
             throw err;
