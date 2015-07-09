@@ -36,12 +36,12 @@ router.post('/:usrid/removebox', function(req, res, next) {
         connection.query('delete * from collectbox where cbid;', [req.body.cbid], function (error, cursor) {
             if (error == undefined) {
                             res.json({
-                                     result : true,
-                                                                                                                            });
+                                     result : 'true'
+                                                                                                                                        });
                                 }
             else {
                             res.status(503).json({
-                                     result : false,
+                                     result : 'false'
                                     });
                                 }
                         });
