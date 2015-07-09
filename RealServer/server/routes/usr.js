@@ -40,7 +40,9 @@ router.post('/', function(request, response, next){
     ///////////////////////////////////////////
     //files은 path 주소에 넣고, 경로명이다.
 connection.query('SELECT MAX(usrid) AS usrmax from usr;', function(error, cursor){
-    connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?)', [usrmax, usrname, usremail, pass], function(error, info) {
+    console.log(usrmax);
+    connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?)', [usrmax+1, usrname, usremail, pass], function(error, info) {
+        console.log(usrmax);
             if(error == undefined)
                 response.sendStatus(503);
             else{
