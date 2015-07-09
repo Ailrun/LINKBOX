@@ -50,36 +50,30 @@ router.post('/',function(req,res){
 // 회원가입
 /*
 router.post('/usr/signup', function(request, response, next) {
-
-	var usrid = request.body.usrid;
-	var pass = request.body.pass;
+    var usrid = request.body.usrid;
+    var pass = request.body.pass;
     var usrname = request.body.usrname;
     var usremail = request.body.usremail;
-
-	var files = request.files;
-
-	if (usrid == undefined || pass == undefined ||
-	   	usrname == undefined || usremail == undefined || files.length < 1) {
-
-		response.sendStatus(403);
-	}
-	else {
-
-		connection.query('insert into usr(usrid, pass, usrname, usremail) values (?, ?, ?, ?);', [ req.body.usrid, req.body.pass, req.body.usrname, req.body.usremail ], function (error, info) {
-
-			if (error != undefined)
-				response.sendStatus(503);
-			else
-				response.redirect('/' + info.insertId); //리디렉트 어디로 해줘야해? 빼도되나?
-		});
-	}
+    var files = request.files;
+    if (usrid == undefined || pass == undefined ||
+        usrname == undefined || usremail == undefined || files.length < 1) {
+        response.sendStatus(403);
+    }
+    else {
+        connection.query('insert into usr(usrid, pass, usrname, usremail) values (?, ?, ?, ?);', [ req.body.usrid, req.body.pass, req.body.usrname, req.body.usremail ], function (error, info) {
+            if (error != undefined)
+                response.sendStatus(503);
+            else
+                response.redirect('/' + info.insertId); //리디렉트 어디로 해줘야해? 빼도되나?
+        });
+    }
 });*/
 
 router.post('/usr/signup', function(request, response, next){
     connection.query('insert into usr(usrid, usrname, pass, usremail) values (?, ?, ?, ?);', [req.body.usrid, req.body.usrname, req.body.pass, req.body.usremail], function (error, info) {
-			connection.query('select * from usr where usrid=?;', [info.insertId], function (error, cursor) {
-				res.json({
-					result : true,
+            connection.query('select * from usr where usrid=?;', [info.insertId], function (error, cursor) {
+                res.json({
+                    result : true,
                     urlid : cursor[0].usrid,
                     usrname : cursor[0].usrname,
                     pass : cursor[0].pass,
@@ -93,24 +87,21 @@ router.post('/usr/signup', function(request, response, next){
 router.post('/usr/login', function(req, res, next) {
     
         connection.query('select * from usr where usremail=? and pass=?;', [req.body.usremail, req.body.pass], function (error, cursor) {
-
                                 if (cursor.length > 0) {
                                         var result = cursor[0];
                                         res.json({
-												result : true,
+                                                result : true,
                                                                                                 
                                         });
                                 }
                                 else {
                                         res.status(503).json({
-											result : false,
-								        });
+                                            result : false,
+                                        });
                                 }
                         });
-
                       
                });
-
 */
 
 
@@ -119,21 +110,19 @@ router.post('/usr/login', function(req, res, next) {
 router.post('/usr/signdown', function(req, res, next) {
     
         connection.query('delete * from usr where usremail=?;', [req.body.usremail], function (error, cursor) {
-
                                 if (cursor.length > 0) {
                                         var result = cursor[0];
                                         res.json({
-												result : true,
+                                                result : true,
                                                                                                 
                                         });
                                 }
                                 else {
                                         res.status(503).json({
-											result : false,
-								        });
+                                            result : false,
+                                        });
                                 }
                         });
-
                       
                });
 */
