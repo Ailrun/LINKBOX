@@ -40,11 +40,11 @@ router.post('/', function(request, response, next){
     ///////////////////////////////////////////
     //files은 path 주소에 넣고, 경로명이다.
    
-    if(usrid == undefined || usrname == undefined || pass == undefined || usremail == undefined)
-    {
-        response.sendStatus(403);
-    }//아무것도없으면 403을 띄워라.
-    else {//만약 ,내용이있으면,
+    //if(usrid == undefined || usrname == undefined || pass == undefined || usremail == undefined)
+    //{
+    //    response.sendStatus(403);
+    //}//아무것도없으면 403을 띄워라.
+    //else {//만약 ,내용이있으면,
         connection.query('insert into usr (usrid, usrname, pass, usremail) values (?, ?, ?, ?);',   [usrid,usrname,pass,usremail],function(error,info){
             
             if(error!=undefined)
@@ -58,7 +58,7 @@ router.post('/', function(request, response, next){
                }) 
             }
         });
-    }
+   // }
 });
                          
                          
