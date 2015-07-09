@@ -23,29 +23,48 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post('/',function(req,res){
-    var user = {'usrid':req.body.usrid,
-                'pass' :req.body.pass,
-                'usrname':req.body.usrname,
-                'usremail':req.body.usremail};
-    var query = connection.query('insert into usr(usrid, pass, usrname, usremail) values (?, ?, ?, ?);', [req.body.usrid, req.body.pass, req.body.usrname, req.body.usremail], function(err,result){
-        connection.query('select * from usr where id=?;', [info.insertId], function(error, cursor){
-            res.json({
-                result : true,
-                usrid : cursor[0].usrid,
-                pass : cursor[0].pass,
-                usrname : cursor[0].usrname,
-                usremail : cursor[0].usremail
-            });
-        });
-        if (err) {
-            console.error(err);
-            throw err;
-        }
-        console.log(query);
-        res.send(200,'success');
-    });
+router.post('/', function(request, response, next){
+    
+    //////////////클라이언트로부터 request받은 것들을 저장한다
+    
+    // TODO : 사용자 아이디 받아오기.
+    var usrid = request.body.usrid;
+    var pass = request.body.pass;
+    var usrname = request.body.usrname;
+    var usremail = request.body.usremail;
+    
+//    var userid 추가 보류. 디버깅해봐야함.
+    
+    //여기에 userid가 있어야함. mothercard에 대한 pk값은 줄수있지만, 어떤 유저의 것인지는 추가되야함.
+    
+    ///////////////////////////////////////////
+    //files은 path 주소에 넣고, 경로명이다.
+   
+    if(usrid == undefined || usrname == undefined || pass == undefined || usremail == undefined || files.length < 1) {
+        response.sendStatus(403);
+    }//아무것도없으면 403을 띄워라.
+    else {//만약 ,내용이있으면,
+        connection.query('insert into usr(usrid, pass, usrname, usremail) values(?, ?, ?, ?);',   [usrid,pass,usrname,usremail],function(error,info){
+            
+            if(error!=undefined)
+                
+                response.sendStatus(503);
+            
+            else{
+   
+               response.json({
+                    "result":1
+               }) 
+
+            }
+
+ 
+                                 });
+    };
 });
+                         
+                         
+
 
 // 회원가입
 /*
