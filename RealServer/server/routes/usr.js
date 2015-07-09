@@ -23,22 +23,26 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post('/signup', function(req, res, next){
-    console.log(req);
-    connection.query('INSERT INTO usr usrid, (usrname, usremail, pass) SELECT MAX(usrid)+1 FROM usr values (?,?,?);', [req.body.usrname, req.body.usremail, req.body.pass], function(error, cursor){
-        
+router.post('/', function(request, response, next){
+    
+    connection.query('SELECT MAX(usrid)+1 AS max from usr;', function(error, cursor){
+        console.log(request.body.usrname);
         console.log(cursor[0]);
+    connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?);', [cursor[0].max, request.body.usrname, request.body.usremail, request.body.pass], function(error, info) {
             if(error == undefined)
-                res.sendStatus(503);
+                response.sendStatus(503);
         
             else{
-                res.json({
-                    "result":"1"
+                response.json({
+                    "result":cursor[0].max
                 });
                 console.log(error);
             }
-    });
+        });
 });
+});
+                         
+                         
 
 
 // 회원가입
