@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post('/', function(request, response, next){
+router.post('/signup', function(request, response, next){
     
     connection.query('SELECT MAX(usrid)+1 AS max from usr;', function(error, cursor){
         console.log(request.body.usrname);
