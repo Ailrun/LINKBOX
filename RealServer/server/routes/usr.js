@@ -23,16 +23,16 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post('/', function(request, response, next){
+router.post('/signup', function(req, res, next){
     
-    connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) value((SELECT MAX(usrid)+1 FROM usr),?,?,?);', [request.body.usrname, request.body.usremail, request.body.pass], function(error, cursor){
+    connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) value((SELECT MAX(usrid)+1),?,?,?);', [req.body.usrname, req.body.usremail, req.body.pass], function(error, cursor){
         
-        console.log(cursor);
+        console.log(cursor[0]);
             if(error == undefined)
-                response.sendStatus(503);
+                res.sendStatus(503);
         
             else{
-                response.json({
+                res.json({
                     "result":"1"
                 });
                 console.log(error);
