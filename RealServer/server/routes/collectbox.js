@@ -12,20 +12,36 @@ var connection = mysql.createConnection({
 
 
 //박스 추가
-router.post('/collectbox/{usrid}/addbox', function(request, response, next) {
+router.post('/collectbox/{usrid}/addbox', function(req, res, next) {
 
- connection.query('insert into collectbox(cbname) values (?);', [ request.body.cbname ], function (error, result) {
-     if (error) {
-        console.log("err", error);
-            res.json({
-                        result : 'fail'
-                    });
-  } else {
-        console.log("result", result);
-            res.json({
-                        result : 'success'
+        connection.query('insert into collectbox(cbname) values (?);', [req.body.cbname], function (error, info) {
 
-                    });
+                if (error == null) {
+
+                        connection.query('select * from collectbox where cbid=?;', [info.insertId], function (error, cursor) {
+
+                                if (cursor.length > 0) {
+
+                                        var result = cursor[0];
+                                        res.json({
+
+						                          result : true,
+                                                id : result.id,
+                                            });
+                                        }
+                                else {
+
+                                        res.status(503).json({
+						
+											result : false,
+											reason : "Cannot post article"
+										});
+                                }
+                        });
+                }
+                else {
+
+                        res.status(503).json(error);
                 }
         });
 });
