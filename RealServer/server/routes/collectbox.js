@@ -31,13 +31,9 @@ router.post('/:usrid/addbox', function(request, response, next){
 });
 
 
-<<<<<<< HEAD
-박스삭제
-=======
 //박스삭제
->>>>>>> origin/master
 router.post('/:usrid/removebox', function(req, res, next) {
-        connection.query('delete * from collectbox where cbid;', [req.params.cbid], function (error, cursor) {
+        connection.query('delete * from collectbox where cbid;', [req.body.cbid], function (error, cursor) {
 
                                 if (cursor.length > 0) {
                                         var result = cursor[0];
@@ -61,7 +57,7 @@ router.post('/:usrid/removebox', function(req, res, next) {
 //박스 수정
 router.post('/:usrid/editbox', function(req, res, next) {
     
- connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.parmas.cbid], function(error, result) {
+ connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.body.cbid], function(error, result) {
      if (error) {
             console.log("err", error);
             res.json({
