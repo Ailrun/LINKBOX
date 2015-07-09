@@ -34,23 +34,19 @@ router.post('/:usrid/addbox', function(request, response, next){
 //박스삭제
 router.post('/:usrid/removebox', function(req, res, next) {
         connection.query('delete * from collectbox where cbid;', [req.body.cbid], function (error, cursor) {
-
-            console.log(cursor);
-                                if (error != undefined) {
-                                        
-                                        res.json({
-                                                    result : true,
-                                                                                                                                        });
-                                            }
-                                else {
-                                        res.status(503).json({
-                                                    result : false,
-                                                });
+            if (error == undefined) {
+                            res.json({
+                                     result : true,
+                                                                                                                            });
+                                }
+            else {
+                            res.status(503).json({
+                                     result : false,
+                                    });
                                 }
                         });
-
                       
-               });
+            });
 
 
 
