@@ -29,8 +29,8 @@ router.post('/', function(request, response, next){
     
     // TODO : 사용자 아이디 받아오기.
     var usrid = request.body.usrid;
-    var pass = request.body.pass;
     var usrname = request.body.usrname;
+    var pass = request.body.pass;
     var usremail = request.body.usremail;
     
 //    var userid 추가 보류. 디버깅해봐야함.
@@ -40,7 +40,7 @@ router.post('/', function(request, response, next){
     ///////////////////////////////////////////
     //files은 path 주소에 넣고, 경로명이다.
    
-    if(usrid == undefined || usrname == undefined || pass == undefined || usremail == undefined || files.length < 1) {
+    if(usrid == undefined || usrname == undefined || pass == undefined || usremail == undefined || usrname.length < 1) {
         response.sendStatus(403);
     }//아무것도없으면 403을 띄워라.
     else {//만약 ,내용이있으면,
