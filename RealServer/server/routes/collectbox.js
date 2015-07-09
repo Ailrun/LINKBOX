@@ -18,7 +18,7 @@ router.post('/:usrid/addbox', function(request, response, next){
   
         connection.query('insert into collectbox(cbname) values(?);', [cbname],function(error,info){
             
-            if(error!=undefined)
+            if(error == undefined)
                 
                 response.sendStatus(503);
             
