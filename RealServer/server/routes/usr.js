@@ -71,7 +71,7 @@ router.post('/usr/signup', function(request, response, next){
 		} else
 
 		res.status(503).json(error); });
-}
+});
 
 /*
 // 로그인
