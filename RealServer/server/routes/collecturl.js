@@ -13,7 +13,8 @@ var connection = mysql.createConnection({
 
 //url 가져오기
 router.get('/:cbid/urllist/:usrid', function(req, res, next) {
-    connection.query('select * from collecturl where usrid', function (error, cursor) {
+    connection.query('select * from collecturl where ?',[req.params.usrid] , function (error, cursor) {
+        console.log(cursor);
         res.json(cursor);
     });
 });
