@@ -67,7 +67,7 @@ router.post('/usr/signup', function(request, response, next){
 		res.status(503).json(error); });
 }
 
-
+/*
 // 로그인
 router.post('/usr/login', function(req, res, next) {
     
@@ -90,7 +90,7 @@ router.post('/usr/login', function(req, res, next) {
                       
                });
 
-
+*/
 
 
 // 회원탈퇴
