@@ -28,10 +28,6 @@ router.post('/', function(request, response, next){
     //////////////클라이언트로부터 request받은 것들을 저장한다
     
     // TODO : 사용자 아이디 받아오기.
-    var usrname = request.body.usrname;
-    var usremail = request.body.usremail;
-    var pass = request.body.pass;
-    
 //    var userid 추가 보류. 디버깅해봐야함.
     
     //여기에 userid가 있어야함. mothercard에 대한 pk값은 줄수있지만, 어떤 유저의 것인지는 추가되야함.
@@ -39,6 +35,7 @@ router.post('/', function(request, response, next){
     ///////////////////////////////////////////
     //files은 path 주소에 넣고, 경로명이다.
 connection.query('SELECT MAX(usrid)+1 AS max from usr;', function(error, cursor){
+    console.log(request.body.usrname);
     console.log(cursor[0]);
     connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?);', [cursor[0].max, request.body.usrname, request.body.usremail, request.body.pass], function(error, info) {
             if(error == undefined)
