@@ -16,7 +16,7 @@ router.post('/:usrid/addbox', function(request, response, next){
 
     connection.query('SELECT MAX(cbid) from collectbox;', function(error, cursor){
     connection.query('INSERT INTO collectbox (cbid, cbname) values(?,?);', [cursor[0].max+1, request.body.cbname], function(error, info) {
-            if(error != undefined)
+            if(error == undefined)
                 response.sendStatus(503);
         
             else{
@@ -30,11 +30,8 @@ router.post('/:usrid/addbox', function(request, response, next){
     });
 });
 
-<<<<<<< HEAD
 
 //박스삭제
-=======
->>>>>>> origin/master
 router.post('/:usrid/removebox', function(req, res, next) {
         connection.query('delete * from collectbox where cbid;', [req.body.cbid], function (error, cursor) {
 
