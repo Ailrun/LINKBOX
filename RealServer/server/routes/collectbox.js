@@ -48,7 +48,7 @@ router.post('/collectbox/{usrid}/addbox', function(req, res, next) {
 
 
 
-//박스삭제
+/*//박스삭제
 router.post('/collectbox/{usrid}/removebox', function(req, res, next) {
     
         connection.query('delete * from collectbox where cbid;', [req.body.cbid], function (error, cursor) {
@@ -99,5 +99,5 @@ router.get('/collectbox/{usrid}/boxlist', function(req, res, next) {
       res.json(cursor);
    });
 });
-
+*/
 module.exports = router;
