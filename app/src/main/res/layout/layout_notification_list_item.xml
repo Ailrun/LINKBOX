@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearance"
+            android:layout_marginStart="30dp"
+            android:text="Medium Text"
+            android:id="@+id/TV_child_notification_user_setting"
+            android:layout_centerVertical="true"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/CB_child_notification_user_setting"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/TV_child_notification_user_setting" />
+    </RelativeLayout>
+</LinearLayout>

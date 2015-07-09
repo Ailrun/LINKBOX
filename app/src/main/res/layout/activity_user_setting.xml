@@ -10,8 +10,8 @@
         layout="@layout/layout_toolbar"/>
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:weightSum="1">
 
         <TextView
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="User Profle"
-            android:id="@+id/textView"
+            android:id="@+id/TV_user_profile_user_setting"
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_marginStart="25dp"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Name"
-                android:id="@+id/textView2"
+                android:id="@+id/TV_display_name_user_setting"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="20dp"
@@ -47,9 +47,9 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Email"
-                android:id="@+id/textView4"
-                android:layout_below="@+id/textView2"
-                android:layout_alignStart="@+id/textView2"
+                android:id="@+id/TV_display_email_user_setting"
+                android:layout_below="@+id/TV_display_name_user_setting"
+                android:layout_alignStart="@+id/TV_display_name_user_setting"
                 android:layout_marginBottom="8dp" />
 
             <EditText
@@ -58,9 +58,9 @@
                 android:id="@+id/ET_name_user_setting"
                 android:text="userID"
                 android:ems="10"
-                android:layout_alignBottom="@+id/textView2"
+                android:layout_alignBottom="@+id/TV_display_name_user_setting"
                 android:layout_alignParentEnd="true"
-                android:editable="false"/>
+                android:inputType="none"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -70,17 +70,17 @@
                 android:ems="10"
                 android:layout_below="@+id/ET_name_user_setting"
                 android:layout_alignParentEnd="true"
-                android:editable="false"/>
+                android:inputType="none"/>
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ET_changepass_user_setting"
                 android:hint="Long Press to Change Password"
-                android:layout_below="@+id/textView4"
-                android:layout_alignStart="@+id/textView4"
+                android:layout_below="@+id/TV_display_email_user_setting"
+                android:layout_alignStart="@+id/TV_display_email_user_setting"
                 android:layout_alignParentEnd="true"
-                android:editable="false"/>
+                android:inputType="none"/>
 
 
         </RelativeLayout>
@@ -90,26 +90,28 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Notification"
-            android:id="@+id/textView8"
+            android:id="@+id/TV_display_notification_user_setting"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"/>
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
-            <include
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/layout_notifiList_header"/>
-            <ListView
+            <ImageButton
+                android:id="@+id/IB_expand_user_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:id="@+id/LV_notiList_user_setting" />
+                android:background="@drawable/abc_btn_radio_to_on_mtrl_015"/>
+
+            <ExpandableListView
+                android:id="@+id/ELV_notification_list_user_setting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:groupIndicator="@null"/>
         </LinearLayout>
 
         <TextView
@@ -117,7 +119,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Set Floating Button"
-            android:id="@+id/textView6"
+            android:id="@+id/TV_display_floating_user_setting"
             android:layout_marginStart="25dp"
             android:layout_marginTop="20dp"/>
 
@@ -125,20 +127,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hide Floating Button"
-            android:id="@+id/CB_user_setting"
+            android:id="@+id/CB_floating_user_setting"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="10dp"
             android:checked="false" />
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LOG OUT"
-                android:id="@+id/BTN_logout_user_setting"
+                android:id="@+id/B_logout_user_setting"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true" />
@@ -147,8 +149,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="QUIT"
-                android:id="@+id/BTN_quit_user_setting"
-                android:layout_below="@+id/BTN_logout_user_setting"
+                android:id="@+id/B_quit_user_setting"
+                android:layout_below="@+id/B_logout_user_setting"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentEnd="true" />
         </RelativeLayout>
