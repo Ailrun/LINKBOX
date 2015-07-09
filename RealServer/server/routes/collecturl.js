@@ -13,10 +13,30 @@ var connection = mysql.createConnection({
 
 //url 가져오기
 router.get('/:cbid/urllist/:usrid', function(req, res, next) {
-    connection.query('select * from collecturl where usrid', function (error, cursor) {
+    connection.query('select * from collecturl where ?', [req.params.usrid], function (error, cursor) {
         res.json(cursor);
     });
 });
+
+//url 추가
+router.post('/:cbid/addurl', function(req, res, next){
+    connection.query('SELECT MAX(urlid) AS max from url;', function(error, cursor){
+    connection.query('INSERT INTO url (urlid, urlname, urlthumbnail, address) values(?, ?, ?, ?);', [cursor[0].max+1, req.body.urlname, req.body.urlthumbnail, request.body.address], function(error, info) {
+            if(error != undefined)
+                response.sendStatus(503);
+        
+            else{
+                response.json({
+                    "result":cursor[0].max
+                });
+                console.log(error);
+            }
+        });
+    });
+});
+
+
+
 
 /*
 //링크 추가
