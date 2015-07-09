@@ -40,25 +40,25 @@ router.post('/', function(request, response, next){
     ///////////////////////////////////////////
     //files은 path 주소에 넣고, 경로명이다.
    
-    //if(usrid == undefined || usrname == undefined || pass == undefined || usremail == undefined)
-    //{
-    //    response.sendStatus(403);
-    //}//아무것도없으면 403을 띄워라.
-    //else {//만약 ,내용이있으면,
+    if(usrid == undefined || usrname == undefined || pass == undefined || usremail == undefined)
+    {
+        response.sendStatus(403);
+    }//아무것도없으면 403을 띄워라.
+    else {//만약 ,내용이있으면,
         connection.query('insert into usr (usrid, usrname, pass, usremail) values (?, ?, ?, ?);',   [usrid,usrname,pass,usremail],function(error,info){
             
-            if(error!=undefined)
+            if(error == undefined)
                 
                 response.sendStatus(503);
             
             else{
    
                response.json({
-                    "result":1
+                    "result":"1"
                }) 
             }
         });
-   // }
+    }
 });
                          
                          
@@ -85,19 +85,6 @@ router.post('/usr/signup', function(request, response, next) {
         });
     }
 });*/
-
-router.post('/usr/signup', function(request, response, next){
-    connection.query('insert into usr(usrid, usrname, pass, usremail) values (?, ?, ?, ?);', [req.body.usrid, req.body.usrname, req.body.pass, req.body.usremail], function (error, info) {
-            connection.query('select * from usr where usrid=?;', [info.insertId], function (error, cursor) {
-                res.json({
-                    result : true,
-                    urlid : cursor[0].usrid,
-                    usrname : cursor[0].usrname,
-                    pass : cursor[0].pass,
-                    usremail : cursor[0].usremail });
-            });
-});
-});
 
 /*
 // 로그인
