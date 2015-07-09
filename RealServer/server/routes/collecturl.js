@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 //링크 추가
 router.post('/collecturl/{cbid}/addurl', function(request, response, next) {
 
- connection.query('insert into collecturl(urlname, address, urlthumbnail) values (?, ?, ?);', [ request.body.urlname, request.body.address, request.body.urlthumbnail ], function (error, result) {
+ connection.query('insert into url(urlname, address, urlthumbnail) values (?, ?, ?);', [ request.body.urlname, request.body.address, request.body.urlthumbnail ], function (error, result) {
      if (error) {
         console.log("err", error);
             res.json({
@@ -37,7 +37,7 @@ router.post('/collecturl/{cbid}/addurl', function(request, response, next) {
 //링크삭제
 router.post('/collecturl/{cbid}/removeurl', function(req, res, next) {
     
-        connection.query('delete * from collecturl where urlid;', [req.body.urlid], function (error, cursor) {
+        connection.query('delete * from url where urlid;', [req.body.urlid], function (error, cursor) {
 
                                 if (cursor.length > 0) {
                                         var result = cursor[0];
@@ -60,7 +60,7 @@ router.post('/collecturl/{cbid}/removeurl', function(req, res, next) {
 //링크 수정
 router.post('/collecturl/{cbid}/editurl', function(req, res, next) {
     
- connection.query("UPDATE collecturl SET urlname=? Where urlid=?;", [req.body.urlname, req.body.urlid], function(error, result) {
+ connection.query("UPDATE url SET urlname=? Where urlid=?;", [req.body.urlname, req.body.urlid], function(error, result) {
      if (error) {
             console.log("err", error);
             res.json({
@@ -79,7 +79,7 @@ router.post('/collecturl/{cbid}/editurl', function(req, res, next) {
 //링크 리스트 보내기
 router.get('/collecturl/{cbid}/urllist', function(req, res, next) {
   
-   connection.query('select urlname, urlid, address, ulrthumbnail from collecturl order by timestamp desc;', function (error, cursor) {
+   connection.query('select urlname, urlid, address, ulrthumbnail from url order by timestamp desc;', function (error, cursor) {
       
       res.json(cursor);
    });
