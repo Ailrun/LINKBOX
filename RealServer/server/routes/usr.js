@@ -28,7 +28,6 @@ router.post('/', function(request, response, next){
     //////////////클라이언트로부터 request받은 것들을 저장한다
     
     // TODO : 사용자 아이디 받아오기.
-    var usrid = request.body.usrid;
     var usrname = request.body.usrname;
     var usremail = request.body.usremail;
     var pass = request.body.pass;
@@ -39,10 +38,9 @@ router.post('/', function(request, response, next){
     
     ///////////////////////////////////////////
     //files은 path 주소에 넣고, 경로명이다.
-connection.query('SELECT MAX(usrid) AS usrmax from usr;', function(error, cursor){
+connection.query('SELECT MAX(usrid)+1 from usr;', function(error, cursor){
     console.log(cursor[0]);
     connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?)', [cursor[0]+1, usrname, usremail, pass], function(error, info) {
-        console.log(usrmax);
             if(error == undefined)
                 response.sendStatus(503);
             else{
