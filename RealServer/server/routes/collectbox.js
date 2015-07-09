@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
 
 router.post('/:usrid/addbox', function(request, response, next){
     
-       var cbname = request.params.cbname;
+       var cbname = request.body.cbname;
   
         connection.query('insert into collectbox(cbname) values(?);', [cbname],function(error,info){
             
