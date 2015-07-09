@@ -25,8 +25,8 @@ router.post('/:usrid/addbox', function(request, response, next){
             else{
    
                response.json({
-                    "result":cbname;
-               }) 
+                    "result":cbname,
+               });
 
             }
 
