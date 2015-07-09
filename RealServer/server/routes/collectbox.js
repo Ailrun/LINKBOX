@@ -30,12 +30,6 @@ router.post('/:usrid/addbox', function(request, response, next){
     });
 });
 
-
-<<<<<<< HEAD
-박스삭제
-=======
-//박스삭제
->>>>>>> origin/master
 router.post('/:usrid/removebox', function(req, res, next) {
         connection.query('delete * from collectbox where cbid;', [req.params.cbid], function (error, cursor) {
 
