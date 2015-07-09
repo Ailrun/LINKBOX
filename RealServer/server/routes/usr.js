@@ -14,10 +14,11 @@ var connection = mysql.createConnection({
     'host' : 'aws-rds-linkbox.cjfjhr6oeu3e.ap-northeast-1.rds.amazonaws.com',
     'user' : 'LINKBOX',
     'password' : 'dlrpqkfhdnflek',
-    'database' : 'LINKBOX',
+    'database' : 'LINKBOX'
 });
 
 // 회원가입
+/*
 router.post('/usr/signup', function(request, response, next) {
 
 	var usrid = request.body.usrid;
@@ -42,7 +43,29 @@ router.post('/usr/signup', function(request, response, next) {
 				response.redirect('/' + info.insertId); //리디렉트 어디로 해줘야해? 빼도되나?
 		});
 	}
-});
+});*/
+
+router.post('/usr/signup', function(request, response, next){
+    connection.query('insert into usr(usrid, usrname, pass, usremail) values (?, ?, ?, ?);', [req.body.usrid, req.body.usrname, req.body.pass, req.body.usremail], function (error, info) {
+
+		if (error == null) {
+
+			connection.query('select * from usr where usrid=?;', [info.insertId], function (error, cursor) {
+				
+				if (cursor.length > 0) { res.json({
+					result : true,
+                    urlid : cursor[0].usrid,
+                    usrname : cursor[0].usrname,
+                    pass : cursor[0].pass,
+                    usremail : cursor[0].usremail });
+			} else
+
+			res.status(503).json({ result : false, reason : "Cannot post article" }); });
+
+		} else
+
+		res.status(503).json(error); });
+}
 
 
 // 로그인
