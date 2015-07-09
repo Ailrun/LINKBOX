@@ -36,7 +36,7 @@
                     android:layout_alignParentRight="true"
                     android:background="@color/realWhite"/>
                 <EditText
-                    android:id="@+id/ET_title_link_it"
+                    android:id="@+id/ET_name_link_it"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_margin="10dp"

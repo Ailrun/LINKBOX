@@ -26,6 +26,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.network.LinkNetwork;
@@ -110,9 +111,11 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
         switch (item.getItemId())
         {
-            case R.id.action_editors :
+            case R.id.action_share :
+                startActivity(new Intent(getApplicationContext(), LinkEditorAdd.class));
                 break;
-            case R.id.action_info :
+            case R.id.action_editors :
+                startActivity(new Intent(getApplicationContext(), LinkEditorList.class));
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -134,6 +137,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 
         //other data init;
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        LinkBoxController.urlListSource.add(LinkBoxController.currentBox, new ArrayList<LinkUrlListData>());
         initUrlDummyData();
         initBoxDummyData();
 //        LinkNetwork.Server.getBoxListFromServerAsync();
@@ -168,7 +172,8 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initControl() {
         LinkBoxController.linkBoxBoxListAdapter =
             new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
-
+        LinkBoxController.linkBoxUrlListAdapter =
+                new LinkBoxUrlListAdapter(getApplicationContext(), LinkBoxController.urlListSource.get(LinkBoxController.currentBox));
         lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
         lvBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
     }
@@ -210,11 +215,11 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private void initUrlDummyData() {
         LinkUrlListData linkUrlListData = new LinkUrlListData();
-        linkUrlListData.url = "www.facebook.com";
+        linkUrlListData.address = "www.facebook.com";
         linkUrlListData.urlname = "페북";
-        LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData);
+        LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData, null);
         linkUrlListData.urlwriter = "나";
-        LinkBoxController.urlListSource.add(linkUrlListData);
+        LinkBoxController.urlListSource.get(LinkBoxController.currentBox).add(linkUrlListData);
     }
     private void initBoxDummyData() {
         LinkBoxListData linkBoxListData = new LinkBoxListData();
@@ -302,9 +307,12 @@ public class LinkBoxActivity extends AppCompatActivity {
                 String str = null;
                 if (linkBoxListData != null) {
                     str = linkBoxListData.cbname;
+                    LinkBoxController.currentBox = linkBoxListData.cbid;
                 } else {
                     str = "새 박스";
+                    LinkBoxController.currentBox = 0;
                 }
+                LinkBoxController.linkBoxUrlListAdapter.setSource(LinkBoxController.urlListSource.get(LinkBoxController.currentBox));
                 tToolbar.setTitle(str);
                 dlBoxList.closeDrawers();
             }
@@ -340,7 +348,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         bToPremium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                LinkNetwork.Server.postPremiumToServerAsync();
             }
         });
     }

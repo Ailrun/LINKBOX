@@ -81,6 +81,7 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 LinkBoxController.defaultAlarm = b;
+                notifyDataSetChanged();
             }
         });
         return view;
@@ -95,6 +96,7 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
         CheckBox cbChildNotification = ViewHolder.get(view, R.id.CB_child_notification_user_setting);
         tvChildNotification.setText(linkBoxListData.cbname);
         cbChildNotification.setChecked(LinkBoxController.defaultAlarm);
+        cbChildNotification.setEnabled(LinkBoxController.defaultAlarm);
         return view;
     }
     @Override
