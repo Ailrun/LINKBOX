@@ -43,10 +43,12 @@ connection.query('SELECT MAX(usrid)+1 AS max from usr;', function(error, cursor)
     connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?);', [cursor[0].max, usrname, usremail, pass], function(error, info) {
             if(error == undefined)
                 response.sendStatus(503);
+        
             else{
                 response.json({
                     "result":cursor[0].max
-                })
+                });
+                console.log(error);
             }
         });
 });
