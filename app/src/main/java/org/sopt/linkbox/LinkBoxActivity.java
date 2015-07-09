@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,6 +30,12 @@ import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
+import org.sopt.linkbox.libUtils.util.IabHelper;
+import org.sopt.linkbox.libUtils.util.IabResult;
+import org.sopt.linkbox.libUtils.util.Inventory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -41,6 +48,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  * REFERENCE : http://www.androidpub.com/796480
  */
 public class LinkBoxActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + LinkBoxActivity.class.getName() + " : ";
 
     private InputMethodManager immLinkBox = null;
     private LayoutInflater layoutInflater = null;
@@ -63,6 +71,11 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private DrawerLayout dlBoxList = null;
     private ActionBarDrawerToggle abBoxList = null;
+
+    private IabHelper iabHelper = null;
+    private String base64EncodedPublicKey = null;
+    private final String skuIDPremium = "id_mUImErpEmEkAMU";
+    private List<String> skuList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,15 +119,104 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
         return true;
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (iabHelper != null) {
+            iabHelper.dispose();
+        }
+        iabHelper = null;
+    }
 
     private void initData() {
+        //InApp billing init
+//        initInAppData();
+
+        //other data init;
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        initUrlDummyData();
+        initBoxDummyData();
+//        LinkNetwork.Server.getBoxListFromServerAsync();
+//        LinkNetwork.Server.getUrlListFromServerAsync();
+    }
+    private  void initView() {
+        layoutInflater = getLayoutInflater();
+
+        //toolbar init
+        initToolbarView();
+
+        //main init
+        initMainView();
+
+        //drawer init
+        initDrawerView();
+        initDrawerButtonHeaderView();
+        initDrawerEditHeaderView();
+    }
+    private void initListener() {
+        //InApp billing init
+//        initInAppListener();
+
+        //main init
+        initMainListener();
+
+        //drawer init
+        initDrawerListener();
+        initDrawerButtonHeaderListener();
+        initDrawerEditHeaderListener();
+    }
+    private void initControl() {
+        LinkBoxController.linkBoxBoxListAdapter =
+            new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
+
+        lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
+        lvBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
+    }
+
+    private void initInAppData() {
+        base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiVdcBxJfbqtVYooV";
+        base64EncodedPublicKey += "X8zI/i9FxWgmq2UYDDmaSAl3CKaB/1z4RusVD8pKVkHjumWFZ0OFyBPDc3ku";
+        base64EncodedPublicKey += "nFxjh5gGKUvDTdCjdAK2SCPHuW0PNb6fbydRX6i8gmq9sDZq+acy4gq2JEa0";
+        base64EncodedPublicKey += "lmKIR0KWP6meKP7kjZ5WOGqIuRUcDXYfit5OpdTFMqaVuqousWgpYS0y0SJo";
+        base64EncodedPublicKey += "iSwGPQOGjG+v7gpH11WO45aDlmKzEb3sgyApU+lGYz9ekrIpPFolT9wH0+MR";
+        base64EncodedPublicKey += "JHvReqFs5jyKPZMIoryk8lCscGpYtUIjFFi8lnyZ7JRaXSwV0X4AvUqJBAIf";
+        base64EncodedPublicKey += "sh2YwAptVBGkdmcjsjWw7MvCmwIDAQAB";
+        iabHelper = new IabHelper(this, base64EncodedPublicKey);
+        skuList = new ArrayList<>();
+        skuList.add(skuIDPremium);
+    }
+    private void initInAppListener() {
+        iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
+            @Override
+            public void onIabSetupFinished(IabResult result) {
+                if (!result.isSuccess()) {
+                    //TODO : If Setup Fail, HANDLE ERROR (like Toast)
+                    Log.d(TAG, "Problem setting up In-app Billing: " + result);
+                }
+
+                iabHelper.queryInventoryAsync(true, skuList, new IabHelper.QueryInventoryFinishedListener() {
+                    @Override
+                    public void onQueryInventoryFinished(IabResult result, Inventory inv) {
+                        if (!result.isSuccess()) {
+                            //TODO : HANDLE ERROR (like Toast)
+                        }
+                        String premiumPrice = inv.getSkuDetails(skuIDPremium).getPrice();
+                        //TODO : UI UPDATE
+                    }
+                });
+            }
+        });
+    }
+
+    private void initUrlDummyData() {
         LinkUrlListData linkUrlListData = new LinkUrlListData();
         linkUrlListData.url = "www.facebook.com";
         linkUrlListData.urlname = "페북";
         LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData);
         linkUrlListData.urlwriter = "나";
         LinkBoxController.urlListSource.add(linkUrlListData);
+    }
+    private void initBoxDummyData() {
         LinkBoxListData linkBoxListData = new LinkBoxListData();
         linkBoxListData.cbname = "요리";
         LinkBoxController.boxListSource.add(linkBoxListData);
@@ -139,36 +241,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         linkBoxListData = new LinkBoxListData();
         linkBoxListData.cbname = "공부";
         LinkBoxController.boxListSource.add(linkBoxListData);
-    }
-    private  void initView() {
-        layoutInflater = getLayoutInflater();
-
-        //toolbar init
-        initToolbarView();
-
-        //main init
-        initMainView();
-
-        //drawer init
-        initDrawerView();
-        initDrawerButtonHeaderView();
-        initDrawerEditHeaderView();
-    }
-    private void initListener() {
-        //main init
-        initMainListener();
-
-        //drawer init
-        initDrawerListener();
-        initDrawerButtonHeaderListener();
-        initDrawerEditHeaderListener();
-    }
-    private void initControl() {
-        LinkBoxController.linkBoxBoxListAdapter =
-            new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
-
-        lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
-        lvBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
     }
 
     private void initToolbarView() {
@@ -263,6 +335,12 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
+            }
+        });
+        bToPremium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
     }

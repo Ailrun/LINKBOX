@@ -8,4 +8,5 @@ public class LinkUserData {
     public String usremail;
     public String usrname;
     public String pass;
+    public boolean premium;
 }

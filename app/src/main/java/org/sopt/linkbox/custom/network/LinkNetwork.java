@@ -214,7 +214,7 @@ public class LinkNetwork {
 
             final LinkBoxListData linkBoxListData = LinkBoxController.boxListSource.get(LinkBoxController.currentBox);
 
-            mainServerInterface.getUrlListAsync(linkBoxListData.cbid, new Callback<List<LinkUrlListData>>() {
+            mainServerInterface.getUrlListAsync(linkBoxListData.cbid, LinkBoxController.linkUserData, new Callback<List<LinkUrlListData>>() {
                 @Override
                 public void success(List<LinkUrlListData> linkUrlListDatas, Response response) {
                     LinkBoxController.urlListSource = (ArrayList<LinkUrlListData>) linkUrlListDatas;
@@ -315,15 +315,45 @@ public class LinkNetwork {
                 }
             });
         }
+        public static void postPushTokenToServerAsync(final String token) {
+            fillInterface();
+
+            mainServerInterface.postPushTokenAsync(LinkBoxController.linkUserData.usrid, token, new Callback<Object>() {
+                @Override
+                public void success(Object o, Response response) {
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    try {
+                        wait(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    mainServerInterface.postPushTokenAsync(LinkBoxController.linkUserData.usrid, token, this);
+                }
+            });
+        }
+        public static void postPremiumToServerAsync() {
+            fillInterface();
+
+            if (!LinkBoxController.linkUserData.premium) {
+                mainServerInterface.postPremium(LinkBoxController.linkUserData, new Callback<Object>() {
+                    @Override
+                    public void success(Object o, Response response) {
+
+                    }
+                    @Override
+                    public void failure(RetrofitError error) {
+                    }
+                });
+            }
+        }
 
         private static void fillInterface() {
             if (mainServerInterface == null) {
                 mainServerInterface = LinkBoxController.getApplication().getLinkNetworkMainServerInterface();
             }
-        }
-
-        class BoxListData {
-            public ArrayList<LinkBoxListData> cblistdata;
         }
     }
 }

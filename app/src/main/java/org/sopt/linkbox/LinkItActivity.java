@@ -3,6 +3,7 @@ package org.sopt.linkbox;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 
 import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
@@ -21,6 +23,7 @@ import org.sopt.linkbox.service.LinkHeadService;
  * REFERENCE : http://www.androidpub.com/796480
  */
 public class LinkItActivity extends Activity {
+    private static final String TAG = "TEST/" + LinkItActivity.class.getName();
 
     private Spinner spBox = null;
     private ImageView ivThumb = null;
@@ -29,6 +32,7 @@ public class LinkItActivity extends Activity {
 
     private String boxName = null;
     private String linkName = null;
+    private LinkUrlListData linkUrlListData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,8 @@ public class LinkItActivity extends Activity {
             linkName = intent.getStringExtra(Intent.EXTRA_TEXT);
         }
         else {
-            linkName = "";
+            finish();
+            Log.e(TAG, "There is no url but LinkItActivity start");
         }
     }
     private void initView() {

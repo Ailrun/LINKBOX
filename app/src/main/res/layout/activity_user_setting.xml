@@ -110,7 +110,7 @@
             <ExpandableListView
                 android:id="@+id/ELV_notification_list_user_setting"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:groupIndicator="@null"/>
         </LinearLayout>
 
@@ -126,7 +126,7 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hide Floating Button"
+            android:text="Hide Out-App Floating Head"
             android:id="@+id/CB_floating_user_setting"
             android:layout_marginStart="30dp"
             android:layout_marginBottom="10dp"
