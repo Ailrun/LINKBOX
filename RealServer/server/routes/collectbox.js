@@ -14,23 +14,18 @@ var connection = mysql.createConnection({
 //박스추가
 router.post('/:usrid/addbox', function(request, response, next){
     
-       var cbname = request.body.cbname;
+      // var cbname = request.body.cbname;
   
-        connection.query('insert into collectbox(cbname) values(?);', [cbname],function(error,info){
+        connection.query('insert into collectbox(cbname) values(?);', [request.body.cbname],function(error,info){
             
             if(error == undefined){
                 console.log("hello");
                 response.sendStatus(503);
             }
             else{
-                connection.query('insert into collectbox(cbname) values(?);', [cbname], function(error, info){
-                    response.json({
-                        "result":"1"
-                    });
-                });
                 console.log("else fuck");
                response.json({
-                    "result":cbname
+                   "result":"1"
                });
             }
 
