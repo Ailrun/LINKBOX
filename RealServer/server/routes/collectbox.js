@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 router.post('/:usrid/addbox', function(request, response, next){
 
     connection.query('SELECT MAX(cbid) as max from collectbox;', function(error, cursor){
-    connection.query('INSERT INTO collectbox (cbid, cbname) values(?,?);', [cursor[0].max+1, request.body.cbname], function(error, info) {
+    connection.query('INSERT INTO collectbox (cbid, cbname, usrid) values(?,?,?);', [cursor[0].max+1, request.body.cbname, request.params.usrid], function(error, info) {
         console.log(error);
             if(error != undefined){
                 response.sendStatus(503);
