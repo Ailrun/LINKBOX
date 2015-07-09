@@ -13,6 +13,7 @@ if (cursor.length > 0) res.json(cursor[0]);
 else
 res.status(503).json({ result : false, reason : "Cannot find selected article" });
 }); });
+
 router.post('/', function(req, res, next) {
 connection.query('insert into board(title, content) values (?, ?);', [req.body.title, req.body.content], function (error, info) {
 if (error == null) {

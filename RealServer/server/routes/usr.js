@@ -17,6 +17,12 @@ var connection = mysql.createConnection({
     'database' : 'LINKBOX'
 });
 
+router.get('/', function(req, res, next) {
+connection.query('select * from usr ' +
+'order by timestamp desc;', function (error, cursor) {
+res.json(cursor); });
+});
+
 // 회원가입
 /*
 router.post('/usr/signup', function(request, response, next) {
@@ -94,7 +100,7 @@ router.post('/usr/login', function(req, res, next) {
 
 
 // 회원탈퇴
-
+/*
 router.post('/usr/signdown', function(req, res, next) {
     
         connection.query('delete * from usr where usremail=?;', [req.body.usremail], function (error, cursor) {
@@ -115,6 +121,6 @@ router.post('/usr/signdown', function(req, res, next) {
 
                       
                });
-
+*/
 
 module.exports = router;
