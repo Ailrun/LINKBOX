@@ -13,29 +13,27 @@ var connection = mysql.createConnection({
 
 //박스추가
 router.post('/:usrid/addbox', function(request, response, next){
-  
-        connection.query('insert into collectbox(cbname) values(?);', [request.body.cbname],function(error,info){
-            
-            if(error == undefined){
-                console.log("hello");
+
+    connection.query('SELECT MAX(cbid) from collectbox;', function(error, cursor){
+    connection.query('INSERT INTO collectbox (cbid, cbname) values(?,?);', [cursor[0].max+1, request.body.cbname], function(error, info) {
+            if(error != undefined)
                 response.sendStatus(503);
-            }
+        
             else{
-                console.log("else fuck");
-               response.json({
-                   "result":"1"
-               });
+                response.json({
+                    "result":cursor[0].max
+                });
+                console.log(error);
+
             }
+        });
+    });
+});
 
-       });
-   });
 
-
-/*
 //박스삭제
-router.post('/collectbox/{usrid}/removebox', function(req, res, next) {
-    
-        connection.query('delete * from collectbox where cbid;', [req.body.cbid], function (error, cursor) {
+router.post('/:usrid/removebox', function(req, res, next) {
+        connection.query('delete * from collectbox where cbid;', [req.params.cbid], function (error, cursor) {
 
                                 if (cursor.length > 0) {
                                         var result = cursor[0];
@@ -57,9 +55,9 @@ router.post('/collectbox/{usrid}/removebox', function(req, res, next) {
 
 
 //박스 수정
-router.post('/collectbox/{usrid}/editbox', function(req, res, next) {
+router.post('/:usrid/editbox', function(req, res, next) {
     
- connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.body.cbid], function(error, result) {
+ connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.parmas.cbid], function(error, result) {
      if (error) {
             console.log("err", error);
             res.json({
@@ -74,7 +72,7 @@ router.post('/collectbox/{usrid}/editbox', function(req, res, next) {
     });
 
 });
-*/
+
 
 //박스 리스트 보내기
 router.get('/:usrid/boxlist', function(req, res, next) {
