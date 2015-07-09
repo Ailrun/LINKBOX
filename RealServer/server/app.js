@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var collectbox = require('./routes/collectbox');
 var collecturl = require('./routes/collecturl');
 var usr = require('./routes/usr');
-var routes = require('./routes/index');
 
 var app = express();
 
