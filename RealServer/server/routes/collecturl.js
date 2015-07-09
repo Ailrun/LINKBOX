@@ -11,7 +11,14 @@ var connection = mysql.createConnection({
     'database' : 'LINKBOX'
 });
 
+//url 가져오기
+router.get('/:cbid/urllist/:usrid', function(req, res, next) {
+    connection.query('select * from collecturl where usrid', function (error, cursor) {
+        res.json(cursor);
+    });
+});
 
+/*
 //링크 추가
 router.post('/collecturl/{cbid}/addurl', function(request, response, next) {
 
@@ -84,5 +91,6 @@ router.get('/collecturl/{cbid}/urllist', function(req, res, next) {
       res.json(cursor);
    });
 });
+*/
 
 module.exports = router;
