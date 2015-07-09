@@ -23,6 +23,21 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.post('/',function(req,res){
+    var user = {'usrid':req.body.usrid,
+                'pass' :req.body.pass,
+                'usrname':req.body.usrname,
+                'usremail':req.body.usremail};
+    var query = connection.query('insert into usr set ?',user,function(err,result){
+        if (err) {
+            console.error(err);
+            throw err;
+        }
+        console.log(query);
+        res.send(200,'success');
+    });
+});
+
 // 회원가입
 /*
 router.post('/usr/signup', function(request, response, next) {
