@@ -93,7 +93,7 @@ router.post('/collectbox/{usrid}/editbox', function(req, res, next) {
 */
 
 //박스 리스트 보내기
-router.get('/:usrid', function(req, res, next) {
+router.get('/:usrid/boxlist', function(req, res, next) {
   
    connection.query('select cbname, cbid from collectbox where usrid=?;', [req.param.usrid], function (error, cursor) {
       
