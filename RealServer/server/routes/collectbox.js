@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 
 //박스추가
 router.post('/:usrid/addbox', function(request, response, next){
-    
+
     connection.query('SELECT MAX(cbid) from collectbox;', function(error, cursor){
     connection.query('INSERT INTO collectbox (cbid, cbname) values(?,?);', [cursor[0].max+1, request.body.cbname], function(error, info) {
             if(error != undefined)
@@ -24,6 +24,7 @@ router.post('/:usrid/addbox', function(request, response, next){
                     "result":cursor[0].max
                 });
                 console.log(error);
+
             }
         });
     });
