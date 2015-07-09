@@ -44,7 +44,7 @@ router.post('/', function(request, response, next){
         response.sendStatus(403);
     }//아무것도없으면 403을 띄워라.
     else {//만약 ,내용이있으면,
-        connection.query('insert into usr(usrid, pass, usrname, usremail) values(?, ?, ?, ?);',   [usrid,pass,usrname,usremail],function(error,info){
+        connection.query('insert into usr(usrid, usrname, pass, usremail) values(?, ?, ?, ?);',   [usrid,usrname,pass,usremail],function(error,info){
             
             if(error!=undefined)
                 
