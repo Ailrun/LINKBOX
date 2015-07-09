@@ -18,6 +18,26 @@ router.get('/:cbid/urllist/:usrid', function(req, res, next) {
     });
 });
 
+//url 추가
+router.post('/:cbid/addurl', function(req, res, next){
+    connection.query('SELECT MAX(usrid) AS max from usr;', function(error, cursor){
+    connection.query('INSERT INTO url (urlid, urlname, urlthumbnail, address) values(?, ?, ?, ?);', [cursor[0].max+1, req.body.urlname, req.body.urlthumbnail, request.body.address], function(error, info) {
+            if(error != undefined)
+                response.sendStatus(503);
+        
+            else{
+                response.json({
+                    "result":cursor[0].max
+                });
+                console.log(error);
+            }
+        });
+    });
+});
+
+
+
+
 /*
 //링크 추가
 router.post('/collecturl/{cbid}/addurl', function(request, response, next) {
