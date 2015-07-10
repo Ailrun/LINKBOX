@@ -180,12 +180,12 @@
 
         <activity
             android:name=".LinkEditorAdd"
-            android:label="@string/title_activity_link_editor_list"
+            android:label="@string/title_activity_link_editor_add"
             android:parentActivityName=".LinkBoxActivity">
         </activity>
         <activity
             android:name=".LinkEditorList"
-            android:label="@string/title_activity_link_editor_add"
+            android:label="@string/title_activity_link_editor_list"
             android:parentActivityName=".LinkBoxActivity">
         </activity>
     </application>

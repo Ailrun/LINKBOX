@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="org.sopt.linkbox.LinkEditorList">
+    xmlns:tools="http://schemas.android.com/tools" tools:context="org.sopt.linkbox.LinkEditorAdd">
     <item android:id="@+id/action_add" android:title="add"
         android:icon="@android:drawable/ic_dialog_email"
         android:orderInCategory="100" app:showAsAction="always" />

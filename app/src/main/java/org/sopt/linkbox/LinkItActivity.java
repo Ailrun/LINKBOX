@@ -2,7 +2,9 @@ package org.sopt.linkbox;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -25,9 +27,12 @@ import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
 
 
-/** TODO : make this as Single Instance
+/** T?O?D?O : make this as Single Instance
  * REFERENCE : http://www.androidpub.com/796480
  */
 public class LinkItActivity extends Activity {
@@ -41,6 +46,8 @@ public class LinkItActivity extends Activity {
     private String boxName = null;
     private LinkUrlListData linkUrlListData = null;
 
+    private SharedPreferences sharedPreferences = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +60,13 @@ public class LinkItActivity extends Activity {
         initView();
         initListener();
         initControl();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (sharedPreferences.getBoolean("floating", true)) {
+            startService(new Intent(getApplicationContext(), LinkHeadService.class));
+        }
     }
 
     private void initWindow() {
@@ -78,6 +92,8 @@ public class LinkItActivity extends Activity {
         }
     }
     private void initData() {
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedProfile)
+                + LinkBoxController.linkUserData.usrid, 0);
         linkUrlListData = new LinkUrlListData();
     }
     private void initView() {
@@ -122,6 +138,10 @@ public class LinkItActivity extends Activity {
             @Override
             public void onClick(View view) {
                 linkUrlListData.urlname = etName.getText().toString();
+                linkUrlListData.isgood = false;
+                linkUrlListData.urlwriter = LinkBoxController.linkUserData.usrname;
+                linkUrlListData.urldate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                LinkNetwork.Server.postAddUrlToServerAsync(linkUrlListData);
                 Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
                 startActivity(intent);
                 finish();
@@ -140,10 +160,5 @@ public class LinkItActivity extends Activity {
                 new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         spBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
-    }
-
-    public void setImageView() {
-        if (ivThumb != null) {
-        }
     }
 }

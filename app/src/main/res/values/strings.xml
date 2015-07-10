@@ -23,4 +23,5 @@
     <string name="title_activity_notification_list_adapter">NotificationListAdapter</string>
     <string name="title_activity_link_editor_list">LinkEditorList</string>
     <string name="title_activity_link_editor_add">LinkEditorAdd</string>
+    <string name="sharedProfile">userProfile</string>
 </resources>

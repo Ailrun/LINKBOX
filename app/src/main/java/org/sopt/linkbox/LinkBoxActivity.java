@@ -1,6 +1,7 @@
 package org.sopt.linkbox;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
@@ -45,7 +46,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  *
  */
 
-/** TODO : make this as Single Instance
+/** T?O?D?O : make this as Single Instance
  * REFERENCE : http://www.androidpub.com/796480
  */
 public class LinkBoxActivity extends AppCompatActivity {
@@ -73,6 +74,8 @@ public class LinkBoxActivity extends AppCompatActivity {
     private DrawerLayout dlBoxList = null;
     private ActionBarDrawerToggle abBoxList = null;
 
+    private SharedPreferences sharedPreferences = null;
+
     private IabHelper iabHelper = null;
     private String base64EncodedPublicKey = null;
     private final String skuIDPremium = "id_mUImErpEmEkAMU";
@@ -82,11 +85,15 @@ public class LinkBoxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
-        startService(new Intent(getApplicationContext(), LinkHeadService.class));
         initData();
         initView();
         initControl();
         initListener();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -123,12 +130,20 @@ public class LinkBoxActivity extends AppCompatActivity {
         return true;
     }
     @Override
+    public void onStop() {
+        super.onStop();
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+    }
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (iabHelper != null) {
             iabHelper.dispose();
         }
         iabHelper = null;
+        if (sharedPreferences.getBoolean("floating", true)) {
+            startService(new Intent(getApplicationContext(), LinkHeadService.class));
+        }
     }
 
     private void initData() {
@@ -136,9 +151,11 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        initInAppData();
 
         //other data init;
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedProfile)
+                + LinkBoxController.linkUserData.usrid, 0);
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         LinkBoxController.urlListSource.add(LinkBoxController.currentBox, new ArrayList<LinkUrlListData>());
-        initUrlDummyData();
+//        initUrlDummyData();
         initBoxDummyData();
 //        LinkNetwork.Server.getBoxListFromServerAsync();
 //        LinkNetwork.Server.getUrlListFromServerAsync();
@@ -195,7 +212,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onIabSetupFinished(IabResult result) {
                 if (!result.isSuccess()) {
-                    //TODO : If Setup Fail, HANDLE ERROR (like Toast)
+                    //T?O?D?O : If Setup Fail, HANDLE ERROR (like Toast)
                     Log.d(TAG, "Problem setting up In-app Billing: " + result);
                 }
 
@@ -203,10 +220,10 @@ public class LinkBoxActivity extends AppCompatActivity {
                     @Override
                     public void onQueryInventoryFinished(IabResult result, Inventory inv) {
                         if (!result.isSuccess()) {
-                            //TODO : HANDLE ERROR (like Toast)
+                            //T?O?D?O : HANDLE ERROR (like Toast)
                         }
                         String premiumPrice = inv.getSkuDetails(skuIDPremium).getPrice();
-                        //TODO : UI UPDATE
+                        //T?O?D?O : UI UPDATE
                     }
                 });
             }

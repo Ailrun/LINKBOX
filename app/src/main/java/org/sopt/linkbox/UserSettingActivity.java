@@ -1,10 +1,13 @@
 package org.sopt.linkbox;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.method.KeyListener;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.ExpandableListView;
 
 import org.sopt.linkbox.custom.adapters.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
 
@@ -31,7 +35,7 @@ public class UserSettingActivity extends AppCompatActivity {
     Button bLogout = null;
     Button bSignDown = null;
 
-    SharedPreferences sharedPref;
+    SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedEditor;
 
     ArrayList<LinkBoxListData> groupList = null;
@@ -48,6 +52,14 @@ public class UserSettingActivity extends AppCompatActivity {
         initListener();
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (sharedPreferences.getBoolean("floating", true)) {
+            startService(new Intent(getApplicationContext(), LinkHeadService.class));
+        }
+    }
+
     void initData() {
         LinkBoxListData linkBoxListData = new LinkBoxListData();
         linkBoxListData.cbname = "박스 설정";
@@ -57,28 +69,31 @@ public class UserSettingActivity extends AppCompatActivity {
         childList.add(LinkBoxController.boxListSource);
     }
     void initView() {
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedProfile)
+                + LinkBoxController.linkUserData.usrid, 0);
+        sharedEditor = sharedPreferences.edit();
+
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
         setSupportActionBar(tToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         etName = (EditText)findViewById(R.id.ET_name_user_setting);
         etName.setTag(etName.getKeyListener());
         etName.setKeyListener(null);
+        etName.setText(LinkBoxController.linkUserData.usrname);
         etMail = (EditText)findViewById(R.id.ET_mail_user_setting);
         etMail.setTag(etName.getKeyListener());
         etMail.setKeyListener(null);
+        etMail.setText(LinkBoxController.linkUserData.usremail);
         etChangePassword = (EditText)findViewById(R.id.ET_changepass_user_setting);
         etChangePassword.setTag(etChangePassword.getKeyListener());
         etChangePassword.setKeyListener(null);
+        etChangePassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        etChangePassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         elvNotification = (ExpandableListView)findViewById(R.id.ELV_notification_list_user_setting);
         cbFloating = (CheckBox)findViewById(R.id.CB_floating_user_setting);
+        cbFloating.setChecked(sharedPreferences.getBoolean("floating", true));
         bLogout = (Button) findViewById(R.id.B_logout_user_setting);
         bSignDown = (Button) findViewById(R.id.B_signdown_user_setting);
-
-        // etName.setText(); 디비에서 불러와야 하니까 일단 주석
-        // etMail.setText();
-
-        sharedPref = getSharedPreferences("userProfile", 0);
-        sharedEditor = sharedPref.edit();
     }
     void initListener() {
 
@@ -114,7 +129,6 @@ public class UserSettingActivity extends AppCompatActivity {
                 return false;
             }
         });
-
         etMail.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -216,7 +230,7 @@ public class UserSettingActivity extends AppCompatActivity {
         });
 
 
-        // sharedPref - userProfile파일에 저장하고 막판에 DB 갱신?
+        // sharedPreferences - userProfile파일에 저장하고 막판에 DB 갱신?
         /******************************************************/
 
         // 로그아웃 버튼
