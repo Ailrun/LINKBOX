@@ -21,14 +21,23 @@ router.post('/:cbid/urllist', function(req, res, next) {
 //url 추가
 router.post('/:usrid/:cbid/addurl', function(req, res, next){
     connection.query('SELECT MAX(urlid) as max from url;', function(error, cursor){
-        connection.query('INSERT INTO url (urlid, urlname, urlthumbnails, address, usrid, cbid) values(?, ?, ?, ?, ?, ?);', [cursor[0].max+1, req.body.urlname, req.body.urlthumbnails, req.body.address, req.params.usrid, req.params.cbid], function(error, info) {
+        connection.query('INSERT INTO url (urlid, urlname, urlthumbnails, address, usrid, cbid) values(?, ?, ?, ?, ?, ?);', [cursor[0].max+1, req.body.urlname, req.body.urlthumb, req.body.address, req.params.usrid, req.params.cbid], function(error, info) {
         console.log(error);
             if(error != undefined){
                 res.sendStatus(503);
             }
             else{
                 res.json({
-                    "result":cursor[0].max
+                    
+                    "result": cursor[0].max,
+                    "urlid": info.insertId,
+                    "address": req.body.address,
+                    "urlname": req.body.urlname,
+                    "urlwriter": req.body.urlwriter,
+                    "urldate": req.body.time,
+                    "urlthumb": req.body.urlthumb
+                    
+                    
                 });
                 console.log(error);
             }
