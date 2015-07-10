@@ -28,6 +28,7 @@ public class MainActivity extends TabActivity {
         tabHost = getTabHost();
         TabHost.TabSpec spec = null;
         Intent intent = null;
+        ImageView d=(ImageView) findViewById(R.id.IV_main_image);
 
         intent = new Intent(this, LoginActivity.class);
         spec = tabHost.newTabSpec("Login").setIndicator("Login")

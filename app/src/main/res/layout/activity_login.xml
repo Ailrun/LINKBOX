@@ -8,85 +8,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp">
-            <TextView
-                android:id="@+id/TV_id_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:layout_marginEnd="50dp"
-                android:text="ID"/>
             <AutoCompleteTextView
                 android:id="@+id/AC_email_main"
-                android:layout_width="match_parent"
+                android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/prompt_email"
                 android:inputType="textEmailAddress"
-                android:layout_toEndOf="@+id/TV_id_main"
                 android:maxLines="1"
-                android:singleLine="true" />
-        </RelativeLayout>
+                android:singleLine="true"
+                android:layout_gravity="center_horizontal"
+                android:color="#000"/>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-        <TextView
-            android:id="@+id/TV_password_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:text="Password"/>
-
-        <EditText android:id="@+id/ET_password_main" android:layout_width="match_parent"
+        <EditText android:id="@+id/ET_password_main" android:layout_width="236dp"
             android:layout_height="wrap_content" android:hint="@string/prompt_password"
             android:imeActionId="@+id/login"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified" android:inputType="textPassword"
             android:maxLines="1" android:singleLine="true"
-            android:layout_toEndOf="@+id/TV_password_main"/>
-        </RelativeLayout>
+            android:layout_gravity="center_horizontal"/>
 
         <Button
             android:id="@+id/B_login_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="24dp"
             android:text="로그인"
             android:onClick="onClick_login" />
 
         <com.facebook.login.widget.LoginButton
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="12dp"
             android:id="@+id/LB_login_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"/>
-
-        <CheckBox
-            android:id="@+id/chk_auto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/et_pw"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="자동 로그인"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/chk_auto"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:text="자동 로그인"
-            android:layout_gravity="center_horizontal" />
+            android:layout_width="200dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            />
 
     </LinearLayout>
 </RelativeLayout>

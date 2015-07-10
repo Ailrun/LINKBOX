@@ -9,57 +9,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/TV_id_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="ID"/>
         <AutoCompleteTextView
             android:id="@+id/AC_email_signup"
-            android:layout_width="match_parent"
+            android:layout_width="236dp"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:layout_gravity="center_horizontal"/>
 
-        <TextView
-            android:id="@+id/TV_password_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="Password"/>
 
-        <EditText android:id="@+id/ET_password_signup" android:layout_width="match_parent"
+        <EditText android:id="@+id/ET_password_signup"
+            android:layout_width="236dp"
             android:layout_height="wrap_content" android:hint="@string/prompt_password"
             android:imeActionId="@+id/login"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified" android:inputType="textPassword"
             android:layout_toRightOf="@+id/TV_password_signup"
-            android:maxLines="1" android:singleLine="true" />
+            android:maxLines="1" android:singleLine="true"
+            android:layout_gravity="center_horizontal"/>
 
-        <TextView
-            android:id="@+id/TV_name_signup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="이름"/>
         <AutoCompleteTextView
-            android:id="@+id/AC_name_signup"
-            android:layout_width="match_parent"
+            android:id="@+id/AC_password_confirm_signup"
+            android:layout_width="236dp"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:hint="name"
+            android:hint="비밀번호 확인"
             android:maxLines="1"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:layout_gravity="center_horizontal"/>
         <Button
-            android:id="@+id/B_signup_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/B_signup_signup"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
             android:layout_toRightOf="@+id/LB_login_main"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="80dp"
             android:text="회원가입"/>
 
 

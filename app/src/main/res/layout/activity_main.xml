@@ -11,16 +11,18 @@
             android:id="@android:id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/IV_main_image"/>
+            android:layout_below="@+id/IV_main_image"
+            android:background="#3f51b5"/>
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@android:id/tabs"></FrameLayout>
+            android:layout_below="@android:id/tabs"
+            android:background="#fafafa"></FrameLayout>
         <ImageView
             android:id="@+id/IV_main_image"
-            android:layout_width="match_parent"
-            android:layout_height="278dp"
+            android:layout_width="360dp"
+            android:layout_height="287dp"
             android:src="@drawable/account_image"/>
     </RelativeLayout>
 </TabHost>
