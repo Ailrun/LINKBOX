@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 
 //url 가져오기
 router.get('/:cbid/urllist/:usrid', function(req, res, next) {
-    connection.query('select * from collecturl where ?', [req.params.usrid], function (error, cursor) {
+    connection.query('select * from collecturl where usrid=? ', [req.params.usrid], function (error, cursor) {
         res.json(cursor);
     });
 });
@@ -21,19 +21,16 @@ router.get('/:cbid/urllist/:usrid', function(req, res, next) {
 //url 추가
 router.post('/:cbid/addurl', function(req, res, next){
     connection.query('SELECT MAX(urlid) AS max from url;', function(error, cursor){
-    connection.query('INSERT INTO url (urlid, urlname, urlthumbnail, address) values(?, ?, ?, ?);', [cursor[0].max+1, req.body.urlname, req.body.urlthumbnail, req.body.address], function(error, info) {
-        connection.query('SELECT MAX(cuid) AS max from collecturl;', function(error, extra){
-                    connection.query('INSERT INTO collecturl (cuid, urlid, cbid) values(?, ?, ?, ?);', [extra[0].max+1, cursor[0].max+1, req.params.cbid], function(error, non) {
+        connection.query('INSERT INTO url (urlid, urlname, urlthumbnail, address) values(?, ?, ?, ?);', [cursor[0].max+1, req.body.urlname, req.body.urlthumbnail, req.body.address], function(error, info) {
+            connection.query('SELECT MAX(cuid) AS max from collecturl;', function(error, extra){
+                connection.query('INSERT INTO collecturl (cuid, urlid, cbid) values(?, ?, ?, ?);', [extra[0].max+1, cursor[0].max+1, req.params.cbid], function(error, non) {
                         if(error != undefined){
                             console.log(error);
                             res.sendStatus(503);
                         }
                         else{
-                            res.json({
-                                "result":cursor[0].max
-                            });
-                            console.log(error); 
-                        }
+                            res.json({"result":cursor[0].max});
+                            console.log(error);}
                         });
                     });
                     });
