@@ -23,7 +23,9 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post('/signup', function(request, response, next){
+
+//회원가입
+router.post('/usr/signup', function(request, response, next){
     
     connection.query('SELECT MAX(usrid) AS max from usr;', function(error, cursor){
     connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?);', [cursor[0].max+1, request.body.usrname, request.body.usremail, request.body.pass], function(error, info) {
@@ -89,25 +91,24 @@ router.post('/usr/login', function(req, res, next) {
 
 
 // 회원탈퇴
-/*
+
 router.post('/usr/signdown', function(req, res, next) {
     
-        connection.query('delete * from usr where usremail=?;', [req.body.usremail], function (error, cursor) {
-                                if (cursor.length > 0) {
-                                        var result = cursor[0];
-                                        res.json({
-                                                result : true,
-                                                                                                
-                                        });
+        connection.query('delete from usr where usremail=?;', [req.body.usremail], function (error, cursor) {
+             console.log(error);
+            if (error == undefined) {
+                            res.json({
+                                     result : 'true'
+                                                                                                                                        });
                                 }
-                                else {
-                                        res.status(503).json({
-                                            result : false,
-                                        });
+            else {
+                            res.status(503).json({
+                                     result : 'false'
+                                    });
                                 }
                         });
                       
                });
-*/
+
 
 module.exports = router;
