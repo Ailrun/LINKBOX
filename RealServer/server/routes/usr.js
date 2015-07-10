@@ -23,6 +23,8 @@ router.get('/', function(req, res, next) {
     });
 });
 
+
+//회원가입
 router.post('/signup', function(request, response, next){
     
     connection.query('SELECT MAX(usrid) AS max from usr;', function(error, cursor){
@@ -87,13 +89,12 @@ router.post('/usr/login', function(req, res, next) {
                });
 */
 
-
-// 회원탈퇴
 /*
-router.post('/usr/signdown', function(req, res, next) {
+// 지현쓰 로그인 다시짜보기 (하다가 맘)
+router.post('/usr/login', function(req, res, next) {
     
-        connection.query('delete * from usr where usremail=?;', [req.body.usremail], function (error, cursor) {
-                                if (cursor.length > 0) {
+        connection.query('select * from usr where usremail=? and pass=?;', [req.body.usremail, req.body.pass], function (error, cursor) {
+                                if (usremail=req.body.usremail && pass=req.body.pass) {
                                         var result = cursor[0];
                                         res.json({
                                                 result : true,
@@ -109,5 +110,27 @@ router.post('/usr/signdown', function(req, res, next) {
                       
                });
 */
+
+
+// 회원탈퇴
+
+router.post('/signdown', function(request, response, next) {
+    
+        connection.query('delete from usr where usremail=?;', [request.body.usremail], function (error, cursor) {
+             console.log(error);
+            if (error == undefined) {
+                            response.json({
+                                     result : 'true'
+                                                                                                                                        });
+                                }
+            else {
+                            response.status(503).json({
+                                     result : 'false'
+                                    });
+                                }
+                        });
+                      
+               });
+
 
 module.exports = router;

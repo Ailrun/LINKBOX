@@ -14,48 +14,47 @@ var connection = mysql.createConnection({
 //박스추가
 router.post('/:usrid/addbox', function(request, response, next){
 
-    connection.query('SELECT MAX(cbid) from collectbox;', function(error, cursor){
-    connection.query('INSERT INTO collectbox (cbid, cbname) values(?,?);', [cursor[0].max+1, request.body.cbname], function(error, info) {
-            if(error != undefined)
+    connection.query('SELECT MAX(cbid) as max from collectbox;', function(error, cursor){
+    connection.query('INSERT INTO collectbox (cbid, cbname, usrid) values(?,?,?);', [cursor[0].max+1, request.body.cbname, request.params.usrid], function(error, info) {
+        console.log(error);
+            if(error != undefined){
                 response.sendStatus(503);
-        
+            }
             else{
                 response.json({
                     "result":cursor[0].max
                 });
                 console.log(error);
-
             }
         });
     });
 });
 
-router.post('/:usrid/removebox', function(req, res, next) {
-        connection.query('delete * from collectbox where cbid;', [req.params.cbid], function (error, cursor) {
 
-                                if (cursor.length > 0) {
-                                        var result = cursor[0];
-                                        res.json({
-                                    result : true,
-                                                                                                
-                                        });
+//박스삭제
+router.post('/:usrid/removebox', function(req, res, next) {
+        connection.query('delete from collectbox where cbid=?;', [req.body.cbid], function (error, cursor) {
+             console.log(error);
+            if (error == undefined) {
+                            res.json({
+                                     result : 'true'
+                                                                                                                                        });
                                 }
-                                else {
-                                        res.status(503).json({
-                                 result : false,
-                                });
+            else {
+                            res.status(503).json({
+                                     result : 'false'
+                                    });
                                 }
                         });
-
                       
-               });
+            });
 
 
 
 //박스 수정
 router.post('/:usrid/editbox', function(req, res, next) {
     
- connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.parmas.cbid], function(error, result) {
+ connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.body.cbid], function(error, result) {
      if (error) {
             console.log("err", error);
             res.json({
