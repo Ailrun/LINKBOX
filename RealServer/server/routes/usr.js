@@ -54,7 +54,10 @@ router.post('/login', function(req, res, next) {
             }
             else{
                 res.json({"result":true,
-                         "name":cursor});
+                         "usrid":cursor[0].usrid,
+                         "usrname":cursor[0].usrname,
+                         "useremail":cursor[0].usremail,
+                         "usrprofile":cursor[0].usrprofile});
             }
         }
     });
