@@ -31,15 +31,15 @@ router.post('/:cbid/addusr', function(req, res, next){
 router.get('/:cbid/urllist', function(req, res, next) {
     
     connection.query('SELECT usrid FROM collectbox WHERE cbid = ?;', [req.params.cbid], function (error, cursor){
-        
-        connection.query('SELECT usrid, usrname, usremail, usrprofile FROM usr WHERE usrid=?;', [cursor.usrid], function (error, info) {
+        connection.query('SELECT usrid, usrname, usremail, usrprofile FROM usr WHERE usrid=?;', [cursor.usrid], function (error, info)
+                         {
             if(error != undefined)
                 res.sendStatus(503);
             else
-                res.json(cursor);
-   });
+                res.json(info);
+        });
         
-    })
+    });
   
 
 });
