@@ -15,6 +15,7 @@ router.post('/:cbid/addusr/:usremail', function(req, res, next){
     connection.query('SELECT usrid FROM usr WHERE usremail = ? ', [req.params.usremail], function(erroe, cursor){
         console.log(cursor)
         connection.query('INSERT INTO share (usrid, cbid) values (?, ?);' [cursor.usrid, req.params.cbid], function(error, info) {
+            console.log(error)
         if(error != undefined){
             res.sendStatus(503);
         }
