@@ -63,12 +63,10 @@ router.post('/:cbid/removeurl', function(req, res, next) {
 router.post('/:urlid/editurl', function(req, res, next) {
  connection.query("UPDATE url SET urlname=? where urlid=?;", [req.body.urlname, req.params.urlid], function(error, result) {
      if (error) {
-            console.log("err", error);
             res.json({
                         result : 'fail'
                     });
   } else {
-            console.log("result", result);
             res.json({
                         result : 'success'
                     });
