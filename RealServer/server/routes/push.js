@@ -3,7 +3,7 @@ var gcm = require('node-gcm');
 
 var router = express.Router();
 
-var server_api_key = '';
+var server_api_key = 'AIzaSyDFpvBEzqfKIaVsBgLYPFvnTUN-MFU9qf8';
 var sender = new gcm.Sender(server_api_key);
 
 var registrationIds = [];
