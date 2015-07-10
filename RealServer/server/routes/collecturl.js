@@ -19,28 +19,23 @@ router.get('/urllist/:usrid', function(req, res, next) {
 });
 
 //url 추가
-router.post('/:cbid/addurl', function(req, res, next){
-    connection.query('SELECT MAX(urlid) AS max from url;', function(error, cursor){
-    connection.query('INSERT INTO url (urlid, urlname, urlthumbnail, address) values(?, ?, ?, ?);', [cursor[0].max+1, req.body.urlname, req.body.urlthumbnail, req.body.address], function(error, info) {
-        connection.query('SELECT MAX(cuid) AS max from collecturl;', function(error, extra){
-                    connection.query('INSERT INTO collecturl (cuid, urlid, cbid) values(?, ?, ?, ?);', [extra[0].max+1, cursor[0].max+1, req.params.cbid], function(error, non) {
-                        if(error != undefined){
-                            console.log(error);
-                            res.sendStatus(503);
-                        }
-                        else{
-                            res.json({
-                                "result":cursor[0].max
-                            });
-                            console.log(error); 
-                        }
-                        });
-                    });
-                    });
-
-
-            });
+router.post('/:cbid/addurl/:urlname', function(req, res, next){
+    connection.query('SELECT MAX(urlid) as max from url;', function(error, cursor){
+        connection.query('INSERT INTO url (urlid, urlname, urlthumbnails, address, cbid) values(?, ?, ?, ?, ?);', [cursor[0].max+1, req.body.urlname, req.body.urlthumbnails, req.body.address, req.params.cbid], function(error, info) {
+        console.log(error);
+            if(error != undefined){
+                response.sendStatus(503);
+            }
+            else{
+                response.json({
+                    "result":cursor[0].max
+                });
+                console.log(error);
+            }
+        });
     });
+});
+
 /*
 //박스추가
 router.post('/:usrid/addbox', function(request, response, next){
