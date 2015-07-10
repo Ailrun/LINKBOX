@@ -61,8 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         lbFacebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LoginButton lbFacebookLogin = (LoginButton) findViewById(R.id.LB_login_main);
-                lbFacebookLogin.setBackgroundResource(R.drawable.account_facebook_login_pressed);
+                //lbFacebookLogin.setBackgroundResource(R.drawable.account_facebook_login_pressed);
 
                 LoginManager.getInstance().logOut();
 
@@ -78,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bLogin.setBackgroundResource(R.drawable.account_login_pressed);
+                //bLogin.setBackgroundResource(R.drawable.account_login_pressed);
                 String ID = ac_id.getText().toString();
                 String PW = et_pwd.getText().toString();
                 LinkBoxController.linkUserData.usremail = ID;
