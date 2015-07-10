@@ -1,44 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
     android:background="#FFFFFFFF"
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/indigo500">
+        android:layout_height="96dp"
+        android:background="#5b6abf">
         <ImageView
             android:id="@+id/IV_profile_link_box"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"/>
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/drawer_facebookprofile"
+            android:background="@drawable/pro"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User Name"
+            android:id="@+id/drawer_userName"
+            android:textSize="14dp"
+            android:textColor="#fff"
+            android:layout_toEndOf="@+id/IV_profile_link_box"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="38dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:text="User Email"
+            android:id="@+id/drawer_userEmail"
+            android:textColor="#fff"
+            android:layout_toEndOf="@+id/IV_profile_link_box"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="54dp"/>
     </RelativeLayout>
     <!-- divider start -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         android:background="@color/realWhite"/>
     <!-- divider end -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp">
-        <LinearLayout
+        android:layout_height="350dp">
+        <RelativeLayout
             android:id="@+id/LL_box_info_link_box"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/indigo500">
-            <View
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="5dp"
-                android:background="@android:drawable/ic_menu_report_image"/>
+            android:layout_height="48dp"
+            android:background="#3e50b4">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_drawer_mybox"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"/>
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
                 android:text="내 박스"
-                android:textColor="#FFFFFFFF"/>
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="12dp"
+                android:textColor="#FFFFFFFF"
+                android:id="@+id/textView" />
             <TextView
                 android:id="@+id/TV_box_number_link_box"
                 android:layout_width="30dp"
@@ -46,7 +74,16 @@
                 android:gravity="center"
                 android:text=""
                 android:textColor="#FFEEEEFF"/>
-        </LinearLayout>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/drawer_editList"
+                android:src="@mipmap/ic_editlist"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="16dp"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
         <ListView
             android:id="@+id/LV_box_list_link_box"
             android:layout_width="match_parent"
@@ -57,23 +94,49 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/indigo500"/>
+        android:background="#EAEAEB"/>
     <!-- divider end -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/ic_setting"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:src="@drawable/ic_drawer_setting"/>
         <Button
             android:id="@+id/B_to_settings_link_box"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:paddingStart="32dp"
+            android:layout_height="48dp"
             android:background="#FFFFFFFF"
-            android:text="설정"/>
+            android:gravity="start|center_vertical"
+            android:textSize="14dp"
+            android:text="설정"
+            android:layout_toRightOf="@+id/ic_setting"
+            style="?android:attr/borderlessButtonStyle"/>
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/ic_upgrade"
+            android:src="@drawable/ic_drawer_upgrade"
+            android:layout_below="@+id/B_to_settings_link_box"
+            android:layout_marginTop="12dp"
+            android:layout_toStartOf="@+id/B_to_settings_link_box" />
         <Button
             android:id="@+id/B_to_premium_link_box"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="48dp"
+            android:paddingStart="32dp"
+            android:gravity="start|center_vertical"
             android:layout_below="@+id/B_to_settings_link_box"
             android:background="#FFFFFFFF"
-            android:text="프리미엄"/>
+            android:text="프리미엄"
+            android:layout_toRightOf="@+id/ic_upgrade"
+            style="?android:attr/borderlessButtonStyle"/>
     </RelativeLayout>
 </LinearLayout>

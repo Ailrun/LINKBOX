@@ -35,6 +35,7 @@ public class LinkHeadService extends Service {
             WindowManager.LayoutParams.TYPE_PHONE,
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
             PixelFormat.TRANSLUCENT);
+
     //Property For Edit
     private ClearableEditText cetEdit = null;
     private boolean isEtEditAttached = false;
