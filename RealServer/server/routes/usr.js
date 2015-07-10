@@ -56,7 +56,8 @@ router.post('/login', function(req, res, next) {
                 res.json({"result":true,
                          "usrid":cursor[0].usrid,
                          "usrname":cursor[0].usrname,
-                         "useremail":cursor[0].usremail,
+                         "usremail":cursor[0].usremail,
+                          "pass":cursor[0].pass,
                          "usrprofile":cursor[0].usrprofile});
             }
         }
