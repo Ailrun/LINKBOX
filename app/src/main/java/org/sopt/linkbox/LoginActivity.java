@@ -44,15 +44,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
         callbackManager = CallbackManager.Factory.create();
 
         Button bLogin = (Button) findViewById(R.id.B_login_main);
         LoginButton lbFacebookLogin = (LoginButton) findViewById(R.id.LB_login_main);
-        chk_auto = (CheckBox) findViewById(R.id.chk_auto);
         ac_id = (AutoCompleteTextView) findViewById(R.id.AC_email_main);
         et_pwd = (EditText) findViewById(R.id.ET_password_main);
+
 
         /**
          * logoutButton을 가져오고 이벤트핸들러를 설정합니다.
@@ -62,6 +61,8 @@ public class LoginActivity extends AppCompatActivity {
         lbFacebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LoginButton lbFacebookLogin = (LoginButton) findViewById(R.id.LB_login_main);
+                lbFacebookLogin.setBackgroundResource(R.drawable.account_facebook_login_pressed);
 
                 LoginManager.getInstance().logOut();
 
@@ -73,9 +74,11 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                bLogin.setBackgroundResource(R.drawable.account_login_pressed);
                 String ID = ac_id.getText().toString();
                 String PW = et_pwd.getText().toString();
                 LinkBoxController.linkUserData.usremail = ID;

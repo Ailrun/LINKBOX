@@ -3,29 +3,34 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="org.sopt.linkbox.LoginActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="org.sopt.linkbox.LoginActivity"
+    android:background="#fafafa">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#fafafa">
             <AutoCompleteTextView
                 android:id="@+id/AC_email_main"
                 android:layout_width="236dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
+                android:hint="이메일 주소"
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:singleLine="true"
                 android:layout_gravity="center_horizontal"
-                android:color="#000"/>
+                android:layout_paddingButtom="8dp"/>
+
 
         <EditText android:id="@+id/ET_password_main" android:layout_width="236dp"
-            android:layout_height="wrap_content" android:hint="@string/prompt_password"
+            android:layout_height="wrap_content" android:hint="비밀번호"
             android:imeActionId="@+id/login"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified" android:inputType="textPassword"
             android:maxLines="1" android:singleLine="true"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_paddingButtom="8dp"/>
 
         <Button
             android:id="@+id/B_login_main"
@@ -33,8 +38,8 @@
             android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:text="로그인"
-            android:onClick="onClick_login" />
+            android:onClick="onClick_login"
+            android:background="@drawable/account_login_resting"/>
 
         <com.facebook.login.widget.LoginButton
             android:layout_marginTop="12dp"
@@ -42,6 +47,7 @@
             android:layout_width="200dp"
             android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/account_facebook_login_resting"
             />
 
     </LinearLayout>

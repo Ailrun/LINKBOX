@@ -63,6 +63,7 @@ public class FacebookLoginActivity extends Activity {
         /**
          * loginButton을 가져오고 콜백을 등록(registerCallback)합니다.
          */
+
         loginButton= (LoginButton) findViewById(R.id.LB_login_main);
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override

@@ -21,8 +21,8 @@
             android:background="#fafafa"></FrameLayout>
         <ImageView
             android:id="@+id/IV_main_image"
-            android:layout_width="360dp"
-            android:layout_height="287dp"
+            android:layout_width="match_parent"
+            android:layout_height="278dp"
             android:src="@drawable/account_image"/>
     </RelativeLayout>
 </TabHost>
