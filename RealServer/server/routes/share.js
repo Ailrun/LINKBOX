@@ -13,7 +13,6 @@ var connection = mysql.createConnection({
 //collectbox에 공유하고자 하는 usr추가
 router.post('/:cbid/addusr', function(req, res, next){
     connection.query('SELECT usrid FROM usr WHERE usremail = ?;', [req.body.usremail], function(error, cursor){
-        console.log(cursor)
         connection.query('insert into share (usrid, cbid) values (?, ?);', [cursor[0].usrid, req.params.cbid], function(error, info) {  console.log(error)
         if(error != undefined){
             res.sendStatus(503);

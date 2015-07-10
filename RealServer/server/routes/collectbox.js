@@ -34,7 +34,6 @@ router.post('/:usrid/addbox', function(request, response, next){
 //박스삭제
 router.post('/:usrid/removebox', function(req, res, next) {
         connection.query('delete from collectbox where cbid=?;', [req.body.cbid], function (error, cursor) {
-             console.log(error);
             if (error == undefined) {
                             res.json({
                                      result : 'true'
@@ -56,12 +55,10 @@ router.post('/:usrid/editbox', function(req, res, next) {
     
  connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.body.cbid], function(error, result) {
      if (error) {
-            console.log("err", error);
             res.json({
                         result : 'fail'
                     });
   } else {
-            console.log("result", result);
             res.json({
                         result : 'success'
                     });
