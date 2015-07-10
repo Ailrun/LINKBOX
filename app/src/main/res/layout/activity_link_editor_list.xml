@@ -8,8 +8,26 @@
         android:id="@+id/T_toolbar_editor_list"
         layout="@layout/layout_toolbar"/>
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="56dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="박스이름"
+            android:layout_marginStart="16dp"
+            android:id="@+id/TV_box_name_editor_list" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/LV_editor_list_editor_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
 </LinearLayout>
