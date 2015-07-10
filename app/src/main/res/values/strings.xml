@@ -21,9 +21,4 @@
     <string name="title_activity_login_data">LoginDataActivity</string>
     <string name="title_activity_user_setting">UserSettingActivity</string>
     <string name="title_activity_notification_list_adapter">NotificationListAdapter</string>
-    <string name="title_activity_sample_fragment_pager_adapter">SampleFragmentPagerAdapter</string>
-
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_facebook_login">FacebookLoginActivity</string>
 </resources>

@@ -26,52 +26,51 @@
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:minSdkVersion="19" />
 
-    <!-- for android badge -->
-    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
-    <!-- for Samsung badge -->
-    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
-    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
-    <!-- for htc badge -->
-    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
-    <!-- for sony badge -->
-    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
-    <!-- for apex badge -->
-    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" />
-
-    <!-- for Push Notification -->
+    <!--for android badge-->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS"/>
+    <!--for Samsung badge-->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
+    <!--for htc badge-->
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
+    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
+    <!--for sony badge-->
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
+    <!--for apex badge-->
+    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
+    
+    <!--for Push Notification-->
     <permission
         android:name="org.sopt.linkbox.permission.C2D_MESSAGE"
-        android:protectionLevel="signature" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="org.sopt.appjamtest.permission.C2D_MESSAGE" />
+        android:protectionLevel="signature"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="org.sopt.appjamtest.permission.C2D_MESSAGE"/>
 
     <application
-        android:name=".LinkBoxController"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:name=".LinkBoxController">
         <activity
             android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".LoginActivity"
             android:label="LoginActivity"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
         </activity>
 
         <!-- 아래 부분은 SDK 4.0.0 버전 이후로설정해줘야 하는 부분으로 가이드 라인에 나와있습니다 -->
@@ -83,8 +82,8 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"/>
 
         <!-- com.facebook.app.FacebookContentProvider 뒤에다가 App ID 추가 필수 -->
         <provider
@@ -103,25 +102,25 @@
 
         <service
             android:name=".service.LinkHeadService"
-            android:exported="false" >
+            android:exported="false">
         </service>
 
         <activity
             android:name=".LinkBoxActivity"
             android:label="@string/title_activity_link_box"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".LinkItActivity"
             android:label="@string/title_activity_link_it"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait">
             <intent-filter android:label="LINKBOX" >
-                <action android:name="android.intent.action.SEND" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-
+                <action
+                    android:name="android.intent.action.SEND" />
+                <category
+                    android:name="android.intent.category.DEFAULT" />
                 <data
                     android:host="http"
                     android:mimeType="text/plain" />
@@ -130,56 +129,48 @@
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".LoginDataActivity"
             android:label="@string/title_activity_login_data"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".UserSettingActivity"
             android:label="@string/title_activity_user_setting"
             android:parentActivityName=".LinkBoxActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
         </activity>
-
+        
         <!-- for Push -->
         <service
             android:name=".service.pushService.LinkGcmListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
             </intent-filter>
         </service>
         <service
             android:name=".service.pushService.LinkInstanceIDListenerService"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
             </intent-filter>
         </service>
         <service
             android:name=".service.pushService.LinkRegistrationService"
-            android:exported="false" >
+            android:exported="false">
         </service>
-
-        <receiver
-            android:name="com.google.android.gms.gcm.GcmReceiver"
+        <receiver android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:enabled="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
-
-                <category android:name="org.sopt.appjamtest" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <category android:name="org.sopt.appjamtest"/>
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".service.FacebookLoginActivity"
-            android:label="@string/title_activity_facebook_login" >
-        </activity>
     </application>
-
 </manifest>

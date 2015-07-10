@@ -6,7 +6,6 @@ var bodyParser = require('body-parser');
 var collectbox = require('./routes/collectbox');
 var collecturl = require('./routes/collecturl');
 var usr = require('./routes/usr');
-var routes = require('./routes/index');
 
 var app = express();
 
@@ -21,7 +20,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
 app.use('/collectbox', collectbox);
 app.use('/collecturl', collecturl);
 app.use('/usr', usr);

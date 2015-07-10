@@ -53,8 +53,9 @@ public class LinkNetworkInterface {
         @POST("/collectbox/{usrid}/editbox")
         public void postEditBoxAsync(@Path("usrid") int usrid, @Body LinkBoxListData linkBoxListData, Callback<LinkBoxListData> callback);
 
+        @Headers("Content-Type: application/json")
         @GET("/collecturl/{cbid}/urllist")
-        public void getUrlListAsync(@Path("cbid") int cbid, Callback<List<LinkUrlListData>> callback);
+        public void getUrlListAsync(@Path("cbid") int cbid, @Body LinkUserData linkUserData, Callback<List<LinkUrlListData>> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/addurl")
@@ -75,6 +76,14 @@ public class LinkNetworkInterface {
         @Headers("Content-Type: application/json")
         @POST("/usr/signdown")
         public void postSignDownAsync(@Body LinkUserData linkUserData, Callback<Object> callback);
+
+        @Headers("Content-Type: application/json")
+        @POST("/pushtoken/{usrid}")
+        public void postPushTokenAsync(@Path("usrid") int usrid, @Body String token, Callback<Object> callback);
+
+        @Headers("Content-Type: application/json")
+        @POST("/premium")
+        public void postPremium(@Body LinkUserData linkUserData, Callback<Object> callback);
     }
 }
 

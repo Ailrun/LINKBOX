@@ -6,9 +6,10 @@ var connection = mysql.createConnection({
     'user' : 'LINKBOX',  
     'password' : 'dlrpqkfhdnflek',
     'database' : 'LINKBOX', });
+
 router.get('/', function(req, res, next) {
-connection.query('select id, title, timestamp from board ' +
-'order by timestamp desc;', function (error, cursor) {
-res.json(cursor); });
+connection.query('select id, title, timestamp from board ' + 'order by timestamp desc;', function (error, cursor) {
+	res.json(cursor);
+	});
 });
 module.exports = router;

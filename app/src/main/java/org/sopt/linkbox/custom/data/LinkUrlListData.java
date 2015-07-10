@@ -6,7 +6,7 @@ package org.sopt.linkbox.custom.data;
  */
 public class LinkUrlListData {
     public int urlid;
-    public String url;
+    public String address;
     public String urlname;
     public String urlwriter;
     public String urldate;

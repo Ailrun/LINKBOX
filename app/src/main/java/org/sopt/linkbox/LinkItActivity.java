@@ -3,6 +3,7 @@ package org.sopt.linkbox;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -12,28 +13,40 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.engine.cache.DiskCache;
+import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
+
 import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.custom.data.LinkUrlListData;
+import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
+
+import java.io.File;
 
 
 /** TODO : make this as Single Instance
  * REFERENCE : http://www.androidpub.com/796480
  */
 public class LinkItActivity extends Activity {
+    private static final String TAG = "TEST/" + LinkItActivity.class.getName();
 
     private Spinner spBox = null;
     private ImageView ivThumb = null;
-    private EditText etTitle = null;
+    private EditText etName = null;
     private Button btLinkit = null, btCancel = null;
 
     private String boxName = null;
-    private String linkName = null;
+    private LinkUrlListData linkUrlListData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initWindow();
+
+        initGlide();
 
         initData();
 
@@ -51,20 +64,36 @@ public class LinkItActivity extends Activity {
         stopService(new Intent(getApplicationContext(), LinkHeadService.class));
         setContentView(R.layout.activity_link_it);
     }
+    private void initGlide() {
+
+        synchronized (Glide.class){
+            if(!Glide.isSetup()){
+                File file = Glide.getPhotoCacheDir(getApplicationContext());
+                int size = 1024*1024*1024;
+                DiskCache cache = DiskLruCacheWrapper.get(file, size);
+                GlideBuilder builder = new GlideBuilder(getApplicationContext());
+                builder.setDiskCache(cache);
+                Glide.setup(builder);
+            }
+        }
+    }
     private void initData() {
-        Intent intent = getIntent();
-        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-            linkName = intent.getStringExtra(Intent.EXTRA_TEXT);
-        }
-        else {
-            linkName = "";
-        }
+        linkUrlListData = new LinkUrlListData();
     }
     private void initView() {
         spBox = (Spinner) findViewById(R.id.SP_box_link_it);
         ivThumb = (ImageView) findViewById(R.id.IV_thumb_link_it);
-        etTitle = (EditText) findViewById(R.id.ET_title_link_it);
-        etTitle.setHint(linkName);
+        Intent intent = getIntent();
+        if (intent.hasExtra(Intent.EXTRA_TEXT)) {
+            linkUrlListData.address = intent.getStringExtra(Intent.EXTRA_TEXT);
+            LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData, ivThumb);
+        }
+        else {
+            finish();
+            Log.e(TAG, "There is no address but LinkItActivity start");
+        }
+        etName = (EditText) findViewById(R.id.ET_name_link_it);
+        etName.setHint(linkUrlListData.address);
         btLinkit = (Button) findViewById(R.id.BT_linkit_link_it);
         btCancel = (Button) findViewById(R.id.BT_cancel_link_it);
     }
@@ -92,10 +121,8 @@ public class LinkItActivity extends Activity {
         btLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                linkUrlListData.urlname = etName.getText().toString();
                 Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
-                intent.putExtra("cbid", 1);
-                intent.putExtra("cbname", boxName);
-                intent.putExtra("urlname", etTitle.getText().toString());
                 startActivity(intent);
                 finish();
             }
@@ -113,5 +140,10 @@ public class LinkItActivity extends Activity {
                 new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         spBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
+    }
+
+    public void setImageView() {
+        if (ivThumb != null) {
+        }
     }
 }
