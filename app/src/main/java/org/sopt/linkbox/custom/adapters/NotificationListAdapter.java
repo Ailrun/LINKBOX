@@ -1,6 +1,7 @@
 package org.sopt.linkbox.custom.adapters;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +16,21 @@ import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationListAdapter extends BaseExpandableListAdapter {
 
     private ArrayList<LinkBoxListData> group = null;
     private ArrayList<ArrayList<LinkBoxListData>> source = null;
     private LayoutInflater layoutInflater = null;
+    private Context context = null;
 
     public NotificationListAdapter(Context context, ArrayList<LinkBoxListData> group,
                                    ArrayList<ArrayList<LinkBoxListData>> source) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.group = group;
         this.source = source;
+        this.context = context;
     }
 
     public void setGroup(ArrayList<LinkBoxListData> group) {
@@ -87,7 +91,9 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
         return view;
     }
     @Override
-    public View getChildView(int i, int i2, boolean b, View view, ViewGroup viewGroup) {
+    public View getChildView(int i, final int i2, boolean b, View view, ViewGroup viewGroup) {
+        final SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.sharedProfile), 0);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_notification_list_item, viewGroup, false);
         }
@@ -95,8 +101,14 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
         TextView tvChildNotification = ViewHolder.get(view, R.id.TV_child_notification_user_setting);
         CheckBox cbChildNotification = ViewHolder.get(view, R.id.CB_child_notification_user_setting);
         tvChildNotification.setText(linkBoxListData.cbname);
-        cbChildNotification.setChecked(LinkBoxController.defaultAlarm);
+        cbChildNotification.setChecked(sharedPreferences.getBoolean("notiCheck" + i2, true));
         cbChildNotification.setEnabled(LinkBoxController.defaultAlarm);
+        cbChildNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                editor.putBoolean("notiCheck" + i2, b);
+            }
+        });
         return view;
     }
     @Override
