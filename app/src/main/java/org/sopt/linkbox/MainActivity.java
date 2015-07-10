@@ -1,88 +1,86 @@
 package org.sopt.linkbox;
 
-import android.app.Activity;
+import android.app.TabActivity;
 import android.content.Intent;
+import android.graphics.PixelFormat;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
-
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
-
-import org.json.JSONObject;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Display;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TabHost;
 
 
-public class MainActivity extends Activity {
-
-    CallbackManager callbackManager;
-    LoginButton loginButton;
+public class MainActivity extends TabActivity {
+    TabHost tabHost;
+    Toolbar tToolbar = null;
+    ImageView ivTitle = null;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
-        startActivity(new Intent(this, LoginActivity.class));
-        startActivity(new Intent(this, LinkBoxActivity.class));
 
-        callbackManager = CallbackManager.Factory.create();
-        loginButton=(LoginButton) findViewById(R.id.LB_login_main);
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                loginButton.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getApplicationContext(), LoginDataActivity.class);
-                startActivity(intent);
-                finish();
-            }
-            @Override
-            public void onCancel() {
-            }
-            @Override
-            public void onError(FacebookException e) {
-            }
-        });
-        Bundle parameter=new Bundle();
-        parameter.putString("fields","id,password");
+        tabHost = getTabHost();
+        TabHost.TabSpec spec = null;
+        Intent intent = null;
+        ImageView d=(ImageView) findViewById(R.id.IV_main_image);
 
-        GraphRequest request= GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
-                TextView tvId, tvPassword;
+        intent = new Intent(this, LoginActivity.class);
+        spec = tabHost.newTabSpec("Login").setIndicator("Login")
+                .setContent(intent);
+        tabHost.addTab(spec);
 
-                tvId=(TextView) findViewById(R.id.TV_id_main);
-                tvPassword=(TextView) findViewById(R.id.TV_password_main);
+        intent = new Intent(this, SignupActivity.class);
+        spec = tabHost.newTabSpec("Sign Up").setIndicator("Sign Up")
+                .setContent(intent);
+        tabHost.addTab(spec);
 
-//                tvId.setText(jsonObject.optString("id"));
-//                tvPassword.setText(jsonObject.optString("password"));
-            }
-        });
-        request.setParameters(parameter);
-        request.executeAsync();
+        //LayoutInflater.from(this).inflate(R.layout.activity_main, tabHost.getTabContentView(), false);
+        //setContentView(R.layout.activity_main);
+        //tabHost = getTabHost();
+        //tabHost = (FragmentTabHost)findViewById(R.id.tabHost);
+        //TabHost tabHost = (TabHost)findViewById(R.id.tabHost);
+
+        //tabHost.setup();
+
+        //tabHost.addTab(tabHost.newTabSpec("loginTab").setIndicator("로그인"), LoginFragment.class ,null);
+        //tabHost.addTab(tabHost.newTabSpec("signupTab").setIndicator("회원가입"), SignupFragment.class ,null);
+
+/**
+        TabHost.TabSpec tabSpec=tabHost.newTabSpec("loginTab").setIndicator("로그인").setContent(R.id.loginTab);
+        tabHost.addTab(tabSpec);
+        tabSpec=tabHost.newTabSpec("signupTab").setIndicator("회원가입").setContent(R.id.signupTab);
+        tabHost.addTab(tabSpec);*/
+        /**
+        TabHost.TabSpec tabSpec = tabHost.newTabSpec("loginTab").setIndicator("login").setContent(R.id.tabcontent);
+        tabHost.addTab(tabSpec);*/
+        /**
+         * TabHost.TabSpec tabSpec=tabHost.newTabSpec("loginTab").setIndicator("로그인").setContent(new Intent(this, LoginFragment.class));
+        tabHost.addTab(tabSpec);
+        tabSpec=tabHost.newTabSpec("signupTab").setIndicator("회원가입").setContent(new Intent(this, SignupFragment.class));
+        tabHost.addTab(tabSpec);
+         */
+
+
+
+        //TabHost.TabSpec tabSpec=tabHost.newTabSpec("loginTab").setIndicator("로그인").setContent(new Intent(this, LoginActivity.class));
+        //tabHost.addTab(tabSpec);
+        //tabSpec=tabHost.newTabSpec("signupTab").setIndicator("회원가입").setContent(new Intent(this, SignupActivity.class));
+        //tabHost.addTab(tabSpec);
+
+
+
+/**
+         Intent intent_signup = new Intent(this, SignupActivity.class);
+        tabSpec=tabHost.newTabSpec("signupTab").setIndicator("회원가입").setContent(intent_signup);
+        tabHost.addTab(tabSpec);
+*/
+
     }
-    protected void onResume(){
-        super.onResume();
-        if(AccessToken.getCurrentAccessToken()!=null){
-            loginButton.setVisibility(View.INVISIBLE);
-            Intent intent=new Intent(getApplicationContext(), LoginDataActivity.class);
-            startActivity(intent);
-            finish();
-        }
-        else{
-            loginButton.setVisibility(View.VISIBLE);
-        }
-    }
-    protected void onActivityResult(int requestCode,int resultCode, Intent data){
-        super.onActivityResult(requestCode,resultCode,data);
 
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
 }
-
