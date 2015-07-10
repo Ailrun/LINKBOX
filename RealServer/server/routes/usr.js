@@ -52,8 +52,10 @@ router.post('/login', function(req, res, next) {
             if(cursor[0] == 0){
                 res.json({"result":0})
             }
-            else
+            else{
+                res.json({"result":0});
                 res.json(cursor);
+            }
         }
     });
 
