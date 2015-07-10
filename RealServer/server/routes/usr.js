@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 
 
 //회원가입
-router.post('/usr/signup', function(request, response, next){
+router.post('/signup', function(request, response, next){
     
     connection.query('SELECT MAX(usrid) AS max from usr;', function(error, cursor){
     connection.query('INSERT INTO usr (usrid, usrname, usremail, pass) values(?, ?, ?, ?);', [cursor[0].max+1, request.body.usrname, request.body.usremail, request.body.pass], function(error, info) {
@@ -114,7 +114,7 @@ router.post('/usr/login', function(req, res, next) {
 
 // 회원탈퇴
 
-router.post('/usr/signdown', function(request, response, next) {
+router.post('/signdown', function(request, response, next) {
     
         connection.query('delete from usr where usremail=?;', [request.body.usremail], function (error, cursor) {
              console.log(error);
