@@ -28,12 +28,19 @@ router.post('/:cbid/addusr', function(req, res, next){
 });
 
 //
-router.get('/:cbid/boxlist', function(req, res, next) {
-  
-   connection.query('SELECT usrid, usrname, usremail, usrprofile FROM usr WHERE cbid=?;', [req.params.cbid], function (error, cursor) {
-      
-      res.json(cursor);
-   });
+router.get('/:cbid/usrlist', function(req, res, next) {
+    connection.query('SELECT usrid FROM share WHERE cbid = ?;', [req.params.cbid], function (error, cursor){
+        connection.query('SELECT usrid, usrname, usremail, usrprofile FROM usr where usrid where usrid = ?;',[cursor[0]], function (error, info){
+            console.log(error)
+            if(error != undefined){
+                res.sendStatus(503);
+            }
+            else{
+                res.json(info);
+            }
+            
+        });       
+    });
 });
 
 
