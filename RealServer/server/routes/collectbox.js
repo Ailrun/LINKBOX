@@ -83,6 +83,7 @@ router.get('/:usrid/boxlist', function(req, res, next) {
 //cbid가 같은(동일한 collectbox공유) usrsData 보내기
 router.get('/:cbid/usrlist', function(req, res, next) {
    connection.query('select usrid, usrname, usremail, usrprofile from usr where cbid=?;', [req.params.cbid], function (error, cursor) {
+       console.log(cursor)
                        res.json({
                          "usrid":cursor[0].usrid,
                          "usrname":cursor[0].usrname,
