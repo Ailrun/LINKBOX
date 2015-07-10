@@ -44,8 +44,7 @@ router.post('/signup', function(request, response, next){
                          
 //로그인
 router.post('/login', function(req, res, next) {
-    connection.query('SELECT usrid FROM usr where usremail = ? and pass = ?',[req.body.usremail, req.body.pass], function(error, cursor) {
-        console.log(error)
+    connection.query('SELECT * FROM usr where usremail = ? and pass = ?',[req.body.usremail, req.body.pass], function(error, cursor) {
         if(error != undefined){
             res.sendStatus(503);
         }
