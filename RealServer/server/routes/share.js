@@ -18,7 +18,7 @@ router.post('/:cbid/addusr/:usremail', function(req, res, next){
             res.sendStatus(503);
         }
             else{
-                info.json({"result":true              
+                res.json({"result":true              
                 });
             }
             
