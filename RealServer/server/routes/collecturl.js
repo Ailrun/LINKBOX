@@ -30,14 +30,15 @@ router.post('/:cbid/addurl', function(req, res, next){
                             res.json({
                                 "result":cursor[0].max
                             });
-                            console.log(error);                        
+                            console.log(error); 
+                        }
                         });
-                    )});
+                    });
+                    });
 
 
             });
     });
-});
 /*
 //박스추가
 router.post('/:usrid/addbox', function(request, response, next){
