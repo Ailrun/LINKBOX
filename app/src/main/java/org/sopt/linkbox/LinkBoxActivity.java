@@ -268,11 +268,18 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
-        tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
-        if (LinkBoxController.boxListSource.size() > LinkBoxController.currentBox) {
-            tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox)).cbname);
-        }
-        else {
+        /*
+         조건문 --> 새로운 링크 추가 됐을 때
+        if() {
+            tToolbar.setNavigationIcon(R.drawable.mainpage_drawer_alarm);
+        }else {
+            tToolbar.setNavigationIcon(R.drawable.mainpage_drawer);
+
+        }*/
+        tToolbar.setNavigationIcon(R.drawable.mainpage_drawer); // 조건문 넣으면 이거 지워
+        if (LinkBoxController.boxListSource.size() > 0) {
+            tToolbar.setTitle((LinkBoxController.boxListSource.get(0)).cbname);
+        } else {
             tToolbar.setTitle("새 박스");
         }
         setSupportActionBar(tToolbar);

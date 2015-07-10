@@ -34,7 +34,6 @@ router.post('/:usrid/addbox', function(request, response, next){
 //박스삭제
 router.post('/:usrid/removebox', function(req, res, next) {
         connection.query('delete from collectbox where cbid=?;', [req.body.cbid], function (error, cursor) {
-             console.log(error);
             if (error == undefined) {
                             res.json({
                                      result : 'true'
@@ -56,12 +55,10 @@ router.post('/:usrid/editbox', function(req, res, next) {
     
  connection.query("UPDATE collectbox SET cbname=? Where cbid=?;", [req.body.cbname, req.body.cbid], function(error, result) {
      if (error) {
-            console.log("err", error);
             res.json({
                         result : 'fail'
                     });
   } else {
-            console.log("result", result);
             res.json({
                         result : 'success'
                     });
@@ -71,7 +68,7 @@ router.post('/:usrid/editbox', function(req, res, next) {
 });
 
 
-//박스 리스트 보내기
+//usrid가 가지고 있는 박스 리스트 보내기
 router.get('/:usrid/boxlist', function(req, res, next) {
   
    connection.query('select cbname, cbid from collectbox where usrid=?;', [req.params.usrid], function (error, cursor) {
@@ -79,5 +76,6 @@ router.get('/:usrid/boxlist', function(req, res, next) {
       res.json(cursor);
    });
 });
+
 
 module.exports = router;
