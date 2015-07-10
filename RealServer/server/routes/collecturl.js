@@ -40,7 +40,7 @@ router.post('/:usrid/:cbid/addurl', function(req, res, next){
 router.post('/:cbid/removeurl', function(req, res, next) {
     connection.query('delete from url where cbid=? and urlid = ?;', [req.params.cbid, req.body.urlid], function (error, cursor) {
         console.log(error);
-        if (error != undefined){
+        if (error == undefined){
             res.json({result : 'true'});
         }
         else{
