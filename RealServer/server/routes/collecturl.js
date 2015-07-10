@@ -29,10 +29,10 @@ router.post('/:cbid/addurl', function(req, res, next){
         });
 
             if(error != undefined)
-                response.sendStatus(503);
+                res.sendStatus(503);
         
             else{
-                response.json({
+                res.json({
                     "result":cursor[0].max
                 });
                 console.log(error);
