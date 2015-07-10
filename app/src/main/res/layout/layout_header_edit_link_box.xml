@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="#FFFFFFFF"
+            android:textColor="#4cb5ab"
             android:hint="박스 이름"
             android:textSize="14dp"
             android:imeOptions="actionSend"
