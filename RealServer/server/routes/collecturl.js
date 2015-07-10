@@ -60,8 +60,8 @@ router.post('/:cbid/removeurl', function(req, res, next) {
 
 
 //url 수정
-router.post('/:cbid/editurl', function(req, res, next) {
- connection.query("UPDATE url SET urlname=? Where urlid=?;", [req.body.urlname, req.body.urlid], function(error, result) {
+router.post('/:urlid/editurl', function(req, res, next) {
+ connection.query("UPDATE url SET urlname=? where urlid=?;", [req.body.urlname, req.params.urlid], function(error, result) {
      if (error) {
             console.log("err", error);
             res.json({
