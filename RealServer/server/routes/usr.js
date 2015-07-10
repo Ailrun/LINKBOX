@@ -42,89 +42,35 @@ router.post('/signup', function(request, response, next){
 });
 });
                          
-                         
-
-
-// 회원가입
-/*
-router.post('/usr/signup', function(request, response, next) {
-    var usrid = request.body.usrid;
-    var pass = request.body.pass;
-    var usrname = request.body.usrname;
-    var usremail = request.body.usremail;
-    var files = request.files;
-    if (usrid == undefined || pass == undefined ||
-        usrname == undefined || usremail == undefined || files.length < 1) {
-        response.sendStatus(403);
-    }
-    else {
-        connection.query('insert into usr(usrid, pass, usrname, usremail) values (?, ?, ?, ?);', [ req.body.usrid, req.body.pass, req.body.usrname, req.body.usremail ], function (error, info) {
-            if (error != undefined)
-                response.sendStatus(503);
+//로그인
+router.post('/login', function(req, res, next) {
+    connection.query('SELECT usrid FROM usr where usrid = ? and pass = ?',[req.body.usrid, req.body.pass], function(error, cursor) {
+        if(error != undefined){
+            res.sendStatus(503);
+        }
+        else{
+            if(cursor[0] == 0){
+                res.json({"result":0})
+            }
             else
-                response.redirect('/' + info.insertId); //리디렉트 어디로 해줘야해? 빼도되나?
-        });
-    }
-});*/
+                res.json(cursor);
+        }
+    });
 
-/*
-// 로그인
-router.post('/usr/login', function(req, res, next) {
-    
-        connection.query('select * from usr where usremail=? and pass=?;', [req.body.usremail, req.body.pass], function (error, cursor) {
-                                if (cursor.length > 0) {
-                                        var result = cursor[0];
-                                        res.json({
-                                                result : true,
-                                                                                                
-                                        });
-                                }
-                                else {
-                                        res.status(503).json({
-                                            result : false,
-                                        });
-                                }
-                        });
-                      
-               });
-*/
-
-/*
-// 지현쓰 로그인 다시짜보기 (하다가 맘)
-router.post('/usr/login', function(req, res, next) {
-    
-        connection.query('select * from usr where usremail=? and pass=?;', [req.body.usremail, req.body.pass], function (error, cursor) {
-                                if (usremail=req.body.usremail && pass=req.body.pass) {
-                                        var result = cursor[0];
-                                        res.json({
-                                                result : true,
-                                                                                                
-                                        });
-                                }
-                                else {
-                                        res.status(503).json({
-                                            result : false,
-                                        });
-                                }
-                        });
-                      
-               });
-*/
-
+});
 
 // 회원탈퇴
-
-router.post('/signdown', function(request, response, next) {
+router.post('/signdown', function(req, res, next) {
     
-        connection.query('delete from usr where usremail=?;', [request.body.usremail], function (error, cursor) {
+        connection.query('delete usrid from usr where usremail = ? and pass = ?;', [req.body.usremail, req.body.pass], function (error, cursor) {
              console.log(error);
-            if (error == undefined) {
-                            response.json({
+            if (error != undefined) {
+                            resp.json({
                                      result : 'true'
                                                                                                                                         });
                                 }
             else {
-                            response.status(503).json({
+                            res.status(503).json({
                                      result : 'false'
                                     });
                                 }
