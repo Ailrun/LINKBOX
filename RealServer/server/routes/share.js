@@ -31,7 +31,7 @@ router.post('/:cbid/addusr', function(req, res, next){
 router.get('/:cbid/urllist', function(req, res, next) {
     
     connection.query('SELECT usrid FROM share WHERE cbid = ?;', [req.params.cbid], function (error, cursor){
-        console.log(length(cursor))
+        console.log(cursor.length)
         connection.query('SELECT usrid, usrname, usremail, usrprofile FROM usr where usrid = ?;', [cursor.usrid], function (error, info){
         
             if(error != undefined){
