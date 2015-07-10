@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:clickable="true">
+        <Button
+            android:id="@+id/RL_header_button_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingStart="60dp"
+            android:gravity="start|center_vertical"
+            android:clickable="true"
+            android:background="#FFFFFFFF"
+            android:text="박스 추가"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="#FF000000"/>
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#FFFFFFFF">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFFFF"
+                android:src="@drawable/abc_btn_radio_to_on_mtrl_015"/>
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout><!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/src/main/res/layout/layout_header_button_link_box.xml -->

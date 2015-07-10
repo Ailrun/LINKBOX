@@ -14,6 +14,8 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TabHost;
 
+import org.sopt.linkbox.service.LinkHeadService;
+
 
 public class MainActivity extends TabActivity {
     TabHost tabHost;
@@ -23,7 +25,12 @@ public class MainActivity extends TabActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+
         setContentView(R.layout.activity_main);
+        ivTitle = (ImageView) findViewById(R.id.IV_main_image);
+        ivTitle.bringToFront();
 
         tabHost = getTabHost();
         TabHost.TabSpec spec = null;
@@ -38,6 +45,8 @@ public class MainActivity extends TabActivity {
         spec = tabHost.newTabSpec("Sign Up").setIndicator("Sign Up")
                 .setContent(intent);
         tabHost.addTab(spec);
+
+        tabHost.setCurrentTab(0);
 
         //LayoutInflater.from(this).inflate(R.layout.activity_main, tabHost.getTabContentView(), false);
         //setContentView(R.layout.activity_main);
@@ -81,5 +90,9 @@ public class MainActivity extends TabActivity {
 */
 
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+    }
 }

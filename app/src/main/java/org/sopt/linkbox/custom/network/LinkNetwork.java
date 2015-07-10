@@ -1,17 +1,22 @@
 package org.sopt.linkbox.custom.network;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.sopt.linkbox.LinkBoxActivity;
 import org.sopt.linkbox.LinkBoxController;
+import org.sopt.linkbox.MainActivity;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUserData;
+import org.sopt.linkbox.custom.data.TwoString;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,8 +78,9 @@ public class LinkNetwork {
     public static class Server {
         private static String TAG = "TEST/" + Server.class.getName() + " : ";
         private static LinkNetworkInterface.MainServerInterface mainServerInterface;
+        private static boolean isFirst;
 
-        public static void postLoginToServerSync() {
+        public static void postLoginToServerAsync() {
             fillInterface();
             if (TextUtils.isEmpty(LinkBoxController.linkUserData.usremail) || TextUtils.isEmpty(LinkBoxController.linkUserData.pass)) {
                 return;
@@ -84,11 +90,23 @@ public class LinkNetwork {
             mainServerInterface.postLoginAsync(LinkBoxController.linkUserData, new Callback<LinkUserData>() {
                 @Override
                 public void success(LinkUserData linkUserData, Response response) {
+                    isFirst = true;
                     LinkBoxController.linkUserData.usrid = linkUserData.usrid;
                     LinkBoxController.linkUserData.usrname = linkUserData.usrname;
+                    Log.d(TAG, linkUserData.usrid + " : " + linkUserData.usremail + ", " + linkUserData.pass + ", " + linkUserData.usrname);
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Hello, " + linkUserData.usrname, Toast.LENGTH_LONG).show();
+                    getBoxListFromServerAsync();
                 }
                 @Override
                 public void failure(RetrofitError error) {
+                    SharedPreferences sharedPreferences = LinkBoxController.getApplication().getSharedPreferences("user", 0);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.clear();
+                    editor.apply();
+                    Intent intent = new Intent(LinkBoxController.getApplication().getApplicationContext(), MainActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Can't Login - Check your Id and Password", Toast.LENGTH_LONG).show();
+                    LinkBoxController.getApplication().startActivity(intent);
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
@@ -107,7 +125,10 @@ public class LinkNetwork {
                 @Override
                 public void success(LinkUserData linkUserData, Response response) {
                     LinkBoxController.linkUserData.usrid = linkUserData.usrid;
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Congraturation! SignUp Success!", Toast.LENGTH_LONG).show();
+                    getBoxListFromServerAsync();
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
@@ -120,11 +141,25 @@ public class LinkNetwork {
             mainServerInterface.getBoxListAsync(LinkBoxController.linkUserData.usrid, new Callback<List<LinkBoxListData>>() {
                 @Override
                 public void success(List<LinkBoxListData> linkBoxListDatas, Response response) {
-                    LinkBoxController.boxListSource = (ArrayList<LinkBoxListData>) linkBoxListDatas;
+                    if (linkBoxListDatas != null) {
+                        LinkBoxController.boxListSource = (ArrayList<LinkBoxListData>) linkBoxListDatas;
+                    }
                     LinkBoxController.notifyBoxDataSetChanged();
+                    if (isFirst) {
+                        LinkBoxController.currentBox = 0;
+                        postUrlListFromServerAsync();
+                    }
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
+                    if (isFirst) {
+                        isFirst = false;
+                        Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Fail to Connect. Please retry connection.", Toast.LENGTH_LONG).show();
+                        LinkBoxController.getApplication().startActivity(new Intent(LinkBoxController.getApplication().getApplicationContext(), LinkBoxActivity.class));
+                    } else {
+                        Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
+                    }
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
@@ -141,8 +176,10 @@ public class LinkNetwork {
                     LinkBoxController.boxListSource.add(linkBoxListData);
                     LinkBoxController.notifyBoxDataSetChanged();
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
@@ -158,8 +195,10 @@ public class LinkNetwork {
                     LinkBoxController.boxListSource.remove(ind);
                     LinkBoxController.notifyBoxDataSetChanged();
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
@@ -177,23 +216,43 @@ public class LinkNetwork {
                     //LinkBoxController.boxListSource.set(ind, linkBoxListData);
                     LinkBoxController.notifyBoxDataSetChanged();
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
         }
-        public static void getUrlListFromServerAsync() {
+        public static void postUrlListFromServerAsync() {
             fillInterface();
             final LinkBoxListData linkBoxListData = LinkBoxController.boxListSource.get(LinkBoxController.currentBox);
-            mainServerInterface.getUrlListAsync(linkBoxListData.cbid, LinkBoxController.linkUserData, new Callback<List<LinkUrlListData>>() {
+            mainServerInterface.postUrlListAsync(linkBoxListData.cbid, LinkBoxController.linkUserData, new Callback<List<LinkUrlListData>>() {
                 @Override
                 public void success(List<LinkUrlListData> linkUrlListDatas, Response response) {
-                    LinkBoxController.urlListSource.set(LinkBoxController.currentBox, (ArrayList<LinkUrlListData>) linkUrlListDatas);
+                    Log.d(TAG, "num=" + linkUrlListDatas.size() + ", boxid=" + linkBoxListData.cbid);
+                    LinkBoxController.urlListSource = (ArrayList<LinkUrlListData>) linkUrlListDatas;
                     LinkBoxController.notifyUrlDataSetChanged();
+                    if (isFirst) {
+                        isFirst = false;
+                        Intent intent = new Intent(LinkBoxController.getApplication().getApplicationContext(), LinkBoxActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        LinkBoxController.getApplication().startActivity(intent);
+                    }
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
+                    if (isFirst) {
+                        isFirst = false;
+                        Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Fail to Connect. Please retry connection.", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(LinkBoxController.getApplication().getApplicationContext(), LinkBoxActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        LinkBoxController.getApplication().startActivity(intent);
+                    } else {
+                        Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
+                    }
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
@@ -201,14 +260,16 @@ public class LinkNetwork {
         public static void postAddUrlToServerAsync(LinkUrlListData linkUrlListData) {
             fillInterface();
             final LinkBoxListData linkBoxListData = LinkBoxController.boxListSource.get(LinkBoxController.currentBox);
-            mainServerInterface.postAddUrlAsync(linkBoxListData.cbid, linkUrlListData, new Callback<LinkUrlListData>() {
+            mainServerInterface.postAddUrlAsync(LinkBoxController.linkUserData.usrid, linkBoxListData.cbid, linkUrlListData, new Callback<LinkUrlListData>() {
                 @Override
                 public void success(LinkUrlListData linkUrlListData, Response response) {
-                    LinkBoxController.urlListSource.get(LinkBoxController.currentBox).add(linkUrlListData);
+                    LinkBoxController.urlListSource.add(linkUrlListData);
                     LinkBoxController.notifyUrlDataSetChanged();
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
@@ -216,15 +277,17 @@ public class LinkNetwork {
         public static void postRemoveUrlFromServerAsync(final int ind) {
             fillInterface();
             final LinkBoxListData linkBoxListData = LinkBoxController.boxListSource.get(LinkBoxController.currentBox);
-            LinkUrlListData linkUrlListData = LinkBoxController.urlListSource.get(LinkBoxController.currentBox).get(ind);
+            LinkUrlListData linkUrlListData = LinkBoxController.urlListSource.get(ind);
             mainServerInterface.postRemoveUrlAsync(linkBoxListData.cbid, linkUrlListData, new Callback<Object>() {
                 @Override
                 public void success(Object o, Response response) {
                     LinkBoxController.urlListSource.remove(ind);
                     LinkBoxController.notifyUrlDataSetChanged();
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
@@ -232,7 +295,7 @@ public class LinkNetwork {
         public static void postEditUrlFromServerAsync(final int ind, final String newname) {
             fillInterface();
             final LinkBoxListData linkBoxListData = LinkBoxController.boxListSource.get(LinkBoxController.currentBox);
-            LinkUrlListData linkUrlListDataOrig = LinkBoxController.urlListSource.get(LinkBoxController.currentBox).get(ind);
+            LinkUrlListData linkUrlListDataOrig = LinkBoxController.urlListSource.get(ind);
             linkUrlListDataOrig.urlname = newname;
             mainServerInterface.postEditUrlAsync(linkBoxListData.cbid, linkUrlListDataOrig, new Callback<LinkUrlListData>() {
                 @Override
@@ -242,6 +305,43 @@ public class LinkNetwork {
                 }
                 @Override
                 public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
+                }
+            });
+        }
+        public static void getUsrListFromServerAsync() {
+            fillInterface();
+            int cbid = LinkBoxController.boxListSource.get(LinkBoxController.currentBox).cbid;
+            Log.d(TAG, "GetUsr by cbid : " + cbid);
+            mainServerInterface.getUsrListAsync(cbid, new Callback<List<LinkUserData>>() {
+                @Override
+                public void success(List<LinkUserData> linkUserDatas, Response response) {
+                    LinkBoxController.editorListSource = (ArrayList<LinkUserData>) linkUserDatas;
+                    LinkBoxController.notifyEditorDataSetChanged();
+                }
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
+                    Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
+                }
+            });
+        }
+        public static void postAddUsrToServerAsync(String email, String message) {
+            fillInterface();
+            int cbid = LinkBoxController.boxListSource.get(LinkBoxController.currentBox).cbid;
+            Log.d(TAG, "AddUsr by cbid : " + cbid);
+            TwoString twoStr = new TwoString();
+            twoStr.usremail = email;
+            twoStr.message = message;
+            mainServerInterface.postAddUsrAsync(cbid, twoStr, new Callback<Object>() {
+                @Override
+                public void success(Object o, Response response) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Send request!", Toast.LENGTH_SHORT).show();
+                }
+                @Override
+                public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });
@@ -249,7 +349,7 @@ public class LinkNetwork {
         public static void postEditGoodFromServerAsync(int ind, boolean isgood) {
             fillInterface();
             final LinkBoxListData linkBoxListData = LinkBoxController.boxListSource.get(LinkBoxController.currentBox);
-            LinkUrlListData linkUrlListData = LinkBoxController.urlListSource.get(LinkBoxController.currentBox).get(ind);
+            LinkUrlListData linkUrlListData = LinkBoxController.urlListSource.get(ind);
             if (linkUrlListData.isgood != isgood) {
                 linkUrlListData.isgood = isgood;
                 mainServerInterface.postEditGoodAsync(linkBoxListData.cbid, LinkBoxController.linkUserData.usrid, linkUrlListData, new Callback<LinkUrlListData>() {
@@ -260,6 +360,7 @@ public class LinkNetwork {
                     }
                     @Override
                     public void failure(RetrofitError error) {
+                        Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
                         Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                     }
                 });
@@ -274,6 +375,7 @@ public class LinkNetwork {
                 }
                 @Override
                 public void failure(RetrofitError error) {
+                    Toast.makeText(LinkBoxController.getApplication().getApplicationContext(), "Server Connection Error", Toast.LENGTH_LONG).show();
                     Log.e(TAG, "Error : " + error.getUrl() + ">>>>" + error.getMessage());
                 }
             });

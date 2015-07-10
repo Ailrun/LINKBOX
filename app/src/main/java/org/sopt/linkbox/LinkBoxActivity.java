@@ -85,6 +85,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
+        Log.d(TAG, "num="+LinkBoxController.urlListSource.size());
         initData();
         initView();
         initControl();
@@ -151,14 +152,13 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        initInAppData();
 
         //other data init;
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedProfile)
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
                 + LinkBoxController.linkUserData.usrid, 0);
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-        LinkBoxController.urlListSource.add(LinkBoxController.currentBox, new ArrayList<LinkUrlListData>());
 //        initUrlDummyData();
-        initBoxDummyData();
-//        LinkNetwork.Server.getBoxListFromServerAsync();
-//        LinkNetwork.Server.getUrlListFromServerAsync();
+//        initBoxDummyData();
+        LinkNetwork.Server.getBoxListFromServerAsync();
+        LinkNetwork.Server.postUrlListFromServerAsync();
     }
     private  void initView() {
         layoutInflater = getLayoutInflater();
@@ -190,7 +190,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         LinkBoxController.linkBoxBoxListAdapter =
             new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkBoxUrlListAdapter =
-                new LinkBoxUrlListAdapter(getApplicationContext(), LinkBoxController.urlListSource.get(LinkBoxController.currentBox));
+            new LinkBoxUrlListAdapter(getApplicationContext(), LinkBoxController.urlListSource);
         lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
         lvBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
     }
@@ -236,7 +236,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         linkUrlListData.urlname = "페북";
         LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData, null);
         linkUrlListData.urlwriter = "나";
-        LinkBoxController.urlListSource.get(LinkBoxController.currentBox).add(linkUrlListData);
+        LinkBoxController.urlListSource.add(linkUrlListData);
     }
     private void initBoxDummyData() {
         LinkBoxListData linkBoxListData = new LinkBoxListData();
@@ -269,8 +269,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
-        if (LinkBoxController.boxListSource.size() > 0) {
-            tToolbar.setTitle((LinkBoxController.boxListSource.get(0)).cbname);
+        if (LinkBoxController.boxListSource.size() > LinkBoxController.currentBox) {
+            tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox)).cbname);
         }
         else {
             tToolbar.setTitle("새 박스");
@@ -280,10 +280,10 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private void initMainView() {
         lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
-        ViewGroup viewGroup = (ViewGroup) lvUrlList.getParent();
-        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
-        viewGroup.addView(llUrlEmptyView);
-        lvUrlList.setEmptyView(llUrlEmptyView);
+//        ViewGroup viewGroup = (ViewGroup) lvUrlList.getParent();
+//        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
+//        viewGroup.addView(llUrlEmptyView);
+//        lvUrlList.setEmptyView(llUrlEmptyView);
     }
     private void initMainListener() {
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -324,12 +324,12 @@ public class LinkBoxActivity extends AppCompatActivity {
                 String str = null;
                 if (linkBoxListData != null) {
                     str = linkBoxListData.cbname;
-                    LinkBoxController.currentBox = linkBoxListData.cbid;
+                    LinkBoxController.currentBox = i;
                 } else {
                     str = "새 박스";
                     LinkBoxController.currentBox = 0;
                 }
-                LinkBoxController.linkBoxUrlListAdapter.setSource(LinkBoxController.urlListSource.get(LinkBoxController.currentBox));
+                LinkBoxController.linkBoxUrlListAdapter.setSource(LinkBoxController.urlListSource);
                 tToolbar.setTitle(str);
                 dlBoxList.closeDrawers();
             }
@@ -403,6 +403,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                     immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
                     lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
                     lvBoxList.addHeaderView(llBoxHeaderViewButton);
+                    LinkNetwork.Server.postAddBoxToServerAsync(etAddBoxName.getText().toString());
                     return true;
                 }
                 return false;

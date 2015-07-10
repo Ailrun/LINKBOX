@@ -3,6 +3,7 @@ package org.sopt.linkbox.custom.network;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.data.LinkUserData;
+import org.sopt.linkbox.custom.data.TwoString;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,12 +55,12 @@ public class LinkNetworkInterface {
         public void postEditBoxAsync(@Path("usrid") int usrid, @Body LinkBoxListData linkBoxListData, Callback<LinkBoxListData> callback);
 
         @Headers("Content-Type: application/json")
-        @GET("/collecturl/{cbid}/urllist")
-        public void getUrlListAsync(@Path("cbid") int cbid, @Body LinkUserData linkUserData, Callback<List<LinkUrlListData>> callback);
+        @POST("/collecturl/{cbid}/urllist")
+        public void postUrlListAsync(@Path("cbid") int cbid, @Body LinkUserData linkUserData, Callback<List<LinkUrlListData>> callback);
 
         @Headers("Content-Type: application/json")
-        @POST("/collecturl/{cbid}/addurl")
-        public void postAddUrlAsync(@Path("cbid") int cbid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
+        @POST("/collecturl/{usrid}/{cbid}/addurl")
+        public void postAddUrlAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/removeurl")
@@ -72,6 +73,13 @@ public class LinkNetworkInterface {
         @Headers("Content-Type: application/json")
         @POST("/collecturl/{cbid}/{urlid}/editgood")
         public void postEditGoodAsync(@Path("cbid") int cbid, @Path("urlid") int urlid, @Body LinkUrlListData linkUrlListData, Callback<LinkUrlListData> callback);
+
+        @GET("/share/{cbid}/usrlist")
+        public void getUsrListAsync(@Path("cbid") int cbid, Callback<List<LinkUserData>> callback);
+
+        @Headers("Content-Type: application/json")
+        @POST("/share/{cbid}/addusr")
+        public void postAddUsrAsync(@Path("cbid") int cbid, @Body TwoString values, Callback<Object> callback);
 
         @Headers("Content-Type: application/json")
         @POST("/usr/signdown")

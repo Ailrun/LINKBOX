@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import org.sopt.linkbox.custom.adapters.EditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkEditorListAdapter;
@@ -63,7 +64,7 @@ public class LinkBoxController extends Application {
         RestAdapter.Builder builderEmbedly = new RestAdapter.Builder();
         RestAdapter.Builder builderServer = new RestAdapter.Builder();
         builderEmbedly.setEndpoint("http://api.embed.ly");
-        builderServer.setEndpoint("http://linkbox.server");
+        builderServer.setEndpoint("http://52.68.233.51:3000");
         builderEmbedly.setRequestInterceptor(new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {
@@ -95,6 +96,7 @@ public class LinkBoxController extends Application {
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
+    public static EditBoxListAdapter editBoxListAdapter = null;
     public static void notifyBoxDataSetChanged() {
         if (linkBoxBoxListAdapter != null) {
             linkBoxBoxListAdapter.notifyDataSetChanged();
@@ -105,12 +107,15 @@ public class LinkBoxController extends Application {
         if (notificationListAdapter != null) {
             notificationListAdapter.notifyDataSetChanged();
         }
+        if (editBoxListAdapter != null) {
+            editBoxListAdapter.notifyDataSetChanged();
+        }
     }
 
 
     public static int currentBox = 0;
 
-    public static ArrayList<ArrayList<LinkUrlListData>> urlListSource = null;
+    public static ArrayList<LinkUrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
@@ -119,7 +124,7 @@ public class LinkBoxController extends Application {
     }
 
 
-    public static ArrayList<ArrayList<String>> editorListSource = null;
+    public static ArrayList<LinkUserData> editorListSource = null;
     public static LinkEditorListAdapter linkEditorListAdapter = null;
     public static void notifyEditorDataSetChanged() {
         if (linkEditorListAdapter != null) {

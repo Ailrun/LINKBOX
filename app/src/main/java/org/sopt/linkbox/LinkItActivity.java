@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -29,7 +28,6 @@ import org.sopt.linkbox.service.LinkHeadService;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
 
 
 /** T?O?D?O : make this as Single Instance
@@ -51,6 +49,9 @@ public class LinkItActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+
         initWindow();
 
         initGlide();
@@ -60,6 +61,11 @@ public class LinkItActivity extends Activity {
         initView();
         initListener();
         initControl();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
     @Override
     protected void onStop() {
@@ -75,7 +81,6 @@ public class LinkItActivity extends Activity {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.dimAmount = 0.7f;
         getWindow().setAttributes(layoutParams);
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
         setContentView(R.layout.activity_link_it);
     }
     private void initGlide() {
@@ -92,7 +97,7 @@ public class LinkItActivity extends Activity {
         }
     }
     private void initData() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedProfile)
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
                 + LinkBoxController.linkUserData.usrid, 0);
         linkUrlListData = new LinkUrlListData();
     }

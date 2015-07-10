@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:background="#FFFFFFFF"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/indigo500">
+        <ImageView
+            android:id="@+id/IV_profile_link_box"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"/>
+    </RelativeLayout>
+    <!-- divider start -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/realWhite"/>
+    <!-- divider end -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp">
+        <LinearLayout
+            android:id="@+id/LL_box_info_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/indigo500">
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="5dp"
+                android:background="@android:drawable/ic_menu_report_image"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text="내 박스"
+                android:textColor="#FFFFFFFF"/>
+            <TextView
+                android:id="@+id/TV_box_number_link_box"
+                android:layout_width="30dp"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:text=""
+                android:textColor="#FFEEEEFF"/>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/LV_box_list_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/LL_box_info_link_box"/>
+    </RelativeLayout>
+    <!-- divider start -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/indigo500"/>
+    <!-- divider end -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/B_to_settings_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#FFFFFFFF"
+            android:text="설정"/>
+        <Button
+            android:id="@+id/B_to_premium_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/B_to_settings_link_box"
+            android:background="#FFFFFFFF"
+            android:text="프리미엄"/>
+    </RelativeLayout>
+</LinearLayout><!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/src/main/res/layout-land/layout_drawer_link_box.xml -->

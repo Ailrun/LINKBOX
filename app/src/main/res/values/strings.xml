@@ -3,7 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="facebook_app_id">469652643208806</string>
+    <string name="facebook_app_id">1646442455642975</string>
     <string name="title_activity_link_it">LinkItActivity</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
@@ -23,5 +23,17 @@
     <string name="title_activity_notification_list_adapter">NotificationListAdapter</string>
     <string name="title_activity_link_editor_list">LinkEditorList</string>
     <string name="title_activity_link_editor_add">LinkEditorAdd</string>
-    <string name="sharedProfile">userProfile</string>
+    <string name="shared_profile">userProfile</string>
+    <string name="title_activity_link_loading">LinkLoadingActivity</string>
+    <string name="layout_empty_url_list">EmptyUrlList</string>
+    <string name="title_activity_link_box_edit">LinkBoxEditActivity</string>
+    <string name="basic_action_1">Action_1</string>
+    <string name="basic_action_2">Action_2</string>
+    <string name="basic_del">Delete</string>
+    <string name="str_orange">#fe7b27</string>
+    <string name="str_green">#3cac69</string>
+    <string name="str_red">#FF4444</string>
+    <string name="str_yellow">#FFBB33</string>
+    <string name="str_sky_blue">#33B5E5</string>
+    <string name="title_activity_test">TestActivity</string>
 </resources>

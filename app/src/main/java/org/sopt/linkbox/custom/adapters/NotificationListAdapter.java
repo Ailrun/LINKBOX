@@ -16,7 +16,6 @@ import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NotificationListAdapter extends BaseExpandableListAdapter {
 
@@ -92,7 +91,7 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
     }
     @Override
     public View getChildView(int i, final int i2, boolean b, View view, ViewGroup viewGroup) {
-        final SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.sharedProfile), 0);
+        final SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.shared_profile), 0);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_notification_list_item, viewGroup, false);

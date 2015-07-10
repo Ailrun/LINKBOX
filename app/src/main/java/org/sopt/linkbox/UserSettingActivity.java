@@ -46,12 +46,18 @@ public class UserSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_setting);
 
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+
         initData();
         initView();
         initControl();
         initListener();
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+    }
     @Override
     protected void onStop() {
         super.onStop();
@@ -69,7 +75,7 @@ public class UserSettingActivity extends AppCompatActivity {
         childList.add(LinkBoxController.boxListSource);
     }
     void initView() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedProfile)
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
                 + LinkBoxController.linkUserData.usrid, 0);
         sharedEditor = sharedPreferences.edit();
 

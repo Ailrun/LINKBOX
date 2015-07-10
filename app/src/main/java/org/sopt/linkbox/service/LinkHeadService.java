@@ -164,7 +164,8 @@ public class LinkHeadService extends Service {
             }
 
             private void whileMotionEvent(MotionEvent me, MotionControlData mcd) {
-                mcd.move = true;
+                mcd.move = ((lpService.x - mcd.initialX)*(lpService.x - mcd.initialX)
+                + (lpService.y - mcd.initialY)*(lpService.y - mcd.initialY) > 50);
                 lpService.x = mcd.initialX + (int) (me.getRawX() - mcd.initialTouchX);
                 lpService.x = lpService.x < 0 ? 0 : lpService.x > displayWidth ? displayWidth : lpService.x;
                 lpService.y = mcd.initialY + (int) (me.getRawY() - mcd.initialTouchY);

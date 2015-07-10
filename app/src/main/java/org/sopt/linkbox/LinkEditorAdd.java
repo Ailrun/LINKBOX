@@ -7,10 +7,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
@@ -26,6 +26,9 @@ public class LinkEditorAdd extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_editor_add);
+
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+
         initData();
         initView();
         initListener();
@@ -44,11 +47,17 @@ public class LinkEditorAdd extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_add) {
+            LinkNetwork.Server.postAddUsrToServerAsync(etEmail.getText().toString(), tvMessage.getText().toString());
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
     @Override
     protected void onStop() {
@@ -59,7 +68,7 @@ public class LinkEditorAdd extends AppCompatActivity {
     }
 
     private void initData() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedProfile)
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
                 + LinkBoxController.linkUserData.usrid, 0);
     }
     private void initView() {

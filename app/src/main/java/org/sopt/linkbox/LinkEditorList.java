@@ -10,9 +10,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import org.sopt.linkbox.custom.adapters.LinkEditorListAdapter;
+import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
-
-import java.util.ArrayList;
 
 
 public class LinkEditorList extends AppCompatActivity {
@@ -26,6 +25,8 @@ public class LinkEditorList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_editor_list);
+
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
 
         initData();
         initView();
@@ -47,6 +48,11 @@ public class LinkEditorList extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     @Override
+    public void onResume() {
+        super.onResume();
+        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+    }
+    @Override
     protected void onStop() {
         super.onStop();
         if (sharedPreferences.getBoolean("floating", true)) {
@@ -55,9 +61,9 @@ public class LinkEditorList extends AppCompatActivity {
     }
 
     private void initData() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.sharedProfile)
+        LinkNetwork.Server.getUsrListFromServerAsync();
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
                 + LinkBoxController.linkUserData.usrid, 0);
-        LinkBoxController.editorListSource.add(LinkBoxController.currentBox, new ArrayList<String>());
     }
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
@@ -69,6 +75,6 @@ public class LinkEditorList extends AppCompatActivity {
     }
     private void initControl() {
         LinkBoxController.linkEditorListAdapter =
-                new LinkEditorListAdapter(getApplicationContext(), LinkBoxController.editorListSource.get(LinkBoxController.currentBox));
+                new LinkEditorListAdapter(getApplicationContext(), LinkBoxController.editorListSource);
     }
 }

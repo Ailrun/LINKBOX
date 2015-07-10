@@ -1,0 +1,23 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.sopt.linkbox.LinkEditorAdd"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/T_toolbar_editor_add"
+        layout="@layout/layout_toolbar"/>
+    <EditText
+        android:id="@+id/ET_editor_email_editor_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="user@email.com"/>
+    <TextView
+        android:id="@+id/ET_sending_message_editor_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minLines="1"
+        android:text="초기 메시지"
+        android:editable="true"/>
+</LinearLayout>
+<!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/src/main/res/layout/activity_link_editor_add.xml -->

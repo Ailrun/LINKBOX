@@ -1,5 +1,7 @@
 package org.sopt.linkbox.custom.data;
 
+import org.sopt.linkbox.LinkEditorList;
+
 import java.util.List;
 
 /**
@@ -8,5 +10,4 @@ import java.util.List;
 public class LinkBoxListData {
     public int cbid;
     public String cbname;
-    public List<String> usrids;
 }

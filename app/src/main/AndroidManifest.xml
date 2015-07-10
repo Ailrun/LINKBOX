@@ -47,11 +47,10 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
-    <uses-permission android:name="org.sopt.appjamtest.permission.C2D_MESSAGE" />
+    <uses-permission android:name="org.sopt.linkbox.permission.C2D_MESSAGE" />
 
     <!-- InApp purchase -->
-    <permission android:name="com.android.vending.BILLING" />
-
+    <!-- <permission android:name="com.android.vending.BILLING" /> -->
     <application
         android:name=".LinkBoxController"
         android:allowBackup="true"
@@ -61,12 +60,13 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN" />
-                <category
-                    android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -120,10 +120,10 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
             <intent-filter android:label="LINKBOX" >
-                <action
-                    android:name="android.intent.action.SEND" />
-                <category
-                    android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
                 <data
                     android:host="http"
                     android:mimeType="text/plain" />
@@ -168,7 +168,7 @@
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
-            android:enabled="false"
+            android:enabled="true"
             android:exported="true"
             android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
@@ -182,12 +182,21 @@
         <activity
             android:name=".LinkEditorAdd"
             android:label="@string/title_activity_link_editor_list"
-            android:parentActivityName=".LinkBoxActivity">
+            android:parentActivityName=".LinkBoxActivity" >
         </activity>
         <activity
             android:name=".LinkEditorList"
             android:label="@string/title_activity_link_editor_add"
-            android:parentActivityName=".LinkBoxActivity">
+            android:parentActivityName=".LinkBoxActivity" >
+        </activity>
+        <activity
+            android:name=".LinkLoadingActivity"
+            android:label="@string/title_activity_link_loading"
+            android:noHistory="true" >
+        </activity>
+        <activity
+            android:name=".LinkBoxEditActivity"
+            android:label="@string/title_activity_link_box_edit" >
         </activity>
     </application>
 
