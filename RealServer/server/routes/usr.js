@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
     'database' : 'LINKBOX'
 });
 
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
     connection.query('select * from usr ', function (error, cursor) {
         res.json(cursor);
     });
