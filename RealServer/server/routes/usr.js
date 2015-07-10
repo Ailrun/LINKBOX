@@ -89,20 +89,42 @@ router.post('/usr/login', function(req, res, next) {
                });
 */
 
+/*
+// 지현쓰 로그인 다시짜보기 (하다가 맘)
+router.post('/usr/login', function(req, res, next) {
+    
+        connection.query('select * from usr where usremail=? and pass=?;', [req.body.usremail, req.body.pass], function (error, cursor) {
+                                if (usremail=req.body.usremail && pass=req.body.pass) {
+                                        var result = cursor[0];
+                                        res.json({
+                                                result : true,
+                                                                                                
+                                        });
+                                }
+                                else {
+                                        res.status(503).json({
+                                            result : false,
+                                        });
+                                }
+                        });
+                      
+               });
+*/
+
 
 // 회원탈퇴
 
-router.post('/usr/signdown', function(req, res, next) {
+router.post('/usr/signdown', function(request, response, next) {
     
-        connection.query('delete from usr where usremail=?;', [req.body.usremail], function (error, cursor) {
+        connection.query('delete from usr where usremail=?;', [request.body.usremail], function (error, cursor) {
              console.log(error);
             if (error == undefined) {
-                            res.json({
+                            response.json({
                                      result : 'true'
                                                                                                                                         });
                                 }
             else {
-                            res.status(503).json({
+                            response.status(503).json({
                                      result : 'false'
                                     });
                                 }
