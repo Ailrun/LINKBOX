@@ -19,7 +19,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_paddingButtom="8dp"/>
+                android:paddingBottom="8dp"/>
 
 
         <EditText android:id="@+id/ET_password_main" android:layout_width="236dp"
@@ -30,7 +30,7 @@
             android:maxLines="1" android:singleLine="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:layout_paddingButtom="8dp"/>
+            android:paddingBottom="8dp"/>
         <Button
             android:id="@+id/B_login_main"
             android:layout_width="200dp"

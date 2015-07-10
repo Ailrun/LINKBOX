@@ -158,7 +158,6 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        initUrlDummyData();
 //        initBoxDummyData();
         LinkNetwork.Server.getBoxListFromServerAsync();
-        LinkNetwork.Server.postUrlListFromServerAsync();
     }
     private  void initView() {
         layoutInflater = getLayoutInflater();

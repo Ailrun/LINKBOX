@@ -4,6 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">1646442455642975</string>
+    <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_link_it">LinkItActivity</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
@@ -17,6 +18,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
+    <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_login_data">LoginDataActivity</string>
     <string name="title_activity_user_setting">UserSettingActivity</string>
@@ -36,4 +38,5 @@
     <string name="str_yellow">#FFBB33</string>
     <string name="str_sky_blue">#33B5E5</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_link_splash">LinkSplashActivity</string>
 </resources>

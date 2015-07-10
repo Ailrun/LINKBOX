@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/IV_main_image"
             android:layout_width="match_parent"
-            android:layout_height="278dp"
+            android:layout_height="300dp"
             android:src="@drawable/account_image"/>
     </RelativeLayout>
 </TabHost>

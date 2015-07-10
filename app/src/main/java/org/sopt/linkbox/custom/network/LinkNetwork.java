@@ -145,10 +145,8 @@ public class LinkNetwork {
                         LinkBoxController.boxListSource = (ArrayList<LinkBoxListData>) linkBoxListDatas;
                     }
                     LinkBoxController.notifyBoxDataSetChanged();
-                    if (isFirst) {
-                        LinkBoxController.currentBox = 0;
-                        postUrlListFromServerAsync();
-                    }
+                    LinkBoxController.currentBox = 0;
+                    postUrlListFromServerAsync();
                 }
 
                 @Override
