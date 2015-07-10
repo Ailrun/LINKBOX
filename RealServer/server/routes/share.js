@@ -29,9 +29,9 @@ router.post('/:cbid/addusr', function(req, res, next){
 });
 
 //
-router.get('/:usrid/boxlist', function(req, res, next) {
+router.get('/:cbid/boxlist', function(req, res, next) {
   
-   connection.query('SELECT cbid, cbname FROM collectbox WHERE usrid=?;', [req.params.usrid], function (error, cursor) {
+   connection.query('SELECT usrid, usrname, usremail, usrprofile FROM usr WHERE cbid=?;', [req.params.cbid], function (error, cursor) {
       
       res.json(cursor);
    });
