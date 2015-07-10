@@ -30,7 +30,7 @@ router.post('/:cbid/addusr/:usremail', function(req, res, next){
 //
 router.get('/:usrid/boxlist', function(req, res, next) {
   
-   connection.query('SELECT cbid, cbname FROM COLLECTBOX WHERE usrid=?;', [req.params.usrid], function (error, cursor) {
+   connection.query('SELECT cbid, cbname FROM collectbox WHERE usrid=?;', [req.params.usrid], function (error, cursor) {
       
       res.json(cursor);
    });
