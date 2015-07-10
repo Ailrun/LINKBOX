@@ -28,7 +28,7 @@ router.post('/:cbid/addusr', function(req, res, next){
 });
 
 //
-router.get('/:cbid/urllist', function(req, res, next) {
+router.get('/:cbid/usrlist', function(req, res, next) {
   
    connection.query('SELECT usrid, usrname, usremail, usrprofile FROM usr WHERE cbid=?;', [req.params.cbid], function (error, cursor) {
       
