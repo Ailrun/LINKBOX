@@ -3,7 +3,6 @@
   <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
     <file url="file://$PROJECT_DIR$/app/src/main/java/org/sopt/linkbox/LoginActivity.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/org/sopt/linkbox/MainActivity.java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/java/org/sopt/linkbox/service/FacebookLoginActivity.java" charset="x-windows-949" />
   </component>
 </project>
 

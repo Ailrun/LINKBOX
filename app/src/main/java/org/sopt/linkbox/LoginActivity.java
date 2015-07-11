@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         if (!setting.getString("usremail", "").equals("") && !setting.getString("pass", "").equals("")) {
             LinkBoxController.linkUserData.usremail = setting.getString("usremail", "");
             LinkBoxController.linkUserData.pass = setting.getString("pass", "");
-            LinkNetwork.Server.postLoginToServerAsync();
+            LinkNetwork.Server.postLoginToServerAsync(this);
         }
         callbackManager = CallbackManager.Factory.create();
 
@@ -94,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                 editor.putString("pass", PW);
                 editor.apply();
 
-                LinkNetwork.Server.postLoginToServerAsync();
+                LinkNetwork.Server.postLoginToServerAsync(LoginActivity.this);
             }
         });
     }

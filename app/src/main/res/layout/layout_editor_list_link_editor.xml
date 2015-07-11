@@ -1,29 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:background="#fff">
+    android:layout_height="match_parent">
     <ImageView
         android:id="@+id/IV_profile_link_editor"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/drawer_profile"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <ImageView
         android:id="@+id/IV_form_profile_link_editor"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/drawer_facebookprofile"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
     <TextView
         android:id="@+id/TV_editor_name_link_editor"
-        android:text="Name"
-        android:textSize="16dp"
-        android:textColor="#000"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </RelativeLayout>

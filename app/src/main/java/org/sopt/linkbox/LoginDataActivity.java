@@ -49,7 +49,8 @@ public class LoginDataActivity extends Activity {
                 }
                 linkUserData.pass = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
                 LinkNetwork.Server.postSignupToServerSync();
-                LinkNetwork.Server.postLoginToServerAsync();
+                LinkNetwork.Server.postLoginToServerAsync(LoginDataActivity.this);
+                startActivity(new Intent(getApplicationContext(), LinkBoxActivity.class));
                 Log.e("jsonObject", linkUserData.usrprofile);
                 Log.e("jsonObject", jsonObject.toString());
             }

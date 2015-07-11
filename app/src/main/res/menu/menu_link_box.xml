@@ -2,9 +2,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" tools:context="org.sopt.linkbox.LinkBoxActivity">
     <item android:id="@+id/action_share" android:title="share"
-        android:icon="@drawable/mainpage_editorplus"
+        android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="50" app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_editors" android:title="editors"
-        android:icon="@drawable/mainpage_editorinfo"
+        android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="100" app:showAsAction="ifRoom" />
 </menu>

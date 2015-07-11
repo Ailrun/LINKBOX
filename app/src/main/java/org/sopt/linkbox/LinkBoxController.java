@@ -13,7 +13,8 @@ import org.sopt.linkbox.custom.adapters.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.data.LinkUserData;
-import org.sopt.linkbox.custom.network.LinkNetworkInterface;
+import org.sopt.linkbox.custom.network.LinkNetworkInterface.EmbedlyInterface;
+import org.sopt.linkbox.custom.network.LinkNetworkInterface.MainServerInterface;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -41,12 +42,12 @@ public class LinkBoxController extends Application {
         LinkBoxController.application.init();
     }
 
-    private LinkNetworkInterface.EmbedlyInterface linkNetworkEmbedlyInterface;
-    private LinkNetworkInterface.MainServerInterface linkNetworkMainServerInterface;
-    public LinkNetworkInterface.EmbedlyInterface getLinkNetworkEmbedlyInterface() {
+    private EmbedlyInterface linkNetworkEmbedlyInterface;
+    private MainServerInterface linkNetworkMainServerInterface;
+    public EmbedlyInterface getLinkNetworkEmbedlyInterface() {
         return linkNetworkEmbedlyInterface;
     }
-    public LinkNetworkInterface.MainServerInterface getLinkNetworkMainServerInterface() {
+    public MainServerInterface getLinkNetworkMainServerInterface() {
         return linkNetworkMainServerInterface;
     }
 
@@ -68,7 +69,7 @@ public class LinkBoxController extends Application {
         builderEmbedly.setRequestInterceptor(new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {
-                request.addQueryParam("key", LinkNetworkInterface.EmbedlyInterface.KEY);
+                request.addQueryParam("key", EmbedlyInterface.KEY);
             }
         });
 
@@ -80,8 +81,8 @@ public class LinkBoxController extends Application {
         RestAdapter restAdapterEmbedly = builderEmbedly.build();
         RestAdapter restAdapterServer = builderServer.build();
 
-        linkNetworkEmbedlyInterface = restAdapterEmbedly.create(LinkNetworkInterface.EmbedlyInterface.class);
-        linkNetworkMainServerInterface = restAdapterServer.create(LinkNetworkInterface.MainServerInterface.class);
+        linkNetworkEmbedlyInterface = restAdapterEmbedly.create(EmbedlyInterface.class);
+        linkNetworkMainServerInterface = restAdapterServer.create(MainServerInterface.class);
 
         boxListSource = new ArrayList<>();
 

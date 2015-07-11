@@ -58,9 +58,11 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
-            android:name=".LinkSplashActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,15 +70,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:label="@string/title_activity_main"
-            android:launchMode="singleTask"
-            android:noHistory="true"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="LoginActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
