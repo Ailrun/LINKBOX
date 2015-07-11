@@ -13,8 +13,8 @@ import org.sopt.linkbox.custom.adapters.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.data.LinkUserData;
-import org.sopt.linkbox.custom.network.LinkNetworkInterface.EmbedlyInterface;
-import org.sopt.linkbox.custom.network.LinkNetworkInterface.MainServerInterface;
+import org.sopt.linkbox.custom.network.EmbedlyInterface;
+import org.sopt.linkbox.custom.network.MainServerInterface;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;

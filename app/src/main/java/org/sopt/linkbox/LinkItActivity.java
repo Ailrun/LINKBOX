@@ -37,6 +37,7 @@ public class LinkItActivity extends Activity {
     private static final String TAG = "TEST/" + LinkItActivity.class.getName();
 
     private Spinner spBox = null;
+    private ImageView ivThumb = null;
     private EditText etName = null;
     private Button btLinkit = null, btCancel = null;
 
@@ -102,9 +103,11 @@ public class LinkItActivity extends Activity {
     }
     private void initView() {
         spBox = (Spinner) findViewById(R.id.SP_box_link_it);
+        ivThumb = (ImageView) findViewById(R.id.IV_thumb_link_it);
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
             linkUrlListData.address = intent.getStringExtra(Intent.EXTRA_TEXT);
+            LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData, ivThumb);
         }
         else {
             finish();
