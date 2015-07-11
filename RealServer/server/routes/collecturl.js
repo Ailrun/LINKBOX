@@ -13,8 +13,10 @@ var connection = mysql.createConnection({
 
 //url 가져오기
 router.post('/:cbid/urllist', function(req, res, next) {
+    console.log(req)
     connection.query('select * from url where cbid = ? ', [req.params.cbid], function (error, cursor) {
-        res.json(cursor);
+        console.log(error)
+        res.json(cursor)
     });
 });
 
