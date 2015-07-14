@@ -3,74 +3,50 @@
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="org.sopt.linkbox.LoginActivity">
+    android:paddingBottom="@dimen/activity_vertical_margin" tools:context="org.sopt.linkbox.LoginActivity"
+    android:background="#fafafa">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/TV_id_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="50dp"
-                android:text="ID"/>
+        android:orientation="vertical"
+        android:background="#fafafa">
             <AutoCompleteTextView
                 android:id="@+id/AC_email_main"
-                android:layout_width="match_parent"
+                android:layout_width="236dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/prompt_email"
+                android:hint="이메일 주소"
                 android:inputType="textEmailAddress"
-                android:layout_toEndOf="@+id/TV_id_main"
                 android:maxLines="1"
-                android:singleLine="true" />
-        </RelativeLayout>
+                android:singleLine="true"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="8dp"/>
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp">
-        <TextView
-            android:id="@+id/TV_password_main"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
-            android:text="Password"/>
 
-        <EditText android:id="@+id/ET_password_main" android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:hint="@string/prompt_password"
+        <EditText android:id="@+id/ET_password_main" android:layout_width="236dp"
+            android:layout_height="wrap_content" android:hint="비밀번호"
             android:imeActionId="@+id/login"
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionUnspecified" android:inputType="textPassword"
             android:maxLines="1" android:singleLine="true"
-            android:layout_toEndOf="@+id/TV_password_main"/>
-        </RelativeLayout>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="8dp"/>
+        <Button
+            android:id="@+id/B_login_main"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:onClick="onClick_login"
+            android:background="@drawable/account_login_resting"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-            <Button
-                android:id="@+id/B_login_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:text="로그인"
-                android:onClick="onClick_login" />
-
-            <com.facebook.login.widget.LoginButton
-                android:layout_marginTop="10dp"
-                android:id="@+id/LB_login_main"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
-        </LinearLayout>
+        <com.facebook.login.widget.LoginButton
+            android:layout_marginTop="12dp"
+            android:id="@+id/LB_login_main"
+            android:layout_width="200dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/account_facebook_login_resting"
+            />
     </LinearLayout>
 </RelativeLayout>

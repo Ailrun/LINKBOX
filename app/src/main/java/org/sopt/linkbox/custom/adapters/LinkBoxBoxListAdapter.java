@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
-import org.sopt.linkbox.R;
 
 import java.util.ArrayList;
 

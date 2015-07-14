@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import org.sopt.linkbox.custom.adapters.LinkEditorListAdapter;
-import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
@@ -61,7 +60,6 @@ public class LinkEditorList extends AppCompatActivity {
     }
 
     private void initData() {
-        LinkNetwork.Server.getUsrListFromServerAsync();
         sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
                 + LinkBoxController.linkUserData.usrid, 0);
     }

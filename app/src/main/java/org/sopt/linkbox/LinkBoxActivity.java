@@ -7,13 +7,13 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
@@ -23,18 +23,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
-import org.sopt.linkbox.custom.network.LinkNetwork;
-import org.sopt.linkbox.service.LinkHeadService;
 import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
+import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -233,7 +231,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         LinkUrlListData linkUrlListData = new LinkUrlListData();
         linkUrlListData.address = "www.facebook.com";
         linkUrlListData.urlname = "페북";
-        LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData, null);
         linkUrlListData.urlwriter = "나";
         LinkBoxController.urlListSource.add(linkUrlListData);
     }
@@ -364,7 +361,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         bToPremium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LinkNetwork.Server.postPremiumToServerAsync();
             }
         });
     }
@@ -402,7 +398,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                     immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
                     lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
                     lvBoxList.addHeaderView(llBoxHeaderViewButton);
-                    LinkNetwork.Server.postAddBoxToServerAsync(etAddBoxName.getText().toString());
                     return true;
                 }
                 return false;

@@ -7,20 +7,22 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/IV_image_main"
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:background="@drawable/account_image"/>
         <TabWidget
             android:id="@android:id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/IV_main_image"/>
+            android:layout_below="@+id/IV_image_main"
+            android:background="#3f51b5"/>
         <FrameLayout
             android:id="@android:id/tabcontent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@android:id/tabs"></FrameLayout>
-        <ImageView
-            android:id="@+id/IV_main_image"
-            android:layout_width="match_parent"
-            android:layout_height="278dp"
-            android:src="@drawable/account_image"/>
+            android:layout_below="@android:id/tabs"
+            android:background="#fafafa"></FrameLayout>
     </RelativeLayout>
 </TabHost>

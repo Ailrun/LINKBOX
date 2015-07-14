@@ -22,7 +22,6 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.data.LinkBoxListData;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
-import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
 
 import java.io.File;
@@ -103,11 +102,9 @@ public class LinkItActivity extends Activity {
     }
     private void initView() {
         spBox = (Spinner) findViewById(R.id.SP_box_link_it);
-        ivThumb = (ImageView) findViewById(R.id.IV_thumb_link_it);
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
             linkUrlListData.address = intent.getStringExtra(Intent.EXTRA_TEXT);
-            LinkNetwork.Embedly.getThumbUrlFromEmbedlyAsync(linkUrlListData, ivThumb);
         }
         else {
             finish();
@@ -146,7 +143,6 @@ public class LinkItActivity extends Activity {
                 linkUrlListData.isgood = false;
                 linkUrlListData.urlwriter = LinkBoxController.linkUserData.usrname;
                 linkUrlListData.urldate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-                LinkNetwork.Server.postAddUrlToServerAsync(linkUrlListData);
                 Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
                 startActivity(intent);
                 finish();

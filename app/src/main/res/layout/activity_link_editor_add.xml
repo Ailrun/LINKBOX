@@ -3,20 +3,37 @@
     android:layout_height="match_parent"
     tools:context="org.sopt.linkbox.LinkEditorAdd"
     android:orientation="vertical">
-
     <include
         android:id="@+id/T_toolbar_editor_add"
         layout="@layout/layout_toolbar"/>
-    <EditText
-        android:id="@+id/ET_editor_email_editor_add"
+
+    <RelativeLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="user@email.com"/>
+        android:layout_height="56dp">
+
+        <EditText
+            android:id="@+id/ET_editor_email_editor_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"
+            android:hint="이메일 주소를 입력하세요."
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/ET_sending_message_editor_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="16dp"
         android:minLines="1"
+        android:layout_marginStart="19dp"
+        android:layout_marginEnd="19dp"
+        android:textColor="#000"
         android:text="초기 메시지"
         android:editable="true"/>
+
 </LinearLayout>

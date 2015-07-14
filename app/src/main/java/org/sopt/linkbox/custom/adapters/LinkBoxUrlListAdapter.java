@@ -13,9 +13,9 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
+import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.LinkUrlListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
-import org.sopt.linkbox.R;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.sopt.linkbox.custom.network.LinkNetwork;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
@@ -48,7 +47,6 @@ public class LinkEditorAdd extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add) {
-            LinkNetwork.Server.postAddUsrToServerAsync(etEmail.getText().toString(), tvMessage.getText().toString());
             return true;
         }
 

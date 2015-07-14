@@ -78,6 +78,8 @@ public class LinkBoxController extends Application {
         builderEmbedly.setClient(new OkClient(clientEmbedly));
         builderServer.setClient(new OkClient(clientServer));
 
+
+        
         RestAdapter restAdapterEmbedly = builderEmbedly.build();
         RestAdapter restAdapterServer = builderServer.build();
 

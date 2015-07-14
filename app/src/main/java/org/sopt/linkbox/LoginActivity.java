@@ -1,28 +1,29 @@
 package org.sopt.linkbox;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.content.SharedPreferences;
 import android.widget.Toast;
-
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import org.sopt.linkbox.custom.network.LinkNetwork;
-import org.sopt.linkbox.service.LinkHeadService;
+import org.sopt.linkbox.custom.data.LinkUserData;
+import org.sopt.linkbox.custom.network.MainServerInterface;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -36,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences setting;
     SharedPreferences.Editor editor;
     CallbackManager callbackManager;
+    MainServerInterface mainServerInterface = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +48,22 @@ public class LoginActivity extends AppCompatActivity {
 
         setting = getSharedPreferences("user", 0);
         editor = setting.edit();
+        mainServerInterface = LinkBoxController.getApplication().getLinkNetworkMainServerInterface();
 
         if (!setting.getString("usremail", "").equals("") && !setting.getString("pass", "").equals("")) {
-            LinkBoxController.linkUserData.usremail = setting.getString("usremail", "");
-            LinkBoxController.linkUserData.pass = setting.getString("pass", "");
-            LinkNetwork.Server.postLoginToServerAsync(this);
+            LinkUserData linkUserData = new LinkUserData();
+            linkUserData.usremail = setting.getString("usremail", "");
+            linkUserData.pass = setting.getString("pass", "");
+            mainServerInterface.postLoginAsync(linkUserData, new Callback<LinkUserData>() {
+                @Override
+                public void success(LinkUserData linkUserData, Response response) {
+
+                }
+                @Override
+                public void failure(RetrofitError error) {
+
+                }
+            });
         }
         callbackManager = CallbackManager.Factory.create();
 
@@ -81,20 +94,30 @@ public class LoginActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String ID = ac_id.getText().toString();
-                String PW = et_pwd.getText().toString();
+                final String ID = ac_id.getText().toString();
+                final String PW = et_pwd.getText().toString();
                 if (ID.equals("") || PW.equals("")) {
                     Toast.makeText(getApplicationContext(), "All Field must be filled!", Toast.LENGTH_LONG).show();
                 }
 
-                LinkBoxController.linkUserData.usremail = ID;
-                LinkBoxController.linkUserData.pass = PW;
+                LinkUserData linkUserData = new LinkUserData();
+                linkUserData.usremail = ID;
+                linkUserData.pass = PW;
 
-                editor.putString("usremail", ID);
-                editor.putString("pass", PW);
-                editor.apply();
+                mainServerInterface.postLoginAsync(linkUserData, new Callback<LinkUserData>() {
+                    @Override
+                    public void success(LinkUserData linkUserData, Response response) {
+                        editor.putString("usremail", ID);
+                        editor.putString("pass", PW);
+                        editor.apply();
 
-                LinkNetwork.Server.postLoginToServerAsync(LoginActivity.this);
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+
+                    }
+                });
             }
         });
     }

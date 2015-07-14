@@ -2,15 +2,8 @@ package org.sopt.linkbox;
 
 import android.app.TabActivity;
 import android.content.Intent;
-import android.graphics.PixelFormat;
-import android.graphics.Point;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Display;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TabHost;
 
@@ -29,7 +22,7 @@ public class MainActivity extends TabActivity {
         stopService(new Intent(getApplicationContext(), LinkHeadService.class));
 
         setContentView(R.layout.activity_main);
-        ivTitle = (ImageView) findViewById(R.id.IV_main_image);
+        ivTitle = (ImageView) findViewById(R.id.IV_image_main);
         ivTitle.bringToFront();
 
         tabHost = getTabHost();

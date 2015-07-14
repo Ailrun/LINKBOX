@@ -4,20 +4,16 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.login.widget.LoginButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.sopt.linkbox.custom.data.LinkUserData;
-import org.sopt.linkbox.custom.network.LinkNetwork;
 
 public class LoginDataActivity extends Activity {
     CallbackManager callbackManager = null;
@@ -48,8 +44,6 @@ public class LoginDataActivity extends Activity {
                     e.printStackTrace();
                 }
                 linkUserData.pass = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
-                LinkNetwork.Server.postSignupToServerSync();
-                LinkNetwork.Server.postLoginToServerAsync(LoginDataActivity.this);
                 startActivity(new Intent(getApplicationContext(), LinkBoxActivity.class));
                 Log.e("jsonObject", linkUserData.usrprofile);
                 Log.e("jsonObject", jsonObject.toString());
