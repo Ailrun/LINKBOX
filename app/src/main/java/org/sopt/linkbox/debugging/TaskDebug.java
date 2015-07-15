@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Junyoung on 2015-07-07.
  *
  */
-public class TaskDebugging {
+public class TaskDebug {
     private static final String TAG = "TEST/Task : ";
     public static void debug(Activity activity) {
         ActivityManager am = (ActivityManager) activity.getSystemService(Context.ACTIVITY_SERVICE);

@@ -16,7 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.sopt.linkbox.LinkItActivity;
+import org.sopt.linkbox.activity.mainPage.LinkItActivity;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.widget.ClearableEditText;
 

@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.adapters;
+package org.sopt.linkbox.custom.adapters.listViewAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.LinkUserData;
+import org.sopt.linkbox.custom.data.mainData.UserData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.io.File;
@@ -24,11 +24,11 @@ import java.util.ArrayList;
  * Created by Junyoung on 2015-07-10.
  */
 public class LinkEditorListAdapter extends BaseAdapter {
-    private ArrayList<LinkUserData> source = null;
+    private ArrayList<UserData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
 
-    public LinkEditorListAdapter(Context context, ArrayList<LinkUserData> source) {
+    public LinkEditorListAdapter(Context context, ArrayList<UserData> source) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
         this.context = context;
@@ -45,7 +45,7 @@ public class LinkEditorListAdapter extends BaseAdapter {
         }
     }
 
-    public void setSource(ArrayList<LinkUserData> source) {
+    public void setSource(ArrayList<UserData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -65,13 +65,13 @@ public class LinkEditorListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.layout_editor_list_link_editor, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.layout_editor_list_box_editor, viewGroup, false);
         }
-        LinkUserData linkUserData = (LinkUserData) getItem(i);
+        UserData userData = (UserData) getItem(i);
         ImageView ivProfile = ViewHolder.get(view, R.id.IV_profile_link_editor);
         TextView tvName = ViewHolder.get(view, R.id.TV_editor_name_link_editor);
-        Glide.with(context).load(linkUserData.usrprofile).into(ivProfile);
-        tvName.setText(linkUserData.usrname);
+        Glide.with(context).load(userData.usrprofile).into(ivProfile);
+        tvName.setText(userData.usrname);
         return view;
     }
 }

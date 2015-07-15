@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.adapters;
+package org.sopt.linkbox.custom.adapters.spinnerAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.util.ArrayList;
@@ -19,16 +19,16 @@ import java.util.ArrayList;
  */
 public class LinkItBoxListAdapter extends BaseAdapter {
 
-    private ArrayList<LinkBoxListData> source = null;
+    private ArrayList<BoxListData> source = null;
     private LayoutInflater layoutInflater = null;
 
-    public LinkItBoxListAdapter(Context context, ArrayList<LinkBoxListData> source) {
+    public LinkItBoxListAdapter(Context context, ArrayList<BoxListData> source) {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
     }
 
-    public void setSource(ArrayList<LinkBoxListData> source) {
+    public void setSource(ArrayList<BoxListData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -51,9 +51,9 @@ public class LinkItBoxListAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_it, viewGroup, false);
         }
-        LinkBoxListData linkBoxListData = (LinkBoxListData)getItem(i);
+        BoxListData boxListData = (BoxListData)getItem(i);
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_it);
-        tvBoxName.setText(linkBoxListData.cbname);
+        tvBoxName.setText(boxListData.cbname);
         return view;
     }
 }

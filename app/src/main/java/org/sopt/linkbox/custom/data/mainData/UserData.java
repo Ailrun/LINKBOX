@@ -1,9 +1,9 @@
-package org.sopt.linkbox.custom.data;
+package org.sopt.linkbox.custom.data.mainData;
 
 /**
  * Created by Junyoung on 2015-07-08.
  */
-public class LinkUserData {
+public class UserData {
     public int usrid;
     public String usremail;
     public String usrname;

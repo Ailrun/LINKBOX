@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.google.android.gms.gcm.GcmListenerService;
 
-import org.sopt.linkbox.LinkBoxActivity;
+import org.sopt.linkbox.activity.mainPage.LinkBoxActivity;
 import org.sopt.linkbox.R;
 
 /**

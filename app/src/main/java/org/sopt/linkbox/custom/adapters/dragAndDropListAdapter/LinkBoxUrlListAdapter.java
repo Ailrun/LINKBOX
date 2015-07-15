@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.adapters;
+package org.sopt.linkbox.custom.adapters.dragAndDropListAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.LinkUrlListData;
+import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.io.File;
@@ -26,11 +26,11 @@ import java.util.ArrayList;
  */
 public class LinkBoxUrlListAdapter extends BaseAdapter {
 
-    private ArrayList<LinkUrlListData> source = null;
+    private ArrayList<UrlListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
 
-    public LinkBoxUrlListAdapter(Context context, ArrayList<LinkUrlListData> source) {
+    public LinkBoxUrlListAdapter(Context context, ArrayList<UrlListData> source) {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
@@ -47,7 +47,7 @@ public class LinkBoxUrlListAdapter extends BaseAdapter {
         }
     }
 
-    public void setSource(ArrayList<LinkUrlListData> source) {
+    public void setSource(ArrayList<UrlListData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -70,14 +70,14 @@ public class LinkBoxUrlListAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_url_list_link_box, viewGroup, false);
         }
-        LinkUrlListData linkUrlListData = (LinkUrlListData)getItem(i);
+        UrlListData urlListData = (UrlListData)getItem(i);
         TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_name_link_box);
         TextView tvUrlWriterDate = ViewHolder.get(view, R.id.TV_url_writer_date_link_box);
 
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
-        tvUrlTitle.setText(linkUrlListData.urlname);
-        tvUrlWriterDate.setText(linkUrlListData.urlwriter);
-        Glide.with(context).load(linkUrlListData.urlthumb).into(ivUrlThumb);
+        tvUrlTitle.setText(urlListData.urlname);
+        tvUrlWriterDate.setText(urlListData.urlwriter);
+        Glide.with(context).load(urlListData.urlthumb).into(ivUrlThumb);
 
         return view;
     }

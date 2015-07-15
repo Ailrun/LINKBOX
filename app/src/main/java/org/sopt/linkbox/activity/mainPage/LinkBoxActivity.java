@@ -1,4 +1,4 @@
-package org.sopt.linkbox;
+package org.sopt.linkbox.activity.mainPage;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,10 +25,12 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
-import org.sopt.linkbox.custom.data.LinkBoxListData;
-import org.sopt.linkbox.custom.data.LinkUrlListData;
+import org.sopt.linkbox.LinkBoxController;
+import org.sopt.linkbox.R;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.dragAndDropListAdapter.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
@@ -83,7 +85,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
-        Log.d(TAG, "num="+LinkBoxController.urlListSource.size());
+        Log.d(TAG, "num="+ LinkBoxController.urlListSource.size());
         initData();
         initView();
         initControl();
@@ -118,10 +120,10 @@ public class LinkBoxActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.action_share :
-                startActivity(new Intent(getApplicationContext(), LinkEditorAdd.class));
+                startActivity(new Intent(getApplicationContext(), BoxEditorAdd.class));
                 break;
             case R.id.action_editors :
-                startActivity(new Intent(getApplicationContext(), LinkEditorList.class));
+                startActivity(new Intent(getApplicationContext(), BoxEditorList.class));
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -150,8 +152,8 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        initInAppData();
 
         //other data init;
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
-                + LinkBoxController.linkUserData.usrid, 0);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_user_settings)
+                + LinkBoxController.userData.usrid, 0);
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 //        initUrlDummyData();
 //        initBoxDummyData();
@@ -228,45 +230,45 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
 
     private void initUrlDummyData() {
-        LinkUrlListData linkUrlListData = new LinkUrlListData();
-        linkUrlListData.address = "www.facebook.com";
-        linkUrlListData.urlname = "페북";
-        linkUrlListData.urlwriter = "나";
-        LinkBoxController.urlListSource.add(linkUrlListData);
+        UrlListData urlListData = new UrlListData();
+        urlListData.address = "www.facebook.com";
+        urlListData.urlname = "페북";
+        urlListData.urlwriter = "나";
+        LinkBoxController.urlListSource.add(urlListData);
     }
     private void initBoxDummyData() {
-        LinkBoxListData linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "요리";
-        LinkBoxController.boxListSource.add(linkBoxListData);
-        linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "육아";
-        LinkBoxController.boxListSource.add(linkBoxListData);
-        linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "개발";
-        LinkBoxController.boxListSource.add(linkBoxListData);
-        linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "일상";
-        LinkBoxController.boxListSource.add(linkBoxListData);
-        linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "주방";
-        LinkBoxController.boxListSource.add(linkBoxListData);
-        linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "맛집";
-        LinkBoxController.boxListSource.add(linkBoxListData);
-        linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "위생";
-        LinkBoxController.boxListSource.add(linkBoxListData);
-        linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "공부";
-        LinkBoxController.boxListSource.add(linkBoxListData);
+        BoxListData boxListData = new BoxListData();
+        boxListData.cbname = "요리";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "육아";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "개발";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "일상";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "주방";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "맛집";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "위생";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "공부";
+        LinkBoxController.boxListSource.add(boxListData);
     }
 
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
-        if (LinkBoxController.boxListSource.size() > LinkBoxController.currentBox) {
-            tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox)).cbname);
+        if (LinkBoxController.boxListSource.size() > LinkBoxController.currentBox.index) {
+            tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox.index)).cbname);
         }
         else {
             tToolbar.setTitle("새 박스");
@@ -316,14 +318,14 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                LinkBoxListData linkBoxListData = (LinkBoxListData) adapterView.getItemAtPosition(i);
+                BoxListData boxListData = (BoxListData) adapterView.getItemAtPosition(i);
                 String str = null;
-                if (linkBoxListData != null) {
-                    str = linkBoxListData.cbname;
-                    LinkBoxController.currentBox = i;
+                if (boxListData != null) {
+                    str = boxListData.cbname;
+                    LinkBoxController.currentBox = (BoxListData) adapterView.getItemAtPosition(i);
                 } else {
                     str = "새 박스";
-                    LinkBoxController.currentBox = 0;
+                    LinkBoxController.currentBox = new BoxListData();
                 }
                 LinkBoxController.linkBoxUrlListAdapter.setSource(LinkBoxController.urlListSource);
                 tToolbar.setTitle(str);

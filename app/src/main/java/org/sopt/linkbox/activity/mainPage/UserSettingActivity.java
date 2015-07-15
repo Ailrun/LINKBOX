@@ -1,4 +1,4 @@
-package org.sopt.linkbox;
+package org.sopt.linkbox.activity.mainPage;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,8 +17,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 
-import org.sopt.linkbox.custom.adapters.NotificationListAdapter;
-import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.LinkBoxController;
+import org.sopt.linkbox.R;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
@@ -38,8 +40,8 @@ public class UserSettingActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor sharedEditor;
 
-    ArrayList<LinkBoxListData> groupList = null;
-    ArrayList<ArrayList<LinkBoxListData>> childList = null;
+    ArrayList<BoxListData> groupList = null;
+    ArrayList<ArrayList<BoxListData>> childList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,16 +69,16 @@ public class UserSettingActivity extends AppCompatActivity {
     }
 
     void initData() {
-        LinkBoxListData linkBoxListData = new LinkBoxListData();
-        linkBoxListData.cbname = "박스 설정";
+        BoxListData boxListData = new BoxListData();
+        boxListData.cbname = "박스 설정";
         groupList = new ArrayList<>();
-        groupList.add(linkBoxListData);
+        groupList.add(boxListData);
         childList = new ArrayList<>();
         childList.add(LinkBoxController.boxListSource);
     }
     void initView() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
-                + LinkBoxController.linkUserData.usrid, 0);
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_user_settings)
+                + LinkBoxController.userData.usrid, 0);
         sharedEditor = sharedPreferences.edit();
 
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
@@ -85,11 +87,11 @@ public class UserSettingActivity extends AppCompatActivity {
         etName = (EditText)findViewById(R.id.ET_name_user_setting);
         etName.setTag(etName.getKeyListener());
         etName.setKeyListener(null);
-        etName.setText(LinkBoxController.linkUserData.usrname);
+        etName.setText(LinkBoxController.userData.usrname);
         etMail = (EditText)findViewById(R.id.ET_mail_user_setting);
         etMail.setTag(etName.getKeyListener());
         etMail.setKeyListener(null);
-        etMail.setText(LinkBoxController.linkUserData.usremail);
+        etMail.setText(LinkBoxController.userData.usremail);
         etChangePassword = (EditText)findViewById(R.id.ET_changepass_user_setting);
         etChangePassword.setTag(etChangePassword.getKeyListener());
         etChangePassword.setKeyListener(null);

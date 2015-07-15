@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.adapters;
+package org.sopt.linkbox.custom.adapters.dragAndDropListAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.LinkBoxListData;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.util.ArrayList;
@@ -16,18 +16,18 @@ import java.util.ArrayList;
 /**
  * Created by Junyoung on 2015-07-10.
  */
-public class EditBoxListAdapter extends BaseAdapter {
+public class BoxEditBoxListAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater = null;
-    private ArrayList<LinkBoxListData> source = null;
+    private ArrayList<BoxListData> source = null;
     private Context context = null;
 
-    public EditBoxListAdapter(Context context, ArrayList<LinkBoxListData> source) {
+    public BoxEditBoxListAdapter(Context context, ArrayList<BoxListData> source) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
         this.context = context;
     }
 
-    public void setSource(ArrayList<LinkBoxListData> source) {
+    public void setSource(ArrayList<BoxListData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -52,9 +52,9 @@ public class EditBoxListAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
-        LinkBoxListData linkBoxListData = (LinkBoxListData) getItem(i);
+        BoxListData boxListData = (BoxListData) getItem(i);
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
-        tvBoxName.setText(linkBoxListData.cbname);
+        tvBoxName.setText(boxListData.cbname);
         return view;
     }
 }

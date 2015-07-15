@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" tools:context="org.sopt.linkbox.LinkBoxActivity">
+    xmlns:tools="http://schemas.android.com/tools" tools:context="org.sopt.linkbox.activity.mainPage.LinkBoxActivity">
     <item android:id="@+id/action_share" android:title="share"
         android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="50" app:showAsAction="ifRoom"/>

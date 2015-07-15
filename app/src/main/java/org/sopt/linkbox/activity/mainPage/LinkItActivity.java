@@ -1,4 +1,4 @@
-package org.sopt.linkbox;
+package org.sopt.linkbox.activity.mainPage;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,9 +19,12 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
-import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
-import org.sopt.linkbox.custom.data.LinkBoxListData;
-import org.sopt.linkbox.custom.data.LinkUrlListData;
+import org.sopt.linkbox.LinkBoxController;
+import org.sopt.linkbox.R;
+import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.data.mainData.GoodData;
+import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.service.LinkHeadService;
 
 import java.io.File;
@@ -41,7 +44,7 @@ public class LinkItActivity extends Activity {
     private Button btLinkit = null, btCancel = null;
 
     private String boxName = null;
-    private LinkUrlListData linkUrlListData = null;
+    private UrlListData urlListData = null;
 
     private SharedPreferences sharedPreferences = null;
 
@@ -96,22 +99,22 @@ public class LinkItActivity extends Activity {
         }
     }
     private void initData() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_profile)
-                + LinkBoxController.linkUserData.usrid, 0);
-        linkUrlListData = new LinkUrlListData();
+        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_user_settings)
+                + LinkBoxController.userData.usrid, 0);
+        urlListData = new UrlListData();
     }
     private void initView() {
         spBox = (Spinner) findViewById(R.id.SP_box_link_it);
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-            linkUrlListData.address = intent.getStringExtra(Intent.EXTRA_TEXT);
+            urlListData.address = intent.getStringExtra(Intent.EXTRA_TEXT);
         }
         else {
             finish();
             Log.e(TAG, "There is no address but LinkItActivity start");
         }
         etName = (EditText) findViewById(R.id.ET_name_link_it);
-        etName.setHint(linkUrlListData.address);
+        etName.setHint(urlListData.address);
         btLinkit = (Button) findViewById(R.id.BT_linkit_link_it);
         btCancel = (Button) findViewById(R.id.BT_cancel_link_it);
     }
@@ -128,9 +131,9 @@ public class LinkItActivity extends Activity {
             }
 
             private void boxCheck(AdapterView<?> adapterView, int i) {
-                LinkBoxListData linkBoxListData = (LinkBoxListData) adapterView.getItemAtPosition(i);
-                if (linkBoxListData != null) {
-                    boxName = linkBoxListData.cbname;
+                BoxListData boxListData = (BoxListData) adapterView.getItemAtPosition(i);
+                if (boxListData != null) {
+                    boxName = boxListData.cbname;
                 } else {
                     boxName = "";
                 }
@@ -139,10 +142,11 @@ public class LinkItActivity extends Activity {
         btLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                linkUrlListData.urlname = etName.getText().toString();
-                linkUrlListData.isgood = false;
-                linkUrlListData.urlwriter = LinkBoxController.linkUserData.usrname;
-                linkUrlListData.urldate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                urlListData.urlname = etName.getText().toString();
+                urlListData.gooddata = new GoodData();
+                urlListData.gooddata.isgood = false;
+                urlListData.urlwriter = LinkBoxController.userData.usrname;
+                urlListData.urldate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
                 startActivity(intent);
                 finish();

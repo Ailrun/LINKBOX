@@ -4,15 +4,15 @@ import android.app.Application;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import org.sopt.linkbox.custom.adapters.EditBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.LinkBoxBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.LinkBoxUrlListAdapter;
-import org.sopt.linkbox.custom.adapters.LinkEditorListAdapter;
-import org.sopt.linkbox.custom.adapters.LinkItBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.NotificationListAdapter;
-import org.sopt.linkbox.custom.data.LinkBoxListData;
-import org.sopt.linkbox.custom.data.LinkUrlListData;
-import org.sopt.linkbox.custom.data.LinkUserData;
+import org.sopt.linkbox.custom.adapters.dragAndDropListAdapter.BoxEditBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.dragAndDropListAdapter.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
+import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.data.mainData.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.UserData;
 import org.sopt.linkbox.custom.network.EmbedlyInterface;
 import org.sopt.linkbox.custom.network.MainServerInterface;
 
@@ -84,20 +84,22 @@ public class LinkBoxController extends Application {
         linkNetworkEmbedlyInterface = restAdapterEmbedly.create(EmbedlyInterface.class);
         linkNetworkMainServerInterface = restAdapterServer.create(MainServerInterface.class);
 
+        currentBox = new BoxListData();
+
         boxListSource = new ArrayList<>();
 
         urlListSource = new ArrayList<>();
 
         editorListSource = new ArrayList<>();
 
-        linkUserData = new LinkUserData();
+        userData = new UserData();
     }
 
-    public static ArrayList<LinkBoxListData> boxListSource = null;
+    public static ArrayList<BoxListData> boxListSource = null;
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
-    public static EditBoxListAdapter editBoxListAdapter = null;
+    public static BoxEditBoxListAdapter boxEditBoxListAdapter = null;
     public static void notifyBoxDataSetChanged() {
         if (linkBoxBoxListAdapter != null) {
             linkBoxBoxListAdapter.notifyDataSetChanged();
@@ -108,15 +110,15 @@ public class LinkBoxController extends Application {
         if (notificationListAdapter != null) {
             notificationListAdapter.notifyDataSetChanged();
         }
-        if (editBoxListAdapter != null) {
-            editBoxListAdapter.notifyDataSetChanged();
+        if (boxEditBoxListAdapter != null) {
+            boxEditBoxListAdapter.notifyDataSetChanged();
         }
     }
 
 
-    public static int currentBox = 0;
+    public static BoxListData currentBox = null;
 
-    public static ArrayList<LinkUrlListData> urlListSource = null;
+    public static ArrayList<UrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
@@ -125,7 +127,7 @@ public class LinkBoxController extends Application {
     }
 
 
-    public static ArrayList<LinkUserData> editorListSource = null;
+    public static ArrayList<UserData> editorListSource = null;
     public static LinkEditorListAdapter linkEditorListAdapter = null;
     public static void notifyEditorDataSetChanged() {
         if (linkEditorListAdapter != null) {
@@ -134,7 +136,7 @@ public class LinkBoxController extends Application {
     }
 
 
-    public static LinkUserData linkUserData = null;
+    public static UserData userData = null;
 
 
     public static boolean defaultAlarm = false;

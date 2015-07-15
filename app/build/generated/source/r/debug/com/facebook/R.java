@@ -129,19 +129,19 @@ public final class R {
 		public static final int com_facebook_image_download_unknown_error = 0x7f070038;
 		public static final int com_facebook_internet_permission_error_message = 0x7f070039;
 		public static final int com_facebook_internet_permission_error_title = 0x7f07003a;
-		public static final int com_facebook_like_button_liked = 0x7f070056;
-		public static final int com_facebook_like_button_not_liked = 0x7f070057;
+		public static final int com_facebook_like_button_liked = 0x7f070052;
+		public static final int com_facebook_like_button_not_liked = 0x7f070053;
 		public static final int com_facebook_loading = 0x7f07003b;
 		public static final int com_facebook_loginview_cancel_action = 0x7f07003c;
 		public static final int com_facebook_loginview_log_in_button = 0x7f07003d;
-		public static final int com_facebook_loginview_log_in_button_long = 0x7f070058;
+		public static final int com_facebook_loginview_log_in_button_long = 0x7f070054;
 		public static final int com_facebook_loginview_log_out_action = 0x7f07003e;
 		public static final int com_facebook_loginview_log_out_button = 0x7f07003f;
 		public static final int com_facebook_loginview_logged_in_as = 0x7f070040;
 		public static final int com_facebook_loginview_logged_in_using_facebook = 0x7f070041;
-		public static final int com_facebook_send_button_text = 0x7f070059;
-		public static final int com_facebook_share_button_text = 0x7f07005a;
-		public static final int com_facebook_tooltip_default = 0x7f07005b;
+		public static final int com_facebook_send_button_text = 0x7f070055;
+		public static final int com_facebook_share_button_text = 0x7f070056;
+		public static final int com_facebook_tooltip_default = 0x7f070057;
 		public static final int messenger_send_button_text = 0x7f07002d;
 	}
 	public static final class style {

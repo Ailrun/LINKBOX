@@ -57,21 +57,28 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        <activity
-            android:name=".MainActivity"
+        <activity android:name=".activity.effectPage.SplashActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:noHistory="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:label="LoginActivity"
+            android:name=".activity.loginPage.MainActivity"
+            android:label="@string/title_activity_main"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:noHistory="true">
+        </activity>
+        <activity
+            android:name=".activity.loginPage.LoginActivity"
+            android:label="@string/title_activity_login"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
@@ -109,13 +116,13 @@
         </service>
 
         <activity
-            android:name=".LinkBoxActivity"
+            android:name=".activity.mainPage.LinkBoxActivity"
             android:label="@string/title_activity_link_box"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".LinkItActivity"
+            android:name=".activity.mainPage.LinkItActivity"
             android:label="@string/title_activity_link_it"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
@@ -130,19 +137,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".activity.loginPage.SignupActivity"
             android:label="@string/title_activity_signup"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".LoginDataActivity"
-            android:label="@string/title_activity_login_data"
+            android:name=".activity.loginPage.FacebookDataActivity"
+            android:label="@string/title_activity_facebook_data"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".UserSettingActivity"
+            android:name=".activity.mainPage.UserSettingActivity"
             android:label="@string/title_activity_user_setting"
-            android:parentActivityName=".LinkBoxActivity"
+            android:parentActivityName=".activity.mainPage.LinkBoxActivity"
             android:screenOrientation="portrait" >
         </activity>
 
@@ -180,23 +187,23 @@
         </receiver>
 
         <activity
-            android:name=".LinkEditorAdd"
-            android:label="@string/title_activity_link_editor_list"
-            android:parentActivityName=".LinkBoxActivity" >
+            android:name=".activity.mainPage.BoxEditorAdd"
+            android:label="@string/title_activity_box_editor_list"
+            android:parentActivityName=".activity.mainPage.LinkBoxActivity" >
         </activity>
         <activity
-            android:name=".LinkEditorList"
-            android:label="@string/title_activity_link_editor_add"
-            android:parentActivityName=".LinkBoxActivity" >
+            android:name=".activity.mainPage.BoxEditorList"
+            android:label="@string/title_activity_box_editor_add"
+            android:parentActivityName=".activity.mainPage.LinkBoxActivity" >
         </activity>
         <activity
-            android:name=".LinkLoadingActivity"
-            android:label="@string/title_activity_link_loading"
+            android:name=".activity.effectPage.LoadingActivity"
+            android:label="@string/title_activity_loading"
             android:noHistory="true" >
         </activity>
         <activity
-            android:name=".LinkBoxEditActivity"
-            android:label="@string/title_activity_link_box_edit" >
+            android:name=".activity.mainPage.BoxListEditActivity"
+            android:label="@string/title_activity_box_list_edit" >
         </activity>
     </application>
 
