@@ -9,8 +9,6 @@ import org.sopt.linkbox.R;
 
 
 public class SignupActivity extends Activity {
-
-
     private static final String SERVER_ADDRESS = "http://52.68.70.129:8080/";
 
     @Override

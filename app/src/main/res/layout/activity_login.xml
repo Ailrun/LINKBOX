@@ -11,7 +11,7 @@
         android:orientation="vertical"
         android:background="#fafafa">
             <AutoCompleteTextView
-                android:id="@+id/AC_email_main"
+                android:id="@+id/ACT_usremail_main"
                 android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:hint="이메일 주소"

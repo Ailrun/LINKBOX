@@ -15,11 +15,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.mainPage.LinkBoxActivity;
-import org.sopt.linkbox.custom.data.mainData.UserData;
+import org.sopt.linkbox.activity.loadingPage.LoginLoadingActivity;
+import org.sopt.linkbox.constant.LoginStrings;
 
 public class FacebookDataActivity extends Activity {
-    CallbackManager callbackManager = null;
+    private static final String TAG = "TEST/" + FacebookDataActivity.class.getName() + " : ";
+
+    private CallbackManager callbackManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,40 +31,50 @@ public class FacebookDataActivity extends Activity {
 
         callbackManager = CallbackManager.Factory.create();
         Bundle parameter = new Bundle();
-        parameter.putString("fields", "email, name, id, picture");
+        parameter.putString("fields", "name,id,picture{url},email");
 
-        GraphRequest graph = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-            @Override
-            public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
-                UserData userData = LinkBoxController.userData;
-
-                userData.usrname = jsonObject.optString("name");
-                userData.usremail = jsonObject.optString("email");
-                try {
-                    jsonObject = jsonObject.getJSONObject("picture");
-                    jsonObject = jsonObject.getJSONObject("data");
-                    userData.usrprofile = jsonObject.optString("picture");
-                }
-                catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                userData.pass = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
-                startActivity(new Intent(getApplicationContext(), LinkBoxActivity.class));
-                Log.e("jsonObject", userData.usrprofile);
-                Log.e("jsonObject", jsonObject.toString());
-            }
-        });
+        GraphRequest graph = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphCallback());
         graph.setParameters(parameter);
+        Log.d(TAG, graph.toString());
+        Log.d(TAG, graph.getVersion());
         graph.executeAsync();
     }
-    protected  void onResume(){
+    @Override
+    protected void onResume(){
         super.onResume();
         if(AccessToken.getCurrentAccessToken() == null){
             finish();
+            Log.e("jsonObject", LinkBoxController.userData.usrprofile);
         }
     }
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private class GraphCallback implements GraphRequest.GraphJSONObjectCallback {
+        private final String TAG = "TEST/" + GraphCallback.class.getName() + " : ";
+        @Override
+        public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
+            String usrprofile = new String();
+            String pass = new String();
+
+            try {
+                usrprofile = jsonObject.getJSONObject("picture").getJSONObject("data").optString("url");
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+            pass = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
+            Log.d(TAG, jsonObject.toString());
+            Intent intent = new Intent(FacebookDataActivity.this, LoginLoadingActivity.class);
+            intent.putExtra(LoginStrings.usremail, jsonObject.optString("email"));
+            intent.putExtra(LoginStrings.usrname, jsonObject.optString("name"));
+            intent.putExtra(LoginStrings.usrprofile, usrprofile);
+            intent.putExtra(LoginStrings.pass, pass);
+            startActivity(intent);
+            finish();
+        }
     }
 }

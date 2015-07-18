@@ -8,17 +8,18 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.util.ArrayList;
 
 public class NotificationListAdapter extends BaseExpandableListAdapter {
-
     private ArrayList<BoxListData> group = null;
     private ArrayList<ArrayList<BoxListData>> source = null;
     private LayoutInflater layoutInflater = null;
@@ -91,7 +92,8 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
     }
     @Override
     public View getChildView(int i, final int i2, boolean b, View view, ViewGroup viewGroup) {
-        final SharedPreferences sharedPreferences = context.getSharedPreferences(context.getResources().getString(R.string.shared_user_settings), 0);
+        final SharedPreferences sharedPreferences = context.getSharedPreferences(SettingStrings.shared_user_settings
+                + LinkBoxController.userData.usrid, 0);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_notification_list_item, viewGroup, false);

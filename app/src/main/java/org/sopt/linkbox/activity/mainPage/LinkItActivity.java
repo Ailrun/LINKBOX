@@ -21,6 +21,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.GoodData;
@@ -99,7 +100,7 @@ public class LinkItActivity extends Activity {
         }
     }
     private void initData() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_user_settings)
+        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrid, 0);
         urlListData = new UrlListData();
     }

@@ -11,14 +11,14 @@ import android.widget.ListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
 public class BoxEditorList extends AppCompatActivity {
-
-    Toolbar tToolbar = null;
-    ListView lvEditorList = null;
+    private Toolbar tToolbar = null;
+    private ListView lvEditorList = null;
 
     private SharedPreferences sharedPreferences = null;
 
@@ -62,7 +62,7 @@ public class BoxEditorList extends AppCompatActivity {
     }
 
     private void initData() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_user_settings)
+        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrid, 0);
     }
     private void initView() {

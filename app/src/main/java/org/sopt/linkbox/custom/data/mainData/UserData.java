@@ -10,4 +10,9 @@ public class UserData {
     public String usrprofile;
     public String pass;
     public boolean premium;
+    @Override
+    public String toString(){
+        return "usrid="+usrid+", usremail="+usremail+", usrname="+usrname
+                +", usrprofile="+usrprofile+", premium="+(premium?"true":"false");
+    }
 }

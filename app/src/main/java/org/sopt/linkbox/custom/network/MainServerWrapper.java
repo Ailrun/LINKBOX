@@ -18,15 +18,18 @@ import retrofit.Callback;
 public class MainServerWrapper {
     private static MainServerInterface mainServerInterface = null;
 
+
     private static void fillInterface() {
         if (mainServerInterface == null) {
             mainServerInterface = LinkBoxController.getApplication().getLinkNetworkMainServerInterface();
         }
     }
 
+
     public MainServerWrapper() {
         fillInterface();
     }
+
 
     public void postLoginAsync(String email, String pass, Callback<UserData> callback) {
         UserData userData = new UserData();
@@ -41,6 +44,15 @@ public class MainServerWrapper {
         userData.pass = pass;
         mainServerInterface.postSignUpAsync(userData, callback);
     }
+    public void postFacebookAccessAsync(String email, String name, String profile, String pass, Callback<UserData> callback) {
+        UserData userData = new UserData();
+        userData.usremail = email;
+        userData.usrname = name;
+        userData.usrprofile = profile;
+        userData.pass = pass;
+        mainServerInterface.postFacebookAccessAsync(userData, callback);
+    }
+
 
     public void getBoxListAsync(Callback<List<BoxListData>> callback) {
         mainServerInterface.getBoxListAsync(LinkBoxController.userData.usrid, callback);
@@ -65,14 +77,16 @@ public class MainServerWrapper {
         changeBoxSort(cbindex1, cbindex2, boxListDatas);
     }
 
+
     private void changeBoxSort(int cbindex1, int cbindex2, ArrayList<BoxListData> list) {
         BoxListData boxListData = list.get(cbindex1);
         list.remove(cbindex1);
         list.add(cbindex2, boxListData);
     }
 
-    public void postUrlListAsync(Callback<List<UrlListData>> callback) {
-        mainServerInterface.postUrlListAsync(LinkBoxController.userData.usrid, LinkBoxController.currentBox.cbid, callback);
+
+    public void getUrlListAsync(Callback<List<UrlListData>> callback) {
+        mainServerInterface.getUrlListAsync(LinkBoxController.userData.usrid, LinkBoxController.currentBox.cbid, callback);
     }
     public void postAddUrlAsync(String url, String name, String thumb, Callback<UrlListData> callback) {
         UrlListData urlListData = new UrlListData();
@@ -102,6 +116,7 @@ public class MainServerWrapper {
         mainServerInterface.postRemoveGoodAsync(LinkBoxController.userData.usrid, LinkBoxController.currentBox.cbid, urlid, callback);
     }
 
+
     public void getUsrListAsync(Callback<List<UserData>> callback) {
         mainServerInterface.getUsrListAsync(LinkBoxController.userData.usrid, LinkBoxController.currentBox.cbid, callback);
     }
@@ -112,6 +127,7 @@ public class MainServerWrapper {
         mainServerInterface.postAddUsrAsync(LinkBoxController.userData.usrid, LinkBoxController.currentBox.cbid, twoString, callback);
     }
 
+
     public void postSignDownAsync(String pass, Callback<Object> callback) {
         UserData userData = new UserData();
         userData.usrid = LinkBoxController.userData.usrid;
@@ -120,9 +136,11 @@ public class MainServerWrapper {
         mainServerInterface.postSignDownAsync(userData, callback);
     }
 
+
     public void postPushTokenAsync(String token, Callback<Object> callback) {
         mainServerInterface.postPushTokenAsync(LinkBoxController.userData.usrid, token, callback);
     }
+
 
     public void postPremium(Callback<Object> callback) {
         mainServerInterface.postPremium(LinkBoxController.userData, callback);

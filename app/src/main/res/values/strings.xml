@@ -1,32 +1,12 @@
 <resources>
     <string name="app_name">LINKBOX</string>
 
-    <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_splash">SplashActivity</string>
-    <string name="title_activity_link_it">LinkItActivity</string>
-    <string name="title_activity_link_box">LinkBoxActivity</string>
-    <string name="title_activity_signup">SignupActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_facebook_data">LoginDataActivity</string>
-    <string name="title_activity_user_setting">UserSettingActivity</string>
-    <string name="title_activity_notification_list_adapter">NotificationListAdapter</string>
-    <string name="title_activity_box_editor_list">LinkEditorList</string>
-    <string name="title_activity_box_editor_add">LinkEditorAdd</string>
-    <string name="title_activity_loading">LinkLoadingActivity</string>
-    <string name="title_activity_box_list_edit">LinkBoxEditActivity</string>
-
     <string name="action_settings">Settings</string>
-    <string name="facebook_app_id">1646442455642975</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="shared_user_profiles">userProfiles</string>
-    <string name="shared_user_settings">userSettings</string>
     <string name="layout_empty_url_list">EmptyUrlList</string>
-    <string name="str_orange">#fe7b27</string>
-    <string name="str_green">#3cac69</string>
-    <string name="str_red">#FF4444</string>
-    <string name="str_yellow">#FFBB33</string>
-    <string name="str_sky_blue">#33B5E5</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

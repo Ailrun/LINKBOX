@@ -10,6 +10,11 @@ import com.facebook.FacebookException;
 public class FacebookDebug {
     private static final String TAG = "TEST/Facebook : ";
     public static void debug(FacebookException exception) {
-        exception.printStackTrace();
+        if (exception != null) {
+            Log.d(TAG, exception.getMessage());
+        }
+        else {
+            Log.d(TAG, "Null Exception");
+        }
     }
 }

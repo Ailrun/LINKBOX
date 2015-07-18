@@ -57,24 +57,23 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-        <activity android:name=".activity.effectPage.SplashActivity"
+        <activity
+            android:name=".activity.effectPage.SplashActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:screenOrientation="portrait"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:screenOrientation="portrait" >
             <intent-filter>
-                <action
-                    android:name="android.intent.action.MAIN" />
-                <category
-                    android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.loginPage.MainActivity"
             android:label="@string/title_activity_main"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:noHistory="true">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".activity.loginPage.LoginActivity"
@@ -98,7 +97,7 @@
         <!-- com.facebook.app.FacebookContentProvider 뒤에다가 App ID 추가 필수 -->
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider469652643208806"
+            android:authorities="@string/facebook_authority"
             android:exported="true" />
 
         <meta-data
@@ -197,9 +196,9 @@
             android:parentActivityName=".activity.mainPage.LinkBoxActivity" >
         </activity>
         <activity
-            android:name=".activity.effectPage.LoadingActivity"
+            android:name=".activity.loadingPage.LoginLoadingActivity"
             android:label="@string/title_activity_loading"
-            android:noHistory="true" >
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".activity.mainPage.BoxListEditActivity"

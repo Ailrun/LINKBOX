@@ -18,7 +18,6 @@ import java.util.ArrayList;
  *
  */
 public class LinkBoxBoxListAdapter extends BaseAdapter {
-
     private ArrayList<BoxListData> source = null;
     private LayoutInflater layoutInflater = null;
 

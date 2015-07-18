@@ -1,7 +1,12 @@
-package org.sopt.linkbox.custom.adapters.dragAndDropListAdapter;
+package org.sopt.linkbox.custom.adapters.listViewAdapter;
 
 import android.content.Context;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureUtils;
+import android.view.DragEvent;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -25,7 +30,6 @@ import java.util.ArrayList;
  *
  */
 public class LinkBoxUrlListAdapter extends BaseAdapter {
-
     private ArrayList<UrlListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
@@ -72,11 +76,43 @@ public class LinkBoxUrlListAdapter extends BaseAdapter {
         }
         UrlListData urlListData = (UrlListData)getItem(i);
         TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_name_link_box);
-        TextView tvUrlWriterDate = ViewHolder.get(view, R.id.TV_url_writer_date_link_box);
+        TextView tvUrlAddress = ViewHolder.get(view, R.id.TV_url_address_link_box);
+        TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
+        TextView tvUrlDate = ViewHolder.get(view, R.id.TV_url_date_link_box);
 
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
+
         tvUrlTitle.setText(urlListData.urlname);
-        tvUrlWriterDate.setText(urlListData.urlwriter);
+        tvUrlAddress.setText(urlListData.address);
+        tvUrlWriter.setText(urlListData.urlwriter);
+        tvUrlDate.setText(urlListData.urldate);
+        GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.OnGestureListener() {
+            @Override
+            public boolean onDown(MotionEvent motionEvent) {
+                return false;
+            }
+            @Override
+            public void onShowPress(MotionEvent motionEvent) {
+
+            }
+            @Override
+            public boolean onSingleTapUp(MotionEvent motionEvent) {
+                return false;
+            }
+            @Override
+            public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
+                return false;
+            }
+            @Override
+            public void onLongPress(MotionEvent motionEvent) {
+
+            }
+            @Override
+            public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
+                return false;
+            }
+        });
+
         Glide.with(context).load(urlListData.urlthumb).into(ivUrlThumb);
 
         return view;

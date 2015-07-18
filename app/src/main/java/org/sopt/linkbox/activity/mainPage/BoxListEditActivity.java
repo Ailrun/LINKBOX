@@ -14,9 +14,8 @@ import org.sopt.linkbox.service.LinkHeadService;
 
 
 public class BoxListEditActivity extends AppCompatActivity {
-
-    Toolbar tToolbar = null;
-    ListView lvBoxList = null;
+    private Toolbar tToolbar = null;
+    private ListView lvBoxList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

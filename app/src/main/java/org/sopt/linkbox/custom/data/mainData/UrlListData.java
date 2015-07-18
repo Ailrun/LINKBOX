@@ -12,4 +12,10 @@ public class UrlListData {
     public String urldate;
     public String urlthumb;
     public GoodData gooddata;
+    @Override
+    public String toString(){
+        return "urlid="+urlid+", address="+address+", urlname="+urlname
+                +", urlwriter="+urlwriter+", urldate="+urldate+", urlthumb"+urlthumb
+                + ((gooddata == null)?"":gooddata.toString());
+    }
 }

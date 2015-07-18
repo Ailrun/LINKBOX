@@ -5,4 +5,8 @@ package org.sopt.linkbox.custom.data.mainData;
  */
 public class GoodData {
     public boolean isgood;
+    @Override
+    public String toString() {
+        return "isgood="+(isgood?"true":"false");
+    }
 }

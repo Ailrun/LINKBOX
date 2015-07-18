@@ -27,8 +27,9 @@ import android.widget.TextView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.dragAndDropListAdapter.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.libUtils.util.IabHelper;
@@ -152,7 +153,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        initInAppData();
 
         //other data init;
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_user_settings)
+        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrid, 0);
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 //        initUrlDummyData();
@@ -229,43 +230,9 @@ public class LinkBoxActivity extends AppCompatActivity {
         });
     }
 
-    private void initUrlDummyData() {
-        UrlListData urlListData = new UrlListData();
-        urlListData.address = "www.facebook.com";
-        urlListData.urlname = "페북";
-        urlListData.urlwriter = "나";
-        LinkBoxController.urlListSource.add(urlListData);
-    }
-    private void initBoxDummyData() {
-        BoxListData boxListData = new BoxListData();
-        boxListData.cbname = "요리";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.cbname = "육아";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.cbname = "개발";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.cbname = "일상";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.cbname = "주방";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.cbname = "맛집";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.cbname = "위생";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.cbname = "공부";
-        LinkBoxController.boxListSource.add(boxListData);
-    }
-
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
-        tToolbar.setTitleTextColor(getResources().getColor(R.color.realWhite));
+        tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
         if (LinkBoxController.boxListSource.size() > LinkBoxController.currentBox.index) {
             tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox.index)).cbname);
@@ -419,4 +386,41 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void setIconBadge(int i) {
         ShortcutBadger.with(getApplicationContext()).count(1);
     }
+
+
+    //For Test
+    private void initUrlDummyData() {
+        UrlListData urlListData = new UrlListData();
+        urlListData.address = "www.facebook.com";
+        urlListData.urlname = "페북";
+        urlListData.urlwriter = "나";
+        LinkBoxController.urlListSource.add(urlListData);
+    }
+    private void initBoxDummyData() {
+        BoxListData boxListData = new BoxListData();
+        boxListData.cbname = "요리";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "육아";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "개발";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "일상";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "주방";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "맛집";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "위생";
+        LinkBoxController.boxListSource.add(boxListData);
+        boxListData = new BoxListData();
+        boxListData.cbname = "공부";
+        LinkBoxController.boxListSource.add(boxListData);
+    }
+
 }

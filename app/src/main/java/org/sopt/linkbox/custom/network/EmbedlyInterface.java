@@ -15,6 +15,8 @@ public interface EmbedlyInterface {
     // for embedly api
     public static final String KEY = "7859e019f280493c89e030a41a135a79";
 
+    public static final String embedlyAPIEndPoint = "http://api.embed.ly";
+
     @GET("/1/oembed")
     public void getThumbAsync(@QueryMap HashMap<String, String> parameters, Callback<EmbedlyResult> callback);
 }

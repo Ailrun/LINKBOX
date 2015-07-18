@@ -12,9 +12,9 @@ import org.sopt.linkbox.service.LinkHeadService;
 
 
 public class MainActivity extends TabActivity {
-    TabHost tabHost;
-    Toolbar tToolbar = null;
-    ImageView ivTitle = null;
+    private TabHost tabHost;
+    private Toolbar tToolbar = null;
+    private ImageView ivTitle = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

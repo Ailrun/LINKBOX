@@ -7,4 +7,8 @@ public class BoxListData {
     public int cbid;
     public int index;
     public String cbname;
+    @Override
+    public String toString() {
+        return "cbid="+cbid+", index="+index+", cbname="+cbname;
+    }
 }

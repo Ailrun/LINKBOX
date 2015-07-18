@@ -19,29 +19,31 @@ import android.widget.ExpandableListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.constant.LoginStrings;
+import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 
 public class UserSettingActivity extends AppCompatActivity {
+    private Toolbar tToolbar = null;
+    private EditText etName = null;
+    private EditText etMail = null;
+    private EditText etChangePassword = null;
+    private ExpandableListView elvNotification = null;
+    private CheckBox cbFloating = null;
+    private Button bLogout = null;
+    private Button bSignDown = null;
 
-    Toolbar tToolbar = null;
-    EditText etName = null;
-    EditText etMail = null;
-    EditText etChangePassword = null;
-    ExpandableListView elvNotification = null;
-    CheckBox cbFloating = null;
-    Button bLogout = null;
-    Button bSignDown = null;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor sharedEditor;
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor sharedEditor;
-
-    ArrayList<BoxListData> groupList = null;
-    ArrayList<ArrayList<BoxListData>> childList = null;
+    private ArrayList<BoxListData> groupList = null;
+    private ArrayList<ArrayList<BoxListData>> childList = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class UserSettingActivity extends AppCompatActivity {
         childList.add(LinkBoxController.boxListSource);
     }
     void initView() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_user_settings)
+        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrid, 0);
         sharedEditor = sharedPreferences.edit();
 

@@ -6,7 +6,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.adapters.dragAndDropListAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.dragAndDropListAdapter.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
@@ -64,8 +64,8 @@ public class LinkBoxController extends Application {
 
         RestAdapter.Builder builderEmbedly = new RestAdapter.Builder();
         RestAdapter.Builder builderServer = new RestAdapter.Builder();
-        builderEmbedly.setEndpoint("http://api.embed.ly");
-        builderServer.setEndpoint("http://52.68.233.51:3000");
+        builderEmbedly.setEndpoint(EmbedlyInterface.embedlyAPIEndPoint);
+        builderServer.setEndpoint(MainServerInterface.serverAPIEndPoint);
         builderEmbedly.setRequestInterceptor(new RequestInterceptor() {
             @Override
             public void intercept(RequestFacade request) {

@@ -11,7 +11,7 @@ import org.sopt.linkbox.activity.loginPage.MainActivity;
 
 
 public class SplashActivity extends Activity {
-    int SPLASH_TIME=3000;
+    private int SPLASH_TIME=3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,14 +12,14 @@ import android.widget.TextView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
 public class BoxEditorAdd extends AppCompatActivity {
-
-    Toolbar tToolbar = null;
-    EditText etEmail = null;
-    TextView tvMessage = null;
+    private Toolbar tToolbar = null;
+    private EditText etEmail = null;
+    private TextView tvMessage = null;
 
     private SharedPreferences sharedPreferences = null;
 
@@ -68,7 +68,7 @@ public class BoxEditorAdd extends AppCompatActivity {
     }
 
     private void initData() {
-        sharedPreferences = getSharedPreferences(getResources().getString(R.string.shared_user_settings)
+        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrid, 0);
     }
     private void initView() {

@@ -20,6 +20,7 @@ import retrofit.http.Path;
 */
 public interface MainServerInterface {
 //        public static final String API_KEY = "???"; // Maybe Not needed
+    public static final String serverAPIEndPoint = "http://52.68.233.51:3000";
     @Headers("Content-Type: application/json")
     @POST("/usr/login")
     public void postLoginAsync(@Body UserData userData, Callback<UserData> callback);
@@ -27,6 +28,10 @@ public interface MainServerInterface {
     @Headers("Content-Type: application/json")
     @POST("/usr/signup")
     public void postSignUpAsync(@Body UserData userData, Callback<UserData> callback);
+
+    @Headers("Content-Type: application/json")
+    @POST("/usr/facebook")
+    public void postFacebookAccessAsync(@Body UserData userData, Callback<UserData> callback);
 
 
 
@@ -50,8 +55,8 @@ public interface MainServerInterface {
 
 
     @Headers("Content-Type: application/json")
-    @POST("/collecturl/{usrid}/{cbid}/urllist")
-    public void postUrlListAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, Callback<List<UrlListData>> callback);
+    @GET("/collecturl/{usrid}/{cbid}/urllist")
+    public void getUrlListAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, Callback<List<UrlListData>> callback);
 
     @Headers("Content-Type: application/json")
     @POST("/collecturl/{usrid}/{cbid}/addurl")
