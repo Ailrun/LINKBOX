@@ -4,6 +4,7 @@ import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.GoodData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.data.mainData.UserData;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.data.tempData.TwoString;
 
 import java.util.List;
@@ -22,94 +23,86 @@ public interface MainServerInterface {
 //        public static final String API_KEY = "???"; // Maybe Not needed
     public static final String serverAPIEndPoint = "http://52.68.233.51:3000";
     @Headers("Content-Type: application/json")
-    @POST("/usr/login")
-    public void postLoginAsync(@Body UserData userData, Callback<UserData> callback);
+    @POST("/usrList/login")
+    public void postLoginAsync(@Body UserData userData, Callback<MainServerData<UserData>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/usr/signup")
-    public void postSignUpAsync(@Body UserData userData, Callback<UserData> callback);
+    @POST("/usrList/signup")
+    public void postSignUpAsync(@Body UserData userData, Callback<MainServerData<UserData>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/usr/facebook")
-    public void postFacebookAccessAsync(@Body UserData userData, Callback<UserData> callback);
+    @POST("/usrList/facebook")
+    public void postFacebookAccessAsync(@Body UserData userData, Callback<MainServerData<UserData>> callback);
 
 
 
 
-    @GET("/collectbox/{usrid}/boxlist")
-    public void getBoxListAsync(@Path("usrid") int usrid, Callback<List<BoxListData>> callback);
-
-    @Headers("Content-Type: application/json")
-    @POST("/collectbox/{usrid}/addbox")
-    public void postAddBoxAsync(@Path("usrid") int usrid, @Body BoxListData boxListData, Callback<BoxListData> callback);
+    @GET("/boxList/{usrKey}/boxList")
+    public void getBoxListAsync(@Path("usrKey") int usrKey, Callback<MainServerData<List<BoxListData>>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/collectbox/{usrid}/removebox")
-    public void postRemoveBoxAsync(@Path("usrid") int usrid, @Body BoxListData boxListData, Callback<Object> callback);
+    @POST("/boxList/{usrKey}/addBox")
+    public void postAddBoxAsync(@Path("usrKey") int usrKey, @Body BoxListData boxListData, Callback<MainServerData<BoxListData>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/collectbox/{usrid}/editbox")
-    public void postEditBoxAsync(@Path("usrid") int usrid, @Body BoxListData boxListData, Callback<BoxListData> callback);
-
-
-
+    @POST("/boxList/{usrKey}/removeBox")
+    public void postRemoveBoxAsync(@Path("usrKey") int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
 
     @Headers("Content-Type: application/json")
-    @GET("/collecturl/{usrid}/{cbid}/urllist")
-    public void getUrlListAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, Callback<List<UrlListData>> callback);
+    @POST("/boxList/{usrKey}/editBox")
+    public void postEditBoxAsync(@Path("usrKey") int usrKey, @Body BoxListData boxListData, Callback<MainServerData<BoxListData>> callback);
+
+    @GET("/boxOfUsrList/{usrKey}/{boxKey}/boxUsrList")
+    public void getUsrListAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, Callback<MainServerData<List<UserData>>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/collecturl/{usrid}/{cbid}/addurl")
-    public void postAddUrlAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, @Body UrlListData urlListData, Callback<UrlListData> callback);
+    @POST("/boxOfUsrList/{usrKey}/{boxKey}/addBoxUsr")
+    public void postAddUsrAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, @Body TwoString values, Callback<MainServerData<Object>> callback);
+
+
+
+
+    @GET("/urlList/{usrKey}/{boxKey}/urlList")
+    public void getUrlListAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, Callback<MainServerData<List<UrlListData>>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/collecturl/{usrid}/{cbid}/removeurl")
-    public void postRemoveUrlAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, @Body UrlListData urlListData, Callback<Object> callback);
+    @POST("/urlList/{usrKey}/{boxKey}/addUrl")
+    public void postAddUrlAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, @Body UrlListData urlListData, Callback<MainServerData<UrlListData>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/collecturl/{usrid}/{cbid}/editurl")
-    public void postEditUrlAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, @Body UrlListData urlListData, Callback<UrlListData> callback);
+    @POST("/urlList/{usrKey}/{boxKey}/removeUrl")
+    public void postRemoveUrlAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, @Body UrlListData urlListData, Callback<MainServerData<Object>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/collecturl/{usrid}/{cbid}/{urlid}/good")
-    public void getGoodAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, @Path("urlid") int urlid, Callback<GoodData> callback);
+    @POST("/urlList/{usrKey}/{boxKey}/editUrl")
+    public void postEditUrlAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, @Body UrlListData urlListData, Callback<MainServerData<UrlListData>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/collecturl/{usrid}/{cbid}/{urlid}/addgood")
-    public void postAddGoodAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, @Path("urlid") int urlid, Callback<Object> callback);
+    @POST("/goodList/{usrKey}/{boxKey}/{urlKey}/addGood")
+    public void postAddGoodAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, @Path("urlKey") int urlid, Callback<MainServerData<Object>> callback);
 
     @Headers("Content-Type: application/json")
-    @POST("/collecturl/{usrid}/{cbid}/{urlid}/removegood")
-    public void postRemoveGoodAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, @Path("urlid") int urlid, Callback<Object> callback);
-
-
-
-
-    @GET("/share/{usrid}/{cbid}/usrlist")
-    public void getUsrListAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, Callback<List<UserData>> callback);
-
-    @Headers("Content-Type: application/json")
-    @POST("/share/{usrid}/{cbid}/addusr")
-    public void postAddUsrAsync(@Path("usrid") int usrid, @Path("cbid") int cbid, @Body TwoString values, Callback<Object> callback);
+    @POST("/goodList/{usrKey}/{boxKey}/{urlKey}/removeGood")
+    public void postRemoveGoodAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, @Path("urlKey") int urlid, Callback<MainServerData<Object>> callback);
 
 
 
 
     @Headers("Content-Type: application/json")
     @POST("/usr/signdown")
-    public void postSignDownAsync(@Body UserData userData, Callback<Object> callback);
+    public void postSignDownAsync(@Body UserData userData, Callback<MainServerData<Object>> callback);
 
 
 
 
     @Headers("Content-Type: application/json")
-    @POST("/pushtoken/{usrid}")
-    public void postPushTokenAsync(@Path("usrid") int usrid, @Body String token, Callback<Object> callback);
+    @POST("/pushtoken/{usrKey}")
+    public void postPushTokenAsync(@Path("usrKey") int usrKey, @Body String token, Callback<MainServerData<Object>> callback);
 
 
 
 
     @Headers("Content-Type: application/json")
     @POST("/premium")
-    public void postPremium(@Body UserData userData, Callback<Object> callback);
+    public void postPremium(@Body UserData userData, Callback<MainServerData<Object>> callback);
 }

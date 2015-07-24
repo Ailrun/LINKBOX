@@ -19,14 +19,12 @@ import android.widget.ExpandableListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.constant.LoginStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 
 public class UserSettingActivity extends AppCompatActivity {
@@ -50,8 +48,6 @@ public class UserSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_setting);
 
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
-
         initData();
         initView();
         initControl();
@@ -60,19 +56,15 @@ public class UserSettingActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
     @Override
     protected void onStop() {
         super.onStop();
-        if (sharedPreferences.getBoolean("floating", true)) {
-            startService(new Intent(getApplicationContext(), LinkHeadService.class));
-        }
     }
 
     void initData() {
         BoxListData boxListData = new BoxListData();
-        boxListData.cbname = "박스 설정";
+        boxListData.boxName = "박스 설정";
         groupList = new ArrayList<>();
         groupList.add(boxListData);
         childList = new ArrayList<>();
@@ -80,7 +72,7 @@ public class UserSettingActivity extends AppCompatActivity {
     }
     void initView() {
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrid, 0);
+                + LinkBoxController.userData.usrKey, 0);
         sharedEditor = sharedPreferences.edit();
 
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
@@ -89,11 +81,11 @@ public class UserSettingActivity extends AppCompatActivity {
         etName = (EditText)findViewById(R.id.ET_name_user_setting);
         etName.setTag(etName.getKeyListener());
         etName.setKeyListener(null);
-        etName.setText(LinkBoxController.userData.usrname);
+        etName.setText(LinkBoxController.userData.usrName);
         etMail = (EditText)findViewById(R.id.ET_mail_user_setting);
         etMail.setTag(etName.getKeyListener());
         etMail.setKeyListener(null);
-        etMail.setText(LinkBoxController.userData.usremail);
+        etMail.setText(LinkBoxController.userData.usrID);
         etChangePassword = (EditText)findViewById(R.id.ET_changepass_user_setting);
         etChangePassword.setTag(etChangePassword.getKeyListener());
         etChangePassword.setKeyListener(null);
@@ -128,12 +120,12 @@ public class UserSettingActivity extends AppCompatActivity {
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
                     // 이전 설정 이름 삭제
-                    sharedEditor.remove("usrname");
+                    sharedEditor.remove("usrName");
 
                     String name = etName.getText().toString();
 
                     etName.setText(name);
-                    sharedEditor.putString("usrname", name);
+                    sharedEditor.putString("usrName", name);
                     sharedEditor.apply();
                 }
                 return false;
@@ -158,12 +150,12 @@ public class UserSettingActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
-                    sharedEditor.remove("usremail");
+                    sharedEditor.remove("usrID");
 
                     String email = etMail.getText().toString();
 
                     etName.setText(email);
-                    sharedEditor.putString("usremail", email);
+                    sharedEditor.putString("usrID", email);
                     sharedEditor.apply();
                 }
                 return false;
@@ -189,12 +181,12 @@ public class UserSettingActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
-                    sharedEditor.remove("pass");
+                    sharedEditor.remove("usrPassword");
 
                     String pass = etChangePassword.getText().toString();
 
                     etName.setText(pass);
-                    sharedEditor.putString("pass", pass);
+                    sharedEditor.putString("usrPassword", pass);
                     sharedEditor.apply();
                 }
                 return false;

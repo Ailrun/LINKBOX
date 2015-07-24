@@ -185,10 +185,10 @@ public class Base64 {
      * given by <var>numSigBytes</var>.
      *
      * @param source the array to convert
-     * @param srcOffset the index where conversion begins
+     * @param srcOffset the boxIndex where conversion begins
      * @param numSigBytes the number of significant bytes in your array
      * @param destination the array to hold the conversion
-     * @param destOffset the index where output will be put
+     * @param destOffset the boxIndex where output will be put
      * @param alphabet is the encoding alphabet
      * @return the <var>destination</var> array
      * @since 1.3
@@ -198,7 +198,7 @@ public class Base64 {
         //           1         2         3
         // 01234567890123456789012345678901 Bit position
         // --------000000001111111122222222 Array position from threeBytes
-        // --------|    ||    ||    ||    | Six bit groups to index alphabet
+        // --------|    ||    ||    ||    | Six bit groups to boxIndex alphabet
         //          >>18  >>12  >> 6  >> 0  Right shift necessary
         //                0x3f  0x3f  0x3f  Additional AND
 
@@ -365,9 +365,9 @@ public class Base64 {
      *
      *
      * @param source the array to convert
-     * @param srcOffset the index where conversion begins
+     * @param srcOffset the boxIndex where conversion begins
      * @param destination the array to hold the conversion
-     * @param destOffset the index where output will be put
+     * @param destOffset the boxIndex where output will be put
      * @param decodabet the decodabet for decoding Base64 content
      * @return the number of decoded bytes converted
      * @since 1.3

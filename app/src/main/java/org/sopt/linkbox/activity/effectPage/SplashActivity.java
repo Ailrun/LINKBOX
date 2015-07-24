@@ -8,6 +8,7 @@ import android.transition.TransitionManager;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.loginPage.MainActivity;
+import org.sopt.linkbox.custom.helper.SessionSaver;
 
 
 public class SplashActivity extends Activity {
@@ -16,6 +17,13 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        Activity savedSession = SessionSaver.recallSession();
+        if (savedSession != null) {
+            Intent intent = new Intent(this, savedSession.getClass());
+            startActivity(intent);
+            finish();
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -53,8 +53,6 @@ public class LinkItActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
-
         initWindow();
 
         initGlide();
@@ -68,14 +66,10 @@ public class LinkItActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
     @Override
     protected void onStop() {
         super.onStop();
-        if (sharedPreferences.getBoolean("floating", true)) {
-            startService(new Intent(getApplicationContext(), LinkHeadService.class));
-        }
     }
 
     private void initWindow() {
@@ -87,7 +81,6 @@ public class LinkItActivity extends Activity {
         setContentView(R.layout.activity_link_it);
     }
     private void initGlide() {
-
         synchronized (Glide.class){
             if(!Glide.isSetup()){
                 File file = Glide.getPhotoCacheDir(getApplicationContext());
@@ -101,21 +94,21 @@ public class LinkItActivity extends Activity {
     }
     private void initData() {
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrid, 0);
+                + LinkBoxController.userData.usrKey, 0);
         urlListData = new UrlListData();
     }
     private void initView() {
         spBox = (Spinner) findViewById(R.id.SP_box_link_it);
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
-            urlListData.address = intent.getStringExtra(Intent.EXTRA_TEXT);
+            urlListData.url = intent.getStringExtra(Intent.EXTRA_TEXT);
         }
         else {
             finish();
-            Log.e(TAG, "There is no address but LinkItActivity start");
+            Log.e(TAG, "There is no url but LinkItActivity start");
         }
         etName = (EditText) findViewById(R.id.ET_name_link_it);
-        etName.setHint(urlListData.address);
+        etName.setHint(urlListData.url);
         btLinkit = (Button) findViewById(R.id.BT_linkit_link_it);
         btCancel = (Button) findViewById(R.id.BT_cancel_link_it);
     }
@@ -134,7 +127,7 @@ public class LinkItActivity extends Activity {
             private void boxCheck(AdapterView<?> adapterView, int i) {
                 BoxListData boxListData = (BoxListData) adapterView.getItemAtPosition(i);
                 if (boxListData != null) {
-                    boxName = boxListData.cbname;
+                    boxName = boxListData.boxName;
                 } else {
                     boxName = "";
                 }
@@ -143,11 +136,8 @@ public class LinkItActivity extends Activity {
         btLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                urlListData.urlname = etName.getText().toString();
-                urlListData.gooddata = new GoodData();
-                urlListData.gooddata.isgood = false;
-                urlListData.urlwriter = LinkBoxController.userData.usrname;
-                urlListData.urldate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                urlListData.urlTitle = etName.getText().toString();
+                urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
                 startActivity(intent);
                 finish();
@@ -156,7 +146,6 @@ public class LinkItActivity extends Activity {
         btCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startService(new Intent(getApplicationContext(), LinkHeadService.class));
                 finish();
             }
         });

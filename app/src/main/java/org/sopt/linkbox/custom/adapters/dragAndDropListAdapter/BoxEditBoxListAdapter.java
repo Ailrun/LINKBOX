@@ -54,7 +54,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         }
         BoxListData boxListData = (BoxListData) getItem(i);
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
-        tvBoxName.setText(boxListData.cbname);
+        tvBoxName.setText(boxListData.boxName);
         return view;
     }
 }

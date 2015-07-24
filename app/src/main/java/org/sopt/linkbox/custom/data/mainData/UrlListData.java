@@ -5,17 +5,17 @@ package org.sopt.linkbox.custom.data.mainData;
  *
  */
 public class UrlListData {
-    public int urlid;
-    public String address;
-    public String urlname;
-    public String urlwriter;
-    public String urldate;
-    public String urlthumb;
-    public GoodData gooddata;
+    public int urlKey;
+    public String url;
+    public String urlTitle;
+    public String urlWriterUsrName;
+    public String urlDate;
+    public String urlThumbnail;
+    public GoodData goodData;
     @Override
     public String toString(){
-        return "urlid="+urlid+", address="+address+", urlname="+urlname
-                +", urlwriter="+urlwriter+", urldate="+urldate+", urlthumb"+urlthumb
-                + ((gooddata == null)?"":gooddata.toString());
+        return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle
+                +", urlWriterUsrName="+ urlWriterUsrName +", urlDate="+ urlDate +", urlThumbnail"+ urlThumbnail
+                + ((goodData == null)?"": goodData.toString());
     }
 }

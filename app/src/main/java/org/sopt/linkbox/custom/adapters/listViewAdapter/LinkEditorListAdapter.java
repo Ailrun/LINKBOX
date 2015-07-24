@@ -70,8 +70,8 @@ public class LinkEditorListAdapter extends BaseAdapter {
         UserData userData = (UserData) getItem(i);
         ImageView ivProfile = ViewHolder.get(view, R.id.IV_profile_link_editor);
         TextView tvName = ViewHolder.get(view, R.id.TV_editor_name_link_editor);
-        Glide.with(context).load(userData.usrprofile).into(ivProfile);
-        tvName.setText(userData.usrname);
+        Glide.with(context).load(userData.usrProfile).into(ivProfile);
+        tvName.setText(userData.usrName);
         return view;
     }
 }

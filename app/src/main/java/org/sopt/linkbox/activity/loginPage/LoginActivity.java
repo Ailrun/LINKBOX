@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -56,13 +57,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-//        if(AccessToken.getCurrentAccessToken() !=null){
+        if(AccessToken.getCurrentAccessToken() !=null){
 //            startActivity(new Intent(getApplicationContext(), FacebookDataActivity.class));
 //            finish();
-//        }
-//        else{
+        }
+        else{
             lbFacebookLogin.setVisibility(View.VISIBLE);
-//        }
+        }
     }
     @Override
     protected void onActivityResult(int requestCode,int resultCode, Intent data){
@@ -75,8 +76,8 @@ public class LoginActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
     }
     private void initAutoLogin() {
-        String usremail = sharedPreferences.getString(LoginStrings.usremail, "");
-        String pass = sharedPreferences.getString(LoginStrings.pass, "");
+        String usremail = sharedPreferences.getString(LoginStrings.usrID, "");
+        String pass = sharedPreferences.getString(LoginStrings.usrPassword, "");
         if (!usremail.equals("") && !pass.equals("")) {
             loginLoading(usremail, pass);
         }
@@ -107,8 +108,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginLoading(String usremail, String pass) {
         Intent intent = new Intent(this, LoginLoadingActivity.class);
-        intent.putExtra(LoginStrings.usremail, usremail);
-        intent.putExtra(LoginStrings.pass, pass);
+        intent.putExtra(LoginStrings.usrID, usremail);
+        intent.putExtra(LoginStrings.usrPassword, pass);
         startActivity(intent);
     }
 

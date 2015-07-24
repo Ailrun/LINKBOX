@@ -22,8 +22,6 @@ public class BoxListEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box_list_edit);
 
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
-
         initView();
         initControl();
     }
@@ -44,7 +42,6 @@ public class BoxListEditActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
 
     private void initView() {

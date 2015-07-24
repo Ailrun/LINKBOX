@@ -95,7 +95,6 @@ public class LinkBoxActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        startService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -134,7 +133,6 @@ public class LinkBoxActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
     @Override
     public void onDestroy() {
@@ -143,18 +141,18 @@ public class LinkBoxActivity extends AppCompatActivity {
             iabHelper.dispose();
         }
         iabHelper = null;
-        if (sharedPreferences.getBoolean("floating", true)) {
-            startService(new Intent(getApplicationContext(), LinkHeadService.class));
-        }
+//        if (sharedPreferences.getBoolean("floating", true)) {
+//            startService(new Intent(getApplicationContext(), LinkHeadService.class));
+//        }
     }
 
     private void initData() {
-        //InApp billing init
+//        InApp billing init
 //        initInAppData();
 
         //other data init;
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrid, 0);
+                + LinkBoxController.userData.usrKey, 0);
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
 //        initUrlDummyData();
 //        initBoxDummyData();
@@ -234,8 +232,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
-        if (LinkBoxController.boxListSource.size() > LinkBoxController.currentBox.index) {
-            tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox.index)).cbname);
+        if (LinkBoxController.boxListSource.size() > LinkBoxController.currentBox.boxIndex) {
+            tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox.boxIndex)).boxName);
         }
         else {
             tToolbar.setTitle("새 박스");
@@ -288,7 +286,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                 BoxListData boxListData = (BoxListData) adapterView.getItemAtPosition(i);
                 String str = null;
                 if (boxListData != null) {
-                    str = boxListData.cbname;
+                    str = boxListData.boxName;
                     LinkBoxController.currentBox = (BoxListData) adapterView.getItemAtPosition(i);
                 } else {
                     str = "새 박스";
@@ -391,35 +389,35 @@ public class LinkBoxActivity extends AppCompatActivity {
     //For Test
     private void initUrlDummyData() {
         UrlListData urlListData = new UrlListData();
-        urlListData.address = "www.facebook.com";
-        urlListData.urlname = "페북";
-        urlListData.urlwriter = "나";
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
         LinkBoxController.urlListSource.add(urlListData);
     }
     private void initBoxDummyData() {
         BoxListData boxListData = new BoxListData();
-        boxListData.cbname = "요리";
+        boxListData.boxName = "요리";
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
-        boxListData.cbname = "육아";
+        boxListData.boxName = "육아";
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
-        boxListData.cbname = "개발";
+        boxListData.boxName = "개발";
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
-        boxListData.cbname = "일상";
+        boxListData.boxName = "일상";
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
-        boxListData.cbname = "주방";
+        boxListData.boxName = "주방";
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
-        boxListData.cbname = "맛집";
+        boxListData.boxName = "맛집";
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
-        boxListData.cbname = "위생";
+        boxListData.boxName = "위생";
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
-        boxListData.cbname = "공부";
+        boxListData.boxName = "공부";
         LinkBoxController.boxListSource.add(boxListData);
     }
 

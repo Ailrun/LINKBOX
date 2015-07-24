@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -15,6 +16,7 @@ import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.data.mainData.UserData;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.network.MainServerWrapper;
 import org.sopt.linkbox.debugging.RetrofitDebug;
 import org.sopt.linkbox.service.LinkHeadService;
@@ -26,14 +28,15 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-
 public class LoginLoadingActivity extends Activity {
+    private static String TAG = "TEST/" + LoginLoadingActivity.class.getName() + " : ";
+
     private MainServerWrapper mainServerWrapper = null;
-    private String usremail = null;
-    private String usrname = null;
-    private String usrprofile = null;
-    private String pass = null;
-    private boolean isFacebook = false;
+    private String usrID = null;
+    private String usrName = null;
+    private String usrProfile = null;
+    private String usrPassword = null;
+    private boolean facebook = false;
 
     private SharedPreferences sharedPreferences = null;
     private SharedPreferences.Editor editor = null;
@@ -41,7 +44,6 @@ public class LoginLoadingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
         initWindow();
         initInterface();
         initData();
@@ -51,7 +53,6 @@ public class LoginLoadingActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
 
     private void initWindow() {
@@ -67,33 +68,38 @@ public class LoginLoadingActivity extends Activity {
     }
     private void initData() {
         Intent intent = getIntent();
-        usremail = intent.getStringExtra(LoginStrings.usremail);
-        usrname = intent.getStringExtra(LoginStrings.usrname);
-        usrprofile = intent.getStringExtra(LoginStrings.usrprofile);
-        pass = intent.getStringExtra(LoginStrings.pass);
-        isFacebook = intent.getBooleanExtra(LoginStrings.isfacebook, false);
+        usrID = intent.getStringExtra(LoginStrings.usrID);
+        usrName = intent.getStringExtra(LoginStrings.usrName);
+        usrProfile = intent.getStringExtra(LoginStrings.usrProfile);
+        usrPassword = intent.getStringExtra(LoginStrings.usrPassword);
+        facebook = intent.getBooleanExtra(LoginStrings.facebook, false);
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
         editor = sharedPreferences.edit();
     }
     private void initView() {
-
     }
     private void initListener() {
-        if (isFacebook) {
-            mainServerWrapper.postFacebookAccessAsync(usremail, usrname, usrprofile, pass, new FacebookAccessCallback());
+        if (facebook) {
+            mainServerWrapper.postFacebookAccessAsync(usrID, usrName, usrProfile, usrPassword, new FacebookAccessCallback());
         }
         else {
-            mainServerWrapper.postLoginAsync(usremail, pass, new LoginCallback());
+            mainServerWrapper.postLoginAsync(usrID, usrPassword, new LoginCallback());
         }
     }
 
-    private class LoginCallback implements Callback<UserData> {
+    private class LoginCallback implements Callback<MainServerData<UserData>> {
         @Override
-        public void success(UserData userData, Response response) {
-            LinkBoxController.userData = userData;
-            editor.putString(LoginStrings.usremail, userData.usremail);
-            editor.putString(LoginStrings.pass, userData.pass);
-            mainServerWrapper.getBoxListAsync(new BoxLoadingCallback());
+        public void success(MainServerData<UserData> wrappedUserData, Response response) {
+            if (wrappedUserData.result) {
+                UserData userData = wrappedUserData.object;
+                LinkBoxController.userData = userData;
+                editor.putString(LoginStrings.usrID, userData.usrID);
+                editor.putString(LoginStrings.usrPassword, userData.usrPassword);
+                mainServerWrapper.getBoxListAsync(new BoxLoadingCallback());
+            }
+            else {
+                Log.d(TAG, wrappedUserData.message);
+            }
         }
         @Override
         public void failure(RetrofitError error) {
@@ -101,13 +107,20 @@ public class LoginLoadingActivity extends Activity {
         }
     }
 
-    private class FacebookAccessCallback implements Callback<UserData> {
+    private class FacebookAccessCallback implements Callback<MainServerData<UserData>> {
         @Override
-        public void success(UserData userData, Response response) {
-            LinkBoxController.userData = userData;
-            editor.putString(LoginStrings.usremail, userData.usremail);
-            editor.putString(LoginStrings.pass, userData.pass);
-            mainServerWrapper.getBoxListAsync(new BoxLoadingCallback());
+        public void success(MainServerData<UserData> wrappedUserData, Response response) {
+            if (wrappedUserData.result) {
+                UserData userData = wrappedUserData.object;
+                LinkBoxController.userData = userData;
+                Log.d(TAG, userData.toString() + " ");
+                editor.putString(LoginStrings.usrID, userData.usrID);
+                editor.putString(LoginStrings.usrPassword, userData.usrPassword);
+                mainServerWrapper.getBoxListAsync(new BoxLoadingCallback());
+            }
+            else {
+                Log.d(TAG, wrappedUserData.message);
+            }
         }
         @Override
         public void failure(RetrofitError error) {
@@ -115,11 +128,25 @@ public class LoginLoadingActivity extends Activity {
         }
     }
 
-    private class BoxLoadingCallback implements Callback<List<BoxListData>> {
+    private class BoxLoadingCallback implements Callback<MainServerData<List<BoxListData>>> {
         @Override
-        public void success(List<BoxListData> boxListDatas, Response response) {
-            LinkBoxController.boxListSource = (ArrayList<BoxListData>) boxListDatas;
-            mainServerWrapper.getUrlListAsync(new UrlLoadingCallback());
+        public void success(MainServerData<List<BoxListData>> wrappedBoxListDatas, Response response) {
+            if (wrappedBoxListDatas.result) {
+                List<BoxListData> boxListDatas = wrappedBoxListDatas.object;
+                LinkBoxController.boxListSource = (ArrayList<BoxListData>) boxListDatas;
+                if (boxListDatas.size() > 0) {
+                    LinkBoxController.currentBox = boxListDatas.get(0);
+                    mainServerWrapper.getUrlListAsync(new UrlLoadingCallback());
+                }
+                else {
+                    Intent intent = new Intent(LoginLoadingActivity.this, LinkBoxActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }
+            else {
+                Log.d(TAG, wrappedBoxListDatas.message);
+            }
         }
         @Override
         public void failure(RetrofitError error) {
@@ -127,13 +154,19 @@ public class LoginLoadingActivity extends Activity {
         }
     }
 
-    private class UrlLoadingCallback implements Callback<List<UrlListData>> {
+    private class UrlLoadingCallback implements Callback<MainServerData<List<UrlListData>>> {
         @Override
-        public void success(List<UrlListData> urlListDatas, Response response) {
-            LinkBoxController.urlListSource = (ArrayList<UrlListData>) urlListDatas;
-            Intent intent = new Intent(LoginLoadingActivity.this, LinkBoxActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
+        public void success(MainServerData<List<UrlListData>> wrappedUrlListDatas, Response response) {
+            if (wrappedUrlListDatas.result) {
+                List<UrlListData> urlListDatas = wrappedUrlListDatas.object;
+                LinkBoxController.urlListSource = (ArrayList<UrlListData>) urlListDatas;
+                Intent intent = new Intent(LoginLoadingActivity.this, LinkBoxActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+            else {
+                Log.d(TAG, wrappedUrlListDatas.message);
+            }
         }
         @Override
         public void failure(RetrofitError error) {

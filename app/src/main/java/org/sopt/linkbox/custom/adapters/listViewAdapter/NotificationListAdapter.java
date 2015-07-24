@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import org.sopt.linkbox.LinkBoxController;
@@ -79,7 +78,7 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
         BoxListData boxListData = getGroup(i);
         TextView tvGroupNotification = ViewHolder.get(view, R.id.TV_group_notification_user_setting);
         CheckBox cbGroupNotification = ViewHolder.get(view, R.id.CB_group_notification_user_setting);
-        tvGroupNotification.setText(boxListData.cbname);
+        tvGroupNotification.setText(boxListData.boxName);
         cbGroupNotification.setChecked(LinkBoxController.defaultAlarm);
         cbGroupNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -93,7 +92,7 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int i, final int i2, boolean b, View view, ViewGroup viewGroup) {
         final SharedPreferences sharedPreferences = context.getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrid, 0);
+                + LinkBoxController.userData.usrKey, 0);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_notification_list_item, viewGroup, false);
@@ -101,7 +100,7 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
         BoxListData boxListData = getChild(i, i2);
         TextView tvChildNotification = ViewHolder.get(view, R.id.TV_child_notification_user_setting);
         CheckBox cbChildNotification = ViewHolder.get(view, R.id.CB_child_notification_user_setting);
-        tvChildNotification.setText(boxListData.cbname);
+        tvChildNotification.setText(boxListData.boxName);
         cbChildNotification.setChecked(sharedPreferences.getBoolean("notiCheck" + i2, true));
         cbChildNotification.setEnabled(LinkBoxController.defaultAlarm);
         cbChildNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

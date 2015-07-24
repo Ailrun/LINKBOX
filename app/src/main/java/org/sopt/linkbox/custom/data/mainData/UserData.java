@@ -4,15 +4,15 @@ package org.sopt.linkbox.custom.data.mainData;
  * Created by Junyoung on 2015-07-08.
  */
 public class UserData {
-    public int usrid;
-    public String usremail;
-    public String usrname;
-    public String usrprofile;
-    public String pass;
-    public boolean premium;
+    public int usrKey;
+    public String usrID;
+    public String usrName;
+    public String usrProfile;
+    public String usrPassword;
+    public int premium;
     @Override
     public String toString(){
-        return "usrid="+usrid+", usremail="+usremail+", usrname="+usrname
-                +", usrprofile="+usrprofile+", premium="+(premium?"true":"false");
+        return "usrKey="+ usrKey +", usrID="+ usrID +", usrName="+ usrName
+                +", usrProfile="+ usrProfile +", premium="+(premium!=0?"true":"false");
     }
 }

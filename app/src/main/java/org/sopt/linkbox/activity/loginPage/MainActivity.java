@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TabHost;
 
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.custom.helper.SessionSaver;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
@@ -17,10 +18,8 @@ public class MainActivity extends TabActivity {
     private ImageView ivTitle = null;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
 
         setContentView(R.layout.activity_main);
         ivTitle = (ImageView) findViewById(R.id.IV_image_main);
@@ -43,8 +42,12 @@ public class MainActivity extends TabActivity {
         tabHost.setCurrentTab(0);
     }
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SessionSaver.saveSession(this);
     }
 }

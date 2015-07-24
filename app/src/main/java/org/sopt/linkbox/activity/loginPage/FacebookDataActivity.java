@@ -44,7 +44,7 @@ public class FacebookDataActivity extends Activity {
         super.onResume();
         if(AccessToken.getCurrentAccessToken() == null){
             finish();
-            Log.e("jsonObject", LinkBoxController.userData.usrprofile);
+            Log.e("jsonObject", LinkBoxController.userData.usrProfile);
         }
     }
     @Override
@@ -57,24 +57,29 @@ public class FacebookDataActivity extends Activity {
         private final String TAG = "TEST/" + GraphCallback.class.getName() + " : ";
         @Override
         public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
-            String usrprofile = new String();
-            String pass = new String();
+            if (jsonObject != null) {
+                String usrProfile = new String();
+                String usrPassword = new String();
 
-            try {
-                usrprofile = jsonObject.getJSONObject("picture").getJSONObject("data").optString("url");
+                try {
+                    usrProfile = jsonObject.getJSONObject("picture").getJSONObject("data").optString("url");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                usrPassword = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
+                Log.d(TAG, jsonObject.toString());
+                Intent intent = new Intent(FacebookDataActivity.this, LoginLoadingActivity.class);
+                intent.putExtra(LoginStrings.usrID, jsonObject.optString("email"));
+                intent.putExtra(LoginStrings.usrName, jsonObject.optString("name"));
+                intent.putExtra(LoginStrings.usrProfile, usrProfile);
+                intent.putExtra(LoginStrings.usrPassword, usrPassword);
+                intent.putExtra(LoginStrings.facebook, true);
+                startActivity(intent);
+                finish();
             }
-            catch (JSONException e) {
-                e.printStackTrace();
+            else {
+                Log.d(TAG, "jsonObject is NULL!!!!");
             }
-            pass = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
-            Log.d(TAG, jsonObject.toString());
-            Intent intent = new Intent(FacebookDataActivity.this, LoginLoadingActivity.class);
-            intent.putExtra(LoginStrings.usremail, jsonObject.optString("email"));
-            intent.putExtra(LoginStrings.usrname, jsonObject.optString("name"));
-            intent.putExtra(LoginStrings.usrprofile, usrprofile);
-            intent.putExtra(LoginStrings.pass, pass);
-            startActivity(intent);
-            finish();
         }
     }
 }

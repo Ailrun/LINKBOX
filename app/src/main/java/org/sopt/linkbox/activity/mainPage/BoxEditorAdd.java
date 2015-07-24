@@ -28,8 +28,6 @@ public class BoxEditorAdd extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box_editor_add);
 
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
-
         initData();
         initView();
         initListener();
@@ -57,19 +55,15 @@ public class BoxEditorAdd extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        stopService(new Intent(getApplicationContext(), LinkHeadService.class));
     }
     @Override
     protected void onStop() {
         super.onStop();
-        if (sharedPreferences.getBoolean("floating", true)) {
-            startService(new Intent(getApplicationContext(), LinkHeadService.class));
-        }
     }
 
     private void initData() {
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrid, 0);
+                + LinkBoxController.userData.usrKey, 0);
     }
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_add);

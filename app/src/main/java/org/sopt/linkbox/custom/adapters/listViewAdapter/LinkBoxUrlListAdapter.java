@@ -1,9 +1,6 @@
 package org.sopt.linkbox.custom.adapters.listViewAdapter;
 
 import android.content.Context;
-import android.gesture.GestureLibrary;
-import android.gesture.GestureUtils;
-import android.view.DragEvent;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -82,10 +79,10 @@ public class LinkBoxUrlListAdapter extends BaseAdapter {
 
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
 
-        tvUrlTitle.setText(urlListData.urlname);
-        tvUrlAddress.setText(urlListData.address);
-        tvUrlWriter.setText(urlListData.urlwriter);
-        tvUrlDate.setText(urlListData.urldate);
+        tvUrlTitle.setText(urlListData.urlTitle);
+        tvUrlAddress.setText(urlListData.url);
+        tvUrlWriter.setText(urlListData.urlWriterUsrName);
+        tvUrlDate.setText(urlListData.urlDate);
         GestureDetector gestureDetector = new GestureDetector(context, new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent motionEvent) {
@@ -113,7 +110,7 @@ public class LinkBoxUrlListAdapter extends BaseAdapter {
             }
         });
 
-        Glide.with(context).load(urlListData.urlthumb).into(ivUrlThumb);
+        Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
 
         return view;
     }
