@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button bLogin = null;
     private LoginButton lbFacebookLogin = null;
 
-    private SharedPreferences sharedPreferences = null;
+    private SharedPreferences sharedPreferences = null; // 02 Save preference or use preference that is saved. Bunched up data
     private SharedPreferences.Editor editor = null;
     private CallbackManager callbackManager = null;
 
@@ -73,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initData() {
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
-        editor = sharedPreferences.edit();
+        editor = sharedPreferences.edit();  // 03 Shared preference cannot edit data.
     }
     private void initAutoLogin() {
         String usremail = sharedPreferences.getString(LoginStrings.usrID, "");
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initListener() {
         callbackManager = CallbackManager.Factory.create();
         lbFacebookLogin.setReadPermissions(Arrays.asList("email"));
-        lbFacebookLogin.registerCallback(callbackManager, new FacebookLoginCallback());
+        lbFacebookLogin.registerCallback(callbackManager, new FacebookLoginCallback()); // Facebook button
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(LoginStrings.usrID, usremail);
         intent.putExtra(LoginStrings.usrPassword, pass);
         startActivity(intent);
+        finish();
     }
 
     //Inner Class
@@ -126,7 +127,7 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "I cancel U!");
         }
         @Override
-        public void onError(FacebookException e) {
+        public void onError(FacebookException e) {  // TODO: FACEBOOK ERROR NEEDS AN UPDATE
             FacebookDebug.debug(e);
         }
     }

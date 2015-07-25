@@ -46,7 +46,7 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
         return i;
     }
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, ViewGroup viewGroup) {    // TODO : Read about view
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }

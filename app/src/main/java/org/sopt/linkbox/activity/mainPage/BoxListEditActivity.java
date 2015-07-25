@@ -1,6 +1,5 @@
 package org.sopt.linkbox.activity.mainPage;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,8 +8,7 @@ import android.widget.ListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.adapters.dragAndDropListAdapter.BoxEditBoxListAdapter;
-import org.sopt.linkbox.service.LinkHeadService;
+import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 
 
 public class BoxListEditActivity extends AppCompatActivity {

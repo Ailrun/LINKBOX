@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.squareup.okhttp.OkHttpClient;
 
-import org.sopt.linkbox.custom.adapters.dragAndDropListAdapter.BoxEditBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;

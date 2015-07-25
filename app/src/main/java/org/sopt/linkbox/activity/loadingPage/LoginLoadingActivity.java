@@ -73,6 +73,7 @@ public class LoginLoadingActivity extends Activity {
         usrProfile = intent.getStringExtra(LoginStrings.usrProfile);
         usrPassword = intent.getStringExtra(LoginStrings.usrPassword);
         facebook = intent.getBooleanExtra(LoginStrings.facebook, false);
+        // TODO : LOOK UP FOR sharedPreferences. Sharedpreference interacts with the phone's cache. If the value is true, Auto login is activated.
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
         editor = sharedPreferences.edit();
     }
@@ -89,8 +90,8 @@ public class LoginLoadingActivity extends Activity {
 
     private class LoginCallback implements Callback<MainServerData<UserData>> {
         @Override
-        public void success(MainServerData<UserData> wrappedUserData, Response response) {
-            if (wrappedUserData.result) {
+        public void success(MainServerData<UserData> wrappedUserData, Response response) {  // Server has succeeded in interacting with the Database.
+            if (wrappedUserData.result) {   // Checks if the value for id and password exists in the server database
                 UserData userData = wrappedUserData.object;
                 LinkBoxController.userData = userData;
                 editor.putString(LoginStrings.usrID, userData.usrID);

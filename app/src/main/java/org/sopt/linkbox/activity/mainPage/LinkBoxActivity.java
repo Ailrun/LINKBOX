@@ -153,13 +153,13 @@ public class LinkBoxActivity extends AppCompatActivity {
         //other data init;
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrKey, 0);
-        immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+        immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);    // TODO : This needs cleanup
 //        initUrlDummyData();
 //        initBoxDummyData();
 
     }
     private  void initView() {
-        layoutInflater = getLayoutInflater();
+        layoutInflater = getLayoutInflater();   // TODO : Find reference. When needs to inflate something that is not on memory
 
         //toolbar init
         initToolbarView();
@@ -181,7 +181,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 
         //drawer init
         initDrawerListener();
-        initDrawerButtonHeaderListener();
+        initDrawerButtonHeaderListener();   // TODO : Delete
         initDrawerEditHeaderListener();
     }
     private void initControl() {
@@ -297,7 +297,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                 dlBoxList.closeDrawers();
             }
         });
-        lvBoxList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        lvBoxList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {    // TODO : Deprecated
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 return false;
@@ -325,7 +325,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
             }
         });
-        bToPremium.setOnClickListener(new View.OnClickListener() {
+        bToPremium.setOnClickListener(new View.OnClickListener() {  // TODO : Deprecated. Needs to add new buttons
             @Override
             public void onClick(View view) {
             }
@@ -381,12 +381,12 @@ public class LinkBoxActivity extends AppCompatActivity {
         });
     }
 
-    private void setIconBadge(int i) {
+    private void setIconBadge(int i) {  // TODO : Amount of push alarm. Ex) facebook alarm
         ShortcutBadger.with(getApplicationContext()).count(1);
     }
 
 
-    //For Test
+    //For Test. Deprecated
     private void initUrlDummyData() {
         UrlListData urlListData = new UrlListData();
         urlListData.url = "www.facebook.com";

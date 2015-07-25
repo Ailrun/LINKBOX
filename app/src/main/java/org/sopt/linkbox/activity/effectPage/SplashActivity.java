@@ -25,7 +25,7 @@ public class SplashActivity extends Activity {
             finish();
         }
 
-        new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {  // 01 Gives the app how much time the splash screen will be on  (Related to async properties)
             @Override
             public void run() {
                 overridePendingTransition(0,android.R.anim.fade_in);

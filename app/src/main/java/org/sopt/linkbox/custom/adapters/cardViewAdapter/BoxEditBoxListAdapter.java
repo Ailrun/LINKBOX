@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.adapters.dragAndDropListAdapter;
+package org.sopt.linkbox.custom.adapters.cardViewAdapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

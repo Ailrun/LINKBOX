@@ -18,7 +18,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/realWhite"/>
+        android:background="@color/real_white"/>
     <!-- divider end -->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -76,4 +76,4 @@
             android:background="#FFFFFFFF"
             android:text="프리미엄"/>
     </RelativeLayout>
-</LinearLayout><!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/src/main/res/layout-land/layout_drawer_link_box.xml -->
+</LinearLayout><!-- From: file:/F:/Android%20Data/LINKBOX/LINKBOX/app/src/main/res/layout-land/layout_drawer_link_box.xml -->
