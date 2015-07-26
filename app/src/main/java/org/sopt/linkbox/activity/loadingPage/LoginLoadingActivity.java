@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -20,6 +24,7 @@ import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.network.MainServerWrapper;
 import org.sopt.linkbox.debugging.RetrofitDebug;
 import org.sopt.linkbox.service.LinkHeadService;
+import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
 import java.util.ArrayList;
 import java.util.List;

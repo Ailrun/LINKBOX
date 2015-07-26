@@ -24,6 +24,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -32,10 +36,12 @@ import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
+import org.sopt.linkbox.custom.helper.SessionSaver;
 import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
 import org.sopt.linkbox.service.LinkHeadService;
+import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +58,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  */
 public class LinkBoxActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + LinkBoxActivity.class.getName() + " : ";
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     private InputMethodManager immLinkBox = null;
     private LayoutInflater layoutInflater = null;
@@ -87,6 +94,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num="+ LinkBoxController.urlListSource.size());
+        initPush();
         initData();
         initView();
         initControl();
@@ -109,7 +117,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_link_box , menu);
+        getMenuInflater().inflate(R.menu.menu_link_box, menu);
         return true;
     }
     @Override
@@ -131,11 +139,12 @@ public class LinkBoxActivity extends AppCompatActivity {
         return true;
     }
     @Override
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
+        SessionSaver.saveSession(this);
     }
     @Override
-    public void onDestroy() {
+    protected void onDestroy() {
         super.onDestroy();
         if (iabHelper != null) {
             iabHelper.dispose();
@@ -146,6 +155,12 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        }
     }
 
+    private void initPush() {
+        if (isGoogleServiceAvailable()) {
+            Intent intent = new Intent(this, LinkRegistrationService.class);
+            startService(intent);
+        }
+    }
     private void initData() {
 //        InApp billing init
 //        initInAppData();
@@ -379,6 +394,21 @@ public class LinkBoxActivity extends AppCompatActivity {
                 lvBoxList.addHeaderView(llBoxHeaderViewButton);
             }
         });
+    }
+
+    private boolean isGoogleServiceAvailable() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+                GooglePlayServicesUtil.getErrorDialog(resultCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
+            }
+            else {
+                Toast.makeText(getApplicationContext(), "This device does not support Google Play Service :(", Toast.LENGTH_LONG).show();
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 
     private void setIconBadge(int i) {  // TODO : Amount of push alarm. Ex) facebook alarm

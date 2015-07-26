@@ -1,8 +1,9 @@
 package org.sopt.linkbox.custom.network;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.GoodData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.data.mainData.UserData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
@@ -135,8 +136,14 @@ public class MainServerWrapper {
     }
 
 
-    public void postPushTokenAsync(String token, Callback<MainServerData<Object>> callback) {
-        mainServerInterface.postPushTokenAsync(LinkBoxController.userData.usrKey, token, callback);
+    public void postRegisterTokenAsync(String token, Callback<MainServerData<Object>> callback) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("token", token);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        mainServerInterface.postRegisterTokenAsync(LinkBoxController.userData.usrKey, jsonObject, callback);
     }
 
 

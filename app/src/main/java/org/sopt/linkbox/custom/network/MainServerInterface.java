@@ -1,5 +1,6 @@
 package org.sopt.linkbox.custom.network;
 
+import org.json.JSONObject;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.GoodData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
@@ -96,8 +97,8 @@ public interface MainServerInterface {
 
 
     @Headers("Content-Type: application/json")
-    @POST("/pushtoken/{usrKey}")
-    public void postPushTokenAsync(@Path("usrKey") int usrKey, @Body String token, Callback<MainServerData<Object>> callback);
+    @POST("/push/register/{usrKey}")
+    public void postRegisterTokenAsync(@Path("usrKey") int usrKey, @Body JSONObject token, Callback<MainServerData<Object>> callback);
 
 
 

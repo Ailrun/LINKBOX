@@ -13,6 +13,7 @@ import android.widget.TextView;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.custom.helper.SessionSaver;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
@@ -53,12 +54,13 @@ public class BoxEditorAdd extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     @Override
-    public void onResume() {
+    protected void onResume() {
         super.onResume();
     }
     @Override
     protected void onStop() {
         super.onStop();
+        SessionSaver.saveSession(this);
     }
 
     private void initData() {

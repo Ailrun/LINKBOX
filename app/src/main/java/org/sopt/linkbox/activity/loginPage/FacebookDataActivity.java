@@ -61,11 +61,7 @@ public class FacebookDataActivity extends Activity {
                 String usrProfile = new String();
                 String usrPassword = new String();
 
-                try {
-                    usrProfile = jsonObject.getJSONObject("picture").getJSONObject("data").optString("url");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                usrProfile = jsonObject.optJSONObject("picture").optJSONObject("data").optString("url");
                 usrPassword = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
                 Log.d(TAG, jsonObject.toString());
                 Intent intent = new Intent(FacebookDataActivity.this, LoginLoadingActivity.class);

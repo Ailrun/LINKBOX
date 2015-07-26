@@ -4,4 +4,4 @@
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
-<!-- From: file:/F:/Android%20Data/LINKBOX/LINKBOX/app/src/main/res/menu/menu_tabbed.xml -->
+<!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/src/main/res/menu/menu_tabbed.xml -->

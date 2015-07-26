@@ -190,7 +190,7 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="org.sopt.appjamtest" />
+                <category android:name="org.sopt.linkbox" />
             </intent-filter>
         </receiver>
 
