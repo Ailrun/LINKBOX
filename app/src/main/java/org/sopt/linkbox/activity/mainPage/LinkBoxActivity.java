@@ -33,14 +33,13 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.helper.SessionSaver;
 import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
-import org.sopt.linkbox.service.LinkHeadService;
 import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
 import java.util.ArrayList;

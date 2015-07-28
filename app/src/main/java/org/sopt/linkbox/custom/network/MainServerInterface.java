@@ -63,8 +63,8 @@ public interface MainServerInterface {
 
 
 
-    @GET("/urlList/{usrKey}/{boxKey}/urlList")
-    public void getUrlListAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, Callback<MainServerData<List<UrlListData>>> callback);
+    @GET("/urlList/{usrKey}/{boxKey}/boxUrlList")
+    public void getBoxUrlListAsync(@Path("usrKey") int usrKey, @Path("boxKey") int boxKey, Callback<MainServerData<List<UrlListData>>> callback);
 
     @Headers("Content-Type: application/json")
     @POST("/urlList/{usrKey}/{boxKey}/addUrl")

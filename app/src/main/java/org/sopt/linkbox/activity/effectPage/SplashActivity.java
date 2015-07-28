@@ -23,6 +23,7 @@ public class SplashActivity extends Activity {
             Intent intent = new Intent(this, savedSession.getClass());
             startActivity(intent);
             finish();
+            return;
         }
 
         new Handler().postDelayed(new Runnable() {  // 01 Gives the app how much time the splash screen will be on  (Related to async properties)

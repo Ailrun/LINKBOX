@@ -2,39 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\gson-2.3.1-f469bf511d7b386ef082c9e1d9dec73a48239869.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="f02127a85abd52a2cd526d4c2409f21969f80ee8">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-c6e68a640d1d9be81e57c680dac1bb590e23aa91.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.6.0\a7537446a030da8eb0da4c71424d16c2589f6c4a\glide-3.6.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a7537446a030da8eb0da4c71424d16c2589f6c4a">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\glide-3.6.0-0fc8f611eed9de882080a91957180f7f7738f24e.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit\retrofit\1.9.0\a681c044244d9fc375198588297a39ba78028423\retrofit-1.9.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a681c044244d9fc375198588297a39ba78028423">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\retrofit-1.9.0-3fa6436a91fe50be88bb73f6ce5b2f1dab35eb71.jar" />
-    </item>
-    <item
         jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="69dd177337ead693c408c8dddc9546bb6f1244fa">
         <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-2614a566c74b81d9cc5f360eb2274456421fed7b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-9c7d99ed4f4677f6740ec669100f1c6d5a99c83d.jar" />
     </item>
     <item
         jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.5.0\jars\classes.jar"
@@ -58,46 +37,18 @@
         <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-e24c14e4f23bb07c6bbc7442b33638408dfb9c31.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.5.0\jars\classes.jar"
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-99c54b0b9026955b817f820e93b6e9bb3a9591b3.jar" />
+        sha1="d405025c600055237c171a0bbabaa49d69696573">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-2ca152b9dee85f567e1e6daa9c0fe2abe89dca94.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.5.0\jars\classes.jar"
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.daimajia.swipelayout\library\1.2.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="1e98ef3f124bb7a11f8575f9ff5dfea330b61b6f">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-9c7d99ed4f4677f6740ec669100f1c6d5a99c83d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\libs\internal_impl-22.0.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-fb6b4fbbf2daae0060391bd0e629afdbd13fb837.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-bb0d4fc39b37ca26c48453bd84cc530eb3e9ddfe.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.0.0\4c8d1536dba3812cc1592090dc20c47a4ed3c35e\okhttp-2.0.0.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="4c8d1536dba3812cc1592090dc20c47a4ed3c35e">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\okhttp-2.0.0-b52e907a2c214ea3ed206f3a4237342d571b35c4.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-11369f80e00f384bed8324de7cb9e144cdf89cfd.jar" />
+        sha1="e84b30031d4bab89a2b5c45af4eb9213828524dd">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-e6a18f87872fe8f73fc7a2845488d6954f2a9358.jar" />
     </item>
     <item
         jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.facebook.android\facebook-android-sdk\4.1.0\jars\classes.jar"
@@ -107,6 +58,41 @@
         <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-dfa9a0903244bd91028ffcbb3174fcfd77bcac51.jar" />
     </item>
     <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\libs\internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ba3df4eb0a630d7de294f0e48d3f9267d279b784">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\internal_impl-22.0.0-fb6b4fbbf2daae0060391bd0e629afdbd13fb837.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="8e3a972f28b8bae817e382257ba177a31bcadbbc">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-99c54b0b9026955b817f820e93b6e9bb3a9591b3.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.0.0\4c8d1536dba3812cc1592090dc20c47a4ed3c35e\okhttp-2.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="4c8d1536dba3812cc1592090dc20c47a4ed3c35e">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\okhttp-2.0.0-b52e907a2c214ea3ed206f3a4237342d571b35c4.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit\retrofit\1.9.0\a681c044244d9fc375198588297a39ba78028423\retrofit-1.9.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="a681c044244d9fc375198588297a39ba78028423">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\retrofit-1.9.0-3fa6436a91fe50be88bb73f6ce5b2f1dab35eb71.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-94639b0584c638ecf0dd1862d0dbda207d7d2166.jar" />
+    </item>
+    <item
         jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
@@ -114,25 +100,25 @@
         <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-97b4a29dec9b3c79c39649ed995f58fd7403dc17.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.5.0\jars\classes.jar"
+        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.6.0\a7537446a030da8eb0da4c71424d16c2589f6c4a\glide-3.6.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-e0d6d429d627ba3ffa69011a8147fd9c2a3847b1.jar" />
+        sha1="a7537446a030da8eb0da4c71424d16c2589f6c4a">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\glide-3.6.0-0fc8f611eed9de882080a91957180f7f7738f24e.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.5.0\jars\classes.jar"
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="d405025c600055237c171a0bbabaa49d69696573">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-2ca152b9dee85f567e1e6daa9c0fe2abe89dca94.jar" />
+        sha1="f02127a85abd52a2cd526d4c2409f21969f80ee8">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-c6e68a640d1d9be81e57c680dac1bb590e23aa91.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.0.0\2534c458682c73f5b9871131ab3098d3f987ca3\okio-1.0.0.jar"
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="02534c458682c73f5b9871131ab3098d3f987ca3">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\okio-1.0.0-32760b37dd31417a9b1a06d259ad8c0857418718.jar" />
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-cdd6c80ef778e955fbe99ab887654a9faed8fae6.jar" />
     </item>
     <item
         jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.5.0\jars\classes.jar"
@@ -149,32 +135,11 @@
         <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-466b4e6c7de9375ed4ff0d0d95ab1a60c31b7957.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp-urlconnection\2.0.0\afe8399d352713b66e597e9670c741d1e60ae923\okhttp-urlconnection-2.0.0.jar"
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="afe8399d352713b66e597e9670c741d1e60ae923">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-2.0.0-159358df911d480b1eb1702bacbb8b8765c29a1d.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="1a6411087ab88ce5542f593e63a2752b6b0d6f1a">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-94639b0584c638ecf0dd1862d0dbda207d7d2166.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-175c95d147e440b0afd266989033f922fb06c7e2.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-2c4e123ae065fe5819fa4d76c91804909b934c5f.jar" />
+        sha1="a78183f30e769a98ab4820794f597763088d3065">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-83e6a3d0aa4eb8a7cf769b77cdc4c73f389ab5ab.jar" />
     </item>
     <item
         jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\mediarouter-v7\22.0.0\jars\classes.jar"
@@ -184,39 +149,11 @@
         <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-f56f2b2062668daadded70ba6f4ba6cbb2208dd1.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-07c83c7d6d605e0bba99f7bf17156bad2da8b9b7.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="a78183f30e769a98ab4820794f597763088d3065">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-83e6a3d0aa4eb8a7cf769b77cdc4c73f389ab5ab.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-cdfe0c39ceefa800ea602a22cf313fe5417950a4.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-4ff616e3ef9219671071f4575df5a44ca7f4c4e7.jar" />
-    </item>
-    <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.5.0\jars\classes.jar"
-        jumboMode="false"
-        revision="22.0.1"
-        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-e34b781af2a71c6ca2fcb8e3e5ea9c5d3129093a.jar" />
+        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-022f95117fabe9294af0ea11eb1c73f80bd6a08e.jar" />
     </item>
     <item
         jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.5.0\jars\classes.jar"
@@ -226,11 +163,60 @@
         <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-657f9d9b0145cb6852981c1aa0a6562f558949cb.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\jars\libs\internal_impl-22.2.0.jar"
+        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp-urlconnection\2.0.0\afe8399d352713b66e597e9670c741d1e60ae923\okhttp-urlconnection-2.0.0.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\internal_impl-22.2.0-cdd6c80ef778e955fbe99ab887654a9faed8fae6.jar" />
+        sha1="afe8399d352713b66e597e9670c741d1e60ae923">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\okhttp-urlconnection-2.0.0-159358df911d480b1eb1702bacbb8b8765c29a1d.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.0.0\2534c458682c73f5b9871131ab3098d3f987ca3\okio-1.0.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="02534c458682c73f5b9871131ab3098d3f987ca3">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\okio-1.0.0-32760b37dd31417a9b1a06d259ad8c0857418718.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\me.leolin\ShortcutBadger\1.1.2\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="0ffefd088682a655f7af7f34b22fc21e6ee2e34b">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-36427f63004c8c3a3fe3f367aa560b05b51b6415.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="fc63b820d54c8a27a3a614bdd93920e0076581c2">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-4ff616e3ef9219671071f4575df5a44ca7f4c4e7.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="272bc5d7063f24bc3a33ea1d318cde8f31f5ec4c">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-cdfe0c39ceefa800ea602a22cf313fe5417950a4.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-810c73afa06ef7b02a00cee197692f8067041c9b.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="e7b35244f50663b3f8d150714bca9ecd7a290da1">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-e0d6d429d627ba3ffa69011a8147fd9c2a3847b1.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6440e5e5cfe368f9bff3c537fb8988048069cb33">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-2c4e123ae065fe5819fa4d76c91804909b934c5f.jar" />
     </item>
     <item
         jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.5.0\jars\classes.jar"
@@ -240,18 +226,46 @@
         <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-96caa05aece9df13f6b21999238dc5a15c7c1a8a.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.parse.bolts\bolts-android\1.2.0\6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd\bolts-android-1.2.0.jar"
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="6ee2953ccf51ce72b6d548c30c4633b99eb4f9dd">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\bolts-android-1.2.0-022f95117fabe9294af0ea11eb1c73f80bd6a08e.jar" />
+        sha1="06a42becc33232ec0ee125161da68c1829c9f8fd">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-e34b781af2a71c6ca2fcb8e3e5ea9c5d3129093a.jar" />
     </item>
     <item
-        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\me.leolin\ShortcutBadger\1.1.2\jars\classes.jar"
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.5.0\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
-        sha1="0ffefd088682a655f7af7f34b22fc21e6ee2e34b">
-        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-36427f63004c8c3a3fe3f367aa560b05b51b6415.jar" />
+        sha1="6836d188602ec5382d1967c58b00960eb8ff8773">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-11369f80e00f384bed8324de7cb9e144cdf89cfd.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\22.2.0\support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\support-annotations-22.2.0-bb0d4fc39b37ca26c48453bd84cc530eb3e9ddfe.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3.1\ecb6e1f8e4b0e84c4b886c2f14a1500caf309757\gson-2.3.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\gson-2.3.1-f469bf511d7b386ef082c9e1d9dec73a48239869.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-07c83c7d6d605e0bba99f7bf17156bad2da8b9b7.jar" />
+    </item>
+    <item
+        jar="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.5.0\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="68c140702c7242d914655bcb3164d9e8c45b84cb">
+        <dex dex="C:\Users\Junyoung\Downloads\LINKBOX\app\build\intermediates\pre-dexed\debug\classes-175c95d147e440b0afd266989033f922fb06c7e2.jar" />
     </item>
 
 </items>

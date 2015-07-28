@@ -7,10 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -23,8 +19,6 @@ import org.sopt.linkbox.custom.data.mainData.UserData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.network.MainServerWrapper;
 import org.sopt.linkbox.debugging.RetrofitDebug;
-import org.sopt.linkbox.service.LinkHeadService;
-import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,7 +136,7 @@ public class LoginLoadingActivity extends Activity {
                 LinkBoxController.boxListSource = (ArrayList<BoxListData>) boxListDatas;
                 if (boxListDatas.size() > 0) {
                     LinkBoxController.currentBox = boxListDatas.get(0);
-                    mainServerWrapper.getUrlListAsync(new UrlLoadingCallback());
+                    mainServerWrapper.getBoxUrlListAsync(new UrlLoadingCallback());
                 }
                 else {
                     Intent intent = new Intent(LoginLoadingActivity.this, LinkBoxActivity.class);

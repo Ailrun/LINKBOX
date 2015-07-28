@@ -6,7 +6,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
@@ -39,7 +39,7 @@ public class LinkBoxController extends Application {
         super.onCreate();
 
         LinkBoxController.application = this;
-        LinkBoxController.application.init();
+        this.init();
     }
 
     private EmbedlyInterface linkNetworkEmbedlyInterface;
@@ -52,47 +52,8 @@ public class LinkBoxController extends Application {
     }
 
     private void init() {
-        CookieManager cookieManagerEmbedly = new CookieManager();
-        CookieManager cookieManagerServer = new CookieManager();
-        cookieManagerEmbedly.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-        cookieManagerServer.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-
-        OkHttpClient clientEmbedly = new OkHttpClient();
-        OkHttpClient clientServer = new OkHttpClient();
-        clientEmbedly.setCookieHandler(cookieManagerEmbedly);
-        clientServer.setCookieHandler(cookieManagerServer);
-
-        RestAdapter.Builder builderEmbedly = new RestAdapter.Builder();
-        RestAdapter.Builder builderServer = new RestAdapter.Builder();
-        builderEmbedly.setEndpoint(EmbedlyInterface.embedlyAPIEndPoint);
-        builderServer.setEndpoint(MainServerInterface.serverAPIEndPoint);
-        builderEmbedly.setRequestInterceptor(new RequestInterceptor() {
-            @Override
-            public void intercept(RequestFacade request) {
-                request.addQueryParam("key", EmbedlyInterface.KEY);
-            }
-        });
-
-        builderEmbedly.setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
-        builderServer.setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
-        builderEmbedly.setClient(new OkClient(clientEmbedly));
-        builderServer.setClient(new OkClient(clientServer));
-
-        RestAdapter restAdapterEmbedly = builderEmbedly.build();
-        RestAdapter restAdapterServer = builderServer.build();
-
-        linkNetworkEmbedlyInterface = restAdapterEmbedly.create(EmbedlyInterface.class);
-        linkNetworkMainServerInterface = restAdapterServer.create(MainServerInterface.class);
-
-        currentBox = new BoxListData();
-
-        boxListSource = new ArrayList<>();
-
-        urlListSource = new ArrayList<>();
-
-        editorListSource = new ArrayList<>();
-
-        userData = new UserData();
+        initNetwork();
+        initData();
     }
 
     public static ArrayList<BoxListData> boxListSource = null;
@@ -140,4 +101,62 @@ public class LinkBoxController extends Application {
 
 
     public static boolean defaultAlarm = false;
+
+
+    private void initNetwork()
+    {
+        initNetworkEmbedly();
+        initNetworkServer();
+    }
+    private void initData()
+    {
+        currentBox = new BoxListData();
+
+        boxListSource = new ArrayList<>();
+
+        urlListSource = new ArrayList<>();
+
+        editorListSource = new ArrayList<>();
+
+        userData = new UserData();
+    }
+
+    private void initNetworkEmbedly()
+    {
+        CookieManager cookieManagerEmbedly = new CookieManager();
+        cookieManagerEmbedly.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        OkHttpClient clientEmbedly = new OkHttpClient();
+        clientEmbedly.setCookieHandler(cookieManagerEmbedly);
+
+        RestAdapter.Builder builderEmbedly = new RestAdapter.Builder();
+        builderEmbedly.setEndpoint(EmbedlyInterface.embedlyAPIEndPoint);
+        builderEmbedly.setRequestInterceptor(new RequestInterceptor() {
+            @Override
+            public void intercept(RequestFacade request) {
+                request.addQueryParam("key", EmbedlyInterface.KEY);
+            }
+        });
+        builderEmbedly.setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
+        builderEmbedly.setClient(new OkClient(clientEmbedly));
+
+        RestAdapter restAdapterEmbedly = builderEmbedly.build();
+
+        linkNetworkEmbedlyInterface = restAdapterEmbedly.create(EmbedlyInterface.class);
+    }
+    private void initNetworkServer()
+    {
+        CookieManager cookieManagerServer = new CookieManager();
+        cookieManagerServer.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        OkHttpClient clientServer = new OkHttpClient();
+        clientServer.setCookieHandler(cookieManagerServer);
+
+        RestAdapter.Builder builderServer = new RestAdapter.Builder();
+        builderServer.setEndpoint(MainServerInterface.serverAPIEndPoint);
+        builderServer.setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
+        builderServer.setClient(new OkClient(clientServer));
+
+        RestAdapter restAdapterServer = builderServer.build();
+
+        linkNetworkMainServerInterface = restAdapterServer.create(MainServerInterface.class);
+    }
 }

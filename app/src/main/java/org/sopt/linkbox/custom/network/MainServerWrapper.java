@@ -87,8 +87,8 @@ public class MainServerWrapper {
     }
 
 
-    public void getUrlListAsync(Callback<MainServerData<List<UrlListData>>> callback) {
-        mainServerInterface.getUrlListAsync(LinkBoxController.userData.usrKey, LinkBoxController.currentBox.boxKey, callback);
+    public void getBoxUrlListAsync(Callback<MainServerData<List<UrlListData>>> callback) {
+        mainServerInterface.getBoxUrlListAsync(LinkBoxController.userData.usrKey, LinkBoxController.currentBox.boxKey, callback);
     }
     public void postAddUrlAsync(String url, String name, String thumb, Callback<MainServerData<UrlListData>> callback) {
         UrlListData urlListData = new UrlListData();
