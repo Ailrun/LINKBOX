@@ -4,17 +4,17 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
-import org.sopt.linkbox.custom.helper.SessionSaver;
-
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 
 public class BoxListEditActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
-    private ListView lvBoxList = null;
+    private GridView lvGrid = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +23,7 @@ public class BoxListEditActivity extends AppCompatActivity {
 
         initView();
         initControl();
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -39,23 +40,22 @@ public class BoxListEditActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
-    }
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SessionSaver.saveSession(this);
     }
 
     private void initView() {
-        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);
-        setSupportActionBar(tToolbar);
+        // tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
+        // setSupportActionBar(tToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        lvBoxList = (ListView) findViewById(R.id.LV_box_list_edit_box);
+        lvGrid = (GridView) findViewById(R.id.grid_view);
     }
+
     private void initControl() {
         LinkBoxController.boxEditBoxListAdapter =
                 new BoxEditBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
+
+        lvGrid.setAdapter(LinkBoxController.boxEditBoxListAdapter);
     }
+
 }
