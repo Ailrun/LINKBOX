@@ -224,6 +224,10 @@
                 <action android:name="com.google.android.gms.wallet.ENABLE_WALLET_OPTIMIZATION" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name="android.support.v7.widget.TestActivity"
+            android:label="RecyclerViewTestActivity" />
     </application>
 
 </manifest>

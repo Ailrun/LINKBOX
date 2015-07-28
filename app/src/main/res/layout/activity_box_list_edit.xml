@@ -3,17 +3,15 @@
     android:layout_height="match_parent"
     tools:context="org.sopt.linkbox.activity.mainPage.BoxListEditActivity">
 
-    <LinearLayout
+    <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <include
-            android:id="@+id/T_toolbar_edit_box"
-            layout="@layout/layout_toolbar"/>
-        <ListView
-            android:id="@+id/LV_box_list_edit_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:id="@+id/grid_view"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:numColumns="auto_fit"
+        android:columnWidth="170dp"
+        android:horizontalSpacing="10px"/>
 
 </RelativeLayout>

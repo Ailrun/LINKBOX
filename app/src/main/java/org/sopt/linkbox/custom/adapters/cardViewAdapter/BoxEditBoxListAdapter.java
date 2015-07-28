@@ -1,10 +1,12 @@
 package org.sopt.linkbox.custom.adapters.cardViewAdapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.sopt.linkbox.R;
@@ -17,6 +19,7 @@ import java.util.ArrayList;
  * Created by Junyoung on 2015-07-10.
  */
 public class BoxEditBoxListAdapter extends BaseAdapter {
+    private static final String TAG = "THIS IS A TEST/";
     private LayoutInflater layoutInflater = null;
     private ArrayList<BoxListData> source = null;
     private Context context = null;
@@ -53,8 +56,17 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
         BoxListData boxListData = (BoxListData) getItem(i);
-        TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
+        TextView tvBoxName = ViewHolder.get(view, R.id.info_text1);
+        ImageView tvBoxImage = ViewHolder.get(view, R.id.some_image1);  // TODO : Unfinished. Needs to import data
         tvBoxName.setText(boxListData.boxName);
+        tvBoxImage.setImageBitmap(null);    // TODO : Unfinished
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Log.e(TAG, "");
+            }
+        });
         return view;
     }
 }
