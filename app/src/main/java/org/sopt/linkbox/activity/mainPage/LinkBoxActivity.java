@@ -28,6 +28,7 @@ import android.widget.TextView;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
@@ -144,7 +145,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        if (sharedPreferences.getBoolean("floating", true)) {
 //            startService(new Intent(getApplicationContext(), LinkHeadService.class));
 //        }
-    }
+}
 
     private void initData() {
 //        InApp billing init
@@ -154,8 +155,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrKey, 0);
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);    // TODO : This needs cleanup
-//        initUrlDummyData();
-//        initBoxDummyData();
+        initUrlDummyData();
+        initBoxDummyData();
 
     }
     private  void initView() {
@@ -189,6 +190,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkBoxUrlListAdapter =
             new LinkBoxUrlListAdapter(getApplicationContext(), LinkBoxController.urlListSource);
+
         lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
         lvBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
     }
@@ -398,6 +400,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         BoxListData boxListData = new BoxListData();
         boxListData.boxName = "요리";
         LinkBoxController.boxListSource.add(boxListData);
+        // LinkBoxController.boxEditBoxListAdapter.getView(0, boxListData, );
         boxListData = new BoxListData();
         boxListData.boxName = "육아";
         LinkBoxController.boxListSource.add(boxListData);

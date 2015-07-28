@@ -100,6 +100,7 @@ public class LinkBoxController extends Application {
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
     public static BoxEditBoxListAdapter boxEditBoxListAdapter = null;
+
     public static void notifyBoxDataSetChanged() {
         if (linkBoxBoxListAdapter != null) {
             linkBoxBoxListAdapter.notifyDataSetChanged();

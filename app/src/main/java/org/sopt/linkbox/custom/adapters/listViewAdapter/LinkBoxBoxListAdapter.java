@@ -51,7 +51,7 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
         BoxListData boxListData = (BoxListData) getItem(i);
-        TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
+        TextView tvBoxName = ViewHolder.get(view, R.id.info_text1);
         tvBoxName.setText(boxListData.boxName);
         return view;
     }

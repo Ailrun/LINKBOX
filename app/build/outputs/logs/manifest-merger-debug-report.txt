@@ -103,6 +103,9 @@ MERGED from [com.google.android.gms:play-services-base:7.5.0] F:\Android Data\LI
 MERGED from [com.android.support:support-v4:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:appcompat-v7:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-v4:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:21.0.3] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.3\AndroidManifest.xml:15:5-42
+MERGED from [com.android.support:recyclerview-v7:21.0.3] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:15:5-42
+MERGED from [com.android.support:support-v4:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:design:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:appcompat-v7:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\AndroidManifest.xml:20:5-43
 MERGED from [com.android.support:support-v4:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\AndroidManifest.xml:20:5-43
@@ -415,6 +418,9 @@ MERGED from [com.google.android.gms:play-services-wearable:7.5.0] F:\Android Dat
 MERGED from [com.google.android.gms:play-services-base:7.5.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.5.0\AndroidManifest.xml:20:5-24:19
 MERGED from [com.android.support:support-v4:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:appcompat-v7:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:support-v4:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:cardview-v7:21.0.3] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.3\AndroidManifest.xml:16:5-19
+MERGED from [com.android.support:recyclerview-v7:21.0.3] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:17:5-19:19
 MERGED from [com.android.support:support-v4:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\support-v4\22.2.0\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:design:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\design\22.2.0\AndroidManifest.xml:22:5-20
 MERGED from [com.android.support:appcompat-v7:22.2.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\22.2.0\AndroidManifest.xml:22:5-20
@@ -873,6 +879,12 @@ action#com.google.android.gms.wallet.ENABLE_WALLET_OPTIMIZATION
 ADDED from [com.google.android.gms:play-services-wallet:7.5.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.5.0\AndroidManifest.xml:32:17-99
 	android:name
 		ADDED from [com.google.android.gms:play-services-wallet:7.5.0] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.5.0\AndroidManifest.xml:32:25-96
+activity#android.support.v7.widget.TestActivity
+ADDED from [com.android.support:recyclerview-v7:21.0.3] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:9-115
+	android:label
+		ADDED from [com.android.support:recyclerview-v7:21.0.3] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:19-59
+	android:name
+		ADDED from [com.android.support:recyclerview-v7:21.0.3] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.3\AndroidManifest.xml:18:60-113
 uses-permission#com.majeur.launcher.permission.UPDATE_BADGE
 ADDED from [me.leolin:ShortcutBadger:1.1.2] F:\Android Data\LINKBOX\LINKBOX\app\build\intermediates\exploded-aar\me.leolin\ShortcutBadger\1.1.2\AndroidManifest.xml:33:5-83
 	android:name
