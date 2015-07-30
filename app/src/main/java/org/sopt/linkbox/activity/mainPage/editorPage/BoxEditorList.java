@@ -1,6 +1,5 @@
 package org.sopt.linkbox.activity.mainPage.editorPage;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.helper.SessionSaver;
-import org.sopt.linkbox.service.LinkHeadService;
 
 
 public class BoxEditorList extends AppCompatActivity {
@@ -64,7 +62,9 @@ public class BoxEditorList extends AppCompatActivity {
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
         setSupportActionBar(tToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         lvEditorList = (ListView) findViewById(R.id.LV_editor_list_editor_list);
     }
     private void initListener() {

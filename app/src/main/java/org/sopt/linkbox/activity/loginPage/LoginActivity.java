@@ -25,7 +25,7 @@ import org.sopt.linkbox.constant.LoginStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.debugging.FacebookDebug;
 
-import java.util.Arrays;
+import java.util.Collections;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -78,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     private void initAutoLogin() {
         String usremail = spProfile.getString(LoginStrings.usrID, "");
         String pass = spProfile.getString(LoginStrings.usrPassword, "");
-        if (!usremail.equals("") && !pass.equals("")) {
+        if (usremail != null && !usremail.equals("") && pass != null && !pass.equals("")) {
             loginLoading(usremail, pass);
         }
     }
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void initListener() {
         callbackManager = CallbackManager.Factory.create();
-        lbFacebookLogin.setReadPermissions(Arrays.asList("email"));
+        lbFacebookLogin.setReadPermissions(Collections.singletonList("email"));
         lbFacebookLogin.registerCallback(callbackManager, new FacebookLoginCallback()); // Facebook button
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override

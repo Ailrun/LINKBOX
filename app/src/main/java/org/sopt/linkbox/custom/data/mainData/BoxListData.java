@@ -10,6 +10,7 @@ public class BoxListData {
     public int boxIndex;
     public String boxName;
     public Bitmap boxThumbnail;
+    public int boxUrlNum;
     @Override
     public String toString() {
         return "boxKey="+ boxKey +", boxIndex="+ boxIndex +", boxName="+ boxName;

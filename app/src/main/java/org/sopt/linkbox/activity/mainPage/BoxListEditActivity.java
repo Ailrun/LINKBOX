@@ -1,21 +1,14 @@
 package org.sopt.linkbox.activity.mainPage;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.ActionProvider;
-import android.view.ContextMenu;
 import android.view.MenuItem;
-import android.view.SubMenu;
-import android.view.View;
 import android.widget.GridView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
-import org.sopt.linkbox.custom.data.mainData.BoxListData;
 
 public class BoxListEditActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
@@ -53,7 +46,9 @@ public class BoxListEditActivity extends AppCompatActivity {
     private void initView() {
         // tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
         // setSupportActionBar(tToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         lvGrid = (GridView) findViewById(R.id.grid_view);
     }
 

@@ -1,14 +1,10 @@
 package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -79,7 +75,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
 
     @Override
     public View generateView(int i, ViewGroup viewGroup) {
-        return layoutInflater.from(context).inflate(R.layout.layout_url_list_link_box, viewGroup, false);
+        return LayoutInflater.from(context).inflate(R.layout.layout_url_list_link_box, viewGroup, false);
     }
 
     @Override

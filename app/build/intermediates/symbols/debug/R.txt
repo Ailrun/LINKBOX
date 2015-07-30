@@ -805,7 +805,7 @@ int id DL_root_layout 0x7f0d0094
 int id D_box_list_link_box 0x7f0d0098
 int id ET_add_box_name_link_box 0x7f0d00c8
 int id ET_editor_email_editor_add 0x7f0d008e
-int id ET_name_link_it 0x7f0d009b
+int id ET_name_link_it 0x7f0d009c
 int id ET_password_main 0x7f0d00a3
 int id ET_password_signup 0x7f0d00a8
 int id ET_sending_message_editor_add 0x7f0d008f
@@ -815,11 +815,11 @@ int id IB_like_link_box 0x7f0d00d8
 int id IB_share_link_box 0x7f0d00d2
 int id IV_add_box_cancel_link_box 0x7f0d00c7
 int id IV_form_profile_link_editor 0x7f0d00c3
-int id IV_image_account 0x7f0d008c
+int id IV_image_main 0x7f0d008c
 int id IV_profile_link_box 0x7f0d00bc
 int id IV_profile_link_editor 0x7f0d00c2
 int id IV_thumb_link_box 0x7f0d00d3
-int id IV_thumb_link_it 0x7f0d009f
+int id IV_thumb_link_it 0x7f0d009b
 int id LB_login_main 0x7f0d00a6
 int id LL_activity_link_box 0x7f0d0095
 int id LL_box_info_link_box 0x7f0d00bd
@@ -828,7 +828,7 @@ int id LV_editor_list_editor_list 0x7f0d0092
 int id LV_url_list_link_box 0x7f0d0097
 int id RL_header_button_link_box 0x7f0d00c6
 int id SL_swape_link_box 0x7f0d00cf
-int id S_box_link_it 0x7f0d009e
+int id S_box_link_it 0x7f0d009f
 int id TV_box_name_editor_list 0x7f0d0091
 int id TV_box_name_link_box 0x7f0d00b7
 int id TV_box_name_link_it 0x7f0d00bb
@@ -975,7 +975,7 @@ int id progress_circular 0x7f0d0007
 int id progress_horizontal 0x7f0d0008
 int id pull_out 0x7f0d003b
 int id radio 0x7f0d0077
-int id relativeLayout 0x7f0d009c
+int id relativeLayout 0x7f0d009d
 int id right 0x7f0d0027
 int id route_name 0x7f0d00dc
 int id sandbox 0x7f0d0047
@@ -1024,7 +1024,7 @@ int id text 0x7f0d00f1
 int id text2 0x7f0d00ef
 int id textSpacerNoButtons 0x7f0d0070
 int id textView3 0x7f0d0099
-int id textView4 0x7f0d009d
+int id textView4 0x7f0d009e
 int id text_wrapper 0x7f0d00e2
 int id time 0x7f0d00ed
 int id title 0x7f0d0069

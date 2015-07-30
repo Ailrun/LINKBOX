@@ -11,7 +11,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -58,11 +57,8 @@ public class FacebookDataActivity extends Activity {
         @Override
         public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
             if (jsonObject != null) {
-                String usrProfile = new String();
-                String usrPassword = new String();
-
-                usrProfile = jsonObject.optJSONObject("picture").optJSONObject("data").optString("url");
-                usrPassword = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
+                String usrProfile = jsonObject.optJSONObject("picture").optJSONObject("data").optString("url");
+                String usrPassword = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
                 Log.d(TAG, jsonObject.toString());
                 Intent intent = new Intent(FacebookDataActivity.this, LoginLoadingActivity.class);
                 intent.putExtra(LoginStrings.usrID, jsonObject.optString("email"));

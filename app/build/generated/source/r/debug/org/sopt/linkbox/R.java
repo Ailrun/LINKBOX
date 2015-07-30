@@ -2937,7 +2937,7 @@ containing a value of this type.
         public static final int D_box_list_link_box=0x7f0d0098;
         public static final int ET_add_box_name_link_box=0x7f0d00c8;
         public static final int ET_editor_email_editor_add=0x7f0d008e;
-        public static final int ET_name_link_it=0x7f0d009b;
+        public static final int ET_name_link_it=0x7f0d009c;
         public static final int ET_password_main=0x7f0d00a3;
         public static final int ET_password_signup=0x7f0d00a8;
         public static final int ET_sending_message_editor_add=0x7f0d008f;
@@ -2947,11 +2947,11 @@ containing a value of this type.
         public static final int IB_share_link_box=0x7f0d00d2;
         public static final int IV_add_box_cancel_link_box=0x7f0d00c7;
         public static final int IV_form_profile_link_editor=0x7f0d00c3;
-        public static final int IV_image_account=0x7f0d008c;
+        public static final int IV_image_main=0x7f0d008c;
         public static final int IV_profile_link_box=0x7f0d00bc;
         public static final int IV_profile_link_editor=0x7f0d00c2;
         public static final int IV_thumb_link_box=0x7f0d00d3;
-        public static final int IV_thumb_link_it=0x7f0d009f;
+        public static final int IV_thumb_link_it=0x7f0d009b;
         public static final int LB_login_main=0x7f0d00a6;
         public static final int LL_activity_link_box=0x7f0d0095;
         public static final int LL_box_info_link_box=0x7f0d00bd;
@@ -2960,7 +2960,7 @@ containing a value of this type.
         public static final int LV_url_list_link_box=0x7f0d0097;
         public static final int RL_header_button_link_box=0x7f0d00c6;
         public static final int SL_swape_link_box=0x7f0d00cf;
-        public static final int S_box_link_it=0x7f0d009e;
+        public static final int S_box_link_it=0x7f0d009f;
         public static final int TV_box_name_editor_list=0x7f0d0091;
         public static final int TV_box_name_link_box=0x7f0d00b7;
         public static final int TV_box_name_link_it=0x7f0d00bb;
@@ -3107,7 +3107,7 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f0d0008;
         public static final int pull_out=0x7f0d003b;
         public static final int radio=0x7f0d0077;
-        public static final int relativeLayout=0x7f0d009c;
+        public static final int relativeLayout=0x7f0d009d;
         public static final int right=0x7f0d0027;
         public static final int route_name=0x7f0d00dc;
         public static final int sandbox=0x7f0d0047;
@@ -3156,7 +3156,7 @@ containing a value of this type.
         public static final int text2=0x7f0d00ef;
         public static final int textSpacerNoButtons=0x7f0d0070;
         public static final int textView3=0x7f0d0099;
-        public static final int textView4=0x7f0d009d;
+        public static final int textView4=0x7f0d009e;
         public static final int text_wrapper=0x7f0d00e2;
         public static final int time=0x7f0d00ed;
         public static final int title=0x7f0d0069;

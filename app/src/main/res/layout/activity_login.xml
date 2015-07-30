@@ -37,7 +37,6 @@
             android:layout_height="36dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="24dp"
-            android:onClick="onClick_login"
             android:background="@drawable/account_login_resting"/>
 
         <com.facebook.login.widget.LoginButton

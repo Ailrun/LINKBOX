@@ -103,7 +103,7 @@ public class LinkHeadService extends Service {
                 final long removeTime = 1000;
 
                 int initialX, initialY;
-                float initialTouchX, initialTouchY;;
+                float initialTouchX, initialTouchY;
                 int removeDiff;
                 boolean move;
             }

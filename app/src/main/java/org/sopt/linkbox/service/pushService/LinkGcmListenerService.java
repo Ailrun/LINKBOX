@@ -44,14 +44,16 @@ public class LinkGcmListenerService extends GcmListenerService{
         if (jsonObject != null) {
             String type = jsonObject.optString(GCMString.pushType);
             if (type != null) {
-                if (type.equals(GCMString.typeBox)) {
-                    boxNotification(jsonObject);
-                }
-                else if (type.equals(GCMString.typeUrl)) {
-                    urlNotification(jsonObject);
-                }
-                else if (type.equals(GCMString.typeGood)) {
-                    goodNotification(jsonObject);
+                switch (type) {
+                    case GCMString.typeBox:
+                        boxNotification(jsonObject);
+                        break;
+                    case GCMString.typeUrl:
+                        urlNotification(jsonObject);
+                        break;
+                    case GCMString.typeGood:
+                        goodNotification(jsonObject);
+                        break;
                 }
             }
         }

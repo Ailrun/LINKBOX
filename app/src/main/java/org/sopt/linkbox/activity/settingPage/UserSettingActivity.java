@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
@@ -60,7 +59,9 @@ public class UserSettingActivity extends AppCompatActivity {
 
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
         setSupportActionBar(tToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         tvLogout = (TextView) findViewById(R.id.TV_logout_user_setting);
     }
     void initListener() {

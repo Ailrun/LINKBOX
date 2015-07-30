@@ -11,7 +11,7 @@ import org.sopt.linkbox.custom.helper.SessionSaver;
 
 
 public class SplashActivity extends Activity {
-    private int SPLASH_TIME=3000;
+    private static final int SPLASH_TIME=3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

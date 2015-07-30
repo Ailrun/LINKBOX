@@ -68,7 +68,9 @@ public class BoxEditorAdd extends AppCompatActivity {
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_add);
         setSupportActionBar(tToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         etEmail = (EditText) findViewById(R.id.ET_editor_email_editor_add);
         tvMessage = (TextView) findViewById(R.id.ET_sending_message_editor_add);
     }

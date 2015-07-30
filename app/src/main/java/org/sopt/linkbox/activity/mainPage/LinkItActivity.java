@@ -20,7 +20,11 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
@@ -151,15 +155,50 @@ public class LinkItActivity extends Activity {
     }
 
     private void initThumbnail() {
-        String path = "?id=" + urlListData.url;
+        Bundle parameter = new Bundle();
 
-        GraphRequest graphRequest = GraphRequest.newGraphPathRequest(null, path, new GraphCallback());
+        parameter.putString("id", urlListData.url);
+        parameter.putString("access_token", "1646442455642975|7bd84cfafd55d4e1fbf59c22a6030127");
+        String path = "/v2.4/";
+        GraphRequest graphRequest = new GraphRequest(null, path, parameter, HttpMethod.GET, new GetIDCallback());
+        graphRequest.executeAsync();
     }
 
-    private class GraphCallback implements GraphRequest.Callback {
+    private class GetIDCallback implements GraphRequest.Callback {
         @Override
         public void onCompleted(GraphResponse graphResponse) {
-            Log.d(TAG, graphResponse.getJSONObject().toString());
+            String json = graphResponse.getRawResponse();
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(json);
+                String id = jsonObject.optJSONObject("og_object").optString("id");
+                Bundle parameter = new Bundle();
+                parameter.putString("id", id);
+                parameter.putString("access_token", "1646442455642975|7bd84cfafd55d4e1fbf59c22a6030127");
+                String path = "/v2.4/";
+                GraphRequest graphRequest = new GraphRequest(null, path, parameter, HttpMethod.POST, new GetThumbnailCallback());
+                graphRequest.executeAsync();
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private class GetThumbnailCallback implements GraphRequest.Callback {
+        @Override
+        public void onCompleted(GraphResponse graphResponse) {
+            Log.d(TAG, graphResponse.toString());
+            String json = graphResponse.getRawResponse();
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(json);
+                JSONArray jsonArray = jsonObject.getJSONArray("image");
+                Glide.with(LinkItActivity.this).load(jsonArray.getJSONObject(0).getString("url")).into(ivThumb);
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

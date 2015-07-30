@@ -28,7 +28,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class LoginLoadingActivity extends Activity {
-    private static String TAG = "TEST/" + LoginLoadingActivity.class.getName() + " : ";
+    private static final String TAG = "TEST/" + LoginLoadingActivity.class.getName() + " : ";
 
     private MainServerWrapper mainServerWrapper = null;
     private String usrID = null;
