@@ -9,4 +9,5 @@
     <string name="layout_empty_url_list">EmptyUrlList</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_link_home">LinkHomeActivity</string>
 </resources>

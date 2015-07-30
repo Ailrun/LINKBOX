@@ -12,10 +12,16 @@ public class UrlListData {
     public String urlDate;
     public String urlThumbnail;
     public GoodData goodData;
+    public int goodNum;
+    public String urlTags;
     @Override
     public String toString(){
         return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle
                 +", urlWriterUsrName="+ urlWriterUsrName +", urlDate="+ urlDate +", urlThumbnail"+ urlThumbnail
                 + ((goodData == null)?"": goodData.toString());
+    }
+    public String getTag(int i)
+    {
+        return null;
     }
 }

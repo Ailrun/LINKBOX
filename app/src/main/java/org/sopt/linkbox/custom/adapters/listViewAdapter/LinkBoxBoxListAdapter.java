@@ -48,10 +48,11 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {    // TODO : Read about view
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.layout_box_list_drawer, viewGroup, false);
         }
         BoxListData boxListData = (BoxListData) getItem(i);
-        TextView tvBoxName = ViewHolder.get(view, R.id.info_text1);
+        TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
+        TextView tvUrlNumber = ViewHolder.get(view, R.id.TV_url_number_link_box);
         tvBoxName.setText(boxListData.boxName);
         return view;
     }

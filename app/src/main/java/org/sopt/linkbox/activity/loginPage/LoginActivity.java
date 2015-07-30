@@ -58,8 +58,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         if(AccessToken.getCurrentAccessToken() !=null){
-//            startActivity(new Intent(getApplicationContext(), FacebookDataActivity.class));
-//            finish();
+            startActivity(new Intent(getApplicationContext(), FacebookDataActivity.class));
+            finish();
         }
         else{
             lbFacebookLogin.setVisibility(View.VISIBLE);

@@ -17,12 +17,17 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.loginPage.MainActivity;
+import org.sopt.linkbox.constant.LoginStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.service.LinkHeadService;
 
 import java.util.ArrayList;
 
@@ -37,8 +42,10 @@ public class UserSettingActivity extends AppCompatActivity {
     private Button bLogout = null;
     private Button bSignDown = null;
 
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor sharedEditor;
+    private SharedPreferences sharedPreferencesForProfile;
+    private SharedPreferences.Editor sharedEditorForProfile;
+    private SharedPreferences sharedPreferencesForSetting;
+    private SharedPreferences.Editor sharedEditorForSetting;
 
     private ArrayList<BoxListData> groupList = null;
     private ArrayList<ArrayList<BoxListData>> childList = null;
@@ -46,6 +53,7 @@ public class UserSettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_user_setting);
 
         initData();
@@ -71,9 +79,12 @@ public class UserSettingActivity extends AppCompatActivity {
         childList.add(LinkBoxController.boxListSource);
     }
     void initView() {
-        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
+        sharedPreferencesForProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
+        sharedEditorForProfile = sharedPreferencesForProfile.edit();
+
+        sharedPreferencesForSetting = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrKey, 0);
-        sharedEditor = sharedPreferences.edit();
+        sharedEditorForSetting = sharedPreferencesForSetting.edit();
 
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
         setSupportActionBar(tToolbar);
@@ -93,7 +104,7 @@ public class UserSettingActivity extends AppCompatActivity {
         etChangePassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         elvNotification = (ExpandableListView)findViewById(R.id.ELV_notification_list_user_setting);
         cbFloating = (CheckBox)findViewById(R.id.CB_floating_user_setting);
-        cbFloating.setChecked(sharedPreferences.getBoolean("floating", true));
+        cbFloating.setChecked(sharedPreferencesForSetting.getBoolean("floating", true));
         bLogout = (Button) findViewById(R.id.B_logout_user_setting);
         bSignDown = (Button) findViewById(R.id.B_signdown_user_setting);
     }
@@ -120,13 +131,13 @@ public class UserSettingActivity extends AppCompatActivity {
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
                     // 이전 설정 이름 삭제
-                    sharedEditor.remove("usrName");
+                    sharedEditorForSetting.remove("usrName");
 
                     String name = etName.getText().toString();
 
                     etName.setText(name);
-                    sharedEditor.putString("usrName", name);
-                    sharedEditor.apply();
+                    sharedEditorForSetting.putString("usrName", name);
+                    sharedEditorForSetting.apply();
                 }
                 return false;
             }
@@ -150,13 +161,13 @@ public class UserSettingActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
-                    sharedEditor.remove("usrID");
+                    sharedEditorForSetting.remove("usrID");
 
                     String email = etMail.getText().toString();
 
                     etName.setText(email);
-                    sharedEditor.putString("usrID", email);
-                    sharedEditor.apply();
+                    sharedEditorForSetting.putString("usrID", email);
+                    sharedEditorForSetting.apply();
                 }
                 return false;
             }
@@ -181,13 +192,13 @@ public class UserSettingActivity extends AppCompatActivity {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (keyCode == keyEvent.KEYCODE_ENTER)) {
-                    sharedEditor.remove("usrPassword");
+                    sharedEditorForSetting.remove("usrPassword");
 
                     String pass = etChangePassword.getText().toString();
 
                     etName.setText(pass);
-                    sharedEditor.putString("usrPassword", pass);
-                    sharedEditor.apply();
+                    sharedEditorForSetting.putString("usrPassword", pass);
+                    sharedEditorForSetting.apply();
                 }
                 return false;
             }
@@ -209,10 +220,10 @@ public class UserSettingActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
-                    sharedEditor.remove("floating");
+                    sharedEditorForSetting.remove("floating");
 
-                    sharedEditor.putBoolean("floating" , b);
-                    sharedEditor.apply();
+                    sharedEditorForSetting.putBoolean("floating", b);
+                    sharedEditorForSetting.apply();
                 }
             }
         });
@@ -220,7 +231,13 @@ public class UserSettingActivity extends AppCompatActivity {
         bLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO : logout
+                sharedEditorForProfile.remove(LoginStrings.usrID);
+                sharedEditorForProfile.remove(LoginStrings.usrPassword);
+                Intent intent = new Intent(UserSettingActivity.this, MainActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                LoginManager.getInstance().logOut();
+                startActivity(intent);
+                finish();
             }
         });
 

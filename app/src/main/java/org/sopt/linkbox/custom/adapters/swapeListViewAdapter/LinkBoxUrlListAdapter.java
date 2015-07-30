@@ -2,6 +2,7 @@ package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
  *
  */
 public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
+    private static final String TAG = "TEST/" + LinkBoxUrlListAdapter.class.getName() + " : ";
     private ArrayList<UrlListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
@@ -104,6 +106,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "Delete!");
                 //TODO : delete url check popup
                 //Must include which url push this button
             }
@@ -111,6 +114,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         ibEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "Edit!");
                 //TODO : goto url edit popup
             }
         });

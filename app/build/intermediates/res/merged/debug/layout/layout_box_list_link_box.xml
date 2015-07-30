@@ -1,28 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:paddingStart="88dp"
-    android:paddingEnd="20dp">
-    <TextView
-        android:id="@+id/TV_box_name_link_box"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textSize="14dp"
-        android:text="BOX"
-        android:textColor="@color/real_black"
-        android:layout_centerVertical="true"
-        android:gravity="center_vertical"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="horizontal"
+android:scrollbars="none">
 
-    <TextView
-        android:id="@+id/TV_url_number_link_box"
-        android:layout_width="wrap_content"
+<android.support.v7.widget.CardView
+    xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+    android:layout_width="170dp"
+    android:layout_height="200dp"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="14dp"
-        android:text="0"
-        android:textColor="@color/real_black"
-        android:layout_alignTop="@+id/TV_box_name_link_box"
-        android:layout_alignParentEnd="true"
-        android:gravity="center_vertical"/>
-</RelativeLayout><!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/src/main/res/layout/layout_box_list_link_box.xml -->
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/info_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:id="@+id/some_image1"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:layout_gravity="bottom"/>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
+
+</LinearLayout>
+<!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/src/main/res/layout/layout_box_list_link_box.xml -->

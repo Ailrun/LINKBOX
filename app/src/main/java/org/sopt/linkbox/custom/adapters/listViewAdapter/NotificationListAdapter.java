@@ -2,6 +2,7 @@ package org.sopt.linkbox.custom.adapters.listViewAdapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,8 @@ import org.sopt.linkbox.custom.helper.ViewHolder;
 import java.util.ArrayList;
 
 public class NotificationListAdapter extends BaseExpandableListAdapter {
+    private static final String TAG = "TEST/"+NotificationListAdapter.class.getName()+" : ";
+
     private ArrayList<BoxListData> group = null;
     private ArrayList<ArrayList<BoxListData>> source = null;
     private LayoutInflater layoutInflater = null;
@@ -91,7 +94,7 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
     }
     @Override
     public View getChildView(int i, final int i2, boolean b, View view, ViewGroup viewGroup) {
-        final SharedPreferences sharedPreferences = context.getSharedPreferences(SettingStrings.shared_user_settings
+        SharedPreferences sharedPreferences = context.getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrKey, 0);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         if (view == null) {
@@ -101,12 +104,14 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
         TextView tvChildNotification = ViewHolder.get(view, R.id.TV_child_notification_user_setting);
         CheckBox cbChildNotification = ViewHolder.get(view, R.id.CB_child_notification_user_setting);
         tvChildNotification.setText(boxListData.boxName);
-        cbChildNotification.setChecked(sharedPreferences.getBoolean("notiCheck" + i2, true));
         cbChildNotification.setEnabled(LinkBoxController.defaultAlarm);
+        cbChildNotification.setChecked(sharedPreferences.getBoolean("notiCheck" + i2, true));
+        Log.d(TAG, boxListData.boxName + " : " + sharedPreferences.getBoolean("notiCheck" + i2, true));
         cbChildNotification.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 editor.putBoolean("notiCheck" + i2, b);
+                editor.apply();
             }
         });
         return view;

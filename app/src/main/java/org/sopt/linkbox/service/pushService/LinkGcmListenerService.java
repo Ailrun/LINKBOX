@@ -23,9 +23,9 @@ import org.sopt.linkbox.constant.GCMString;
 public class LinkGcmListenerService extends GcmListenerService{
     private static final String TAG = LinkGcmListenerService.class.getName();
     private static final String NotiTitle = "Linkbox";
-    public static final int boxNotiOffset = 0;
-    public static final int urlNotiOffset = 0x55;
-    public static final int goodNotiOffset = 0x99;
+    private static final int boxNotiOffset = 0;
+    private static final int urlNotiOffset = 0x55;
+    private static final int goodNotiOffset = 0x99;
 
     private NotificationManager nm = null;
 
