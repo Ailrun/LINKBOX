@@ -1,4 +1,4 @@
-package org.sopt.linkbox.activity.mainPage;
+package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;

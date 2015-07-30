@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_account">AccountActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
     <string name="title_activity_link_it">LinkItActivity</string>
     <string name="title_activity_link_box">LinkBoxActivity</string>

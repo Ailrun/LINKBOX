@@ -1,4 +1,4 @@
-package org.sopt.linkbox.activity.mainPage;
+package org.sopt.linkbox.activity.settingPage;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,13 +17,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 
-import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.loginPage.MainActivity;
+import org.sopt.linkbox.activity.loginPage.AccountActivity;
 import org.sopt.linkbox.constant.LoginStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
@@ -233,7 +232,7 @@ public class UserSettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sharedEditorForProfile.remove(LoginStrings.usrID);
                 sharedEditorForProfile.remove(LoginStrings.usrPassword);
-                Intent intent = new Intent(UserSettingActivity.this, MainActivity.class);
+                Intent intent = new Intent(UserSettingActivity.this, AccountActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginManager.getInstance().logOut();
                 startActivity(intent);

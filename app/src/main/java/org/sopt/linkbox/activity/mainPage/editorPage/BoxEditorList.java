@@ -1,4 +1,4 @@
-package org.sopt.linkbox.activity.mainPage;
+package org.sopt.linkbox.activity.mainPage.editorPage;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,50 +7,44 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.helper.SessionSaver;
 import org.sopt.linkbox.service.LinkHeadService;
 
 
-public class BoxEditorAdd extends AppCompatActivity {
+public class BoxEditorList extends AppCompatActivity {
     private Toolbar tToolbar = null;
-    private EditText etEmail = null;
-    private TextView tvMessage = null;
+    private ListView lvEditorList = null;
 
     private SharedPreferences sharedPreferences = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_box_editor_add);
+        setContentView(R.layout.activity_box_editor_list);
 
         initData();
         initView();
         initListener();
+        initControl();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_link_editor_add, menu);
+        getMenuInflater().inflate(R.menu.menu_link_editor_list, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_add) {
+        if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
     @Override
@@ -68,12 +62,15 @@ public class BoxEditorAdd extends AppCompatActivity {
                 + LinkBoxController.userData.usrKey, 0);
     }
     private void initView() {
-        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_add);
+        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
         setSupportActionBar(tToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        etEmail = (EditText) findViewById(R.id.ET_editor_email_editor_add);
-        tvMessage = (TextView) findViewById(R.id.ET_sending_message_editor_add);
+        lvEditorList = (ListView) findViewById(R.id.LV_editor_list_editor_list);
     }
     private void initListener() {
+    }
+    private void initControl() {
+        LinkBoxController.linkEditorListAdapter =
+                new LinkEditorListAdapter(getApplicationContext(), LinkBoxController.editorListSource);
     }
 }

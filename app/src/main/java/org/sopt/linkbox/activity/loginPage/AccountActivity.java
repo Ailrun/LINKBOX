@@ -9,10 +9,9 @@ import android.widget.TabHost;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.helper.SessionSaver;
-import org.sopt.linkbox.service.LinkHeadService;
 
 
-public class MainActivity extends TabActivity {
+public class AccountActivity extends TabActivity {
     private TabHost tabHost;
     private Toolbar tToolbar = null;
     private ImageView ivTitle = null;
@@ -21,7 +20,7 @@ public class MainActivity extends TabActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_account);
         ivTitle = (ImageView) findViewById(R.id.IV_image_main);
         ivTitle.bringToFront();
 

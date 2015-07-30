@@ -12,7 +12,7 @@ import com.google.android.gms.gcm.GcmListenerService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.sopt.linkbox.activity.mainPage.LinkBoxActivity;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.GCMString;
 

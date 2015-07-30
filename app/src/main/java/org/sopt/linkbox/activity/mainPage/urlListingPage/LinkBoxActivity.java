@@ -1,4 +1,4 @@
-package org.sopt.linkbox.activity.mainPage;
+package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -31,8 +31,10 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
+import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
+import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
 import org.sopt.linkbox.constant.SettingStrings;
-import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;

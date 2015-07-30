@@ -511,10 +511,10 @@ public final class R {
 		public static final int abc_search_dropdown_item_icons_2line = 0x7f040015;
 		public static final int abc_search_view = 0x7f040016;
 		public static final int abc_simple_dropdown_hint = 0x7f040018;
-		public static final int mr_media_route_chooser_dialog = 0x7f040041;
-		public static final int mr_media_route_controller_material_dialog_b = 0x7f040042;
-		public static final int mr_media_route_list_item = 0x7f040043;
-		public static final int support_simple_spinner_dropdown_item = 0x7f04004f;
+		public static final int mr_media_route_chooser_dialog = 0x7f040042;
+		public static final int mr_media_route_controller_material_dialog_b = 0x7f040043;
+		public static final int mr_media_route_list_item = 0x7f040044;
+		public static final int support_simple_spinner_dropdown_item = 0x7f040050;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f070000;
