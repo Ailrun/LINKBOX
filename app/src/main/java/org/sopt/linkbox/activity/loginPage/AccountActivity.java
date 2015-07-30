@@ -3,16 +3,18 @@ package org.sopt.linkbox.activity.loginPage;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.helper.SessionSaver;
 
 
-public class AccountActivity extends TabActivity {
-    private TabHost tabHost;
+public class AccountActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
     private ImageView ivTitle = null;
 
@@ -21,24 +23,8 @@ public class AccountActivity extends TabActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_account);
-        ivTitle = (ImageView) findViewById(R.id.IV_image_main);
-        ivTitle.bringToFront();
-
-        tabHost = getTabHost();
-        TabHost.TabSpec spec = null;
-        Intent intent = null;
-
-        intent = new Intent(this, LoginActivity.class);
-        spec = tabHost.newTabSpec("Login").setIndicator("Login")
-                .setContent(intent);
-        tabHost.addTab(spec);
-
-        intent = new Intent(this, SignupActivity.class);
-        spec = tabHost.newTabSpec("Sign Up").setIndicator("Sign Up")
-                .setContent(intent);
-        tabHost.addTab(spec);
-
-        tabHost.setCurrentTab(0);
+        ivTitle = (ImageView) findViewById(R.id.IV_image_account);
+        ivTitle.setImageResource(R.drawable.account_image);
     }
     @Override
     protected void onResume() {

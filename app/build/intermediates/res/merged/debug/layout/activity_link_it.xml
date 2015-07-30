@@ -130,7 +130,7 @@
             android:layout_alignParentStart="true" />
 
         <Spinner
-            android:id="@+id/SP_box_link_it"
+            android:id="@+id/S_box_link_it"
             android:spinnerMode="dropdown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -138,6 +138,17 @@
             android:layout_marginStart="24dp"
             android:layout_marginEnd="24dp"
             android:layout_alignParentStart="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/textView4"
+            android:gravity="center_vertical|end">
+            <ImageView
+                android:id="@+id/IV_thumb_link_it"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+        </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -153,7 +164,7 @@
 
         <Button
 
-            android:id="@+id/BT_cancel_link_it"
+            android:id="@+id/B_cancel_link_it"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="취소"
@@ -162,7 +173,7 @@
             android:textColor="#25a599"/>
 
         <Button
-            android:id="@+id/BT_linkit_link_it"
+            android:id="@+id/B_linkit_link_it"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"

@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -20,8 +21,7 @@ import org.sopt.linkbox.constant.SettingStrings;
 
 public class UserSettingActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
-    private Button bLogout = null;
-    private Button bSignDown = null;
+    private TextView tvLogout = null;
 
     private SharedPreferences spProfile;
     private SharedPreferences.Editor speProfile;
@@ -61,10 +61,10 @@ public class UserSettingActivity extends AppCompatActivity {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
         setSupportActionBar(tToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        bLogout = (Button) findViewById(R.id.B_logout_user_setting);
+        tvLogout = (TextView) findViewById(R.id.TV_logout_user_setting);
     }
     void initListener() {
-        bLogout.setOnClickListener(new View.OnClickListener() {
+        tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 speProfile.remove(LoginStrings.usrID);
@@ -74,13 +74,6 @@ public class UserSettingActivity extends AppCompatActivity {
                 LoginManager.getInstance().logOut();
                 startActivity(intent);
                 finish();
-            }
-        });
-
-        bSignDown.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: signdown
             }
         });
 

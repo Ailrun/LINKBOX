@@ -17,6 +17,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -46,6 +49,7 @@ public class LinkItActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this);
 
         initWindow();
 
@@ -88,19 +92,21 @@ public class LinkItActivity extends Activity {
     }
     private void initData() {
         urlListData = new UrlListData();
-    }
-    private void initView() {
-        sBox = (Spinner) findViewById(R.id.S_box_link_it);
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
             urlListData.url = intent.getStringExtra(Intent.EXTRA_TEXT);
+            initThumbnail();
         }
         else {
             finish();
             Log.e(TAG, "There is no url but LinkItActivity start");
         }
+    }
+    private void initView() {
+        sBox = (Spinner) findViewById(R.id.S_box_link_it);
         etName = (EditText) findViewById(R.id.ET_name_link_it);
         etName.setHint(urlListData.url);
+        ivThumb = (ImageView) findViewById(R.id.IV_thumb_link_it);
         bLinkit = (Button) findViewById(R.id.B_linkit_link_it);
         bCancel = (Button) findViewById(R.id.B_cancel_link_it);
     }
@@ -142,5 +148,18 @@ public class LinkItActivity extends Activity {
                 new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         sBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
+    }
+
+    private void initThumbnail() {
+        String path = "?id=" + urlListData.url;
+
+        GraphRequest graphRequest = GraphRequest.newGraphPathRequest(null, path, new GraphCallback());
+    }
+
+    private class GraphCallback implements GraphRequest.Callback {
+        @Override
+        public void onCompleted(GraphResponse graphResponse) {
+            Log.d(TAG, graphResponse.getJSONObject().toString());
+        }
     }
 }

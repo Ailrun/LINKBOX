@@ -1,28 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/tabhost"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/IV_image_main"
-            android:layout_width="match_parent"
-            android:layout_height="285dp"
-            android:background="@drawable/account_image"/>
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/IV_image_main"
-            android:background="#3f51b5"/>
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@android:id/tabs"
-            android:background="#fafafa"></FrameLayout>
-    </RelativeLayout>
-</TabHost>
+    android:layout_height="match_parent"
+    android:background="@color/indigo500">
+    <ImageView
+        android:id="@+id/IV_image_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/account_image"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</RelativeLayout>

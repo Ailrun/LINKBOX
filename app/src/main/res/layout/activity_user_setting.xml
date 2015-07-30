@@ -1,9 +1,8 @@
 <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="@color/real_white">
+    android:orientation="vertical">
     <include
         android:id="@+id/T_toolbar_settings"
         layout="@layout/layout_toolbar"/>
@@ -11,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:stretchColumns="0,1,2,3,4"
-        android:showDividers="middle">
+        android:showDividers="middle"
+        android:background="@color/real_white">
         <TableRow>
             <TextView
                 android:padding="10dp"
@@ -43,6 +43,7 @@
         </TableRow>
         <TableRow>
             <TextView
+                android:id="@+id/TV_logout_user_setting"
                 android:padding="10dp"
                 android:text="로그아웃"
                 android:layout_span="5"/>
