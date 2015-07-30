@@ -2,157 +2,58 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/real_white">
     <include
         android:id="@+id/T_toolbar_settings"
         layout="@layout/layout_toolbar"/>
-    <LinearLayout
-        android:orientation="vertical"
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="User Profle"
-            android:id="@+id/TV_user_profile_user_setting"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp">
-
+        android:stretchColumns="0,1,2,3,4"
+        android:showDividers="middle">
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Name"
-                android:id="@+id/TV_display_name_user_setting"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
-
+                android:padding="10dp"
+                android:text="계정설정"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_span="5"/>
+        </TableRow>
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Email"
-                android:id="@+id/TV_display_email_user_setting"
-                android:layout_below="@+id/TV_display_name_user_setting"
-                android:layout_alignStart="@+id/TV_display_name_user_setting"
-                android:layout_marginBottom="8dp" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ET_name_user_setting"
-                android:text="userID"
-                android:ems="10"
-                android:layout_alignBottom="@+id/TV_display_name_user_setting"
-                android:layout_alignParentEnd="true"
-                android:inputType="none"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ET_mail_user_setting"
-                android:text="userEmail"
-                android:ems="10"
-                android:layout_below="@+id/ET_name_user_setting"
-                android:layout_alignParentEnd="true"
-                android:inputType="none"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ET_changepass_user_setting"
-                android:hint="Long Press to Change Password"
-                android:layout_below="@+id/TV_display_email_user_setting"
-                android:layout_alignStart="@+id/TV_display_email_user_setting"
-                android:layout_alignParentEnd="true"
-                android:inputType="none"/>
-
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Notification"
-            android:id="@+id/TV_display_notification_user_setting"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/IB_expand_user_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/abc_btn_radio_to_on_mtrl_015"/>
-
-            <ExpandableListView
-                android:id="@+id/ELV_notification_list_user_setting"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:groupIndicator="@null"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Set Floating Button"
-            android:id="@+id/TV_display_floating_user_setting"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"/>
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hide Out-App Floating Head"
-            android:id="@+id/CB_floating_user_setting"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="10dp"
-            android:checked="false" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LOG OUT"
-                android:id="@+id/B_logout_user_setting"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="QUIT"
-                android:id="@+id/B_signdown_user_setting"
-                android:layout_below="@+id/B_logout_user_setting"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <!--회원탈퇴, 로그아웃 위젯-->
-
+                android:padding="10dp"
+                android:text="이름"/>
+            <TextView
+                android:id="@+id/TV_user_name_user_setting"
+                android:padding="10dp"
+                android:text="이름"
+                android:gravity="end"
+                android:layout_span="4"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:padding="10dp"
+                android:text="계정"/>
+            <TextView
+                android:id="@+id/TV_user_id_user_setting"
+                android:padding="10dp"
+                android:text="계정"
+                android:gravity="end"
+                android:layout_span="4"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:padding="10dp"
+                android:text="로그아웃"
+                android:layout_span="5"/>
+            <TextView />
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:padding="10dp"
+                android:text="박스 알람 설정"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_span="5"/>
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

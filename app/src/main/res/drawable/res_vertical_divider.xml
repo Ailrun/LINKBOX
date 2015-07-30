@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<clip xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- divider start -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="3dp"
         android:background="@color/indigo500"/>
     <!-- divider end -->
-</selector>
+</clip>

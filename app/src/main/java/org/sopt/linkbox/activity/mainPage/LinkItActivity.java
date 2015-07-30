@@ -2,7 +2,6 @@ package org.sopt.linkbox.activity.mainPage;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,9 +21,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
-import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 
 import java.io.File;
@@ -38,15 +35,13 @@ import java.util.Date;
 public class LinkItActivity extends Activity {
     private static final String TAG = "TEST/" + LinkItActivity.class.getName();
 
-    private Spinner spBox = null;
+    private Spinner sBox = null;
     private ImageView ivThumb = null;
     private EditText etName = null;
-    private Button btLinkit = null, btCancel = null;
+    private Button bLinkit = null, bCancel = null;
 
-    private String boxName = null;
     private UrlListData urlListData = null;
-
-    private SharedPreferences sharedPreferences = null;
+    private int checkedBox = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,12 +87,10 @@ public class LinkItActivity extends Activity {
         }
     }
     private void initData() {
-        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrKey, 0);
         urlListData = new UrlListData();
     }
     private void initView() {
-        spBox = (Spinner) findViewById(R.id.SP_box_link_it);
+        sBox = (Spinner) findViewById(R.id.S_box_link_it);
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
             urlListData.url = intent.getStringExtra(Intent.EXTRA_TEXT);
@@ -108,11 +101,11 @@ public class LinkItActivity extends Activity {
         }
         etName = (EditText) findViewById(R.id.ET_name_link_it);
         etName.setHint(urlListData.url);
-        btLinkit = (Button) findViewById(R.id.BT_linkit_link_it);
-        btCancel = (Button) findViewById(R.id.BT_cancel_link_it);
+        bLinkit = (Button) findViewById(R.id.B_linkit_link_it);
+        bCancel = (Button) findViewById(R.id.B_cancel_link_it);
     }
     private void initListener() {
-        spBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        sBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 boxCheck(adapterView, i);
@@ -124,15 +117,10 @@ public class LinkItActivity extends Activity {
             }
 
             private void boxCheck(AdapterView<?> adapterView, int i) {
-                BoxListData boxListData = (BoxListData) adapterView.getItemAtPosition(i);
-                if (boxListData != null) {
-                    boxName = boxListData.boxName;
-                } else {
-                    boxName = "";
-                }
+                checkedBox = i;
             }
         });
-        btLinkit.setOnClickListener(new View.OnClickListener() {
+        bLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 urlListData.urlTitle = etName.getText().toString();
@@ -142,7 +130,7 @@ public class LinkItActivity extends Activity {
                 finish();
             }
         });
-        btCancel.setOnClickListener(new View.OnClickListener() {
+        bCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -153,6 +141,6 @@ public class LinkItActivity extends Activity {
         LinkBoxController.linkItBoxListAdapter =
                 new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
-        spBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
+        sBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
     }
 }

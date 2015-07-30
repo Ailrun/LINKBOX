@@ -2925,8 +2925,8 @@ containing a value of this type.
         public static final int ACT_usremail_main=0x7f0d00a1;
         public static final int AC_email_signup=0x7f0d00a6;
         public static final int AC_password_confirm_signup=0x7f0d00a9;
-        public static final int BT_cancel_link_it=0x7f0d009f;
-        public static final int BT_linkit_link_it=0x7f0d00a0;
+        public static final int B_cancel_link_it =0x7f0d009f;
+        public static final int B_linkit_link_it =0x7f0d00a0;
         public static final int B_login_main=0x7f0d00a4;
         public static final int B_logout_user_setting=0x7f0d00b7;
         public static final int B_signdown_user_setting=0x7f0d00b8;
@@ -2967,7 +2967,7 @@ containing a value of this type.
         public static final int LV_url_list_link_box=0x7f0d0097;
         public static final int RL_header_button_link_box=0x7f0d00cf;
         public static final int SL_swape_link_box=0x7f0d00d8;
-        public static final int SP_box_link_it=0x7f0d009e;
+        public static final int S_box_link_it =0x7f0d009e;
         public static final int TV_box_name_editor_list=0x7f0d0091;
         public static final int TV_box_name_link_box=0x7f0d00c0;
         public static final int TV_box_name_link_it=0x7f0d00c4;

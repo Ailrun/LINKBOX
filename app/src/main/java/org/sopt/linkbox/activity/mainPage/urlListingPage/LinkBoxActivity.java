@@ -84,7 +84,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     private DrawerLayout dlBoxList = null;
     private ActionBarDrawerToggle abBoxList = null;
 
-    private SharedPreferences sharedPreferences = null;
+    private SharedPreferences spProfile = null;
 
     private IabHelper iabHelper = null;
     private String base64EncodedPublicKey = null;
@@ -152,7 +152,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             iabHelper.dispose();
         }
         iabHelper = null;
-//        if (sharedPreferences.getBoolean("floating", true)) {
+//        if (spProfile.getBoolean("floating", true)) {
 //            startService(new Intent(getApplicationContext(), LinkHeadService.class));
 //        }
 }
@@ -168,7 +168,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        initInAppData();
 
         //other data init;
-        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
+        spProfile = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrKey, 0);
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);    // TODO : This needs cleanup
         initUrlDummyData();

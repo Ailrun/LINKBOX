@@ -1,6 +1,5 @@
 package org.sopt.linkbox.activity.mainPage.editorPage;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +13,6 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.helper.SessionSaver;
-import org.sopt.linkbox.service.LinkHeadService;
 
 
 public class BoxEditorAdd extends AppCompatActivity {
@@ -22,7 +20,7 @@ public class BoxEditorAdd extends AppCompatActivity {
     private EditText etEmail = null;
     private TextView tvMessage = null;
 
-    private SharedPreferences sharedPreferences = null;
+    private SharedPreferences spUserSettings = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +62,7 @@ public class BoxEditorAdd extends AppCompatActivity {
     }
 
     private void initData() {
-        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
+        spUserSettings = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.userData.usrKey, 0);
     }
     private void initView() {

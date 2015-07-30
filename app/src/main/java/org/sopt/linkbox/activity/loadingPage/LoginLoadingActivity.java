@@ -37,8 +37,8 @@ public class LoginLoadingActivity extends Activity {
     private String usrPassword = null;
     private boolean facebook = false;
 
-    private SharedPreferences sharedPreferences = null;
-    private SharedPreferences.Editor editor = null;
+    private SharedPreferences spProfile = null;
+    private SharedPreferences.Editor speProfile = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +72,9 @@ public class LoginLoadingActivity extends Activity {
         usrProfile = intent.getStringExtra(LoginStrings.usrProfile);
         usrPassword = intent.getStringExtra(LoginStrings.usrPassword);
         facebook = intent.getBooleanExtra(LoginStrings.facebook, false);
-        // TODO : LOOK UP FOR sharedPreferences. Sharedpreference interacts with the phone's cache. If the value is true, Auto login is activated.
-        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
-        editor = sharedPreferences.edit();
+        // TODO : LOOK UP FOR Sharedpreference. Sharedpreference interacts with the phone's cache. If the value is true, Auto login is activated.
+        spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
+        speProfile = spProfile.edit();
     }
     private void initView() {
     }
@@ -93,8 +93,8 @@ public class LoginLoadingActivity extends Activity {
             if (wrappedUserData.result) {   // Checks if the value for id and password exists in the server database
                 UserData userData = wrappedUserData.object;
                 LinkBoxController.userData = userData;
-                editor.putString(LoginStrings.usrID, userData.usrID);
-                editor.putString(LoginStrings.usrPassword, userData.usrPassword);
+                speProfile.putString(LoginStrings.usrID, userData.usrID);
+                speProfile.putString(LoginStrings.usrPassword, userData.usrPassword);
                 mainServerWrapper.getBoxListAsync(new BoxLoadingCallback());
             }
             else {
@@ -114,8 +114,8 @@ public class LoginLoadingActivity extends Activity {
                 UserData userData = wrappedUserData.object;
                 LinkBoxController.userData = userData;
                 Log.d(TAG, userData.toString() + " ");
-                editor.putString(LoginStrings.usrID, userData.usrID);
-                editor.putString(LoginStrings.usrPassword, userData.usrPassword);
+                speProfile.putString(LoginStrings.usrID, userData.usrID);
+                speProfile.putString(LoginStrings.usrPassword, userData.usrPassword);
                 mainServerWrapper.getBoxListAsync(new BoxLoadingCallback());
             }
             else {

@@ -36,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
     private Button bLogin = null;
     private LoginButton lbFacebookLogin = null;
 
-    private SharedPreferences sharedPreferences = null; // 02 Save preference or use preference that is saved. Bunched up data
-    private SharedPreferences.Editor editor = null;
+    private SharedPreferences spProfile = null; // 02 Save preference or use preference that is saved. Bunched up data
+    private SharedPreferences.Editor speProfile = null;
     private CallbackManager callbackManager = null;
 
     @Override
@@ -72,12 +72,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
-        editor = sharedPreferences.edit();  // 03 Shared preference cannot edit data.
+        spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
+        speProfile = spProfile.edit();  // 03 Shared preference cannot edit data.
     }
     private void initAutoLogin() {
-        String usremail = sharedPreferences.getString(LoginStrings.usrID, "");
-        String pass = sharedPreferences.getString(LoginStrings.usrPassword, "");
+        String usremail = spProfile.getString(LoginStrings.usrID, "");
+        String pass = spProfile.getString(LoginStrings.usrPassword, "");
         if (!usremail.equals("") && !pass.equals("")) {
             loginLoading(usremail, pass);
         }
