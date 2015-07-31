@@ -3,39 +3,38 @@
     android:id="@+id/SL_swape_link_box"
     android:layout_width="match_parent"
     android:layout_height="88dp">
-    <RelativeLayout
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="end"
+        android:stretchColumns="1,2,3"
         android:background="@color/indigo200">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/IB_delete_link_box">
-        </LinearLayout>
-        <ImageButton
-            android:id="@+id/IB_delete_link_box"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toStartOf="@+id/IB_edit_link_box"
-            android:background="@color/indigo200"
-            android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
-        <ImageButton
-            android:id="@+id/IB_edit_link_box"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_toStartOf="@+id/IB_share_link_box"
-            android:background="@color/indigo200"
-            android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
-        <ImageButton
-            android:id="@+id/IB_share_link_box"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:background="@color/indigo200"
-            android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
-    </RelativeLayout>
+        <TableRow
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/IB_delete_link_box"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/indigo200"
+                android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
+            <ImageButton
+                android:id="@+id/IB_edit_link_box"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/indigo200"
+                android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
+            <ImageButton
+                android:id="@+id/IB_share_link_box"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/indigo200"
+                android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
+        </TableRow>
+    </TableLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="88dp"

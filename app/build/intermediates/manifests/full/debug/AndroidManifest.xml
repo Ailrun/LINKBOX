@@ -84,7 +84,14 @@
         <activity
             android:name="org.sopt.linkbox.activity.loginPage.LoginActivity"
             android:label="@string/title_activity_login"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:parentActivityName="org.sopt.linkbox.activity.loginPage.AccountActivity" >
+        </activity>
+        <activity
+            android:name="org.sopt.linkbox.activity.loginPage.SignupActivity"
+            android:label="@string/title_activity_signup"
+            android:launchMode="singleTask"
+            android:parentActivityName="org.sopt.linkbox.activity.loginPage.AccountActivity" >
         </activity>
 
         <!-- 아래 부분은 SDK 4.0.0 버전 이후로설정해줘야 하는 부분으로 가이드 라인에 나와있습니다 -->
@@ -136,10 +143,6 @@
                     android:host="http"
                     android:mimeType="text/plain" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="org.sopt.linkbox.activity.loginPage.SignupActivity"
-            android:label="@string/title_activity_signup" >
         </activity>
         <activity
             android:name="org.sopt.linkbox.activity.loginPage.FacebookDataActivity"

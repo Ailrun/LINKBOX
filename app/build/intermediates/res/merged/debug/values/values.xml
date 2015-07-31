@@ -405,6 +405,9 @@
     <!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.5.0/res/values/version.xml -->
     <eat-comment/>
     <integer name="google_play_services_version">7571000</integer>
+    <!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/src/main/res/values/actions.xml -->
+    <eat-comment/>
+    <integer name="login">0</integer>
     <!-- From: file:/C:/Users/Junyoung/Downloads/LINKBOX/app/build/intermediates/exploded-aar/com.android.support/design/22.2.0/res/values/values.xml -->
     <eat-comment/>
     <integer name="snackbar_text_max_lines">2</integer>
