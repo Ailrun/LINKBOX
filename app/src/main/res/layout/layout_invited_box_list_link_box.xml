@@ -1,0 +1,57 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:scrollbars="none">
+
+    <android.support.v7.widget.CardView
+        xmlns:card_view = "http://schemas.android.com/apk/res-auto"
+        android:layout_width="170dp"
+        android:layout_height="235dp"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="2dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:id="@+id/invited_box_layout">
+
+            <TextView
+                android:id="@+id/invited_box_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/invited_box_image"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:layout_gravity="bottom"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:background="@drawable/invited_box_agree_button"
+                    android:layout_width="85dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/agree_btn" />
+
+                <ImageView
+                    android:background="@drawable/invited_box_disagree_button"
+                    android:layout_width="85dp"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/agree_btn"
+                    android:id="@+id/disagree_btn" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>
