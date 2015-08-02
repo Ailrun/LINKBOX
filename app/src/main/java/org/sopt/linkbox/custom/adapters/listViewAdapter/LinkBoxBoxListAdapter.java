@@ -54,7 +54,7 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
         TextView tvUrlNumber = ViewHolder.get(view, R.id.TV_url_number_link_box);
         tvBoxName.setText(boxListData.boxName);
-        tvUrlNumber.setText(boxListData.boxUrlNum);
+        tvUrlNumber.setText("" + boxListData.boxUrlNum);
         return view;
     }
 }

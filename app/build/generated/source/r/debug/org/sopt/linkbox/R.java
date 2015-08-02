@@ -2913,13 +2913,14 @@ containing a value of this type.
         public static final int mr_ic_play_light=0x7f0200b4;
         public static final int mr_ic_settings_dark=0x7f0200b5;
         public static final int mr_ic_settings_light=0x7f0200b6;
-        public static final int notification_template_icon_bg=0x7f0200bd;
+        public static final int notification_template_icon_bg=0x7f0200be;
         public static final int powered_by_google_dark=0x7f0200b7;
         public static final int powered_by_google_light=0x7f0200b8;
         public static final int pro=0x7f0200b9;
-        public static final int res_vertical_divider=0x7f0200ba;
-        public static final int snackbar_background=0x7f0200bb;
-        public static final int splash=0x7f0200bc;
+        public static final int res_indigo500_vertical_divider=0x7f0200ba;
+        public static final int res_white_vertical_divider=0x7f0200bb;
+        public static final int snackbar_background=0x7f0200bc;
+        public static final int splash=0x7f0200bd;
     }
     public static final class id {
         public static final int B_cancel_link_it=0x7f0d00a2;

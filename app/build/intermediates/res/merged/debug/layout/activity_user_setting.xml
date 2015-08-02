@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:stretchColumns="0,1,2,3,4"
-        android:showDividers="middle"
         android:background="@color/real_white">
         <TableRow>
             <TextView
@@ -19,36 +18,41 @@
                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_span="5"/>
         </TableRow>
-        <TableRow>
-            <TextView
-                android:padding="10dp"
-                android:text="이름"/>
-            <TextView
-                android:id="@+id/TV_user_name_user_setting"
-                android:padding="10dp"
-                android:text="이름"
-                android:gravity="end"
-                android:layout_span="4"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:padding="10dp"
-                android:text="계정"/>
-            <TextView
-                android:id="@+id/TV_user_id_user_setting"
-                android:padding="10dp"
-                android:text="계정"
-                android:gravity="end"
-                android:layout_span="4"/>
-        </TableRow>
-        <TableRow>
-            <TextView
-                android:id="@+id/TV_logout_user_setting"
-                android:padding="10dp"
-                android:text="로그아웃"
-                android:layout_span="5"/>
-            <TextView />
-        </TableRow>
+        <TableLayout
+            android:stretchColumns="0,1,2,3,4"
+            android:divider="@drawable/res_indigo500_vertical_divider"
+            android:showDividers="beginning">
+            <TableRow>
+                <TextView
+                    android:padding="10dp"
+                    android:text="이름"/>
+                <TextView
+                    android:id="@+id/TV_user_name_user_setting"
+                    android:padding="10dp"
+                    android:text="이름"
+                    android:gravity="end"
+                    android:layout_span="4"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:padding="10dp"
+                    android:text="계정"/>
+                <TextView
+                    android:id="@+id/TV_user_id_user_setting"
+                    android:padding="10dp"
+                    android:text="계정"
+                    android:gravity="end"
+                    android:layout_span="4"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:id="@+id/TV_logout_user_setting"
+                    android:padding="10dp"
+                    android:text="로그아웃"
+                    android:layout_span="5"/>
+                <TextView />
+            </TableRow>
+        </TableLayout>
         <TableRow>
             <TextView
                 android:padding="10dp"

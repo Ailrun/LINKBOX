@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="line">
+    <!-- divider start -->
+    <stroke
+        android:color="@color/real_white"
+        android:width="3dp"/>
+    <!-- divider end -->
+</shape>

@@ -1,5 +1,7 @@
 package org.sopt.linkbox.custom.data.mainData;
 
+import java.util.List;
+
 /**
  * Created by Junyoung on 2015-07-06.
  *
@@ -11,17 +13,17 @@ public class UrlListData {
     public String urlWriterUsrName;
     public String urlDate;
     public String urlThumbnail;
-    public GoodData goodData;
+    public int isGood;
     public int goodNum;
-    public String urlTags;
+    public List<String> urlTags;
     @Override
     public String toString(){
         return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle
                 +", urlWriterUsrName="+ urlWriterUsrName +", urlDate="+ urlDate +", urlThumbnail"+ urlThumbnail
-                + ((goodData == null)?"": goodData.toString());
+                + (isGood==0?"True":"False") + "goodNum=" + goodNum;
     }
     public String getTag(int i)
     {
-        return null;
+        return urlTags.get(i);
     }
 }
