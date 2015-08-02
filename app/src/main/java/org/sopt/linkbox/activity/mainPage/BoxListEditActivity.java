@@ -13,7 +13,7 @@ import org.sopt.linkbox.custom.data.mainData.BoxListData;
 
 public class BoxListEditActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
-    private GridView lvGrid = null;
+    private GridView gvBoxList = null;
 
 
     @Override
@@ -45,17 +45,18 @@ public class BoxListEditActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        // tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
-        // setSupportActionBar(tToolbar);
+        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
+        setSupportActionBar(tToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        lvGrid = (GridView) findViewById(R.id.grid_view);
+        gvBoxList = (GridView) findViewById(R.id.box_grid_view);
     }
 
     private void initControl() {
+
         LinkBoxController.boxEditBoxListAdapter =
                 new BoxEditBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
 
-        lvGrid.setAdapter(LinkBoxController.boxEditBoxListAdapter);
+        gvBoxList.setAdapter(LinkBoxController.boxEditBoxListAdapter);
     }
 
 }

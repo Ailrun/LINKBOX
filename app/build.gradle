@@ -3,7 +3,7 @@ apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "22.0.1"
+    buildToolsVersion '21.1.2'
     defaultConfig {
         applicationId "org.sopt.linkbox"
         minSdkVersion 18
@@ -42,5 +42,5 @@ dependencies {
     compile 'org.asynchttpclient:async-http-client-project:2.0.0-alpha8'
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.android.support:support-v4:22.2.0'
-    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
 }
