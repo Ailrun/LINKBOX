@@ -50,7 +50,7 @@ public class BoxListEditActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        lvGrid = (GridView) findViewById(R.id.grid_view);
+        gvBoxList = (GridView) findViewById(R.id.grid_view);
     }
 
     private void initControl() {
