@@ -5,6 +5,7 @@ import android.app.Application;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditInvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
@@ -57,10 +58,12 @@ public class LinkBoxController extends Application {
     }
 
     public static ArrayList<BoxListData> boxListSource = null;
+    public static ArrayList<BoxListData> invitedBoxListSource = null;   // Added for invited box list
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
     public static BoxEditBoxListAdapter boxEditBoxListAdapter = null;
+    public static BoxEditInvitedBoxListAdapter boxEditInvitedBoxListAdapter = null; // Added for invited box list Adapter
 
     public static void notifyBoxDataSetChanged() {
         if (linkBoxBoxListAdapter != null) {
@@ -78,16 +81,19 @@ public class LinkBoxController extends Application {
     }
 
 
-    public static BoxListData currentBox = null;
+    public static BoxListData currentBox = null;    // TODO : Current box must be filled whenever box is pressed
+    // public static BoxListData currentInvitedBox = null;
 
     public static ArrayList<UrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
+    // TODO : VERIFY DEPRECATED
+    /*
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.notifyDataSetChanged();
         }
     }
-
+    */
 
     public static ArrayList<UserData> editorListSource = null;
     public static LinkEditorListAdapter linkEditorListAdapter = null;

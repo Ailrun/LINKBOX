@@ -9,10 +9,11 @@ import android.widget.GridView;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 
 public class BoxListEditActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
-    private GridView lvGrid = null;
+    private GridView gvBoxList = null;
 
 
     @Override
@@ -44,8 +45,8 @@ public class BoxListEditActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        // tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
-        // setSupportActionBar(tToolbar);
+        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
+        setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -56,7 +57,7 @@ public class BoxListEditActivity extends AppCompatActivity {
         LinkBoxController.boxEditBoxListAdapter =
                 new BoxEditBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
 
-        lvGrid.setAdapter(LinkBoxController.boxEditBoxListAdapter);
+        gvBoxList.setAdapter(LinkBoxController.boxEditBoxListAdapter);
     }
 
 }

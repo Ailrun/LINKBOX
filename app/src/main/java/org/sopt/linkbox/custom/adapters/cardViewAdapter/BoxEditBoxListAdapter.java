@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
@@ -55,18 +56,53 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
-        BoxListData boxListData = (BoxListData) getItem(i);
-        TextView tvBoxName = ViewHolder.get(view, R.id.info_text1);
-        ImageView tvBoxImage = ViewHolder.get(view, R.id.some_image1);  // TODO : Unfinished. Needs to import data
+        final BoxListData boxListData = (BoxListData) getItem(i);
+        TextView tvBoxName = ViewHolder.get(view, R.id.box_title);
+        ImageView tvBoxImage = ViewHolder.get(view, R.id.box_image);  // TODO : Unfinished. Needs to import data
         tvBoxName.setText(boxListData.boxName);
         tvBoxImage.setImageBitmap(null);    // TODO : Unfinished
+
+        ImageView favoriteBtn = (ImageView) view.findViewById(R.id.favorite_btn);
+        ImageView modifyBtn = (ImageView) view.findViewById(R.id.modify_btn);
+        ImageView deleteBtn = (ImageView) view.findViewById(R.id.delete_btn);
+
+        // LinkBoxController.currentBox = boxListData;
+        // TODO : Give via Intent
+        // TODO : Fill Controller currentBox
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                Log.e(TAG, "");
+                Log.d(TAG, "");
             }
         });
+
+        favoriteBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.e("RESPONSE", "Favorite");
+            }
+        });
+        modifyBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.e("RESPONSE", "Modify");
+            }
+        });
+        deleteBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Log.e("RESPONSE", "Delete");
+            }
+        });
+
+        tvBoxImage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                LinkBoxController.currentBox =  boxListData;
+            }
+        });
+
         return view;
     }
 }
