@@ -193,7 +193,7 @@
             android:launchMode="singleTask" >
         </activity>
         <activity
-            android:name=".activity.mainPage.BoxListEditActivity"
+            android:name=".activity.mainPage.boxListPage.BoxListEditActivity"
             android:label="@string/title_activity_box_list_edit" >
         </activity>
         <activity

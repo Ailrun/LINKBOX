@@ -1,4 +1,4 @@
-package org.sopt.linkbox.activity.mainPage;
+package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,19 +9,17 @@ import android.widget.GridView;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditInvitedBoxListAdapter;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 
-/**
- * Created by MinGu on 2015-08-02.
- */
-public class InvitedBoxActivity extends AppCompatActivity {
+public class BoxListEditActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
     private GridView gvBoxList = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_box_invited_list);
+        setContentView(R.layout.activity_box_list_edit);
 
         initView();
         initControl();
@@ -49,15 +47,17 @@ public class InvitedBoxActivity extends AppCompatActivity {
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
         setSupportActionBar(tToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        gvBoxList = (GridView) findViewById(R.id.invited_box_grid_view);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        gvBoxList = (GridView) findViewById(R.id.GV_box_box_list_edit);
     }
 
     private void initControl() {
-        LinkBoxController.boxEditInvitedBoxListAdapter =
-                new BoxEditInvitedBoxListAdapter(getApplicationContext(), LinkBoxController.invitedBoxListSource);
+        LinkBoxController.boxEditBoxListAdapter =
+                new BoxEditBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
 
-        gvBoxList.setAdapter(LinkBoxController.boxEditInvitedBoxListAdapter);
+        gvBoxList.setAdapter(LinkBoxController.boxEditBoxListAdapter);
     }
 
 }

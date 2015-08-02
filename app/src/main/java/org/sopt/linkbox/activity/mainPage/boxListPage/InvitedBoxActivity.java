@@ -1,4 +1,4 @@
-package org.sopt.linkbox.activity.mainPage;
+package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +9,19 @@ import android.widget.GridView;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
-import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditInvitedBoxListAdapter;
 
-public class BoxListEditActivity extends AppCompatActivity {
+/**
+ * Created by MinGu on 2015-08-02.
+ */
+public class InvitedBoxActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
     private GridView gvBoxList = null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_box_list_edit);
+        setContentView(R.layout.activity_box_invited_list);
 
         initView();
         initControl();
@@ -50,14 +52,14 @@ public class BoxListEditActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        gvBoxList = (GridView) findViewById(R.id.grid_view);
+        gvBoxList = (GridView) findViewById(R.id.GV_invite_box_invite_list);
     }
 
     private void initControl() {
-        LinkBoxController.boxEditBoxListAdapter =
-                new BoxEditBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
+        LinkBoxController.boxEditInvitedBoxListAdapter =
+                new BoxEditInvitedBoxListAdapter(getApplicationContext(), LinkBoxController.invitedBoxListSource);
 
-        gvBoxList.setAdapter(LinkBoxController.boxEditBoxListAdapter);
+        gvBoxList.setAdapter(LinkBoxController.boxEditInvitedBoxListAdapter);
     }
 
 }
