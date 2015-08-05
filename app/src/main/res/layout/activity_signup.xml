@@ -22,13 +22,13 @@
             >
             <Button
 
-                android:layout_width="50dp"
+                android:layout_width="45dp"
                 android:layout_height="24dp"
 
                 android:layout_alignParentEnd="true"
                 android:background="?android:attr/selectableItemBackground"
                 android:text="로그인"
-                android:gravity="center"
+                android:gravity="center_vertical|end"
                 android:textSize="14.5dp"
                 android:textColor="@color/teala400"
                 />
