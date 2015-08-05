@@ -14,7 +14,7 @@
         <include
             android:id="@+id/T_toolbar_link_box"
             layout="@layout/layout_toolbar"/>
-        <ListView
+        <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/LV_url_list_link_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

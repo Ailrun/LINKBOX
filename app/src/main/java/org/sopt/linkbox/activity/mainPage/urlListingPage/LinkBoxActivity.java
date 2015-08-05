@@ -28,6 +28,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -40,6 +42,7 @@ import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapt
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.helper.SessionSaver;
+import org.sopt.linkbox.custom.network.MainServerWrapper;
 import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
@@ -64,6 +67,8 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private InputMethodManager immLinkBox = null;
     private LayoutInflater layoutInflater = null;
+
+    private MainServerWrapper mainServerWrapper = null;
     //toolbar layout
     private Toolbar tToolbar = null;
     //main layout
@@ -73,6 +78,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     private ImageView ivProfile = null;
     private TextView tvBoxNumber = null;
     private ListView lvBoxList = null;
+    private PullToRefreshListView pullToRefreshView = null;
     private LinearLayout llBoxHeaderViewButton = null;
     private Button rlHeaderButton = null;
     private LinearLayout llBoxHeaderViewEdit = null;
@@ -95,7 +101,8 @@ public class LinkBoxActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
-        Log.d(TAG, "num="+ LinkBoxController.urlListSource.size());
+        Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
+        initInterface();
         initPush();
         initData();
         initView();
@@ -157,6 +164,9 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        }
 }
 
+    private void initInterface() {
+        mainServerWrapper = new MainServerWrapper();
+    }
     private void initPush() {
         if (isGoogleServiceAvailable()) {
             Intent intent = new Intent(this, LinkRegistrationService.class);
@@ -260,14 +270,21 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
 
     private void initMainView() {
-        lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
+        pullToRefreshView = (PullToRefreshListView) findViewById(R.id.LV_url_list_link_box);
+        //lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
 //        ViewGroup viewGroup = (ViewGroup) lvUrlList.getParent();
 //        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
 //        viewGroup.addView(llUrlEmptyView);
 //        lvUrlList.setEmptyView(llUrlEmptyView);
     }
     private void initMainListener() {
-        lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        pullToRefreshView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                // Do work to refresh the list here.
+            }
+        });
+       /* lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
             }
@@ -285,7 +302,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onScroll(AbsListView absListView, int i, int i2, int i3) {
             }
-        });
+        });*/
     }
 
     private void initDrawerView() {
