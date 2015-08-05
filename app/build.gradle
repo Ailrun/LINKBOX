@@ -43,4 +43,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.0'
     compile 'com.android.support:support-v4:22.2.0'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.navercorp.pulltorefresh:library:3.2.0@aar'
 }
