@@ -18,17 +18,28 @@
         android:layout_margin="10dp"
         android:background="@drawable/account_facebook_login_resting"/>
     <ImageButton
-        android:id="@+id/IB_login_account"
+
         android:layout_width="200dp"
         android:layout_height="36dp"
         android:adjustViewBounds="true"
         android:layout_margin="10dp"
         android:background="@drawable/account_login_resting"/>
-    <ImageButton
-        android:id="@+id/IB_signup_account"
+
+    <RelativeLayout
         android:layout_width="200dp"
         android:layout_height="36dp"
-        android:adjustViewBounds="true"
-        android:layout_margin="10dp"
-        android:background="@drawable/account_sign_up_resting"/>
+        >
+        <ImageButton
+            android:id="@+id/IB_login_account"
+            android:layout_width="95dp"
+            android:layout_height="36dp"
+            android:layout_alignParentStart="true"
+            />
+        <ImageButton
+            android:id="@+id/IB_signup_account"
+            android:layout_width="95dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            />
+    </RelativeLayout>
 </LinearLayout>
