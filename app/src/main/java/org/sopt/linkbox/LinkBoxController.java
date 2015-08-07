@@ -1,6 +1,7 @@
 package org.sopt.linkbox;
 
 import android.app.Application;
+import android.content.IntentSender;
 
 import com.squareup.okhttp.OkHttpClient;
 

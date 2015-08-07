@@ -3,7 +3,14 @@
     android:minHeight="?android:attr/actionBarSize"
     android:background="@color/indigo500"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="56dp"
     android:paddingEnd="15dp"
     android:gravity="center_vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스타트업 정보"
+        android:textSize="20dp"
+        android:textColor="@color/real_white"
+        android:layout_marginBottom="16dp"/>
 </android.support.v7.widget.Toolbar>

@@ -10,17 +10,20 @@ public class UrlListData {
     public int urlKey;
     public String url;
     public String urlTitle;
+    public int urlWriterUsrKey;
     public String urlWriterUsrName;
     public String urlDate;
     public String urlThumbnail;
-    public int isGood;
+    public char good;
+    public char hidden;
+    public char readLater;
     public int goodNum;
     public List<String> urlTags;
     @Override
     public String toString(){
         return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle
                 +", urlWriterUsrName="+ urlWriterUsrName +", urlDate="+ urlDate +", urlThumbnail"+ urlThumbnail
-                + (isGood==0?"True":"False") + "goodNum=" + goodNum;
+                + (good==0?"True":"False") + "goodNum=" + goodNum;
     }
     public String getTag(int i)
     {
