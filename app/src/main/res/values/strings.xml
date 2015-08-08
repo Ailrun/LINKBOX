@@ -10,4 +10,5 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_link_home">LinkHomeActivity</string>
+    <string name="password_check">Password Check</string>
 </resources>

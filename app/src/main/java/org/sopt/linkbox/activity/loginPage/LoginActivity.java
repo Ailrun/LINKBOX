@@ -1,10 +1,12 @@
 package org.sopt.linkbox.activity.loginPage;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -20,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
     private EditText etEmail = null;
     private EditText etPass = null;
-    private ImageButton ibLogin = null;
+    private Button bLogin = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +45,16 @@ public class LoginActivity extends AppCompatActivity {
         }
         etEmail = (EditText) findViewById(R.id.ET_email_login);
         etPass = (EditText) findViewById(R.id.ET_password_login);
-        ibLogin = (ImageButton) findViewById(R.id.IB_login_login);
+        bLogin = (Button) findViewById(R.id.B_login_login);
+
+        Typeface typeface = Typeface.createFromAsset(getAssets(), "NotoSansKR-Regular-Hestia.otf");
+
+        etEmail.setTypeface(typeface);
+        etPass.setTypeface(typeface);
     }
+
     private void initListener() {
-        ibLogin.setOnClickListener(new View.OnClickListener() {
+        bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String usremail = etEmail.getText().toString();

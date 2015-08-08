@@ -302,7 +302,7 @@
         android:textColor="@color/real_black"/>
 
     <ListView
-        android:id="@+id/LV_favorite_box_link-box"
+        android:id="@+id/LV_favorite_box_link_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

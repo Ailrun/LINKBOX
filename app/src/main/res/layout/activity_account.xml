@@ -9,37 +9,59 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
         android:src="@drawable/account_image"/>
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/LB_login_account"
-        android:layout_width="200dp"
-        android:layout_height="36dp"
-        android:layout_margin="10dp"
-        android:background="@drawable/account_facebook_login_resting"/>
-    <ImageButton
 
+    <FrameLayout
+        android:layout_width="200dp"
+        android:layout_height="36dp">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/LB_login_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/B_facebook_login_account"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/custom_border"
+            android:text="페이스북으로 로그인"
+            android:textColor="@color/real_white"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/B_google_login_account"
         android:layout_width="200dp"
         android:layout_height="36dp"
-        android:adjustViewBounds="true"
         android:layout_margin="10dp"
-        android:background="@drawable/account_login_resting"/>
+        android:text="구글계정으로 로그인"
+        android:textColor="@color/real_white"
+        android:textStyle="bold"
+        android:background="@drawable/custom_border"/>
 
     <RelativeLayout
         android:layout_width="200dp"
-        android:layout_height="36dp"
-        >
-        <ImageButton
-            android:id="@+id/IB_login_account"
+        android:layout_height="36dp">
+
+        <Button
+            android:id="@+id/B_login_account"
             android:layout_width="95dp"
             android:layout_height="36dp"
-            android:layout_alignParentStart="true"
-            />
-        <ImageButton
-            android:id="@+id/IB_signup_account"
+            android:text="로그인"
+            android:textColor="@color/real_white"
+            android:background="@drawable/custom_border"
+            android:layout_alignParentStart="true"/>
+        <Button
+            android:id="@+id/B_signup_account"
             android:layout_width="95dp"
             android:layout_height="36dp"
-            android:layout_alignParentEnd="true"
-            />
+            android:text="회원가입"
+            android:textColor="@color/real_white"
+            android:background="@drawable/custom_border"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 </LinearLayout>

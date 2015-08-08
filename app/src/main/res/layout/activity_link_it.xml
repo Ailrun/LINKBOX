@@ -180,6 +180,14 @@
             android:textColor="#25a599"/>
     </LinearLayout>
 -->
+    <ImageView
+        android:id="@+id/IV_thumb_link_it"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:background="@color/real_white" />
 
     <TextView
 
