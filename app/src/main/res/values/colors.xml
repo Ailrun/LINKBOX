@@ -12,6 +12,7 @@
     <color name="sky_blue">#33B5E5</color>
     <color name="teala400">#FF1DE9B6</color>
     <color name="teal400">#FF26a69a</color>
-    <color name="gray">#3a000000</color>
+    <color name="grey">#3a000000</color>
+    <color name="bright_grey">#FFFAFAFA</color>
 
 </resources>

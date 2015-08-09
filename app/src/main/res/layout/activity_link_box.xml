@@ -17,11 +17,12 @@
         <com.handmark.pulltorefresh.library.PullToRefreshListView
             android:id="@+id/LV_url_list_link_box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:background="@color/bright_grey"/>
     </LinearLayout>
     <include
         android:id="@+id/D_box_list_link_box"
-        android:layout_width="240dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         layout="@layout/layout_drawer_link_box"

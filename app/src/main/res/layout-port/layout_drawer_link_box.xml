@@ -1,211 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--뻘짓
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
-    android:layout_height="match_parent"
-    android:background="#FFFFFFFF"
-    android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/indigo500">
-        <ImageView
-            android:id="@+id/IV_profile_link_box"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"/>
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/real_white"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="300dp">
-        <LinearLayout
-            android:id="@+id/LL_box_info_link_box"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@color/indigo500">
-            <View
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_margin="5dp"
-                android:background="@android:drawable/ic_menu_report_image"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text="내 박스"
-                android:textColor="#FFFFFFFF"/>
-            <TextView
-                android:id="@+id/TV_box_number_link_box"
-                android:layout_width="30dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:text=""
-                android:textColor="#FFEEEEFF"/>
-        </LinearLayout>
-        <ListView
-            android:id="@+id/LV_box_list_link_box"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/LL_box_info_link_box"/>
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/indigo500"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/B_to_settings_link_box"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="#FFFFFFFF"
-            android:text="설정"/>
-        <Button
-            android:id="@+id/B_to_premium_link_box"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_below="@+id/B_to_settings_link_box"
-            android:background="#FFFFFFFF"
-            android:text="프리미엄"/>
-    </RelativeLayout>
-
-</LinearLayout>
-
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="240dp"
-    android:layout_height="match_parent"
-    android:background="#FFFFFFFF"
-    android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:background="@color/indigo500"
-        android:padding="10dp"
-        >
-
-        <ImageView
-            android:id="@+id/IV_profile_link_box"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical"
-            >
-            <TextView
-                android:id="@+id/TV_drawer_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="이름"
-                android:textColor="@color/real_white"
-                />
-            <TextView
-                android:id="@+id/TV_drawer_mail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="이메일"
-                android:textColor="#8affffff"
-                />
-
-        </LinearLayout>
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/real_white"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="최근 링크"
-        android:textColor="@color/real_black"
-        android:gravity="start|center"
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="내 박스"
-        android:textColor="@color/real_black"
-        android:gravity="start|center"
-
-        />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:text="구매한 박스"
-        android:textColor="@color/real_black"
-        android:gravity="start|center"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gray"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="즐겨찾는 박스"
-        android:textSize="10dp"
-        android:textColor="@color/real_black"
-        />
-    <ListView
-        android:id="@+id/LV_box_list_link_box"
-        android:layout_marginStart="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/gray"
-        />
-    <Button
-        android:id="@+id/B_to_settings_link_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="start|center"
-        android:background="#FFFFFFFF"
-        android:text="설정"/>
-    <Button
-        android:id="@+id/B_to_premium_link_box"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:gravity="start|center"
-        android:layout_below="@+id/B_to_settings_link_box"
-        android:background="#FFFFFFFF"
-        android:text="프리미엄"/>
-
-</LinearLayout>
-    -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -215,8 +9,15 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="150dp"
         android:background="@color/indigo500">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/drawer_background"
+            android:scaleType="centerCrop"/>
+
         <ImageView
             android:id="@+id/IV_profile_link_box"
             android:layout_marginTop="15dp"
@@ -243,45 +44,69 @@
             android:paddingStart="15dp"
             android:textSize="12dp"
             android:textColor="#8affffff" />
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/TV_recent_link_box"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="최근 링크"
-            android:textStyle="bold"
-            android:paddingStart="18dp"
-            android:gravity="center_vertical"
-            android:textSize="18dp"
-            android:textColor="@color/real_black"
-            />
-        <TextView
-            android:id="@+id/TV_my_box_link_box"
+            android:layout_height="wrap_content"
+            android:id="@+id/RL_recent_link">
+
+            <TextView
+                android:id="@+id/TV_recent_link_box"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="최근 링크"
+                android:textStyle="bold"
+                android:paddingStart="18dp"
+                android:gravity="center_vertical"
+                android:textSize="18dp"
+                android:textColor="@color/real_black"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@id/TV_recent_link_box"
-            android:text="내 박스"
-            android:textStyle="bold"
-            android:paddingStart="18dp"
-            android:gravity="center_vertical"
-            android:textSize="18dp"
-            android:textColor="@color/real_black"/>
-        <TextView
-            android:id="@+id/TV_buyed_box_link_box"
+            android:layout_height="wrap_content"
+            android:id="@+id/RL_my_box"
+            android:layout_below="@id/RL_recent_link">
+
+            <TextView
+                android:id="@+id/TV_my_box_link_box"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="내 박스"
+                android:textStyle="bold"
+                android:paddingStart="18dp"
+                android:gravity="center_vertical"
+                android:textSize="18dp"
+                android:textColor="@color/real_black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_below="@id/TV_my_box_link_box"
-            android:text="구매한 박스"
-            android:textStyle="bold"
-            android:paddingStart="18dp"
-            android:gravity="center_vertical"
-            android:textSize="18dp"
-            android:textColor="@color/real_black"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/RL_buyed_box"
+            android:layout_below="@id/RL_my_box">
+
+            <TextView
+                android:id="@+id/TV_buyed_box_link_box"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="구매한 박스"
+                android:textStyle="bold"
+                android:paddingStart="18dp"
+                android:gravity="center_vertical"
+                android:textSize="18dp"
+                android:textColor="@color/real_black"/>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -289,7 +114,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray"/>
+        android:background="@color/grey"/>
     <!-- divider end -->
 
     <TextView
@@ -304,13 +129,13 @@
     <ListView
         android:id="@+id/LV_favorite_box_link_box"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="100dp"/>
 
     <!-- divider start -->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/gray"/>
+        android:background="@color/grey"/>
     <!-- divider end -->
 
     <RelativeLayout
@@ -322,19 +147,20 @@
             android:id="@+id/IV_setting_link_box"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="12dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/ic_drawer_setting"/>
 
         <TextView
             android:id="@+id/TV_setting_link_box"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/IV_setting_link_box"
             android:text="설정"
             android:textSize="20dp"
+            android:textStyle="normal"
             android:textColor="@color/real_black"/>
 
     </RelativeLayout>
@@ -348,21 +174,230 @@
             android:id="@+id/IV_help_link_box"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="12dp"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/ic_drawer_help"/>
 
         <TextView
             android:id="@+id/TV_help_link_box"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/IV_help_link_box"
             android:text="도움말"
             android:textSize="20dp"
+            android:textStyle="normal"
             android:textColor="@color/real_black"/>
 
     </RelativeLayout>
 
 </LinearLayout>
+
+    <!-- Other Implementation (deprecated, remained for reference)
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:background="#FFFFFFFF"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/indigo500">
+            <ImageView
+                android:id="@+id/IV_profile_link_box"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/real_white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <LinearLayout
+                android:id="@+id/LL_box_info_link_box"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@color/indigo500">
+                <View
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="5dp"
+                    android:background="@android:drawable/ic_menu_report_image"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="내 박스"
+                    android:textColor="#FFFFFFFF"/>
+                <TextView
+                    android:id="@+id/TV_box_number_link_box"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#FFEEEEFF"/>
+            </LinearLayout>
+            <ListView
+                android:id="@+id/LV_box_list_link_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/LL_box_info_link_box"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/indigo500"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/B_to_settings_link_box"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#FFFFFFFF"
+                android:text="설정"/>
+            <Button
+                android:id="@+id/B_to_premium_link_box"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_below="@+id/B_to_settings_link_box"
+                android:background="#FFFFFFFF"
+                android:text="프리미엄"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:background="#FFFFFFFF"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@color/indigo500"
+            android:padding="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/IV_profile_link_box"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                >
+                <TextView
+                    android:id="@+id/TV_drawer_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="이름"
+                    android:textColor="@color/real_white"
+                    />
+                <TextView
+                    android:id="@+id/TV_drawer_mail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="이메일"
+                    android:textColor="#8affffff"
+                    />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/real_white"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="최근 링크"
+            android:textColor="@color/real_black"
+            android:gravity="start|center"
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="내 박스"
+            android:textColor="@color/real_black"
+            android:gravity="start|center"
+
+            />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="구매한 박스"
+            android:textColor="@color/real_black"
+            android:gravity="start|center"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="즐겨찾는 박스"
+            android:textSize="10dp"
+            android:textColor="@color/real_black"
+            />
+        <ListView
+            android:id="@+id/LV_box_list_link_box"
+            android:layout_marginStart="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            />
+        <Button
+            android:id="@+id/B_to_settings_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="start|center"
+            android:background="#FFFFFFFF"
+            android:text="설정"/>
+        <Button
+            android:id="@+id/B_to_premium_link_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:gravity="start|center"
+            android:layout_below="@+id/B_to_settings_link_box"
+            android:background="#FFFFFFFF"
+            android:text="프리미엄"/>
+
+    </LinearLayout>
+        -->

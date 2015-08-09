@@ -19,6 +19,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.loadingPage.LoginLoadingActivity;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.LoginStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.helper.SessionSaver;
@@ -92,10 +93,19 @@ public class AccountActivity extends AppCompatActivity {
         bFacebookLogin = (Button) findViewById(R.id.B_facebook_login_account);
     }
     private void initListener() {
+        /*
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+        */
+        bLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(AccountActivity.this, LinkBoxActivity.class);
                 startActivity(intent);
             }
         });
