@@ -6,7 +6,7 @@ import java.util.List;
  * Created by Junyoung on 2015-07-06.
  *
  */
-public class UrlListData {
+public class UrlListData implements Cloneable {
     public int urlKey;
     public String url;
     public String urlTitle;
@@ -24,6 +24,15 @@ public class UrlListData {
         return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle
                 +", urlWriterUsrName="+ urlWriterUsrName +", urlDate="+ urlDate +", urlThumbnail"+ urlThumbnail
                 + (good==0?"True":"False") + "goodNum=" + goodNum;
+    }
+    @Override
+    public UrlListData clone() {
+        try {
+            return (UrlListData) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return new UrlListData();
+        }
     }
     public String getTag(int i)
     {

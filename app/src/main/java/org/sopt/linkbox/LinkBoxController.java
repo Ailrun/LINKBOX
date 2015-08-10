@@ -1,10 +1,10 @@
 package org.sopt.linkbox;
 
 import android.app.Application;
-import android.content.IntentSender;
 
 import com.squareup.okhttp.OkHttpClient;
 
+import org.sopt.linkbox.custom.network.MainServerInterface;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditInvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
@@ -14,15 +14,18 @@ import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
-import org.sopt.linkbox.custom.data.mainData.UserData;
-import org.sopt.linkbox.custom.network.EmbedlyInterface;
-import org.sopt.linkbox.custom.network.MainServerInterface;
+import org.sopt.linkbox.custom.data.mainData.UsrListData;
+import org.sopt.linkbox.custom.helper.Installation;
+import org.sopt.linkbox.custom.network.AlarmListInterface;
+import org.sopt.linkbox.custom.network.BoxListInterface;
+import org.sopt.linkbox.custom.network.Embedly.EmbedlyInterface;
+import org.sopt.linkbox.custom.network.UrlListInterface;
+import org.sopt.linkbox.custom.network.UsrListInterface;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
 
-import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
 
@@ -32,8 +35,12 @@ import retrofit.client.OkClient;
  */
 public class LinkBoxController extends Application {
     private static LinkBoxController application;
+    private static String applicationID;
     public static LinkBoxController getApplication() {
         return application;
+    }
+    public static String getApplicationID() {
+        return applicationID;
     }
 
     @Override
@@ -45,12 +52,24 @@ public class LinkBoxController extends Application {
     }
 
     private EmbedlyInterface linkNetworkEmbedlyInterface;
-    private MainServerInterface linkNetworkMainServerInterface;
+    private UsrListInterface usrListInterface;
+    private BoxListInterface boxListInterface;
+    private UrlListInterface urlListInterface;
+    private AlarmListInterface alarmListInterface;
     public EmbedlyInterface getLinkNetworkEmbedlyInterface() {
         return linkNetworkEmbedlyInterface;
     }
-    public MainServerInterface getLinkNetworkMainServerInterface() {
-        return linkNetworkMainServerInterface;
+    public UsrListInterface getUsrListInterface() {
+        return usrListInterface;
+    }
+    public BoxListInterface getBoxListInterface() {
+        return boxListInterface;
+    }
+    public UrlListInterface getUrlListInterface() {
+        return urlListInterface;
+    }
+    public AlarmListInterface getAlarmListInterface() {
+        return alarmListInterface;
     }
 
     private void init() {
@@ -96,7 +115,7 @@ public class LinkBoxController extends Application {
     }
     */
 
-    public static ArrayList<UserData> editorListSource = null;
+    public static ArrayList<UsrListData> editorListSource = null;
     public static LinkEditorListAdapter linkEditorListAdapter = null;
     public static void notifyEditorDataSetChanged() {
         if (linkEditorListAdapter != null) {
@@ -105,7 +124,7 @@ public class LinkBoxController extends Application {
     }
 
 
-    public static UserData userData = null;
+    public static UsrListData usrListData = null;
 
 
     public static boolean defaultAlarm = false;
@@ -113,7 +132,6 @@ public class LinkBoxController extends Application {
 
     private void initNetwork()
     {
-        initNetworkEmbedly();
         initNetworkServer();
     }
     private void initData()
@@ -126,10 +144,32 @@ public class LinkBoxController extends Application {
 
         editorListSource = new ArrayList<>();
 
-        userData = new UserData();
+        usrListData = new UsrListData();
+
+        applicationID = Installation.id(this);
     }
 
-    private void initNetworkEmbedly()
+    private void initNetworkServer()
+    {
+        CookieManager cookieManagerServer = new CookieManager();
+        cookieManagerServer.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+        OkHttpClient clientServer = new OkHttpClient();
+        clientServer.setCookieHandler(cookieManagerServer);
+
+        RestAdapter.Builder builderServer = new RestAdapter.Builder();
+        builderServer.setEndpoint(MainServerInterface.serverAPIEndPoint);
+        builderServer.setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
+        builderServer.setClient(new OkClient(clientServer));
+
+        RestAdapter restAdapterServer = builderServer.build();
+
+        usrListInterface = restAdapterServer.create(UsrListInterface.class);
+        boxListInterface = restAdapterServer.create(BoxListInterface.class);
+        urlListInterface = restAdapterServer.create(UrlListInterface.class);
+        alarmListInterface = restAdapterServer.create(AlarmListInterface.class);
+    }
+
+/*    private void initNetworkEmbedly()
     {
         CookieManager cookieManagerEmbedly = new CookieManager();
         cookieManagerEmbedly.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
@@ -150,21 +190,5 @@ public class LinkBoxController extends Application {
         RestAdapter restAdapterEmbedly = builderEmbedly.build();
 
         linkNetworkEmbedlyInterface = restAdapterEmbedly.create(EmbedlyInterface.class);
-    }
-    private void initNetworkServer()
-    {
-        CookieManager cookieManagerServer = new CookieManager();
-        cookieManagerServer.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-        OkHttpClient clientServer = new OkHttpClient();
-        clientServer.setCookieHandler(cookieManagerServer);
-
-        RestAdapter.Builder builderServer = new RestAdapter.Builder();
-        builderServer.setEndpoint(MainServerInterface.serverAPIEndPoint);
-        builderServer.setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
-        builderServer.setClient(new OkClient(clientServer));
-
-        RestAdapter restAdapterServer = builderServer.build();
-
-        linkNetworkMainServerInterface = restAdapterServer.create(MainServerInterface.class);
-    }
+    }*/
 }

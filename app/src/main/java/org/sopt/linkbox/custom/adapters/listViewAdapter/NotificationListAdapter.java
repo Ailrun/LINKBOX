@@ -95,7 +95,7 @@ public class NotificationListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int i, final int i2, boolean b, View view, ViewGroup viewGroup) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrKey, 0);
+                + LinkBoxController.usrListData.usrKey, 0);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_notification_list_item, viewGroup, false);

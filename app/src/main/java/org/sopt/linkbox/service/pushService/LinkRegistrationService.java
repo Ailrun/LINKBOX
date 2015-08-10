@@ -9,7 +9,6 @@ import com.google.android.gms.iid.InstanceID;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.custom.network.MainServerWrapper;
 import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.io.IOException;
@@ -41,7 +40,7 @@ public class LinkRegistrationService extends IntentService {
             try {
                 InstanceID instanceID = InstanceID.getInstance(this);
                 token = instanceID.getToken(getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-                new MainServerWrapper().postRegisterTokenAsync(token, new RegisterTokenCallback());
+                //TODO : SERVER ACT
                 Log.d("TEST", "GCM Token : " + token);
             }
             catch (IOException e) { e.printStackTrace(); }

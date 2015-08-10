@@ -15,9 +15,8 @@ import org.sopt.linkbox.constant.LoginStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
-import org.sopt.linkbox.custom.data.mainData.UserData;
+import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.custom.network.MainServerWrapper;
 import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.util.ArrayList;
@@ -30,7 +29,6 @@ import retrofit.client.Response;
 public class LoginLoadingActivity extends Activity {
     private static final String TAG = "TEST/" + LoginLoadingActivity.class.getName() + " : ";
 
-    private MainServerWrapper mainServerWrapper = null;
     private String usrID = null;
     private String usrName = null;
     private String usrProfile = null;
@@ -63,7 +61,7 @@ public class LoginLoadingActivity extends Activity {
         setContentView(R.layout.activity_login_loading);
     }
     private void initInterface() {
-        mainServerWrapper = new MainServerWrapper();
+        //TODO : SERVER ACT
     }
     private void initData() {
         Intent intent = getIntent();
@@ -80,22 +78,22 @@ public class LoginLoadingActivity extends Activity {
     }
     private void initListener() {
         if (facebook) {
-            mainServerWrapper.postFacebookAccessAsync(usrID, usrName, usrProfile, usrPassword, new FacebookAccessCallback());
+            //TODO : SERVER ACT
         }
         else {
-            mainServerWrapper.postLoginAsync(usrID, usrPassword, new LoginCallback());
+            //TODO : SERVER ACT
         }
     }
 
-    private class LoginCallback implements Callback<MainServerData<UserData>> {
+    private class LoginCallback implements Callback<MainServerData<UsrListData>> {
         @Override
-        public void success(MainServerData<UserData> wrappedUserData, Response response) {  // Server has succeeded in interacting with the Database.
+        public void success(MainServerData<UsrListData> wrappedUserData, Response response) {  // Server has succeeded in interacting with the Database.
             if (wrappedUserData.result) {   // Checks if the value for id and password exists in the server database
-                UserData userData = wrappedUserData.object;
-                LinkBoxController.userData = userData;
-                speProfile.putString(LoginStrings.usrID, userData.usrID);
-                speProfile.putString(LoginStrings.usrPassword, userData.usrPassword);
-                mainServerWrapper.getBoxListAsync(new BoxLoadingCallback());
+                UsrListData usrListData = wrappedUserData.object;
+                LinkBoxController.usrListData = usrListData;
+                speProfile.putString(LoginStrings.usrID, usrListData.usrID);
+                speProfile.putString(LoginStrings.usrPassword, usrListData.usrPassword);
+                //TODO : SERVER ACT
             }
             else {
                 Log.d(TAG, wrappedUserData.message);
@@ -107,16 +105,16 @@ public class LoginLoadingActivity extends Activity {
         }
     }
 
-    private class FacebookAccessCallback implements Callback<MainServerData<UserData>> {
+    private class FacebookAccessCallback implements Callback<MainServerData<UsrListData>> {
         @Override
-        public void success(MainServerData<UserData> wrappedUserData, Response response) {
+        public void success(MainServerData<UsrListData> wrappedUserData, Response response) {
             if (wrappedUserData.result) {
-                UserData userData = wrappedUserData.object;
-                LinkBoxController.userData = userData;
-                Log.d(TAG, userData.toString() + " ");
-                speProfile.putString(LoginStrings.usrID, userData.usrID);
-                speProfile.putString(LoginStrings.usrPassword, userData.usrPassword);
-                mainServerWrapper.getBoxListAsync(new BoxLoadingCallback());
+                UsrListData usrListData = wrappedUserData.object;
+                LinkBoxController.usrListData = usrListData;
+                Log.d(TAG, usrListData.toString() + " ");
+                speProfile.putString(LoginStrings.usrID, usrListData.usrID);
+                speProfile.putString(LoginStrings.usrPassword, usrListData.usrPassword);
+                //TODO : SERVER ACT
             }
             else {
                 Log.d(TAG, wrappedUserData.message);
@@ -136,7 +134,7 @@ public class LoginLoadingActivity extends Activity {
                 LinkBoxController.boxListSource = (ArrayList<BoxListData>) boxListDatas;
                 if (boxListDatas.size() > 0) {
                     LinkBoxController.currentBox = boxListDatas.get(0);
-                    mainServerWrapper.getBoxUrlListAsync(new UrlLoadingCallback());
+                    //TODO : SERVER ACT
                 }
                 else {
                     Intent intent = new Intent(LoginLoadingActivity.this, LinkBoxActivity.class);

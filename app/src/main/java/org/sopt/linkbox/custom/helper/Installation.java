@@ -1,38 +1,49 @@
 package org.sopt.linkbox.custom.helper;
 
 import android.content.Context;
+import android.telephony.TelephonyManager;
 
+import org.sopt.linkbox.LinkBoxController;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.UUID;
 
 /**
  * Created by Junyoung on 2015-08-08.
  */
 public class Installation {
-    public static String getDeviceUUID(final Context context) {
-        final SharedPreferencesCache cache = Session.getAppCache();
-        final String id = cache.getString(PROPERTY_DEVICE_ID);
+    private static String sID = null;
+    private static final String INSTALLATION = "INSTALLATION";
 
-        UUID uuid = null;
-        if (id != null) {
-            uuid = UUID.fromString(id);
-        } else {
-            final String androidId = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
+    public synchronized static String id(Context context) {
+        if (sID == null) {
+            File installation = new File(context.getFilesDir(), INSTALLATION);
             try {
-                if (!"9774d56d682e549c".equals(androidId)) {
-                    uuid = UUID.nameUUIDFromBytes(androidId.getBytes("utf8"));
-                } else {
-                    final String deviceId = ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
-                    uuid = deviceId != null ? UUID.nameUUIDFromBytes(deviceId.getBytes("utf8")) : UUID.randomUUID();
-                }
-            } catch (UnsupportedEncodingException e) {
+                if (!installation.exists())
+                    writeInstallationFile(installation);
+                sID = readInstallationFile(installation);
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
-
-            Bundle bundle = new Bundle();
-            bundle.putString(PROPERTY_DEVICE_ID, uuid.toString());
-            cache.save(bundle);
         }
+        return sID;
+    }
 
-        return uuid.toString();
+    private static String readInstallationFile(File installation) throws IOException {
+        RandomAccessFile f = new RandomAccessFile(installation, "r");
+        byte[] bytes = new byte[(int) f.length()];
+        f.readFully(bytes);
+        f.close();
+        return new String(bytes);
+    }
+
+    private static void writeInstallationFile(File installation) throws IOException {
+        FileOutputStream out = new FileOutputStream(installation);
+        String id = UUID.randomUUID().toString();
+        out.write(id.getBytes());
+        out.close();
     }
 }

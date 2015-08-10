@@ -16,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +41,6 @@ import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapt
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.helper.SessionSaver;
-import org.sopt.linkbox.custom.network.MainServerWrapper;
 import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
@@ -68,7 +66,6 @@ public class LinkBoxActivity extends AppCompatActivity {
     private InputMethodManager immLinkBox = null;
     private LayoutInflater layoutInflater = null;
 
-    private MainServerWrapper mainServerWrapper = null;
     //toolbar layout
     private Toolbar tToolbar = null;
     //main layout
@@ -165,7 +162,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 }
 
     private void initInterface() {
-        mainServerWrapper = new MainServerWrapper();
+        //TODO : SERVER ACT
     }
     private void initPush() {
         if (isGoogleServiceAvailable()) {
@@ -179,7 +176,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 
         //other data init;
         spProfile = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrKey, 0);
+                + LinkBoxController.usrListData.usrKey, 0);
         immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);    // TODO : This needs cleanup
         initUrlDummyData();
         initBoxDummyData();

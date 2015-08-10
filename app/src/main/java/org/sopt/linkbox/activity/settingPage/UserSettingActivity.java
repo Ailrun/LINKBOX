@@ -54,7 +54,7 @@ public class UserSettingActivity extends AppCompatActivity {
         speProfile = spProfile.edit();
 
         spUserSettings = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrKey, 0);
+                + LinkBoxController.usrListData.usrKey, 0);
         speUserSettings = spUserSettings.edit();
 
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);

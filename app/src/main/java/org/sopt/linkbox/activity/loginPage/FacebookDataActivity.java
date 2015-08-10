@@ -43,7 +43,7 @@ public class FacebookDataActivity extends Activity {
         super.onResume();
         if(AccessToken.getCurrentAccessToken() == null){
             finish();
-            Log.e("jsonObject", LinkBoxController.userData.usrProfile);
+            Log.e("jsonObject", LinkBoxController.usrListData.usrProfile);
         }
     }
     @Override

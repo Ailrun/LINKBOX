@@ -3,7 +3,7 @@ package org.sopt.linkbox.custom.data.mainData;
 /**
  * Created by Junyoung on 2015-07-08.
  */
-public class UsrListData {
+public class UsrListData implements Cloneable {
     public int usrKey;
     public String usrID;
     public String usrName;
@@ -12,8 +12,17 @@ public class UsrListData {
     public int usrType;
     public int premium;
     @Override
-    public String toString(){
+    public String toString() {
         return "usrKey="+ usrKey +", usrID="+ usrID +", usrName="+ usrName
                 +", usrProfile="+ usrProfile +", premium="+(premium!=0?"true":"false");
+    }
+    @Override
+    public UsrListData clone() {
+        try {
+            return (UsrListData) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return new UsrListData();
+        }
     }
 }
