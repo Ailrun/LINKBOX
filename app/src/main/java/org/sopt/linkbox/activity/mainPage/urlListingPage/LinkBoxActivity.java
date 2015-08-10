@@ -3,8 +3,15 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +45,7 @@ import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
 import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
@@ -79,7 +87,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     private LinearLayout llUrlEmptyView = null;
 
     //drawer layout
-    private ImageView ivProfile = null;
+    private RoundedImageView ivProfile = null;
     private TextView tvBoxNumber = null;
     private ListView lvBoxList = null;
 
@@ -99,6 +107,14 @@ public class LinkBoxActivity extends AppCompatActivity {
     private String base64EncodedPublicKey = null;
     private final String skuIDPremium = "id_mUImErpEmEkAMU";
     private List<String> skuList = null;
+
+    // profile photo from gallery
+    protected final int SELECT_GALLERY = 1;
+    private Uri imgURI = null;
+    private String filePath = null;
+    private Bitmap bmp = null;
+    private RoundedBitmapDrawable roundBitmap =null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -309,7 +325,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
 
     private void initDrawerView() {
-        ivProfile = (ImageView) findViewById(R.id.IV_profile_link_box);
+        ivProfile = (RoundedImageView) findViewById(R.id.IV_profile_link_box);
         // tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
 
         rlRecentLink = (RelativeLayout) findViewById(R.id.RL_recent_link);
@@ -345,6 +361,15 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         });
 
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, SELECT_GALLERY);
+            }
+        });
 
         lvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -495,4 +520,32 @@ public class LinkBoxActivity extends AppCompatActivity {
         LinkBoxController.boxListSource.add(boxListData);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == RESULT_OK) {
+
+            try {
+                Log.e("DataResult", data.toString());
+                imgURI = data.getData();
+                // ivProfile.setImageURI(imgURI);
+                // filePath = getRealPathFromURI(imgURI);
+                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
+
+                ivProfile.setImageBitmap(bmp);
+                // ivProfile.getCroppedBitmap(bmp, 15);
+                ivProfile.setCropToPadding(true);
+            } catch (Exception e) {
+            }
+        }
+    }
+    /*
+    private String getRealPathFromURI(Uri uri) {
+        // TODO Auto-generated method stub
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+    */
 }
