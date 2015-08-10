@@ -48,7 +48,7 @@
                 android:textColor="#FFEEEEFF"/>
         </LinearLayout>
         <ListView
-            android:id="@+id/LV_box_list_link_box"
+            android:id="@+id/LV_favorite_box_link_box"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/LL_box_info_link_box"/>

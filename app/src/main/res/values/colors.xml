@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="transparent">#00000000</color>
     <color name="real_black">#FF000000</color>
     <color name="real_white">#FFFFFFFF</color>
     <color name="indigo500">#FF3f51b5</color>
@@ -10,6 +11,8 @@
     <color name="yellow">#FFBB33</color>
     <color name="sky_blue">#33B5E5</color>
     <color name="teala400">#FF1DE9B6</color>
-    <color name="gray">#3a000000</color>
+    <color name="teal400">#FF26a69a</color>
+    <color name="grey">#3a000000</color>
+    <color name="bright_grey">#FFFAFAFA</color>
 
 </resources>

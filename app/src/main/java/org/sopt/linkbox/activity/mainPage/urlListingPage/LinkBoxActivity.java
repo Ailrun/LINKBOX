@@ -3,7 +3,15 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +30,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +45,7 @@ import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
 import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
@@ -69,20 +79,19 @@ public class LinkBoxActivity extends AppCompatActivity {
     //toolbar layout
     private Toolbar tToolbar = null;
     //main layout
-    private ListView lvUrlList = null;
+    private PullToRefreshListView lvUrlList = null;
     private LinearLayout llUrlEmptyView = null;
     //drawer layout
-    private ImageView ivProfile = null;
+    private RoundedImageView ivProfile = null;
     private TextView tvBoxNumber = null;
     private ListView lvBoxList = null;
+
+    private RelativeLayout rlRecentLink = null;
+    private RelativeLayout rlMyBox = null;
+    private RelativeLayout rlBuyedBox = null;
+
     private PullToRefreshListView pullToRefreshView = null;
-    private LinearLayout llBoxHeaderViewButton = null;
-    private Button rlHeaderButton = null;
-    private LinearLayout llBoxHeaderViewEdit = null;
-    private EditText etAddBoxName = null;
-    private Button bAddBoxCancel = null;
-    private Button bToSettings = null;
-    private Button bToPremium = null;
+    private RelativeLayout rlToSetting = null;
 
     private DrawerLayout dlBoxList = null;
     private ActionBarDrawerToggle abBoxList = null;
@@ -93,6 +102,14 @@ public class LinkBoxActivity extends AppCompatActivity {
     private String base64EncodedPublicKey = null;
     private final String skuIDPremium = "id_mUImErpEmEkAMU";
     private List<String> skuList = null;
+
+    // profile photo from gallery
+    protected final int SELECT_GALLERY = 1;
+    private Uri imgURI = null;
+    private String filePath = null;
+    private Bitmap bmp = null;
+    private RoundedBitmapDrawable roundBitmap =null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,8 +210,8 @@ public class LinkBoxActivity extends AppCompatActivity {
 
         //drawer init
         initDrawerView();
-        initDrawerButtonHeaderView();
-        initDrawerEditHeaderView();
+        // initDrawerButtonHeaderView();
+        // initDrawerEditHeaderView();
     }
     private void initListener() {
         //InApp billing init
@@ -205,8 +222,8 @@ public class LinkBoxActivity extends AppCompatActivity {
 
         //drawer init
         initDrawerListener();
-        initDrawerButtonHeaderListener();   // TODO : Delete
-        initDrawerEditHeaderListener();
+        // initDrawerButtonHeaderListener();
+        // initDrawerEditHeaderListener();
     }
     private void initControl() {
         LinkBoxController.linkBoxBoxListAdapter =
@@ -268,7 +285,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private void initMainView() {
         pullToRefreshView = (PullToRefreshListView) findViewById(R.id.LV_url_list_link_box);
-        //lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
+        lvUrlList = (PullToRefreshListView) findViewById(R.id.LV_url_list_link_box);
 //        ViewGroup viewGroup = (ViewGroup) lvUrlList.getParent();
 //        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
 //        viewGroup.addView(llUrlEmptyView);
@@ -303,15 +320,52 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
 
     private void initDrawerView() {
-        ivProfile = (ImageView) findViewById(R.id.IV_profile_link_box);
-        tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
-        lvBoxList = (ListView) findViewById(R.id.LV_box_list_link_box);
+        ivProfile = (RoundedImageView) findViewById(R.id.IV_profile_link_box);
+        // tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
+
+        rlRecentLink = (RelativeLayout) findViewById(R.id.RL_recent_link);
+        rlMyBox = (RelativeLayout) findViewById(R.id.RL_my_box);
+        rlBuyedBox = (RelativeLayout) findViewById(R.id.RL_buyed_box);
+
+        lvBoxList = (ListView) findViewById(R.id.LV_favorite_box_link_box);
         lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
         dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
-        bToPremium = (Button) findViewById(R.id.B_to_premium_link_box);
-        bToSettings = (Button) findViewById(R.id.B_to_settings_link_box);
+        rlToSetting = (RelativeLayout) findViewById(R.id.RL_setting_link_box);
+
     }
     private void initDrawerListener() {
+
+        rlRecentLink.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.d("", "");
+            }
+        });
+
+        rlMyBox.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.d("", "");
+            }
+        });
+
+        rlBuyedBox.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.d("", "");
+            }
+        });
+
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, SELECT_GALLERY);
+            }
+        });
+
         lvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -339,10 +393,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
-                immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
-                lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
-                lvBoxList.removeHeaderView(llBoxHeaderViewButton);
-                lvBoxList.addHeaderView(llBoxHeaderViewButton);
                 super.onDrawerClosed(drawerView);
             }
             @Override
@@ -351,19 +401,15 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         };
         dlBoxList.setDrawerListener(abBoxList);
-        bToSettings.setOnClickListener(new View.OnClickListener() {
+        rlToSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
             }
         });
-        bToPremium.setOnClickListener(new View.OnClickListener() {  // TODO : Deprecated. Needs to add new buttons
-            @Override
-            public void onClick(View view) {
-            }
-        });
-    }
 
+    }
+    /*
     private void initDrawerButtonHeaderView() {
         llBoxHeaderViewButton = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_button_link_box, null);
         rlHeaderButton = (Button) llBoxHeaderViewButton.findViewById(R.id.RL_header_button_link_box);
@@ -412,7 +458,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         });
     }
-
+    */
     private boolean isGoogleServiceAvailable() {
         int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
         if (resultCode != ConnectionResult.SUCCESS) {
@@ -469,4 +515,32 @@ public class LinkBoxActivity extends AppCompatActivity {
         LinkBoxController.boxListSource.add(boxListData);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == RESULT_OK) {
+
+            try {
+                Log.e("DataResult", data.toString());
+                imgURI = data.getData();
+                // ivProfile.setImageURI(imgURI);
+                // filePath = getRealPathFromURI(imgURI);
+                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
+
+                ivProfile.setImageBitmap(bmp);
+                // ivProfile.getCroppedBitmap(bmp, 15);
+                ivProfile.setCropToPadding(true);
+            } catch (Exception e) {
+            }
+        }
+    }
+    /*
+    private String getRealPathFromURI(Uri uri) {
+        // TODO Auto-generated method stub
+        String[] projection = { MediaStore.Images.Media.DATA };
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        int column_index = cursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+    */
 }

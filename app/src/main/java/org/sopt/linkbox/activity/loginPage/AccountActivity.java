@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.facebook.AccessToken;
@@ -18,6 +19,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.loadingPage.LoginLoadingActivity;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.LoginStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.helper.SessionSaver;
@@ -30,8 +32,9 @@ public class AccountActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + AccountActivity.class.getName() + " : ";
 
     LoginButton lbFacebookLogin = null;
-    ImageButton ibLogin = null;
-    ImageButton ibSignup = null;
+    Button bLogin = null;
+    Button bSignup = null;
+    Button bFacebookLogin = null;
 
     private SharedPreferences spProfile = null; // 02 Save preference or use preference that is saved. Bunched up data
     private SharedPreferences.Editor speProfile = null;
@@ -84,25 +87,42 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
     private void initView() {
-        ibLogin = (ImageButton) findViewById(R.id.IB_login_account);
-        ibSignup = (ImageButton) findViewById(R.id.IB_signup_account);
+        bLogin = (Button) findViewById(R.id.B_login_account);
+        bSignup = (Button) findViewById(R.id.B_signup_account);
         lbFacebookLogin = (LoginButton) findViewById(R.id.LB_login_account);
+        bFacebookLogin = (Button) findViewById(R.id.B_facebook_login_account);
     }
     private void initListener() {
-        ibLogin.setOnClickListener(new View.OnClickListener() {
+        /*
+        bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
-        ibSignup.setOnClickListener(new View.OnClickListener() {
+        */
+        bLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(AccountActivity.this, LinkBoxActivity.class);
+                startActivity(intent);
+            }
+        });
+        bSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AccountActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
+        bFacebookLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                lbFacebookLogin.performClick();
+            }
+        });
+
         callbackManager = CallbackManager.Factory.create();
         lbFacebookLogin.setReadPermissions(Collections.singletonList("email"));
         lbFacebookLogin.registerCallback(callbackManager, new FacebookLoginCallback()); // Facebook button
