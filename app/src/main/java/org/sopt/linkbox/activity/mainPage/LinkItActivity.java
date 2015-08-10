@@ -201,4 +201,73 @@ public class LinkItActivity extends Activity {
             }
         }
     }
+
+    /*
+
+    public class SlideDownActivity extends Activity implements Animation.AnimationListener {
+
+        TextView txtMessage;
+
+        // Animation
+        Animation animSlideDown;
+        Animation animSlideUp;
+        int cnt = 0;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            // TODO Auto-generated method stub
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_link_it);
+
+            CheckBox chkbox = (CheckBox) findViewById(R.id.CB_box_link_it);
+
+            txtMessage = (TextView) findViewById(R.id.TV_box_link_it);
+
+            // load the animation
+            animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),
+                    R.anim.anim_slide_down);
+
+            // set animation listener
+            animSlideDown.setAnimationListener(this);
+
+            animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_up);
+
+            animSlideUp.setAnimationListener(this);
+            // button click event
+
+
+            if (chkbox.isChecked()) {
+                txtMessage.setVisibility(View.VISIBLE);
+
+                txtMessage.startAnimation(animSlideDown);
+                cnt = cnt + 1;
+            } else if ((cnt != 0) && (cnt % 2 != 1) && !chkbox.isChecked()) {
+                txtMessage.startAnimation(animSlideUp);
+
+            }
+
+        }
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            // Take any action after completing the animation
+
+            // check for fade in animation
+
+        }
+
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+            // TODO Auto-generated method stub
+
+        }
+
+        @Override
+        public void onAnimationStart(Animation animation) {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
+     */
 }
