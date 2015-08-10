@@ -1,28 +1,31 @@
 package org.sopt.linkbox.custom.network;
 
-import org.json.JSONObject;
-import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.UrlListData;
-import org.sopt.linkbox.custom.data.mainData.UserData;
-import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.custom.data.tempData.TwoString;
-
-import java.util.List;
-
-import retrofit.Callback;
-import retrofit.http.Body;
-import retrofit.http.GET;
-import retrofit.http.Headers;
-import retrofit.http.POST;
-import retrofit.http.Path;
-
 /**
 * Created by Junyoung on 2015-07-11.
 */
 public interface MainServerInterface {
-//        public static final String API_KEY = "???"; // Maybe Not needed
-String serverAPIEndPoint = "http://52.68.233.51:3000";
-    @Headers("Content-Type: application/json")
-    @POST("/usrList/login")
-    void postLoginAsync(@Body UserData userData, Callback<MainServerData<UserData>> callback);
+    //        public static final String API_KEY = "???"; // Maybe Not needed
+//String serverAPIEndPoint = "http://52.68.233.51:3000"; //Se-oong's Server
+    String serverAPIEndPoint = "http://192.168.219.172:3000"; // Local Server IP
+
+    String jsonHeader = "Content-Type: application/json";
+
+    String usrList = "/usrList";
+
+    String boxList = "/boxList";
+
+    String urlList = "/urlList";
+    String tag = urlList + "/Tag";
+    String comment = urlList + "/Comment";
+
+    String alarmList = "/alarmList";
+
+    String usrKey = "usrKey";
+    String boxKey = "boxKey";
+    String alarmKey = "alarmKey";
+    String urlKey = "urlKey";
+    String newBoxKey = "newBoxKey";
+    String startNum = "startNum";
+    String urlNum = "urlNum";
+    String deviceKey = "deviceKey";
 }

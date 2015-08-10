@@ -17,17 +17,27 @@
         android:layout_height="36dp"
         android:layout_margin="10dp"/>
     <ImageButton
-        android:id="@+id/IB_login_account"
         android:layout_width="200dp"
         android:layout_height="36dp"
         android:adjustViewBounds="true"
         android:layout_margin="10dp"
-        android:background="#FF0F8855"/>
-    <ImageButton
-        android:id="@+id/IB_signup_account"
+        android:background="@drawable/account_login_resting"/>
+
+    <RelativeLayout
         android:layout_width="200dp"
         android:layout_height="36dp"
-        android:adjustViewBounds="true"
-        android:layout_margin="10dp"
-        android:background="#FF0F8855"/>
+        >
+        <ImageButton
+            android:id="@+id/IB_login_account"
+            android:layout_width="95dp"
+            android:layout_height="36dp"
+            android:layout_alignParentStart="true"
+            />
+        <ImageButton
+            android:id="@+id/IB_signup_account"
+            android:layout_width="95dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            />
+    </RelativeLayout>
 </LinearLayout>
