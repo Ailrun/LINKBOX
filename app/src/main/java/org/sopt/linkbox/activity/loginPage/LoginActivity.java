@@ -51,9 +51,6 @@ public class LoginActivity extends AppCompatActivity {
         etPass = (EditText) findViewById(R.id.ET_password_login);
         bLogin = (Button) findViewById(R.id.B_login_login);
 
-        etEmail.setHintTextColor(getResources().getColor(R.color.hint_black));
-        etPass.setHintTextColor(getResources().getColor(R.color.hint_black));
-
         Typeface typeface = Typeface.createFromAsset(getAssets(), "NotoSansKR-Regular-Hestia.otf");
 
         etEmail.setTypeface(typeface);

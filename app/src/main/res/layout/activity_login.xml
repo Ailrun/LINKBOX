@@ -64,7 +64,7 @@
                 android:layout_marginTop="7dp"
                 android:hint="@string/user_email_hint"
                 android:singleLine="true"
-                android:textColorHint="#FFAFAFAF"
+                android:textColorHint="#E0E0E0"
                 android:textColor="@color/real_black"
                 android:background="@color/real_white"
                 />
@@ -76,7 +76,7 @@
                 android:layout_marginTop="7dp"
                 android:padding="10dp"
                 android:hint="@string/user_password_hint"
-                android:textColorHint="#FFAFAFAF"
+                android:textColorHint="#E0E0E0"
                 android:singleLine="true"
                 android:inputType="textPassword"
                 android:textColor="@color/real_black"
