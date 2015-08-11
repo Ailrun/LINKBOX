@@ -18,6 +18,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.loadingPage.AccountLoadingActivity;
+import org.sopt.linkbox.activity.mainPage.LinkItActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.SettingStrings;
@@ -104,7 +105,7 @@ public class AccountActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
+                Intent intent = new Intent(AccountActivity.this, LinkItActivity.class);
                 startActivity(intent);
             }
         });
