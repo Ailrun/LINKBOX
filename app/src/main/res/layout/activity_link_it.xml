@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
-    android:layout_height="450dp"
+    android:layout_height="480dp"
     android:layout_gravity="center"
     android:background="@drawable/dialogue_window"
     tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity">
@@ -306,8 +306,9 @@
                 android:background="#3a000000" />
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
+    android:layout_height="40dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
     >
             <TextView
                 android:layout_width="wrap_content"
