@@ -5,27 +5,27 @@ package org.sopt.linkbox.custom.network;
 */
 public interface MainServerInterface {
     //        public static final String API_KEY = "???"; // Maybe Not needed
-//String serverAPIEndPoint = "http://52.68.233.51:3000"; //Se-oong's Server
-    String serverAPIEndPoint = "http://192.168.219.172:3000"; // Local Server IP
+    //String serverAPIEndPoint = "http://52.68.233.51:3000"; //Seoong's Server
+    String serverAPIEndPoint = "http://54.69.181.225:3000"; // Junyoung's Server IP
 
     String jsonHeader = "Content-Type: application/json";
 
-    String usrList = "/usrList";
+    String usrListPath = "/usrList";
 
-    String boxList = "/boxList";
+    String boxListPath = "/boxList";
 
-    String urlList = "/urlList";
-    String tag = urlList + "/Tag";
-    String comment = urlList + "/Comment";
+    String urlListPath = "/urlList";
+    String tagPath = urlListPath + "/Tag";
+    String commentPath = urlListPath + "/Comment";
 
-    String alarmList = "/alarmList";
+    String alarmListPath = "/alarmList";
 
-    String usrKey = "usrKey";
-    String boxKey = "boxKey";
-    String alarmKey = "alarmKey";
-    String urlKey = "urlKey";
-    String newBoxKey = "newBoxKey";
-    String startNum = "startNum";
-    String urlNum = "urlNum";
-    String deviceKey = "deviceKey";
+    String usrKeyPath = "usrKey";
+    String boxKeyPath = "boxKey";
+    String alarmKeyPath = "alarmKey";
+    String urlKeyPath = "urlKey";
+    String newBoxKeyPath = "newBoxKey";
+    String startNumPath = "startNum";
+    String urlNumPath = "urlNum";
+    String deviceKeyPath = "deviceKey";
 }

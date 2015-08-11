@@ -31,8 +31,8 @@ public class LinkRegistrationService extends IntentService {
         super(name);
     }
 
-    private String token;
-    public String getToken() {return token;}
+    private static String token;
+    public static String getToken() {return token;}
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -44,17 +44,6 @@ public class LinkRegistrationService extends IntentService {
                 Log.d("TEST", "GCM Token : " + token);
             }
             catch (IOException e) { e.printStackTrace(); }
-        }
-    }
-
-    private class RegisterTokenCallback implements Callback<MainServerData<Object>> {
-        @Override
-        public void success(MainServerData<Object> objectMainServerData, Response response) {
-
-        }
-        @Override
-        public void failure(RetrofitError error) {
-            RetrofitDebug.debug(error);
         }
     }
 }

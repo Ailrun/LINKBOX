@@ -10,7 +10,7 @@
         android:layout_height="70dp"
         android:background="@color/indigo500">
         <ImageView
-            android:id="@+id/IV_profile_link_box"
+            android:id="@+id/RIV_profile_link_box"
             android:layout_width="70dp"
             android:layout_height="match_parent"/>
     </RelativeLayout>

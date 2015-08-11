@@ -9,11 +9,12 @@ public class UsrListData implements Cloneable {
     public String usrName;
     public String usrProfile;
     public String usrPassword;
+    public String pushToken;
     public int usrType;
     public int premium;
     @Override
     public String toString() {
-        return "usrKey="+ usrKey +", usrID="+ usrID +", usrName="+ usrName
+        return "usrKey="+ usrKey +", usrID="+ usrID +", usrName="+ usrName + ", pushToken=" + pushToken
                 +", usrProfile="+ usrProfile +", premium="+(premium!=0?"true":"false");
     }
     @Override

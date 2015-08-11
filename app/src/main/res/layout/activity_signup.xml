@@ -46,7 +46,7 @@
 
             </RelativeLayout>
             <EditText
-                android:id="@+id/ET_email_signup"
+                android:id="@+id/ET_id_signup"
                 android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

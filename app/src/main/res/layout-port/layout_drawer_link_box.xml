@@ -20,7 +20,7 @@
             android:scaleType="fitCenter"/>
 
         <org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView
-            android:id="@+id/IV_profile_link_box"
+            android:id="@+id/RIV_profile_link_box"
             android:layout_marginTop="15dp"
             android:layout_marginLeft="15dp"
             android:layout_width="70dp"
@@ -32,7 +32,7 @@
             android:id="@+id/TV_profile_name_link_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/IV_profile_link_box"
+            android:layout_below="@id/RIV_profile_link_box"
             android:layout_marginTop="20dp"
             android:paddingStart="15dp"
             android:textSize="12dp"
@@ -58,7 +58,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/RL_recent_link">
+            android:id="@+id/RL_recent_link_link_box">
 
             <TextView
                 android:id="@+id/TV_recent_link_box"
@@ -77,8 +77,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/RL_my_box"
-            android:layout_below="@id/RL_recent_link">
+            android:id="@+id/RL_my_box_link_box"
+            android:layout_below="@id/RL_recent_link_link_box">
 
             <TextView
                 android:id="@+id/TV_my_box_link_box"
@@ -97,7 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/RL_buyed_box"
-            android:layout_below="@id/RL_my_box">
+            android:layout_below="@id/RL_my_box_link_box">
 
             <TextView
                 android:id="@+id/TV_buyed_box_link_box"

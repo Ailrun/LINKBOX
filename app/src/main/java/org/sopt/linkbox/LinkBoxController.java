@@ -1,7 +1,11 @@
 package org.sopt.linkbox;
 
 import android.app.Application;
+import android.content.Intent;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.network.MainServerInterface;
@@ -21,6 +25,7 @@ import org.sopt.linkbox.custom.network.BoxListInterface;
 import org.sopt.linkbox.custom.network.Embedly.EmbedlyInterface;
 import org.sopt.linkbox.custom.network.UrlListInterface;
 import org.sopt.linkbox.custom.network.UsrListInterface;
+import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
 import java.net.CookieManager;
 import java.net.CookiePolicy;
@@ -100,20 +105,23 @@ public class LinkBoxController extends Application {
         }
     }
 
+    public static UsrListData usrListData = null;
+
 
     public static BoxListData currentBox = null;    // TODO : Current box must be filled whenever box is pressed
     // public static BoxListData currentInvitedBox = null;
 
+
+    public static boolean defaultAlarm = false;
+
+
     public static ArrayList<UrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
-    // TODO : VERIFY DEPRECATED
-    /*
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.notifyDataSetChanged();
         }
     }
-    */
 
     public static ArrayList<UsrListData> editorListSource = null;
     public static LinkEditorListAdapter linkEditorListAdapter = null;
@@ -124,31 +132,27 @@ public class LinkBoxController extends Application {
     }
 
 
-    public static UsrListData usrListData = null;
-
-
-    public static boolean defaultAlarm = false;
-
-
-    private void initNetwork()
-    {
+    private void initNetwork() {
+        initGcm();
         initNetworkServer();
     }
     private void initData()
     {
+        applicationID = Installation.id(this);
+
         currentBox = new BoxListData();
-
-        boxListSource = new ArrayList<>();
-
-        urlListSource = new ArrayList<>();
-
-        editorListSource = new ArrayList<>();
-
         usrListData = new UsrListData();
 
-        applicationID = Installation.id(this);
+        boxListSource = new ArrayList<>();
+        urlListSource = new ArrayList<>();
+        editorListSource = new ArrayList<>();
     }
-
+    private void initGcm() {
+        if (isGoogleServiceAvailable()) {
+            Intent intent = new Intent(this, LinkRegistrationService.class);
+            startService(intent);
+        }
+    }
     private void initNetworkServer()
     {
         CookieManager cookieManagerServer = new CookieManager();
@@ -167,6 +171,17 @@ public class LinkBoxController extends Application {
         boxListInterface = restAdapterServer.create(BoxListInterface.class);
         urlListInterface = restAdapterServer.create(UrlListInterface.class);
         alarmListInterface = restAdapterServer.create(AlarmListInterface.class);
+    }
+
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    private boolean isGoogleServiceAvailable() {
+        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            Toast.makeText(getApplicationContext(), "This device does not support Google Play Service", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        return true;
     }
 
 /*    private void initNetworkEmbedly()

@@ -16,6 +16,8 @@ import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.GCMString;
 
+import me.leolin.shortcutbadger.ShortcutBadger;
+
 /**
  * Created by Junyoung on 2015-07-06.
  *
@@ -110,5 +112,9 @@ public class LinkGcmListenerService extends GcmListenerService{
         builder.setAutoCancel(true);
         builder.setPriority(Notification.PRIORITY_MAX);
         nm.notify(goodNotiOffset, builder.build());
+    }
+
+    private void setIconBadge(int i) {  // TODO : Amount of push alarm. Ex) facebook alarm
+        ShortcutBadger.with(getApplicationContext()).count(1);
     }
 }

@@ -11,24 +11,25 @@ import retrofit.http.Path;
 
 /**
  * Created by Junyoung on 2015-08-08.
+ *
  */
-public interface UsrListInterface extends MainServerInterface {
-    @Headers(jsonHeader)
-    @POST(usrList + "/Login/{" + deviceKey + "}")
-    void login(@Path(deviceKey) String imei, @Body UsrListData usrListData, Callback<MainServerData<UsrListData>> callback);
-    @Headers(jsonHeader)
-    @POST(usrList + "/Signup/{" + deviceKey + "}")
-    void signup(@Path(deviceKey) String imei, @Body UsrListData usrListData, Callback<MainServerData<UsrListData>> callback);
-    @Headers(jsonHeader)
-    @POST(usrList + "/Profile")
+public interface UsrListInterface {
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.usrListPath + "/Login/{" + MainServerInterface.deviceKeyPath + "}")
+    void login(@Path(MainServerInterface.deviceKeyPath) String imei, @Body UsrListData usrListData, Callback<MainServerData<UsrListData>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.usrListPath + "/Signup/{" + MainServerInterface.deviceKeyPath + "}")
+    void signup(@Path(MainServerInterface.deviceKeyPath) String imei, @Body UsrListData usrListData, Callback<MainServerData<UsrListData>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.usrListPath + "/Profile")
     void profile(@Body UsrListData usrListData, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(usrList + "/PassEdit")
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.usrListPath + "/PassEdit")
     void passEdit(@Body UsrListData usrListData, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(usrList + "/Logout/{" + deviceKey + "}")
-    void logout(@Path(deviceKey) String imei, @Body UsrListData usrListData, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(usrList + "/Signdown")
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.usrListPath + "/Logout/{" + MainServerInterface.deviceKeyPath + "}")
+    void logout(@Path(MainServerInterface.deviceKeyPath) String imei, @Body UsrListData usrListData, Callback<MainServerData<Object>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.usrListPath + "/Signdown")
     void signdown(@Body UsrListData usrListData, Callback<MainServerData<Object>> callback);
 }

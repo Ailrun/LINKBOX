@@ -8,12 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.loadingPage.LoginLoadingActivity;
-import org.sopt.linkbox.constant.LoginStrings;
+import org.sopt.linkbox.activity.loadingPage.AccountLoadingActivity;
+import org.sopt.linkbox.constant.AccountStrings;
+import org.sopt.linkbox.constant.UsrType;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -57,21 +57,22 @@ public class LoginActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String usremail = etEmail.getText().toString();
-                String pass = etPass.getText().toString();
-                if (usremail.equals("") || pass.equals("")) {
+                String usrID = etEmail.getText().toString();
+                String usrPassword = etPass.getText().toString();
+                if (usrID.equals("") || usrPassword.equals("")) {
                     Toast.makeText(getApplicationContext(), "All Field must be filled!", Toast.LENGTH_LONG).show();
                     return;
                 }
-                loginLoading(usremail, pass);
+                loginLoading(usrID, usrPassword);
             }
         });
     }
 
     private void loginLoading(String usremail, String pass) {
-        Intent intent = new Intent(this, LoginLoadingActivity.class);
-        intent.putExtra(LoginStrings.usrID, usremail);
-        intent.putExtra(LoginStrings.usrPassword, pass);
+        Intent intent = new Intent(this, AccountLoadingActivity.class);
+        intent.putExtra(AccountStrings.usrID, usremail);
+        intent.putExtra(AccountStrings.usrPassword, pass);
+        intent.putExtra(AccountStrings.usrType, UsrType.normal_user);
         startActivity(intent);
         finish();
     }

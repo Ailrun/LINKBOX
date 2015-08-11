@@ -16,32 +16,33 @@ import retrofit.http.Path;
 
 /**
  * Created by Junyoung on 2015-08-08.
+ *
  */
-public interface BoxListInterface extends MainServerInterface {
-    @GET(boxList + "/List/{" + usrKey + "}")
-    void list(@Path(usrKey) int usrKey, Callback<MainServerData<List<BoxListData>>> callback);
-    @Headers(jsonHeader)
-    @POST(boxList + "/Add/{" + usrKey + "}")
-    void add(@Path(usrKey) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(boxList + "/Remove/{" + usrKey + "}")
-    void remove(@Path(usrKey) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(boxList + "/Edit/{" + usrKey + "}")
-    void edit(@Path(usrKey) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(boxList + "/Favorite/{" + usrKey + "}")
-    void favorite(@Path(usrKey) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(boxList + "/Invite/{" + usrKey + "}/{" + boxKey + "}")
-    void invite(@Path(usrKey) int usrKey, @Path(boxKey) int boxKey, @Body TwoString twoString, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(boxList + "/Accept/{" + alarmKey + "}")
-    void accept(@Path(alarmKey) int alarmKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(boxList + "/Decline/{" + alarmKey + "}")
-    void decline(@Path(alarmKey) int alarmKey, Callback<MainServerData<Object>> callback);
-    @Headers(jsonHeader)
-    @POST(boxList + "/Editor/{" + usrKey + "}")
-    void editorList(@Path(usrKey) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<List<UsrListData>>> callback);
+public interface BoxListInterface {
+    @GET(MainServerInterface.boxListPath + "/List/{" + MainServerInterface.usrKeyPath + "}")
+    void list(@Path(MainServerInterface.usrKeyPath) int usrKey, Callback<MainServerData<List<BoxListData>>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.boxListPath + "/Add/{" + MainServerInterface.usrKeyPath + "}")
+    void add(@Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.boxListPath + "/Remove/{" + MainServerInterface.usrKeyPath + "}")
+    void remove(@Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.boxListPath + "/Edit/{" + MainServerInterface.usrKeyPath + "}")
+    void edit(@Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.boxListPath + "/Favorite/{" + MainServerInterface.usrKeyPath + "}")
+    void favorite(@Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.boxListPath + "/Invite/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}")
+    void invite(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Body TwoString twoString, Callback<MainServerData<Object>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.boxListPath + "/Accept/{" + MainServerInterface.alarmKeyPath + "}")
+    void accept(@Path(MainServerInterface.alarmKeyPath) int alarmKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.boxListPath + "/Decline/{" + MainServerInterface.alarmKeyPath + "}")
+    void decline(@Path(MainServerInterface.alarmKeyPath) int alarmKey, Callback<MainServerData<Object>> callback);
+    @Headers(MainServerInterface.jsonHeader)
+    @POST(MainServerInterface.boxListPath + "/Editor/{" + MainServerInterface.usrKeyPath + "}")
+    void editorList(@Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<List<UsrListData>>> callback);
 }

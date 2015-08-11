@@ -12,12 +12,13 @@ import retrofit.http.Path;
 
 /**
  * Created by Junyoung on 2015-08-08.
+ *
  */
-public interface AlarmListInterface extends MainServerInterface {
-    @GET(alarmList + "/AllList/{" + usrKey + "}")
-    void allList(@Path(usrKey) int usrKey, Callback<MainServerData<List<AlarmListData>>> callback);
-    @GET(alarmList + "/HiddenList/{" + usrKey + "}")
-    void hiddenList(@Path(usrKey) int usrKey, Callback<MainServerData<List<AlarmListData>>> callback);
-    @POST(alarmList + "/Hidden/{" + usrKey + "}/{" + alarmKey + "}")
-    void hidden(@Path(usrKey) int usrKey, @Path(alarmKey) int alarmKey, Callback<MainServerData<Object>> callback);
+public interface AlarmListInterface {
+    @GET(MainServerInterface.alarmListPath + "/AllList/{" + MainServerInterface.usrKeyPath + "}")
+    void allList(@Path(MainServerInterface.usrKeyPath) int usrKey, Callback<MainServerData<List<AlarmListData>>> callback);
+    @GET(MainServerInterface.alarmListPath + "/HiddenList/{" + MainServerInterface.usrKeyPath + "}")
+    void hiddenList(@Path(MainServerInterface.usrKeyPath) int usrKey, Callback<MainServerData<List<AlarmListData>>> callback);
+    @POST(MainServerInterface.alarmListPath + "/Hidden/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.alarmKeyPath + "}")
+    void hidden(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.alarmKeyPath) int alarmKey, Callback<MainServerData<Object>> callback);
 }

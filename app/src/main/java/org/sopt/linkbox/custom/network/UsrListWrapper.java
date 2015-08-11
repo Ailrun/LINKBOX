@@ -3,6 +3,7 @@ package org.sopt.linkbox.custom.network;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
 import retrofit.Callback;
 
@@ -25,6 +26,7 @@ public class UsrListWrapper {
         usrListData.usrID = usrID;
         usrListData.usrPassword = usrPassword;
         usrListData.usrType = usrType;
+        usrListData.pushToken = LinkRegistrationService.getToken();
         usrListInterface.login(LinkBoxController.getApplicationID(), usrListData, callback);
     }
     public void signup(String usrID, String usrName, String usrPassword, int usrType, Callback<MainServerData<UsrListData>> callback) {
@@ -32,6 +34,7 @@ public class UsrListWrapper {
         usrListData.usrID = usrID;
         usrListData.usrName = usrName;
         usrListData.usrPassword = usrPassword;
+        usrListData.pushToken = LinkRegistrationService.getToken();
         usrListInterface.signup(LinkBoxController.getApplicationID(), usrListData, callback);
     }
     public void profile(String newProfile, Callback<MainServerData<Object>> callback) {

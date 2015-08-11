@@ -11,12 +11,16 @@ import android.view.WindowManager;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.constant.LoginStrings;
+import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.constant.UsrType;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.network.BoxListWrapper;
+import org.sopt.linkbox.custom.network.UrlListWrapper;
+import org.sopt.linkbox.custom.network.UsrListWrapper;
 import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.util.ArrayList;
@@ -26,14 +30,18 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class LoginLoadingActivity extends Activity {
-    private static final String TAG = "TEST/" + LoginLoadingActivity.class.getName() + " : ";
+public class AccountLoadingActivity extends Activity {
+    private static final String TAG = "TEST/" + AccountLoadingActivity.class.getName() + " : ";
+
+    private UsrListWrapper usrListWrapper = null;
+    private BoxListWrapper boxListWrapper = null;
+    private UrlListWrapper urlListWrapper = null;
 
     private String usrID = null;
     private String usrName = null;
     private String usrProfile = null;
     private String usrPassword = null;
-    private boolean facebook = false;
+    private int usrType = 0;
 
     private SharedPreferences spProfile = null;
     private SharedPreferences.Editor speProfile = null;
@@ -61,39 +69,49 @@ public class LoginLoadingActivity extends Activity {
         setContentView(R.layout.activity_login_loading);
     }
     private void initInterface() {
-        //TODO : SERVER ACT
+        usrListWrapper = new UsrListWrapper();
+        boxListWrapper = new BoxListWrapper();
+        urlListWrapper = new UrlListWrapper();
     }
     private void initData() {
         Intent intent = getIntent();
-        usrID = intent.getStringExtra(LoginStrings.usrID);
-        usrName = intent.getStringExtra(LoginStrings.usrName);
-        usrProfile = intent.getStringExtra(LoginStrings.usrProfile);
-        usrPassword = intent.getStringExtra(LoginStrings.usrPassword);
-        facebook = intent.getBooleanExtra(LoginStrings.facebook, false);
-        // TODO : LOOK UP FOR Sharedpreference. Sharedpreference interacts with the phone's cache. If the value is true, Auto login is activated.
+        usrID = intent.getStringExtra(AccountStrings.usrID);
+        usrName = intent.getStringExtra(AccountStrings.usrName);
+        usrProfile = intent.getStringExtra(AccountStrings.usrProfile);
+        usrPassword = intent.getStringExtra(AccountStrings.usrPassword);
+        usrType = intent.getIntExtra(AccountStrings.usrType, 0);
         spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
         speProfile = spProfile.edit();
     }
     private void initView() {
     }
     private void initListener() {
-        if (facebook) {
-            //TODO : SERVER ACT
-        }
-        else {
-            //TODO : SERVER ACT
+        switch (usrType) {
+            case UsrType.new_user :
+                usrListWrapper.signup(usrID, usrName, usrPassword, UsrType.normal_user, new SignupCallback());
+                break;
+            case UsrType.normal_user :
+                usrListWrapper.login(usrID, usrPassword, UsrType.normal_user, new LoginCallback());
+                break;
+            case UsrType.facebook_user :
+                usrListWrapper.login(usrID, usrPassword, UsrType.facebook_user, new FacebookLoginCallback());
+                break;
+            case UsrType.google_user :
+                //TODO:Add google login
+                break;
         }
     }
 
-    private class LoginCallback implements Callback<MainServerData<UsrListData>> {
+    private class FacebookLoginCallback implements Callback<MainServerData<UsrListData>> {
         @Override
-        public void success(MainServerData<UsrListData> wrappedUserData, Response response) {  // Server has succeeded in interacting with the Database.
-            if (wrappedUserData.result) {   // Checks if the value for id and password exists in the server database
+        public void success(MainServerData<UsrListData> wrappedUserData, Response response) {
+            if (wrappedUserData.result) {
                 UsrListData usrListData = wrappedUserData.object;
                 LinkBoxController.usrListData = usrListData;
-                speProfile.putString(LoginStrings.usrID, usrListData.usrID);
-                speProfile.putString(LoginStrings.usrPassword, usrListData.usrPassword);
-                //TODO : SERVER ACT
+                Log.d(TAG, usrListData.toString() + " ");
+                speProfile.putString(AccountStrings.usrID, usrListData.usrID);
+                speProfile.putString(AccountStrings.usrPassword, usrListData.usrPassword);
+                boxListWrapper.list(new BoxLoadingCallback());
             }
             else {
                 Log.d(TAG, wrappedUserData.message);
@@ -105,19 +123,38 @@ public class LoginLoadingActivity extends Activity {
         }
     }
 
-    private class FacebookAccessCallback implements Callback<MainServerData<UsrListData>> {
+    private class LoginCallback implements Callback<MainServerData<UsrListData>> {
         @Override
-        public void success(MainServerData<UsrListData> wrappedUserData, Response response) {
-            if (wrappedUserData.result) {
+        public void success(MainServerData<UsrListData> wrappedUserData, Response response) {  // Server has succeeded in interacting with the Database.
+            if (wrappedUserData.result) {   // Checks if the value for id and password exists in the server database
                 UsrListData usrListData = wrappedUserData.object;
                 LinkBoxController.usrListData = usrListData;
-                Log.d(TAG, usrListData.toString() + " ");
-                speProfile.putString(LoginStrings.usrID, usrListData.usrID);
-                speProfile.putString(LoginStrings.usrPassword, usrListData.usrPassword);
-                //TODO : SERVER ACT
+                speProfile.putString(AccountStrings.usrID, usrListData.usrID);
+                speProfile.putString(AccountStrings.usrPassword, usrListData.usrPassword);
+                boxListWrapper.list(new BoxLoadingCallback());
             }
             else {
                 Log.d(TAG, wrappedUserData.message);
+            }
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            RetrofitDebug.debug(error);
+        }
+    }
+
+    private class SignupCallback implements Callback<MainServerData<UsrListData>> {
+        @Override
+        public void success(MainServerData<UsrListData> wrappedUsrListData, Response response) {
+            if (wrappedUsrListData.result) {
+                UsrListData usrListData = wrappedUsrListData.object;
+                LinkBoxController.usrListData = usrListData;
+                speProfile.putString(AccountStrings.usrID, usrListData.usrID);
+                speProfile.putString(AccountStrings.usrPassword, usrListData.usrPassword);
+                boxListWrapper.list(new BoxLoadingCallback());
+            }
+            else {
+                Log.d(TAG, wrappedUsrListData.message);
             }
         }
         @Override
@@ -134,10 +171,10 @@ public class LoginLoadingActivity extends Activity {
                 LinkBoxController.boxListSource = (ArrayList<BoxListData>) boxListDatas;
                 if (boxListDatas.size() > 0) {
                     LinkBoxController.currentBox = boxListDatas.get(0);
-                    //TODO : SERVER ACT
+                    urlListWrapper.allList(0, 100, new UrlLoadingCallback());
                 }
                 else {
-                    Intent intent = new Intent(LoginLoadingActivity.this, LinkBoxActivity.class);
+                    Intent intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
@@ -158,7 +195,7 @@ public class LoginLoadingActivity extends Activity {
             if (wrappedUrlListDatas.result) {
                 List<UrlListData> urlListDatas = wrappedUrlListDatas.object;
                 LinkBoxController.urlListSource = (ArrayList<UrlListData>) urlListDatas;
-                Intent intent = new Intent(LoginLoadingActivity.this, LinkBoxActivity.class);
+                Intent intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
