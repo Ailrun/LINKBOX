@@ -19,6 +19,8 @@ import com.facebook.login.widget.LoginButton;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.loadingPage.AccountLoadingActivity;
 import org.sopt.linkbox.activity.mainPage.LinkItActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.InvitedBoxActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.SettingStrings;

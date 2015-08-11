@@ -8,9 +8,10 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.okhttp.OkHttpClient;
 
+import org.sopt.linkbox.custom.data.mainData.InviteBoxData;
 import org.sopt.linkbox.custom.network.MainServerInterface;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditInvitedBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.BoxEditInvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
@@ -83,7 +84,7 @@ public class LinkBoxController extends Application {
     }
 
     public static ArrayList<BoxListData> boxListSource = null;
-    public static ArrayList<BoxListData> invitedBoxListSource = null;   // Added for invited box list
+    public static ArrayList<InviteBoxData> invitedBoxListSource = null;   // Added for invited box list
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
