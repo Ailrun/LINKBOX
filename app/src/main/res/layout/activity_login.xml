@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 >
+                <!-- This will be added later
                 <Button
 
                     android:layout_width="85dp"
@@ -51,7 +52,7 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:textColor="@color/teala400"
                     />
-
+                -->
 
             </RelativeLayout>
             <EditText
@@ -61,9 +62,9 @@
                 android:layout_gravity="center_horizontal"
                 android:padding="10dp"
                 android:layout_marginTop="7dp"
-                android:hint="이메일 주소"
+                android:hint="@string/user_email_hint"
                 android:singleLine="true"
-                android:textColorHint="#FFAFAFAF"
+                android:textColorHint="#E0E0E0"
                 android:textColor="@color/real_black"
                 android:background="@color/real_white"
                 />
@@ -74,8 +75,8 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="7dp"
                 android:padding="10dp"
-                android:hint="비밀번호"
-                android:textColorHint="#FFAFAFAF"
+                android:hint="@string/user_password_hint"
+                android:textColorHint="#E0E0E0"
                 android:singleLine="true"
                 android:inputType="textPassword"
                 android:textColor="@color/real_black"

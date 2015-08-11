@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.sopt.linkbox.R;
@@ -23,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail = null;
     private EditText etPass = null;
     private Button bLogin = null;
+    private String emailHint = null;
+    private String passwordHint = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
