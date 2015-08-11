@@ -41,6 +41,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.helpPage.HelpActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
@@ -97,6 +99,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private PullToRefreshListView pullToRefreshView = null;
     private RelativeLayout rlToSetting = null;
+    private RelativeLayout rlToHelp = null;
 
     private DrawerLayout dlBoxList = null;
     private ActionBarDrawerToggle abBoxList = null;
@@ -336,6 +339,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
         dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
         rlToSetting = (RelativeLayout) findViewById(R.id.RL_setting_link_box);
+        rlToHelp = (RelativeLayout) findViewById(R.id.RL_help_link_box);
 
     }
     private void initDrawerListener() {
@@ -350,7 +354,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlMyBox.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Log.d("", "");
+                Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -410,6 +415,13 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
+            }
+        });
+
+        rlToHelp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), HelpActivity.class));
             }
         });
 

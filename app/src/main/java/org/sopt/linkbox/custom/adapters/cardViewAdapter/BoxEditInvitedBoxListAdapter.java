@@ -56,8 +56,8 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_invited_box_list_link_box, viewGroup, false);
         }
         final BoxListData boxListData = (BoxListData) getItem(i);
-        TextView tvBoxName = ViewHolder.get(view, R.id.invited_box_title);
-        ImageView tvBoxImage = ViewHolder.get(view, R.id.invited_box_image);  // TODO : Unfinished. Needs to import data
+        TextView tvBoxName = ViewHolder.get(view, R.id.TV_invited_box_name);
+        ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_invited_box_thumbnail);  // TODO : Unfinished. Needs to import data
         tvBoxName.setText(boxListData.boxName);
         tvBoxImage.setImageBitmap(null);    // TODO : Unfinished
 

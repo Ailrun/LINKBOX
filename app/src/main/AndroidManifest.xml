@@ -147,6 +147,27 @@
             android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity" >
         </activity>
 
+        <!-- for help -->
+        <activity
+            android:name=".activity.helpPage.HelpActivity"
+            android:label="HelpActivity"
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity">
+        </activity>
+
+        <activity android:name=".activity.helpPage.subHelpPage.StartHelpActivity"
+            android:label="StartHelpActivity"
+            android:parentActivityName=".activity.helpPage.HelpActivity"/>
+        <activity android:name=".activity.helpPage.subHelpPage.LinkOpenHelpActivity"
+            android:label="LinkOpenHelpActivity"
+            android:parentActivityName=".activity.helpPage.HelpActivity"/>
+        <activity android:name=".activity.helpPage.subHelpPage.BoxCreateHelpActivity"
+            android:label="BoxCreateHelpActivity"
+            android:parentActivityName=".activity.helpPage.HelpActivity"/>
+        <activity android:name=".activity.helpPage.subHelpPage.BoxShareHelpActivity"
+            android:label="BoxShareHelpActivity"
+            android:parentActivityName=".activity.helpPage.HelpActivity"/>
+
+
         <!-- for Push -->
         <service
             android:name=".service.pushService.LinkGcmListenerService"

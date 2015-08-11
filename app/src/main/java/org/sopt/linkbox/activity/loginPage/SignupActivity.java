@@ -40,5 +40,10 @@ public class SignupActivity extends AppCompatActivity {
         etPasswordField.setTypeface(typeface);
         etPasswordCheckField.setTypeface(typeface);
 
+        etEmailField.setHintTextColor(getResources().getColor(R.color.hint_black));
+        etNameField.setHintTextColor(getResources().getColor(R.color.hint_black));
+        etPasswordField.setHintTextColor(getResources().getColor(R.color.hint_black));
+        etPasswordCheckField.setHintTextColor(getResources().getColor(R.color.hint_black));
+
     }
 }

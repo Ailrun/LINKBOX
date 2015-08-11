@@ -93,6 +93,7 @@
 
         </RelativeLayout>
 
+        <!-- Buyed Box (Extra feature) -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,6 +112,7 @@
                 android:textColor="@color/real_black"/>
 
         </RelativeLayout>
+        <!-- Buyed Box (Extra feature) -->
 
     </RelativeLayout>
 

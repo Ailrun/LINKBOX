@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 >
+                <!-- this will be added later
                 <Button
 
                     android:layout_width="45dp"
@@ -43,14 +44,14 @@
                     android:textSize="14.5dp"
                     android:textColor="@color/teala400"
                     />
-
+                -->
             </RelativeLayout>
             <EditText
                 android:id="@+id/ET_email_signup"
                 android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:hint="Email"
+                android:hint="@string/user_email_hint"
                 android:layout_marginTop="7dp"
                 android:fontFamily="san-serif"
                 android:singleLine="true"
@@ -62,7 +63,7 @@
                 android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:hint="Name"
+                android:hint="@string/user_name_hint"
                 android:layout_marginTop="7dp"
                 android:fontFamily="san-serif"
                 android:singleLine="true"
@@ -74,7 +75,7 @@
                 android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:hint="@string/prompt_password"
+                android:hint="@string/user_password_hint"
                 android:singleLine="true"
                 android:inputType="textPassword"
                 android:fontFamily="san-serif"
@@ -87,7 +88,7 @@
                 android:layout_width="236dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:hint="@string/password_check"
+                android:hint="@string/user_password_check_hint"
                 android:singleLine="true"
                 android:fontFamily="san-serif"
                 android:inputType="textPassword"

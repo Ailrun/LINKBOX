@@ -19,6 +19,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.loadingPage.LoginLoadingActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.LoginStrings;
 import org.sopt.linkbox.constant.SettingStrings;
