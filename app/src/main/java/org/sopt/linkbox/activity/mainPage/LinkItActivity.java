@@ -7,11 +7,16 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -50,6 +55,12 @@ public class LinkItActivity extends Activity {
     private UrlListData urlListData = null;
     private int checkedBox = 0;
 
+    TextView txtMessage;
+
+    // Animation
+    Animation animSlideDown;
+    Animation animSlideUp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +75,71 @@ public class LinkItActivity extends Activity {
         initView();
         initListener();
         initControl();
+
+
+
+        CheckBox chkbox = (CheckBox) findViewById(R.id.CB_box_link_it);
+
+        txtMessage = (TextView) findViewById(R.id.TV_blank);
+
+        // load the animation
+        animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.anim_slide_down);
+
+        // set animation listener
+        animSlideDown.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_up);
+
+        animSlideUp.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        // button click event
+        txtMessage.setVisibility(View.VISIBLE);
+
+        chkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                    txtMessage.startAnimation(animSlideUp);
+
+                } else {
+                    txtMessage.startAnimation(animSlideDown);
+
+
+                }
+            }
+        });
+
     }
     @Override
     public void onResume() {
@@ -201,4 +277,6 @@ public class LinkItActivity extends Activity {
             }
         }
     }
+
+
 }

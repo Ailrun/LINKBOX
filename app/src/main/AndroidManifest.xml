@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.sopt.linkbox"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="0.0.5" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -52,6 +52,8 @@
 
     <!-- InApp purchase -->
     <!-- <permission android:name="com.android.vending.BILLING" /> -->
+
+    <!-- Application start-->
     <application
         android:name=".LinkBoxController"
         android:allowBackup="true"
@@ -96,7 +98,8 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
 
         <!-- com.facebook.app.FacebookContentProvider 뒤에다가 App ID 추가 필수 -->
         <provider
@@ -212,7 +215,7 @@
             android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity" >
         </activity>
         <activity
-            android:name=".activity.loadingPage.LoginLoadingActivity"
+            android:name=".activity.loadingPage.AccountLoadingActivity"
             android:label="@string/title_activity_loading"
             android:launchMode="singleTask" >
         </activity>

@@ -57,7 +57,7 @@ public class BoxEditorList extends AppCompatActivity {
 
     private void initData() {
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrKey, 0);
+                + LinkBoxController.usrListData.usrKey, 0);
     }
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);

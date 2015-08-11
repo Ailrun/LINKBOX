@@ -63,7 +63,7 @@ public class BoxEditorAdd extends AppCompatActivity {
 
     private void initData() {
         spUserSettings = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrKey, 0);
+                + LinkBoxController.usrListData.usrKey, 0);
     }
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_add);

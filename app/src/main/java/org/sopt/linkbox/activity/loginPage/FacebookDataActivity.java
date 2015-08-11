@@ -14,8 +14,9 @@ import com.facebook.GraphResponse;
 import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.loadingPage.LoginLoadingActivity;
-import org.sopt.linkbox.constant.LoginStrings;
+import org.sopt.linkbox.activity.loadingPage.AccountLoadingActivity;
+import org.sopt.linkbox.constant.AccountStrings;
+import org.sopt.linkbox.constant.UsrType;
 
 public class FacebookDataActivity extends Activity {
     private static final String TAG = "TEST/" + FacebookDataActivity.class.getName() + " : ";
@@ -43,7 +44,7 @@ public class FacebookDataActivity extends Activity {
         super.onResume();
         if(AccessToken.getCurrentAccessToken() == null){
             finish();
-            Log.e("jsonObject", LinkBoxController.userData.usrProfile);
+            Log.e("jsonObject", LinkBoxController.usrListData.usrProfile);
         }
     }
     @Override
@@ -60,18 +61,23 @@ public class FacebookDataActivity extends Activity {
                 String usrProfile = jsonObject.optJSONObject("picture").optJSONObject("data").optString("url");
                 String usrPassword = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
                 Log.d(TAG, jsonObject.toString());
-                Intent intent = new Intent(FacebookDataActivity.this, LoginLoadingActivity.class);
-                intent.putExtra(LoginStrings.usrID, jsonObject.optString("email"));
-                intent.putExtra(LoginStrings.usrName, jsonObject.optString("name"));
-                intent.putExtra(LoginStrings.usrProfile, usrProfile);
-                intent.putExtra(LoginStrings.usrPassword, usrPassword);
-                intent.putExtra(LoginStrings.facebook, true);
-                startActivity(intent);
-                finish();
+                facebookLoading(jsonObject.optString("email"), jsonObject.optString("name"), usrProfile, usrPassword);
             }
             else {
                 Log.d(TAG, "jsonObject is NULL!!!!");
             }
         }
+    }
+
+    private void facebookLoading(String usrID, String usrName, String usrProfile, String usrPassword) {
+        Intent intent = new Intent(this, AccountLoadingActivity.class);
+        intent.putExtra(AccountStrings.usrID, usrID);
+        intent.putExtra(AccountStrings.usrName, usrName);
+        intent.putExtra(AccountStrings.usrProfile, usrProfile);
+        intent.putExtra(AccountStrings.usrPassword, usrPassword);
+        intent.putExtra(AccountStrings.usrType, UsrType.facebook_user);
+        startActivity(intent);
+        finish();
+
     }
 }

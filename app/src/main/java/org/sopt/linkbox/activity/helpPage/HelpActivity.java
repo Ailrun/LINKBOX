@@ -17,6 +17,7 @@ import org.sopt.linkbox.activity.helpPage.subHelpPage.LinkOpenHelpActivity;
 import org.sopt.linkbox.activity.helpPage.subHelpPage.StartHelpActivity;
 /**
  * Created by MinGu on 2015-08-10.
+ *
  */
 public class HelpActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -18,10 +17,10 @@ import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.loadingPage.LoginLoadingActivity;
-import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
+import org.sopt.linkbox.activity.loadingPage.AccountLoadingActivity;
+import org.sopt.linkbox.activity.mainPage.LinkItActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.constant.LoginStrings;
+import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.helper.SessionSaver;
 import org.sopt.linkbox.debugging.FacebookDebug;
@@ -81,9 +80,9 @@ public class AccountActivity extends AppCompatActivity {
         speProfile = spProfile.edit();  // 03 Shared preference cannot edit data.
     }
     private void initAutoLogin() {
-        String usremail = spProfile.getString(LoginStrings.usrID, "");
-        String pass = spProfile.getString(LoginStrings.usrPassword, "");
-        if (usremail != null && !usremail.equals("") && pass != null && !pass.equals("")) {
+        String usremail = spProfile.getString(AccountStrings.usrID, "");
+        String pass = spProfile.getString(AccountStrings.usrPassword, "");
+        if (!usremail.equals("") && !pass.equals("")) {
             loginLoading(usremail, pass);
         }
     }
@@ -106,7 +105,7 @@ public class AccountActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent = new Intent(AccountActivity.this, LinkBoxActivity.class);
+                Intent intent = new Intent(AccountActivity.this, LinkItActivity.class);
                 startActivity(intent);
             }
         });
@@ -148,9 +147,9 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void loginLoading(String usremail, String pass) {
-        Intent intent = new Intent(this, LoginLoadingActivity.class);
-        intent.putExtra(LoginStrings.usrID, usremail);
-        intent.putExtra(LoginStrings.usrPassword, pass);
+        Intent intent = new Intent(this, AccountLoadingActivity.class);
+        intent.putExtra(AccountStrings.usrID, usremail);
+        intent.putExtra(AccountStrings.usrPassword, pass);
         startActivity(intent);
         finish();
     }
