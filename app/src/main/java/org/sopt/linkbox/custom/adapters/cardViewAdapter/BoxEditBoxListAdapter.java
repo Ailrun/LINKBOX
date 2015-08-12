@@ -57,14 +57,14 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
         final BoxListData boxListData = (BoxListData) getItem(i);
-        TextView tvBoxName = ViewHolder.get(view, R.id.box_title);
-        ImageView tvBoxImage = ViewHolder.get(view, R.id.box_image);  // TODO : Unfinished. Needs to import data
+        TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_title);
+        ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_box_image);  // TODO : Unfinished. Needs to import data
         tvBoxName.setText(boxListData.boxName);
         tvBoxImage.setImageBitmap(null);    // TODO : Unfinished
 
-        ImageView favoriteBtn = (ImageView) view.findViewById(R.id.favorite_btn);
-        ImageView modifyBtn = (ImageView) view.findViewById(R.id.modify_btn);
-        ImageView deleteBtn = (ImageView) view.findViewById(R.id.delete_btn);
+        ImageView favoriteBtn = (ImageView) view.findViewById(R.id.IV_favorite_btn);
+        ImageView modifyBtn = (ImageView) view.findViewById(R.id.IV_modify_btn);
+        ImageView deleteBtn = (ImageView) view.findViewById(R.id.IV_delete_btn);
 
         // LinkBoxController.currentBox = boxListData;
         // TODO : Give via Intent

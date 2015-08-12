@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/T_toolbar_link_box"
+        layout="@layout/layout_toolbar"/>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_below="@id/T_toolbar_link_box"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:verticalScrollbarPosition="defaultPosition">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="Linkbox에 어떻게 링크를 저장하나요?"
+                android:id="@+id/TV_how_to_add_link_question" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TV_how_to_add_link_question"
+                android:paddingStart="10dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:alpha="0.87"
+                android:text="링크라면 모두 Linkbox에 저장할 수 있습니다. 사용하는 앱에서 지금바로 공유 버튼을 찾아보세요. 공유 메뉴 안에서 Linkbox로 저장하기를 찾을 수 있을겁니다."
+                android:id="@+id/TV_how_to_add_link_answer" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitStart"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/TV_how_to_add_link_answer"
+                android:adjustViewBounds="true"
+                android:src="@drawable/share_via_image"
+                android:id="@+id/IV_how_to_add_link"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/IV_how_to_add_link"
+                android:layout_marginTop="20dp"
+                android:paddingStart="5dp"
+                android:textStyle="bold"
+                android:text="공유버튼은 어디있나요?"
+                android:id="@+id/TV_where_share_button_question" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TV_where_share_button_question"
+                android:layout_marginTop="10dp"
+                android:paddingStart="5dp"
+                android:alpha="0.87"
+                android:textStyle="bold"
+                android:text="대다수의 앱들은 오른쪽 상단의 매뉴에 공유 버튼을 가지고 있습니다. 이 버튼을 눌러주시면 됩니다."
+                android:id="@+id/TV_where_share_button_answer" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TV_where_share_button_answer"
+                android:layout_marginTop="10dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/share_button_image"
+                android:id="@+id/IV_where_share_button"/>
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+</RelativeLayout>

@@ -14,5 +14,8 @@
     <color name="teal400">#FF26a69a</color>
     <color name="grey">#3a000000</color>
     <color name="bright_grey">#FFFAFAFA</color>
+    <color name="black_54p">#8a000000</color>
+    <color name="hint_black">#E0E0E0</color>
+    <color name="border_transparency">?android:attr/selectableItemBackground</color>
 
 </resources>

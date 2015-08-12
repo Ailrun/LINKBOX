@@ -2,6 +2,8 @@ package org.sopt.linkbox;
 
 import android.app.Application;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -9,8 +11,9 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.network.main.MainServerInterface;
+import org.sopt.linkbox.custom.data.mainData.InviteBoxData;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditInvitedBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.BoxEditInvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
@@ -27,6 +30,9 @@ import org.sopt.linkbox.custom.network.main.url.UrlListInterface;
 import org.sopt.linkbox.custom.network.main.usr.UsrListInterface;
 import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
@@ -83,7 +89,7 @@ public class LinkBoxController extends Application {
     }
 
     public static ArrayList<BoxListData> boxListSource = null;
-    public static ArrayList<BoxListData> invitedBoxListSource = null;   // Added for invited box list
+    public static ArrayList<InviteBoxData> invitedBoxListSource = null;   // Added for invited box list
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
@@ -106,7 +112,9 @@ public class LinkBoxController extends Application {
     }
 
     public static UsrListData usrListData = null;
-
+    // Code for user profile image cropping
+    // public static Bitmap temporaryImage = null;
+    public static Bitmap userImage = null;
 
     public static BoxListData currentBox = null;    // TODO : Current box must be filled whenever box is pressed
     // public static BoxListData currentInvitedBox = null;
