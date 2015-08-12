@@ -8,14 +8,8 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.io.IOException;
-
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by Junyoung on 2015-07-06.

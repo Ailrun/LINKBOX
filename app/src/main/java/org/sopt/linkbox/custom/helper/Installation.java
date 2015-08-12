@@ -1,9 +1,6 @@
 package org.sopt.linkbox.custom.helper;
 
 import android.content.Context;
-import android.telephony.TelephonyManager;
-
-import org.sopt.linkbox.LinkBoxController;
 
 import java.io.File;
 import java.io.FileOutputStream;

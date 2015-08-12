@@ -8,7 +8,6 @@ import android.widget.GridView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditInvitedBoxListAdapter;
 
 /**
