@@ -3,7 +3,13 @@ package org.sopt.linkbox.custom.adapters.listViewAdapter;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +32,7 @@ import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sy on 2015-08-12.
@@ -35,6 +42,7 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
     private ArrayList<InviteBoxData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
+    private Bitmap bmBoxThumbnail = null;
 
     public BoxEditInvitedBoxListAdapter(Context context, ArrayList<InviteBoxData> source) {
         layoutInflater =
@@ -81,11 +89,21 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
         }
 
         InviteBoxData boxListData = (InviteBoxData) getItem(position);
-        ImageView ivBoximage = ViewHolder.get(view, R.id.IV_invited_box_thumbnail);
+        //final ImageView ivBoximage = ViewHolder.get(view, R.id.IV_invited_box_thumbnail);
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_invited_box_name);
         TextView tvBoxDate = ViewHolder.get(view, R.id.TV_invited_box_time);
         Button bAgree = ViewHolder.get(view, R.id.B_invited_box_accept);
         Button bDisagree = ViewHolder.get(view, R.id.B_invited_box_reject);
+        try {
+            bmBoxThumbnail = Glide.with(context).load(boxListData.boxThumbnail).asBitmap().into(100, 100).get();
+        }//왜 에러를 안받아주면 오류가 나는가
+        catch (final ExecutionException e) {
+            Log.e(TAG, e.getMessage());
+        } catch (final InterruptedException e) {
+            Log.e(TAG, e.getMessage());
+        }
+
+        final Drawable drawable = new BitmapDrawable(bmBoxThumbnail);
 
         final RelativeLayout rel = (RelativeLayout) ViewHolder.get(view, R.id.RL_invited_box_layout);
         final LinearLayout mLinearLayout = (LinearLayout) ViewHolder.get(view, R.id.LL_invited_box_expandable);
@@ -94,7 +112,8 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
         tvBoxName.setText(boxListData.boxName);
         tvBoxDate.setText(boxListData.boxDate);
 
-        Glide.with(context).load(boxListData.boxThumbnail).into(ivBoximage);
+        //Glide.with(context).load(boxListData.boxThumbnail).asBitmap().into(bmBoxThumbnail);
+
 
         bAgree.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,8 +138,8 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (mLinearLayout.getVisibility() == View.GONE) {
                     expand(mLinearLayout);
-                    rel.setBackgroundColor(Color.parseColor("#FF3f51b5"));
-                    rel.setBackgroundResource(R.drawable.sign_background);
+                    rel.setBackground(drawable);
+
                 } else {
                     collapse(mLinearLayout);
                     rel.setBackground(null);
@@ -186,4 +205,5 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
         });
         return animator;
     }
+
 }

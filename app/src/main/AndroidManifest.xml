@@ -48,12 +48,11 @@
     <uses-permission android:name="org.sopt.linkbox.permission.C2D_MESSAGE" />
 
     <!-- used for gallery permission -->
-    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
     <!-- InApp purchase -->
     <!-- <permission android:name="com.android.vending.BILLING" /> -->
-
-    <!-- Application start-->
+    <!-- Application start -->
     <application
         android:name=".LinkBoxController"
         android:allowBackup="true"
@@ -80,13 +79,13 @@
             android:name=".activity.loginPage.LoginActivity"
             android:label="@string/title_activity_login"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.loginPage.AccountActivity">
+            android:parentActivityName=".activity.loginPage.AccountActivity" >
         </activity>
         <activity
             android:name=".activity.loginPage.SignupActivity"
             android:label="@string/title_activity_signup"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.loginPage.AccountActivity">
+            android:parentActivityName=".activity.loginPage.AccountActivity" >
         </activity>
 
         <!-- 아래 부분은 SDK 4.0.0 버전 이후로설정해줘야 하는 부분으로 가이드 라인에 나와있습니다 -->
@@ -98,7 +97,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
 
         <!-- com.facebook.app.FacebookContentProvider 뒤에다가 App ID 추가 필수 -->
@@ -158,22 +157,24 @@
         <activity
             android:name=".activity.helpPage.HelpActivity"
             android:label="HelpActivity"
-            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity">
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity" >
         </activity>
-
-        <activity android:name=".activity.helpPage.subHelpPage.StartHelpActivity"
+        <activity
+            android:name=".activity.helpPage.subHelpPage.StartHelpActivity"
             android:label="StartHelpActivity"
-            android:parentActivityName=".activity.helpPage.HelpActivity"/>
-        <activity android:name=".activity.helpPage.subHelpPage.LinkOpenHelpActivity"
+            android:parentActivityName=".activity.helpPage.HelpActivity" />
+        <activity
+            android:name=".activity.helpPage.subHelpPage.LinkOpenHelpActivity"
             android:label="LinkOpenHelpActivity"
-            android:parentActivityName=".activity.helpPage.HelpActivity"/>
-        <activity android:name=".activity.helpPage.subHelpPage.BoxCreateHelpActivity"
+            android:parentActivityName=".activity.helpPage.HelpActivity" />
+        <activity
+            android:name=".activity.helpPage.subHelpPage.BoxCreateHelpActivity"
             android:label="BoxCreateHelpActivity"
-            android:parentActivityName=".activity.helpPage.HelpActivity"/>
-        <activity android:name=".activity.helpPage.subHelpPage.BoxShareHelpActivity"
+            android:parentActivityName=".activity.helpPage.HelpActivity" />
+        <activity
+            android:name=".activity.helpPage.subHelpPage.BoxShareHelpActivity"
             android:label="BoxShareHelpActivity"
-            android:parentActivityName=".activity.helpPage.HelpActivity"/>
-
+            android:parentActivityName=".activity.helpPage.HelpActivity" />
 
         <!-- for Push -->
         <service
@@ -227,11 +228,16 @@
             android:name=".activity.mainPage.boxListPage.BoxListEditActivity"
             android:label="@string/title_activity_box_list_edit" >
         </activity>
-        <activity android:name=".activity.mainPage.boxListPage.InvitedBoxActivity"
-            android:label="InvitedBoxActiviy"/>
+        <activity
+            android:name=".activity.mainPage.boxListPage.InvitedBoxActivity"
+            android:label="InvitedBoxActiviy" />
         <activity
             android:name=".activity.mainPage.urlListingPage.LinkHomeActivity"
             android:label="@string/title_activity_link_home" >
+        </activity>
+        <activity
+            android:name=".activity.mainPage.boxListPage.BoxAddActivity"
+            android:label="@string/title_activity_box_add" >
         </activity>
     </application>
 

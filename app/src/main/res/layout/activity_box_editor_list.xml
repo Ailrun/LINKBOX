@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:textSize="14dp"
             android:text="박스이름"
+            android:textColor="@color/black_54p"
             android:layout_marginStart="16dp"
             android:id="@+id/TV_box_name_editor_list" />
     </LinearLayout>

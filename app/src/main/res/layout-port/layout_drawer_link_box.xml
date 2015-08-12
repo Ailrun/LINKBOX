@@ -6,7 +6,9 @@
     android:layout_height="match_parent"
     android:layout_marginEnd="@dimen/navigation_drawer_margin"
     android:background="#FFFFFFFF"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:elevation="16dp"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
