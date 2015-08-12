@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
-    android:layout_height="450dp"
+    android:layout_height="480dp"
     android:layout_gravity="center"
     android:background="@drawable/dialogue_window"
     tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity">
@@ -214,7 +214,7 @@
             android:layout_height="0dp"
             android:layout_weight="16"
             android:padding="16dp"
-            android:layout_marginBottom="-16dp"
+            android:layout_marginBottom="-10dp"
             android:orientation="vertical">
 
             <TextView
@@ -252,7 +252,9 @@
                 android:textSize="16dp"
 
                 />
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
             <Spinner
                 android:id="@+id/S_box_link_it"
                 android:layout_width="wrap_content"
@@ -262,7 +264,15 @@
                 android:layout_alignParentStart="true"
                 android:background="#00ffffff"
                 android:spinnerMode="dropdown" />
-
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/spinner_arrow"
+        android:layout_marginEnd="10dp"
+        />
+</RelativeLayout>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -296,8 +306,9 @@
                 android:background="#3a000000" />
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
+    android:layout_height="40dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginTop="5dp"
     >
             <TextView
                 android:layout_width="wrap_content"
@@ -311,7 +322,9 @@
     android:id="@+id/CB_box_link_it"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_alignParentEnd="true"/>
+    android:layout_alignParentEnd="true"
+    android:layout_marginEnd="23dp"
+    />
 </RelativeLayout>
 
         </LinearLayout>
@@ -328,7 +341,7 @@
                     android:text="4시간 후에 알림을 받아봅니다."
                     android:textColor="@color/real_white"
                     android:textSize="14dp"
-                    android:background="@color/teala400"
+                    android:background="@drawable/teal_back"
                     />
             <TextView
                 android:id="@+id/TV_blank"

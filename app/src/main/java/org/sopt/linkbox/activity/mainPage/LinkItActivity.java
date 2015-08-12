@@ -55,8 +55,8 @@ public class LinkItActivity extends Activity {
     private UrlListData urlListData = null;
     private int checkedBox = 0;
 
+    TextView txtBlank;
     TextView txtMessage;
-
     // Animation
     Animation animSlideDown;
     Animation animSlideUp;
@@ -80,7 +80,8 @@ public class LinkItActivity extends Activity {
 
         CheckBox chkbox = (CheckBox) findViewById(R.id.CB_box_link_it);
 
-        txtMessage = (TextView) findViewById(R.id.TV_blank);
+        txtMessage = (TextView) findViewById(R.id.TV_box_link_it);
+        txtBlank = (TextView) findViewById(R.id.TV_blank);
 
         // load the animation
         animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),
@@ -124,23 +125,28 @@ public class LinkItActivity extends Activity {
         });
         // button click event
         txtMessage.setVisibility(View.VISIBLE);
+        txtBlank.setVisibility(View.VISIBLE);
 
         chkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-
                     txtMessage.startAnimation(animSlideUp);
+                    txtBlank.startAnimation(animSlideDown);
+
 
                 } else {
-                    txtMessage.startAnimation(animSlideDown);
 
+                    txtMessage.startAnimation(animSlideDown);
+                    txtBlank.startAnimation(animSlideUp);
 
                 }
             }
         });
 
     }
+
+
     @Override
     public void onResume() {
         super.onResume();

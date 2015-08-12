@@ -227,6 +227,8 @@
             android:name=".activity.mainPage.boxListPage.BoxListEditActivity"
             android:label="@string/title_activity_box_list_edit" >
         </activity>
+        <activity android:name=".activity.mainPage.boxListPage.InvitedBoxActivity"
+            android:label="InvitedBoxActiviy"/>
         <activity
             android:name=".activity.mainPage.urlListingPage.LinkHomeActivity"
             android:label="@string/title_activity_link_home" >
