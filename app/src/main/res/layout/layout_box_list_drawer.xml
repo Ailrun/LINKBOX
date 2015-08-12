@@ -14,15 +14,4 @@
         android:textColor="@color/real_black"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"/>
-
-    <TextView
-        android:id="@+id/TV_url_number_link_box"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:textSize="14dp"
-        android:text="0"
-        android:textColor="@color/real_black"
-        android:layout_alignTop="@+id/TV_box_name_link_box"
-        android:layout_alignParentEnd="true"
-        android:gravity="center_vertical"/>
 </RelativeLayout>

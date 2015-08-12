@@ -1,6 +1,7 @@
 package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.marshalchen.ultimaterecyclerview.UltimateViewAdapter;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
@@ -26,7 +28,7 @@ import java.util.ArrayList;
  * Created by Junyoung on 2015-07-02.
  *
  */
-public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
+public class LinkBoxUrlListAdapter extends UltimateViewAdapter {
     private static final String TAG = "TEST/" + LinkBoxUrlListAdapter.class.getName() + " : ";
     private ArrayList<UrlListData> source = null;
     private LayoutInflater layoutInflater = null;
@@ -63,6 +65,12 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         return (source != null && i < source.size() && i >= 0) ?
                 source.get(i) : null;
     }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+    }
+
     @Override
     public long getItemId(int i) {
         return i;
@@ -120,5 +128,35 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
                 //TODO : goto share popup
             }
         });
+    }
+
+    @Override
+    public RecyclerView.ViewHolder getViewHolder(View view) {
+        return null;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup) {
+        return null;
+    }
+
+    @Override
+    public int getAdapterItemCount() {
+        return 0;
+    }
+
+    @Override
+    public long generateHeaderId(int i) {
+        return 0;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup viewGroup) {
+        return null;
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder viewHolder, int i) {
+
     }
 }

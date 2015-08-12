@@ -3,32 +3,32 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.loginPage.AccountActivity;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
@@ -68,12 +68,12 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     //toolbar layout
     private Toolbar tToolbar = null;
+    private CollapsingToolbarLayout ctlToolbar = null;
     //main layout
-    private PullToRefreshListView ptrlvUrlList = null;
+    private RecyclerView rvUrlList = null;
     private LinearLayout llUrlEmptyView = null;
     //drawer layout
     private RoundedImageView ivProfile = null;
-    private TextView tvBoxNumber = null;
     private ListView lvFavoriteBoxList = null;
 
     private RelativeLayout rlRecentLink = null;
@@ -228,8 +228,19 @@ public class LinkBoxActivity extends AppCompatActivity {
         LinkBoxController.linkBoxUrlListAdapter =
             new LinkBoxUrlListAdapter(getApplicationContext(), LinkBoxController.urlListSource);
 
-        ptrlvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
+        rvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
         lvFavoriteBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
+    }
+
+    private void initViewAfterMeasure() {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        Rect rect = new Rect();
+        display.getRealSize(size);
+        getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+        int height = size.y - rect.top - tToolbar.getHeight();
+        Log.d(TAG, "height : " + size.y + "\nTool : " + tToolbar.getHeight() + ", " + tToolbar.getMeasuredHeight());
+        rvUrlList.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height));
     }
 
     private void initInAppData() {
@@ -269,47 +280,22 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
+        ctlToolbar = (CollapsingToolbarLayout) findViewById(R.id.CTL_toolbar_link_box);
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
-        tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
-        tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox.boxIndex)).boxName);
+        ctlToolbar.setCollapsedTitleTextColor(getResources().getColor(R.color.real_white));
+        ctlToolbar.setExpandedTitleColor(getResources().getColor(R.color.real_white));
+        ctlToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox.boxIndex)).boxName);
         setSupportActionBar(tToolbar);
     }
 
     private void initMainView() {
-        ptrlvUrlList = (PullToRefreshListView) findViewById(R.id.PTRLV_url_list_link_box);
-//        ViewGroup viewGroup = (ViewGroup) ptrlvUrlList.getParent();
+        rvUrlList = (RecyclerView) findViewById(R.id.RV_url_list_link_box);
+//        ViewGroup viewGroup = (ViewGroup) rvUrlList.getParent();
 //        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
 //        viewGroup.addView(llUrlEmptyView);
-//        ptrlvUrlList.setEmptyView(llUrlEmptyView);
+//        rvUrlList.setEmptyView(llUrlEmptyView);
     }
     private void initMainListener() {
-        ptrlvUrlList.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
-            @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                // Do work to refresh the list here.
-                urlListWrapper.boxList(0, 20, new UrlLoading());
-            }
-        });
-        ptrlvUrlList.getRefreshableView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            }
-        });
-        ptrlvUrlList.getRefreshableView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                return false;
-            }
-        });
-        ptrlvUrlList.getRefreshableView().setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-            }
-
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i2, int i3) {
-            }
-        });
     }
 
     private void initDrawerView() {
@@ -412,6 +398,61 @@ public class LinkBoxActivity extends AppCompatActivity {
         urlListData.urlTitle = "페북";
         urlListData.urlWriterUsrName = "ME";
         LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
+        urlListData = new UrlListData();
+        urlListData.url = "www.facebook.com";
+        urlListData.urlTitle = "페북";
+        urlListData.urlWriterUsrName = "ME";
+        LinkBoxController.urlListSource.add(urlListData);
     }
     private void initBoxDummyData() {
         BoxListData boxListData = new BoxListData();
@@ -459,15 +500,12 @@ public class LinkBoxActivity extends AppCompatActivity {
             if (wrappedUrlListDatas.result) {
                 LinkBoxController.urlListSource = (ArrayList<UrlListData>) wrappedUrlListDatas.object;
                 LinkBoxController.notifyUrlDataSetChanged();
-                ptrlvUrlList.onRefreshComplete();
             }
             else {
-                ptrlvUrlList.onRefreshComplete();
             }
         }
         @Override
         public void failure(RetrofitError error) {
-            ptrlvUrlList.onRefreshComplete();
         }
     }
 }
