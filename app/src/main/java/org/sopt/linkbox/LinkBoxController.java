@@ -2,6 +2,8 @@ package org.sopt.linkbox;
 
 import android.app.Application;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Environment;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -28,6 +30,9 @@ import org.sopt.linkbox.custom.network.UrlListInterface;
 import org.sopt.linkbox.custom.network.UsrListInterface;
 import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
@@ -107,7 +112,9 @@ public class LinkBoxController extends Application {
     }
 
     public static UsrListData usrListData = null;
-
+    // Code for user profile image cropping
+    // public static Bitmap temporaryImage = null;
+    public static Bitmap userImage = null;
 
     public static BoxListData currentBox = null;    // TODO : Current box must be filled whenever box is pressed
     // public static BoxListData currentInvitedBox = null;
