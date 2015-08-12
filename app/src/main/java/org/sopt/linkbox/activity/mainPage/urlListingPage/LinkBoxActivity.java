@@ -1,8 +1,11 @@
 package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -39,13 +43,19 @@ import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.helper.ImageSaveLoad;
 import org.sopt.linkbox.custom.helper.SessionSaver;
 import org.sopt.linkbox.custom.network.UrlListWrapper;
 import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -94,10 +104,10 @@ public class LinkBoxActivity extends AppCompatActivity {
     private List<String> skuList = null;
 
     // profile photo from gallery
-    protected final int SELECT_GALLERY = 1;
     private Uri imgURI = null;
     private String filePath = null;
     private Bitmap bmp = null;
+    private Bitmap user_image = null;
     private RoundedBitmapDrawable roundBitmap = null;
 
     @Override
@@ -105,12 +115,26 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
+
+        user_image = ImageSaveLoad.loadProfileImage();
+        LinkBoxController.userImage = user_image;
+
         initInterface();
         initData();
         initView();
         initControl();
         initListener();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (LinkBoxController.userImage != null) {
+            ivProfile.setImageBitmap(LinkBoxController.userImage);
+        }
+
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -164,26 +188,6 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        if (spProfile.getBoolean("floating", true)) {
 //            startService(new Intent(getApplicationContext(), LinkHeadService.class));
 //        }
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(resultCode == RESULT_OK) {
-
-            try {
-                Log.e("DataResult", data.toString());
-                imgURI = data.getData();
-                // ivProfile.setImageURI(imgURI);
-                // filePath = getRealPathFromURI(imgURI);
-                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
-
-                ivProfile.setImageBitmap(bmp);
-                // ivProfile.getCroppedBitmap(bmp, 15);
-                ivProfile.setCropToPadding(true);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 
@@ -360,10 +364,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                intent.setType("image/*");
-                startActivityForResult(intent, SELECT_GALLERY);
+                Intent intent = new Intent(LinkBoxActivity.this, PhotoCropActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -483,4 +485,5 @@ public class LinkBoxActivity extends AppCompatActivity {
             ptrlvUrlList.onRefreshComplete();
         }
     }
+
 }

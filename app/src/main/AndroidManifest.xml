@@ -126,6 +126,10 @@
             android:label="@string/title_activity_link_box"
             android:launchMode="singleTask" >
         </activity>
+
+        <activity android:name=".activity.mainPage.urlListingPage.PhotoCropActivity"
+            android:label="PhotoCropActivity"
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"/>
         <activity
             android:name=".activity.mainPage.LinkItActivity"
             android:label="@string/title_activity_link_it"

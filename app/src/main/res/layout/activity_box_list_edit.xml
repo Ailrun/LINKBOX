@@ -11,11 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/GV_box_box_list_edit"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:numColumns="auto_fit"
-        android:columnWidth="170dp"
-        android:horizontalSpacing="10px"/>
+        android:horizontalSpacing="10px"
+        android:layout_below="@+id/T_toolbar_edit_box" />
 
 </RelativeLayout>
