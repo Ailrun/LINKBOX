@@ -43,8 +43,8 @@
         android:name="org.sopt.linkbox.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="org.sopt.linkbox.permission.C2D_MESSAGE" />
 
     <!-- used for gallery permission -->
@@ -201,10 +201,6 @@
         <activity
             android:name=".activity.mainPage.boxListPage.BoxListEditActivity"
             android:label="@string/title_activity_box_list_edit" >
-        </activity>
-        <activity
-            android:name=".activity.mainPage.urlListingPage.LinkHomeActivity"
-            android:label="@string/title_activity_link_home" >
         </activity>
     </application>
 

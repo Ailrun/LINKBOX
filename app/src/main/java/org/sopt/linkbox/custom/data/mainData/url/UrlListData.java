@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.data.mainData;
+package org.sopt.linkbox.custom.data.mainData.url;
 
 import java.util.List;
 

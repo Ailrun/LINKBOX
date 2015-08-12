@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.network;
+package org.sopt.linkbox.custom.network.main;
 
 /**
 * Created by Junyoung on 2015-07-11.

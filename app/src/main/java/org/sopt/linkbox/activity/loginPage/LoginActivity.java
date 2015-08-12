@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         etEmail.setTypeface(typeface);
         etPass.setTypeface(typeface);
     }
-
     private void initListener() {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override

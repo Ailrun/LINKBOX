@@ -1,9 +1,10 @@
-package org.sopt.linkbox.custom.network;
+package org.sopt.linkbox.custom.network.main.url;
 
-import org.sopt.linkbox.custom.data.mainData.CommentListData;
-import org.sopt.linkbox.custom.data.mainData.TagListData;
-import org.sopt.linkbox.custom.data.mainData.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.url.CommentListData;
+import org.sopt.linkbox.custom.data.mainData.url.TagListData;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.network.main.MainServerInterface;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.network;
+package org.sopt.linkbox.custom.network.main.alarm;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;

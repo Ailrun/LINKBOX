@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.data.mainData;
+package org.sopt.linkbox.custom.data.mainData.url;
 
 /**
  * Created by Junyoung on 2015-08-08.

@@ -29,7 +29,7 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
-import org.sopt.linkbox.custom.data.mainData.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

@@ -1,7 +1,8 @@
-package org.sopt.linkbox.custom.network;
+package org.sopt.linkbox.custom.network.main.alarm;
 
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.network.main.MainServerInterface;
 
 import java.util.List;
 

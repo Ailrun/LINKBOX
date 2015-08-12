@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.network.Embedly;
+package org.sopt.linkbox.custom.network.embedly;
 
 import org.sopt.linkbox.custom.data.tempData.EmbedlyResult;
 

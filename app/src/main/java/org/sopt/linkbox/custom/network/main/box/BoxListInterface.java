@@ -1,9 +1,10 @@
-package org.sopt.linkbox.custom.network;
+package org.sopt.linkbox.custom.network.main.box;
 
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.data.tempData.TwoString;
+import org.sopt.linkbox.custom.network.main.MainServerInterface;
 
 import java.util.List;
 
