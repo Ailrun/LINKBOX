@@ -76,14 +76,6 @@
             android:layout_height="88dp"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/IV_invited_box_thumbnail"
-                android:layout_marginTop="14dp"
-                android:layout_marginLeft="14dp"
-                />
-
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -93,7 +85,7 @@
                 android:id="@+id/TV_invited_box_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="30dp"
                 android:layout_marginEnd="80dp"
 
                 android:text="여기는 글자가 들어갈 것이다! 록타! 오가르!" />
@@ -113,7 +105,7 @@
         <LinearLayout
             android:id="@+id/LL_invited_box_expandable"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="88dp"
             android:layout_below="@id/LL_invited_box_header"
             android:orientation="vertical" >
 

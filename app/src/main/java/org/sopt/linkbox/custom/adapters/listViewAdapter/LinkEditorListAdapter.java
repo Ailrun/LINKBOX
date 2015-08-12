@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
@@ -68,7 +69,7 @@ public class LinkEditorListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_editor_list_box_editor, viewGroup, false);
         }
         UsrListData usrListData = (UsrListData) getItem(i);
-        ImageView ivProfile = ViewHolder.get(view, R.id.IV_profile_link_editor);
+        RoundedImageView ivProfile = ViewHolder.get(view, R.id.IV_profile_link_editor);
         TextView tvName = ViewHolder.get(view, R.id.TV_editor_name_link_editor);
         Glide.with(context).load(usrListData.usrProfile).into(ivProfile);
         tvName.setText(usrListData.usrName);
