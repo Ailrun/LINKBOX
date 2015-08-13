@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -18,6 +19,9 @@ import org.sopt.linkbox.custom.helper.SessionSaver;
 public class BoxEditorList extends AppCompatActivity {
     private Toolbar tToolbar = null;
     private ListView lvEditorList = null;
+    private TextView tvBoxName = null;
+    private String sBox_name = null;
+    private String sEditor_number = null;
 
     private SharedPreferences sharedPreferences = null;
 
@@ -58,6 +62,9 @@ public class BoxEditorList extends AppCompatActivity {
     private void initData() {
         sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.usrListData.usrKey, 0);
+        sBox_name = LinkBoxController.currentBox.boxName;
+        sEditor_number = Integer.toString(LinkBoxController.editorListSource.size());
+
     }
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
@@ -66,6 +73,10 @@ public class BoxEditorList extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         lvEditorList = (ListView) findViewById(R.id.LV_editor_list_editor_list);
+
+        tvBoxName = (TextView) findViewById(R.id.TV_box_name_editor_list);
+        tvBoxName.setText(sBox_name + " (" + sEditor_number + ")");
+
     }
     private void initListener() {
     }

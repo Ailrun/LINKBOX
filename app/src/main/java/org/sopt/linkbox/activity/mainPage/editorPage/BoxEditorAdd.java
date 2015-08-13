@@ -19,8 +19,8 @@ public class BoxEditorAdd extends AppCompatActivity {
     private Toolbar tToolbar = null;
     private EditText etEmail = null;
     private EditText tvMessage = null;
-    private String user_name = null;
-    private String box_name = null;
+    private String sUser_name = null;
+    private String sBox_name = null;
 
     private SharedPreferences spUserSettings = null;
 
@@ -67,8 +67,8 @@ public class BoxEditorAdd extends AppCompatActivity {
         spUserSettings = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.usrListData.usrKey, 0);
 
-        user_name = LinkBoxController.usrListData.usrName;
-        box_name = LinkBoxController.currentBox.boxName;
+        sUser_name = LinkBoxController.usrListData.usrName;
+        sBox_name = LinkBoxController.currentBox.boxName;
 
     }
     private void initView() {
@@ -80,7 +80,7 @@ public class BoxEditorAdd extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.ET_editor_email_editor_add);
         tvMessage = (EditText) findViewById(R.id.ET_message_box_editor_add);
 
-        tvMessage.setHint(user_name + "님이 당신을 '" + box_name + "'박스 에 초대했습니다.");
+        tvMessage.setHint(sUser_name + "님이 당신을 '" + sBox_name + "'박스 에 초대했습니다.");
 
     }
     private void initListener() {
