@@ -1,10 +1,14 @@
 package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -27,13 +32,14 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.helpPage.HelpActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
+import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
 import org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.helper.ImageSaveLoad;
 import org.sopt.linkbox.custom.helper.SessionSaver;
@@ -43,6 +49,10 @@ import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,6 +117,9 @@ public class LinkBoxActivity extends AppCompatActivity {
     private RoundedBitmapDrawable roundBitmap = null;
     //</editor-fold>
 
+    // Load Save
+    private ImageSaveLoad imageSaveLoader = null;
+
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +127,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
 
-        user_image = ImageSaveLoad.loadProfileImage();
+        imageSaveLoader = new ImageSaveLoad(getApplicationContext());
+        user_image = imageSaveLoader.loadProfileImage();
         LinkBoxController.userImage = user_image;
 
         initInterface();
@@ -129,6 +143,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onResume();
         if (LinkBoxController.userImage != null) {
             ivProfile.setImageBitmap(LinkBoxController.userImage);
+            String saveStatus = imageSaveLoader.saveProfileImage(LinkBoxController.userImage);
+            Log.d("Save Status : ", saveStatus);
         }
     }
     @Override

@@ -2,27 +2,36 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/real_white"
+    >
 
     <include
         android:id="@+id/T_toolbar_editor_list"
         layout="@layout/layout_toolbar"/>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="56dp"
-        android:gravity="center_vertical">
-
         <TextView
+            android:id="@+id/TV_box_name_editor_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14dp"
-            android:text="박스이름"
+            android:text="박스이름 (숫자)"
             android:textColor="@color/black_54p"
+            android:textStyle="bold"
             android:layout_marginStart="16dp"
-            android:id="@+id/TV_box_name_editor_list" />
-    </LinearLayout>
+            android:layout_marginTop="16dp"
+            />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#3a000000" />
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:text="에디터 정보"
+    android:textColor="@color/real_black"
+    />
 
     <ListView
         android:id="@+id/LV_editor_list_editor_list"

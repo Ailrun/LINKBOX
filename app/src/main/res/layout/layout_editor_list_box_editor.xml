@@ -9,6 +9,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
+        android:scaleType="centerInside"
         android:src="@drawable/drawer_profile"/>
     <!--
     <ImageView
