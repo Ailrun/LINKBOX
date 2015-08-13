@@ -32,13 +32,19 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
+import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 /** T?O?D?O : make this as Single Instance
@@ -47,19 +53,22 @@ import java.util.Date;
 public class LinkItActivity extends Activity {
     private static final String TAG = "TEST/" + LinkItActivity.class.getName();
 
+    private UrlListWrapper urlListWrapper = null;
+
     private Spinner sBox = null;
     private ImageView ivThumb = null;
     private EditText etName = null;
     private Button bLinkit = null, bCancel = null;
+    private CheckBox cbReadLater = null;
 
     private UrlListData urlListData = null;
     private int checkedBox = 0;
 
-    TextView txtBlank;
-    TextView txtMessage;
+    private TextView tvBlank;
+    private TextView tvMessage;
     // Animation
-    Animation animSlideDown;
-    Animation animSlideUp;
+    private Animation animSlideDown;
+    private Animation animSlideUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +78,7 @@ public class LinkItActivity extends Activity {
         initWindow();
 
         initGlide();
+        initInterface();
 
         initData();
 
@@ -76,77 +86,11 @@ public class LinkItActivity extends Activity {
         initListener();
         initControl();
 
-
-
-        CheckBox chkbox = (CheckBox) findViewById(R.id.CB_box_link_it);
-
-        txtMessage = (TextView) findViewById(R.id.TV_box_link_it);
-        txtBlank = (TextView) findViewById(R.id.TV_blank);
-
         // load the animation
-        animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),
-                R.anim.anim_slide_down);
 
         // set animation listener
-        animSlideDown.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-
-        animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_up);
-
-        animSlideUp.setAnimationListener(new Animation.AnimationListener() {
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
         // button click event
-        txtMessage.setVisibility(View.VISIBLE);
-        txtBlank.setVisibility(View.VISIBLE);
-
-        chkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    txtMessage.startAnimation(animSlideUp);
-                    txtBlank.startAnimation(animSlideDown);
-
-
-                } else {
-
-                    txtMessage.startAnimation(animSlideDown);
-                    txtBlank.startAnimation(animSlideUp);
-
-                }
-            }
-        });
-
     }
-
-
     @Override
     public void onResume() {
         super.onResume();
@@ -176,6 +120,9 @@ public class LinkItActivity extends Activity {
             }
         }
     }
+    private void initInterface() {
+        urlListWrapper = new UrlListWrapper();
+    }
     private void initData() {
         urlListData = new UrlListData();
         Intent intent = getIntent();
@@ -193,8 +140,16 @@ public class LinkItActivity extends Activity {
         etName = (EditText) findViewById(R.id.ET_name_link_it);
         etName.setHint(urlListData.url);
         ivThumb = (ImageView) findViewById(R.id.IV_thumb_link_it);
+        cbReadLater = (CheckBox) findViewById(R.id.CB_box_link_it);
         bLinkit = (Button) findViewById(R.id.B_linkit_link_it);
+        bLinkit.setEnabled(false);
         bCancel = (Button) findViewById(R.id.B_cancel_link_it);
+
+        tvMessage = (TextView) findViewById(R.id.TV_box_link_it);
+        tvBlank = (TextView) findViewById(R.id.TV_blank);
+
+        animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_down);
+        animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_up);
     }
     private void initListener() {
         sBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -212,20 +167,62 @@ public class LinkItActivity extends Activity {
                 checkedBox = i;
             }
         });
+        cbReadLater.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    tvMessage.startAnimation(animSlideUp);
+                    tvBlank.startAnimation(animSlideDown);
+                } else {
+                    tvMessage.startAnimation(animSlideDown);
+                    tvBlank.startAnimation(animSlideUp);
+                }
+            }
+        });
         bLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 urlListData.urlTitle = etName.getText().toString();
                 urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-                Intent intent = new Intent(getApplicationContext(), LinkBoxActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        animSlideDown.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        animSlideUp.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
             }
         });
     }
@@ -235,7 +232,6 @@ public class LinkItActivity extends Activity {
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         sBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
     }
-
     private void initThumbnail() {
         Bundle parameter = new Bundle();
 
@@ -270,6 +266,7 @@ public class LinkItActivity extends Activity {
     private class GetThumbnailCallback implements GraphRequest.Callback {
         @Override
         public void onCompleted(GraphResponse graphResponse) {
+            bLinkit.setEnabled(true);
             Log.d(TAG, graphResponse.toString());
             String json = graphResponse.getRawResponse();
             JSONObject jsonObject = null;
@@ -284,5 +281,13 @@ public class LinkItActivity extends Activity {
         }
     }
 
-
+    private class UrlAddingCallback implements Callback<MainServerData<UrlListData>> {
+        @Override
+        public void success(MainServerData<UrlListData> wrappedUrlListData, Response response) {
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            RetrofitDebug.debug(error);
+        }
+    }
 }

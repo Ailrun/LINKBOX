@@ -36,7 +36,7 @@ public class UrlListWrapper {
     public void boxList(int startNum, int urlNum, Callback<MainServerData<List<UrlListData>>> callback) {
         urlListInterface.boxList(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, startNum, urlNum, callback);
     }
-    public void add(UrlListData urlListData, Callback<MainServerData<Object>> callback) {
+    public void add(UrlListData urlListData, Callback<MainServerData<UrlListData>> callback) {
         urlListInterface.add(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData, callback);
     }
     public void remove(UrlListData urlListData, Callback<MainServerData<Object>> callback) {
@@ -52,7 +52,7 @@ public class UrlListWrapper {
         urlListData.hidden = hidden;
         urlListInterface.hidden(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData, callback);
     }
-    public void share(UrlListData urlListData, BoxListData newBox, Callback<MainServerData<Object>> callback) {
+    public void share(UrlListData urlListData, BoxListData newBox, Callback<MainServerData<UrlListData>> callback) {
         urlListInterface.share(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, newBox.boxKey, urlListData, callback);
     }
     public void like(UrlListData original, char good, Callback<MainServerData<Object>> callback) {
@@ -63,7 +63,7 @@ public class UrlListWrapper {
     public void tagList(UrlListData urlListData, Callback<MainServerData<List<TagListData>>> callback) {
         urlListInterface.tagList(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData.urlKey, callback);
     }
-    public void tagAdd(UrlListData urlListData, String tag, Callback<MainServerData<Object>> callback) {
+    public void tagAdd(UrlListData urlListData, String tag, Callback<MainServerData<TagListData>> callback) {
         TagListData tagListData = new TagListData();
         tagListData.tag = tag;
         urlListInterface.tagAdd(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData.urlKey, tagListData, callback);

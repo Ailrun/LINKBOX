@@ -24,7 +24,7 @@ public interface BoxListInterface {
     void list(@Path(MainServerInterface.usrKeyPath) int usrKey, Callback<MainServerData<List<BoxListData>>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.boxListPath + "/Add/{" + MainServerInterface.usrKeyPath + "}")
-    void add(@Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
+    void add(@Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<BoxListData>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.boxListPath + "/Remove/{" + MainServerInterface.usrKeyPath + "}")
     void remove(@Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);

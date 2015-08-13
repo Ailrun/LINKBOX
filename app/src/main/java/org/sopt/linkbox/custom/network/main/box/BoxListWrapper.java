@@ -30,7 +30,7 @@ public class BoxListWrapper {
     public void list(Callback<MainServerData<List<BoxListData>>> callback) {
         boxListInterface.list(LinkBoxController.usrListData.usrKey, callback);
     }
-    public void add(BoxListData boxListData, Callback<MainServerData<Object>> callback) {
+    public void add(BoxListData boxListData, Callback<MainServerData<BoxListData>> callback) {
         boxListInterface.add(LinkBoxController.usrListData.usrKey, boxListData, callback);
     }
     public void remove(BoxListData boxListData, Callback<MainServerData<Object>> callback) {

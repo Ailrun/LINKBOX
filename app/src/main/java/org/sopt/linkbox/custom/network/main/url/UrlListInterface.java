@@ -30,7 +30,7 @@ public interface UrlListInterface {
     void boxList(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.startNumPath) int startNum, @Path(MainServerInterface.urlNumPath) int urlNum, Callback<MainServerData<List<UrlListData>>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.urlListPath + "/Add/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}")
-    void add(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Body UrlListData urlListData, Callback<MainServerData<Object>> callback);
+    void add(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Body UrlListData urlListData, Callback<MainServerData<UrlListData>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.urlListPath + "/Remove/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}")
     void remove(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Body UrlListData urlListData, Callback<MainServerData<Object>> callback);
@@ -42,7 +42,7 @@ public interface UrlListInterface {
     void hidden(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Body UrlListData urlListData, Callback<MainServerData<Object>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.urlListPath + "/Share/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}/{" + MainServerInterface.newBoxKeyPath + "}")
-    void share(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.newBoxKeyPath) int newBoxKey, @Body UrlListData urlListData, Callback<MainServerData<Object>> callback);
+    void share(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.newBoxKeyPath) int newBoxKey, @Body UrlListData urlListData, Callback<MainServerData<UrlListData>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.urlListPath + "/Like/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}")
     void like(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Body UrlListData urlListData, Callback<MainServerData<Object>> callback);
@@ -51,7 +51,7 @@ public interface UrlListInterface {
     void tagList(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.urlKeyPath) int urlKey, Callback<MainServerData<List<TagListData>>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.tagPath + "/Add/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}/{" + MainServerInterface.urlKeyPath + "}")
-    void tagAdd(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.urlKeyPath) int urlKey, @Body TagListData tagListData, Callback<MainServerData<Object>> callback);
+    void tagAdd(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.urlKeyPath) int urlKey, @Body TagListData tagListData, Callback<MainServerData<TagListData>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.tagPath + "/Remove/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}/{" + MainServerInterface.urlKeyPath + "}")
     void tagRemove(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.urlKeyPath) int urlKey, @Body TagListData tagListData, Callback<MainServerData<Object>> callback);
@@ -60,7 +60,7 @@ public interface UrlListInterface {
     void commentList(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.urlKeyPath) int urlKey, Callback<MainServerData<List<CommentListData>>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.commentPath + "/Add/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}/{" + MainServerInterface.urlKeyPath + "}")
-    void commentAdd(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.urlKeyPath) int urlKey, @Body TagListData tagListData, Callback<MainServerData<Object>> callback);
+    void commentAdd(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.urlKeyPath) int urlKey, @Body TagListData tagListData, Callback<MainServerData<CommentListData>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.commentPath + "/Remove/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}/{" + MainServerInterface.urlKeyPath + "}")
     void commentRemove(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Path(MainServerInterface.urlKeyPath) int urlKey, @Body TagListData tagListData, Callback<MainServerData<Object>> callback);

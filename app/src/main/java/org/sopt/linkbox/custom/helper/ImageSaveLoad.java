@@ -1,6 +1,5 @@
 package org.sopt.linkbox.custom.helper;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -23,11 +22,11 @@ import java.io.FileOutputStream;
  */
 public class ImageSaveLoad extends Application {
 
-    private static Context context;
+    private static Context context = null;
 
     public void onCreate(){
         super.onCreate();
-        ImageSaveLoad.context = getApplicationContext();
+        this.context = this.getApplicationContext();
 
     }
     public static String saveProfileImage(Bitmap bitmapImage){
@@ -60,10 +59,12 @@ public class ImageSaveLoad extends Application {
             String userId = userData.usrID;
 
             ContextWrapper cw = new ContextWrapper(context);
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-            File file = new File(directory, userId + ".jpg");
-            Log.e("", file.toString());
-            temporaryImage = BitmapFactory.decodeStream(new FileInputStream(file));
+            if (cw != null && context != null) {
+                File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+                File file = new File(directory, userId + ".jpg");
+                Log.e("", file.toString());
+                temporaryImage = BitmapFactory.decodeStream(new FileInputStream(file));
+            }
         }
         catch (FileNotFoundException e)
         {

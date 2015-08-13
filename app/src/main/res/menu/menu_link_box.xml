@@ -2,13 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity">
-    <item android:id="@+id/action_search" android:title="search"
+    <item
+        android:id="@+id/action_search"
+        android:title="search"
         android:icon="@android:drawable/ic_menu_search"
-        android:orderInCategory="0" app:showAsAction="ifRoom"/>
-    <item android:id="@+id/action_alarms" android:title="alarms"
+        android:orderInCategory="0"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_alarms"
+        android:title="alarms"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:orderInCategory="1" app:showAsAction="ifRoom"/>
-    <item android:id="@+id/action_editors" android:title="editors"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"/>
+    <item android:id="@+id/action_editors"
+        android:title="editors"
         android:icon="@android:drawable/ic_menu_agenda"
-        android:orderInCategory="2" app:showAsAction="ifRoom"/>
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom"/>
 </menu>

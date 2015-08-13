@@ -1,5 +1,6 @@
 package org.sopt.linkbox.activity.mainPage.editorPage;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -34,16 +35,20 @@ public class BoxEditorList extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_link_editor_list, menu);
+        getMenuInflater().inflate(R.menu.menu_box_editor_list, menu);
         return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId())
+        {
+            case R.id.action_add_editor :
+                startActivity(new Intent(this, BoxEditorAdd.class));
+                break;
+            default :
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
     @Override
     protected void onResume() {

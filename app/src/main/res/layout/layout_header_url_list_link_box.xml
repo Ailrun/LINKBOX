@@ -8,7 +8,8 @@
         android:paddingStart="72dp"
         android:background="@color/indigo500"
         android:gravity="bottom"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:elevation="3dp">
         <TextView
             android:id="@+id/TV_box_title_link_box"
             android:layout_width="wrap_content"

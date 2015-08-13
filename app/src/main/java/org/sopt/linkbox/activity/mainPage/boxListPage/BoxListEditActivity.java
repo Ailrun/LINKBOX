@@ -1,8 +1,10 @@
 package org.sopt.linkbox.activity.mainPage.boxListPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.GridView;
 
@@ -25,18 +27,25 @@ public class BoxListEditActivity extends AppCompatActivity {
 
     }
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_box_list_edit, menu);
+        return true;
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId())
+        {
+            case R.id.action_add_box :
+                startActivity(new Intent(this, BoxAddActivity.class));
+                break;
+            case R.id.action_invited_box :
+                startActivity(new Intent(this, InvitedBoxActivity.class));
+                break;
+            default :
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
     @Override
     public void onResume() {

@@ -18,6 +18,7 @@ import com.facebook.login.widget.LoginButton;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.loadingPage.AccountLoadingActivity;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.helper.SessionSaver;
@@ -29,16 +30,20 @@ import java.util.Collections;
 public class AccountActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + AccountActivity.class.getName() + " : ";
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     LoginButton lbFacebookLogin = null;
+    Button bFacebookLogin = null;
+    Button bGoogleLogin = null;
     Button bLogin = null;
     Button bSignup = null;
-    Button bFacebookLogin = null;
 
     private SharedPreferences spProfile = null; // 02 Save preference or use preference that is saved. Bunched up data
     private SharedPreferences.Editor speProfile = null;
 
     private CallbackManager callbackManager = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,8 +76,9 @@ public class AccountActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+    //</editor-fold>
 
-
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initData() {
         spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
         speProfile = spProfile.edit();  // 03 Shared preference cannot edit data.
@@ -85,21 +91,13 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
     private void initView() {
-        bLogin = (Button) findViewById(R.id.B_login_account);
-        bSignup = (Button) findViewById(R.id.B_signup_account);
         lbFacebookLogin = (LoginButton) findViewById(R.id.LB_login_account);
         bFacebookLogin = (Button) findViewById(R.id.B_facebook_login_account);
+        bGoogleLogin = (Button) findViewById(R.id.B_google_login_account);
+        bLogin = (Button) findViewById(R.id.B_login_account);
+        bSignup = (Button) findViewById(R.id.B_signup_account);
     }
     private void initListener() {
-        /*
-        bLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-        */
         bLogin.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -120,11 +118,18 @@ public class AccountActivity extends AppCompatActivity {
                 lbFacebookLogin.performClick();
             }
         });
+        bGoogleLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AccountActivity.this, LinkBoxActivity.class));
+            }
+        });
 
         callbackManager = CallbackManager.Factory.create();
         lbFacebookLogin.setReadPermissions(Collections.singletonList("email"));
         lbFacebookLogin.registerCallback(callbackManager, new FacebookLoginCallback()); // Facebook button
     }
+    //</editor-fold>
 
     //Inner Class
     private class FacebookLoginCallback implements FacebookCallback<LoginResult> {

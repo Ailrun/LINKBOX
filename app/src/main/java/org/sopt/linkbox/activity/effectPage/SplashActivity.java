@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.loginPage.AccountActivity;
+import org.sopt.linkbox.activity.accountPage.AccountActivity;
 import org.sopt.linkbox.custom.helper.SessionSaver;
 
 
