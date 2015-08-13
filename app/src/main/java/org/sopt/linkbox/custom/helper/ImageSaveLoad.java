@@ -1,7 +1,5 @@
 package org.sopt.linkbox.custom.helper;
 
-import android.app.Activity;
-import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
@@ -21,15 +19,14 @@ import java.io.FileOutputStream;
  * KingWangJJang
  *
  */
-public class ImageSaveLoad extends Application {
+public class ImageSaveLoad {
 
     private static Context context = null;
 
-    public void onCreate(){
-        super.onCreate();
-        ImageSaveLoad.context = getApplicationContext();
+    public ImageSaveLoad(Context receivedContext) {
+        ImageSaveLoad.context = receivedContext;
     }
-    public static String saveProfileImage(Bitmap bitmapImage){
+    public String saveProfileImage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(context);
         // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
@@ -52,7 +49,7 @@ public class ImageSaveLoad extends Application {
         return directory.getAbsolutePath();
     }
 
-    public static Bitmap loadProfileImage() {
+    public Bitmap loadProfileImage() {
         Bitmap temporaryImage = null;
         try {
             UsrListData userData = LinkBoxController.usrListData;
