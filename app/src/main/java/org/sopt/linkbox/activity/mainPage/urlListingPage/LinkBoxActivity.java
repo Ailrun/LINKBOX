@@ -116,7 +116,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
 
-        user_image = ImageSaveLoad.loadProfileImage();
+       user_image = ImageSaveLoad.loadProfileImage();
         LinkBoxController.userImage = user_image;
 
         initInterface();

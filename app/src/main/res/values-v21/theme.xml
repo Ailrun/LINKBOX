@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.CustomTheme" parent="Theme.AppCompat.Light">
+        <item name="android:colorPrimary">@color/indigo500</item>
+        <item name="android:colorPrimaryDark">@color/indigo500</item>
+
+    </style>
+
+</resources>

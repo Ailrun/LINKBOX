@@ -34,6 +34,7 @@ public class ImageSaveLoad extends Application {
         ContextWrapper cw = new ContextWrapper(context);
         // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+
         // Create imageDir
         UsrListData userData = LinkBoxController.usrListData;
         String userId = userData.usrID;
@@ -60,7 +61,17 @@ public class ImageSaveLoad extends Application {
             String userId = userData.usrID;
 
             ContextWrapper cw = new ContextWrapper(context);
-            File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            File directory = null;
+            if(context != null)
+            {
+                directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+            }
+            else
+            {
+                String nullFilePath = "/daa/data/org.sopt.linkbox/app_imageDir/imageNotFound";
+                directory = new File(nullFilePath);
+            }
+
             File file = new File(directory, userId + ".jpg");
             Log.e("", file.toString());
             temporaryImage = BitmapFactory.decodeStream(new FileInputStream(file));
