@@ -253,10 +253,6 @@
                     android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.mainPage.boxListPage.BoxAddActivity"
-            android:label="BoxAddActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
-        </activity>
         <activity android:name=".activity.mainPage.boxListPage.BoxImageCropActivity"
             android:label="BoxImageCropActivity">
         </activity>
