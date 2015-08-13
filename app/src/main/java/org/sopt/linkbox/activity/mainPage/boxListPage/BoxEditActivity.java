@@ -1,46 +1,37 @@
 package org.sopt.linkbox.activity.mainPage.boxListPage;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.HttpMethod;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.PhotoCropActivity;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.helper.BoxImageSaveLoad;
-import org.sopt.linkbox.custom.helper.ImageSaveLoad;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
-public class BoxAddActivity extends AppCompatActivity {
+/**
+ * Created by MinGu on 2015-08-13.
+ */
+public class BoxEditActivity extends Activity {
 
     private ImageView ibThumb = null;
     private EditText etName = null;
@@ -50,18 +41,26 @@ public class BoxAddActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_box_add);
-
-        boxImageSaveLoader = new BoxImageSaveLoad(getApplicationContext());
         initWindow();
+
+        super.onCreate(savedInstanceState);
+        boxImageSaveLoader = new BoxImageSaveLoad(getApplicationContext());
 
         initGlide();
 
         initView();
         initListener();
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(LinkBoxController.currentBox != null){
+            // Bitmap bmp = boxImageSaveLoader.loadProfileImage(LinkBoxController.currentBox.boxKey);
+            ibThumb.setImageBitmap(LinkBoxController.boxImage);
+            LinkBoxController.boxImage = null;
+        }
 
     }
 
@@ -93,7 +92,7 @@ public class BoxAddActivity extends AppCompatActivity {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.dimAmount = 0.7f;
         getWindow().setAttributes(layoutParams);
-        setContentView(R.layout.activity_box_add);
+        setContentView(R.layout.activity_box_edit);
     }
     private void initGlide() {
         synchronized (Glide.class){
@@ -119,16 +118,9 @@ public class BoxAddActivity extends AppCompatActivity {
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                box = new BoxListData();
-                int boxIndex = LinkBoxController.boxListSource.size();
-                box.boxIndex = boxIndex;
-                box.boxKey = boxIndex;
-                box.boxName = etName.getText().toString();
-                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), boxIndex);
-                box.isFavorite = 0;
-                box.boxUrlNum = 0;
-
-                LinkBoxController.boxListSource.add(box);
+                box = LinkBoxController.currentBox;
+                LinkBoxController.boxListSource.get(box.boxIndex).boxName = etName.getText().toString();
+                LinkBoxController.boxListSource.get(box.boxIndex).boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
                 finish();
             }
         });
@@ -141,13 +133,10 @@ public class BoxAddActivity extends AppCompatActivity {
         ibThumb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BoxAddActivity.this, BoxImageCropActivity.class);
+                Intent intent = new Intent(BoxEditActivity.this, BoxImageCropActivity.class);
                 startActivity(intent);
             }
         });
     }
-
-
-
 
 }

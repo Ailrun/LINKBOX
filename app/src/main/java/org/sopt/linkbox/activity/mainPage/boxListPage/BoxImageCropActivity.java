@@ -1,4 +1,4 @@
-package org.sopt.linkbox.activity.mainPage.urlListingPage;
+package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -17,9 +16,9 @@ import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.helper.ImageSaveLoad;
 
 /**
- * Created by MinGu on 2015-08-11.
+ * Created by MinGu on 2015-08-13.
  */
-public class PhotoCropActivity extends AppCompatActivity {
+public class BoxImageCropActivity extends AppCompatActivity {
     private CropImageView cropImageView = null;
     private Button accept = null;
     private Button decline = null;
@@ -27,16 +26,20 @@ public class PhotoCropActivity extends AppCompatActivity {
     protected final int SELECT_GALLERY = 1;
     private Uri imgURI = null;
     private Bitmap bmp = null;
+    private ImageSaveLoad imageSaveLoader = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        imageSaveLoader = new ImageSaveLoad(getApplicationContext());
+
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent, SELECT_GALLERY);
 
-        setContentView(R.layout.activity_photo_crop);
+        setContentView(R.layout.activity_box_image_crop);
 
         initView();
         // initControl();
@@ -62,15 +65,20 @@ public class PhotoCropActivity extends AppCompatActivity {
         accept.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                LinkBoxController.userImage = cropImageView.getCroppedImage();
+                LinkBoxController.boxImage = cropImageView.getCroppedImage();
                 // String saveStatus = .saveProfileImage(LinkBoxController.userImage);
                 // Log.d("Save Status : ", saveStatus);
+                Intent intent = new Intent(BoxImageCropActivity.this, BoxEditActivity.class);
+                startActivity(intent);
                 finish();
+
             }
         });
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(BoxImageCropActivity.this, BoxEditActivity.class);
+                startActivity(intent);
                 finish();
             }
         });
@@ -111,13 +119,14 @@ public class PhotoCropActivity extends AppCompatActivity {
             }
         }
         else{
-            if(LinkBoxController.userImage != null){
-                cropImageView.setImageBitmap(LinkBoxController.userImage);
+            if(LinkBoxController.boxImage != null){
+                cropImageView.setImageBitmap(LinkBoxController.boxImage);
             }
             else{
                 finish();
             }
         }
     }
+
 
 }

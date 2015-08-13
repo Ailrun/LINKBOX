@@ -110,13 +110,17 @@ public class LinkBoxActivity extends AppCompatActivity {
     private Bitmap user_image = null;
     private RoundedBitmapDrawable roundBitmap = null;
 
+    // Load Save
+    private ImageSaveLoad imageSaveLoader = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
 
-        user_image = ImageSaveLoad.loadProfileImage();
+        imageSaveLoader = new ImageSaveLoad(getApplicationContext());
+        user_image = imageSaveLoader.loadProfileImage();
         LinkBoxController.userImage = user_image;
 
         initInterface();
@@ -131,6 +135,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onResume();
         if (LinkBoxController.userImage != null) {
             ivProfile.setImageBitmap(LinkBoxController.userImage);
+            String saveStatus = imageSaveLoader.saveProfileImage(LinkBoxController.userImage);
+            Log.d("Save Status : ", saveStatus);
         }
 
     }
@@ -431,28 +437,36 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initBoxDummyData() {
         BoxListData boxListData = new BoxListData();
         boxListData.boxName = "요리";
+        boxListData.boxIndex = 0;
         LinkBoxController.boxListSource.add(boxListData);
         // LinkBoxController.boxEditBoxListAdapter.getView(0, boxListData, );
         boxListData = new BoxListData();
         boxListData.boxName = "육아";
+        boxListData.boxIndex = 1;
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
         boxListData.boxName = "개발";
+        boxListData.boxIndex = 2;
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
         boxListData.boxName = "일상";
+        boxListData.boxIndex = 3;
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
         boxListData.boxName = "주방";
+        boxListData.boxIndex = 4;
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
         boxListData.boxName = "맛집";
+        boxListData.boxIndex = 5;
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
         boxListData.boxName = "위생";
+        boxListData.boxIndex = 6;
         LinkBoxController.boxListSource.add(boxListData);
         boxListData = new BoxListData();
         boxListData.boxName = "공부";
+        boxListData.boxIndex = 7    ;
         LinkBoxController.boxListSource.add(boxListData);
     }
 

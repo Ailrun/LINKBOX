@@ -42,6 +42,8 @@ public class BoxListEditActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        initView();
+        initControl();
     }
 
     private void initView() {

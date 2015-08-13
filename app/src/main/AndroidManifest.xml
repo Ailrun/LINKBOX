@@ -231,13 +231,19 @@
         <activity
             android:name=".activity.mainPage.boxListPage.InvitedBoxActivity"
             android:label="InvitedBoxActiviy" />
+        <activity android:name=".activity.mainPage.boxListPage.BoxAddActivity"
+            android:label="BoxAddActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity android:name=".activity.mainPage.boxListPage.BoxImageCropActivity"
+            android:label="BoxImageCropActivity"/>
+        <activity android:name=".activity.mainPage.boxListPage.BoxEditActivity"
+            android:label="BoxEditActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            />
         <activity
             android:name=".activity.mainPage.urlListingPage.LinkHomeActivity"
             android:label="@string/title_activity_link_home" >
-        </activity>
-        <activity
-            android:name=".activity.mainPage.boxListPage.BoxAddActivity"
-            android:label="@string/title_activity_box_add" >
         </activity>
     </application>
 
