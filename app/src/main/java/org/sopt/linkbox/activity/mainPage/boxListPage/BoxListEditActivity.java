@@ -23,8 +23,9 @@ public class BoxListEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box_list_edit);
 
-        initView();
-        initControl();
+        // Moved to onResume
+        //initView();
+        //initControl();
 
     }
     @Override
@@ -51,6 +52,8 @@ public class BoxListEditActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        initView();
+        initControl();
     }
 
     private void initView() {

@@ -115,6 +115,8 @@ public class LinkBoxController extends Application {
     // Code for user profile image cropping
     // public static Bitmap temporaryImage = null;
     public static Bitmap userImage = null;
+    public static Bitmap temporaryImage = null;
+    public static Bitmap boxImage = null;
 
     public static BoxListData currentBox = null;    // TODO : Current box must be filled whenever box is pressed
     // public static BoxListData currentInvitedBox = null;

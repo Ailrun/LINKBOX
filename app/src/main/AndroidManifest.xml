@@ -253,7 +253,13 @@
                     android:mimeType="text/plain" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activity.mainPage.boxListPage.BoxImageCropActivity"
+            android:label="BoxImageCropActivity">
+        </activity>
+        <activity android:name=".activity.mainPage.boxListPage.BoxEditActivity"
+            android:label="BoxEditActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
         <!-- Main Activities End -->
     </application>
 
