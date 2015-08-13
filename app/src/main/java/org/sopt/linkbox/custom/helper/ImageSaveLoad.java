@@ -1,5 +1,6 @@
 package org.sopt.linkbox.custom.helper;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -26,8 +27,7 @@ public class ImageSaveLoad extends Application {
 
     public void onCreate(){
         super.onCreate();
-        this.context = this.getApplicationContext();
-
+        ImageSaveLoad.context = getApplicationContext();
     }
     public static String saveProfileImage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(context);
@@ -59,12 +59,20 @@ public class ImageSaveLoad extends Application {
             String userId = userData.usrID;
 
             ContextWrapper cw = new ContextWrapper(context);
-            if (cw != null && context != null) {
-                File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-                File file = new File(directory, userId + ".jpg");
-                Log.e("", file.toString());
-                temporaryImage = BitmapFactory.decodeStream(new FileInputStream(file));
+            File directory = null;
+            if(context != null)
+            {
+                directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
             }
+            else
+            {
+                String nullFilePath = "/daa/data/org.sopt.linkbox/app_imageDir/imageNotFound";
+                directory = new File(nullFilePath);
+            }
+
+            File file = new File(directory, userId + ".jpg");
+            Log.e("", file.toString());
+            temporaryImage = BitmapFactory.decodeStream(new FileInputStream(file));
         }
         catch (FileNotFoundException e)
         {
