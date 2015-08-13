@@ -1,20 +1,20 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
-    android:layout_height="400dp"
+    android:layout_height="432dp"
     android:layout_gravity="center"
-    android:background="@drawable/dialogue_window"
+    android:background="@color/real_white"
     tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="25">
+        android:weightSum="27">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="9">
+            android:layout_weight="11">
 
             <ImageView
                 android:id="@+id/IV_thumb_link_it"
@@ -38,7 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="16"
+            android:layout_weight="12"
             android:padding="16dp"
             android:layout_marginBottom="-10dp"
             android:orientation="vertical">
@@ -131,7 +131,9 @@
         </LinearLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            >
 
                 <TextView
                     android:id="@+id/TV_box_link_it"
@@ -155,7 +157,8 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="2"
                 android:paddingEnd="24dp"
                 android:layout_marginTop="30dp"
                 >

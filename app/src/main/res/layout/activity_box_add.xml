@@ -3,7 +3,7 @@
     android:layout_width="320dp"
     android:layout_height="440dp"
     android:layout_gravity="center"
-    android:background="@drawable/dialogue_window"
+    android:background="@color/real_white"
     tools:context="org.sopt.linkbox.activity.mainPage.boxListPage.BoxAddActivity">
 
     <LinearLayout

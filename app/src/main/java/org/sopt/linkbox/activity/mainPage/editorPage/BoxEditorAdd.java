@@ -81,7 +81,7 @@ public class BoxEditorAdd extends AppCompatActivity {
         tvMessage = (EditText) findViewById(R.id.ET_message_box_editor_add);
 
         tvMessage.setHint(user_name + "님이 당신을 '" + box_name + "'박스 에 초대했습니다.");
-        
+
     }
     private void initListener() {
     }
