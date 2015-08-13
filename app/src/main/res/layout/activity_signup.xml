@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="org.sopt.linkbox.activity.loginPage.SignupActivity"
+    tools:context="org.sopt.linkbox.activity.accountPage.SignupActivity"
     android:background="@color/indigo500">
     <include
         android:id="@+id/T_toolbar_signup"

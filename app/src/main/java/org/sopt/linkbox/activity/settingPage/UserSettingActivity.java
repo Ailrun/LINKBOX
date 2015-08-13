@@ -13,7 +13,7 @@ import com.facebook.login.LoginManager;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.loginPage.AccountActivity;
+import org.sopt.linkbox.activity.accountPage.AccountActivity;
 import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.SettingStrings;
 

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_activity_account">AccountActivity</string>
     <string name="title_activity_splash">SplashActivity</string>
-    <string name="title_activity_link_it">LinkItActivity</string>
-    <string name="title_activity_link_box">LinkBoxActivity</string>
+
+    <string name="title_activity_account">AccountActivity</string>
     <string name="title_activity_signup">SignupActivity</string>
     <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_facebook_data">LoginDataActivity</string>
+    <string name="title_activity_facebook_data">FacebookDataActivity</string>
+
+    <string name="title_activity_account_loading">AccountLoadingActivity</string>
+
+    <string name="title_activity_link_it">LinkItActivity</string>
+    <string name="title_activity_link_box">LinkBoxActivity</string>
     <string name="title_activity_user_setting">UserSettingActivity</string>
-    <string name="title_activity_notification_list_adapter">NotificationListAdapter</string>
+
     <string name="title_activity_box_editor_list">LinkEditorList</string>
     <string name="title_activity_box_editor_add">LinkEditorAdd</string>
-    <string name="title_activity_loading">LinkLoadingActivity</string>
-    <string name="title_activity_box_list_edit">LinkBoxEditActivity</string>
+    <string name="title_activity_box_list_edit">BoxListEditActivity</string>
 </resources>

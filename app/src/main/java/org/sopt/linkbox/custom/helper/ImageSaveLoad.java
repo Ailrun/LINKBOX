@@ -23,7 +23,7 @@ import java.io.FileOutputStream;
  */
 public class ImageSaveLoad {
 
-    private static Context context;
+    private static Context context = null;
 
     public ImageSaveLoad(Context receivedContext){
         ImageSaveLoad.context = receivedContext;
