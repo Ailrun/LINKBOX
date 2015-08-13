@@ -1,5 +1,6 @@
 package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;

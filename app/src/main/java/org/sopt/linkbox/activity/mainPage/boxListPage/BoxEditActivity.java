@@ -3,6 +3,8 @@ package org.sopt.linkbox.activity.mainPage.boxListPage;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -120,7 +122,11 @@ public class BoxEditActivity extends Activity {
             public void onClick(View view) {
                 box = LinkBoxController.currentBox;
                 LinkBoxController.boxListSource.get(box.boxIndex).boxName = etName.getText().toString();
-                LinkBoxController.boxListSource.get(box.boxIndex).boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
+                Drawable drawable = ibThumb.getDrawable();
+                BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
+                Bitmap bitmap = bitmapDrawable.getBitmap();
+
+                LinkBoxController.boxListSource.get(box.boxIndex).boxThumbnail = boxImageSaveLoader.saveProfileImage(bitmap, box.boxIndex);
                 finish();
             }
         });
