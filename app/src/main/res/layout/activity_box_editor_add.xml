@@ -25,7 +25,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/ET_sending_message_editor_add"
+        android:id="@+id/TV_sending_message_editor_add"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16dp"
@@ -33,7 +33,16 @@
         android:layout_marginStart="19dp"
         android:layout_marginEnd="19dp"
         android:textColor="#000"
-        android:text="초기 메시지"
+        android:text="보낼 메시지"
         android:editable="true"/>
+
+    <EditText
+        android:id="@+id/ET_message_box_editor_add"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="16dp"
+        android:background="@color/real_white"
+
+        />
 
 </LinearLayout>

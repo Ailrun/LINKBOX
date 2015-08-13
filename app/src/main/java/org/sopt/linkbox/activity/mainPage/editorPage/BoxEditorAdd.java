@@ -18,7 +18,9 @@ import org.sopt.linkbox.custom.helper.SessionSaver;
 public class BoxEditorAdd extends AppCompatActivity {
     private Toolbar tToolbar = null;
     private EditText etEmail = null;
-    private TextView tvMessage = null;
+    private EditText tvMessage = null;
+    private String user_name = null;
+    private String box_name = null;
 
     private SharedPreferences spUserSettings = null;
 
@@ -64,6 +66,10 @@ public class BoxEditorAdd extends AppCompatActivity {
     private void initData() {
         spUserSettings = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.usrListData.usrKey, 0);
+
+        user_name = LinkBoxController.usrListData.usrName;
+        box_name = LinkBoxController.currentBox.boxName;
+
     }
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_add);
@@ -72,7 +78,10 @@ public class BoxEditorAdd extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         etEmail = (EditText) findViewById(R.id.ET_editor_email_editor_add);
-        tvMessage = (TextView) findViewById(R.id.ET_sending_message_editor_add);
+        tvMessage = (EditText) findViewById(R.id.ET_message_box_editor_add);
+
+        tvMessage.setHint(user_name + "님이 당신을 '" + box_name + "'박스 에 초대했습니다.");
+
     }
     private void initListener() {
     }
