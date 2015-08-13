@@ -1,7 +1,5 @@
 package org.sopt.linkbox.custom.data.mainData;
 
-import android.graphics.Bitmap;
-
 /**
  * Created by Junyoung on 2015-07-06.
  *

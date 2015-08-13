@@ -23,18 +23,16 @@ import java.io.FileOutputStream;
  */
 public class ImageSaveLoad extends Application {
 
-    private static Context context;
+    private static Context context = null;
 
     public void onCreate(){
         super.onCreate();
         ImageSaveLoad.context = getApplicationContext();
-
     }
     public static String saveProfileImage(Bitmap bitmapImage){
         ContextWrapper cw = new ContextWrapper(context);
         // path to /data/data/yourapp/app_data/imageDir
         File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
-
         // Create imageDir
         UsrListData userData = LinkBoxController.usrListData;
         String userId = userData.usrID;

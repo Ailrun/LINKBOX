@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.mainData.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.io.File;
