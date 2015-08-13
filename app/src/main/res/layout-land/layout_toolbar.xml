@@ -6,5 +6,6 @@
     android:paddingEnd="15dp"
     android:gravity="center_vertical"
     android:theme="@style/Theme.CustomTheme"
+    style="@style/toolbar_style"
     >
 </android.support.v7.widget.Toolbar>
