@@ -15,30 +15,26 @@ import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 
 public class BoxListEditActivity extends AppCompatActivity {
+
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;
     private GridView gvBoxList = null;
-    private Menu menu = null;
-    private MenuItem[] menuItems = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box_list_edit);
 
-        // Moved to onResume
-        //initView();
-        //initControl();
+        initView();
+        initControl();
 
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_box_list_edit, menu);
-        this.menu = menu;
-        menuItems = new MenuItem[menu.size()];
-        for (int i = 0; i < menu.size(); i++) {
-            menuItems[i] = menu.getItem(i);
-        }
         return true;
     }
     @Override
@@ -59,10 +55,10 @@ public class BoxListEditActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        initView();
-        initControl();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
         tToolbar.setTitleTextColor(Color.WHITE);
@@ -73,12 +69,10 @@ public class BoxListEditActivity extends AppCompatActivity {
         }
         gvBoxList = (GridView) findViewById(R.id.GV_box_box_list_edit);
     }
-
     private void initControl() {
         LinkBoxController.boxEditBoxListAdapter =
                 new BoxEditBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
-
         gvBoxList.setAdapter(LinkBoxController.boxEditBoxListAdapter);
     }
-
+    //</editor-fold>
 }

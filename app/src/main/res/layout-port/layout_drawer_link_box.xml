@@ -21,7 +21,7 @@
             android:src="@drawable/drawer_background"
             android:scaleType="fitCenter"/>
 
-        <org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView
+        <org.sopt.linkbox.custom.widget.RoundedImageView
             android:id="@+id/RIV_profile_link_box"
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"

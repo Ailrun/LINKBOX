@@ -64,7 +64,7 @@ public class AccountLoadingActivity extends Activity {
     }
     //</editor-fold>
 
-    //<editor-fold desc="inits" defaultstate="collapsed">
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initWindow() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -108,7 +108,7 @@ public class AccountLoadingActivity extends Activity {
     }
     //</editor-fold>
 
-    //<editor-fold desc="Login Inner Classes" defaultstate="collapsed">
+    //<editor-fold desc="User Inner Classes" defaultstate="collapsed">
     private class FacebookLoginCallback implements Callback<MainServerData<UsrListData>> {
         @Override
         public void success(MainServerData<UsrListData> wrappedUserData, Response response) {

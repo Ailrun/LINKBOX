@@ -35,6 +35,7 @@ import retrofit.client.Response;
 
 public class BoxAddActivity extends Activity {
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;
 
     private ImageView ibThumb = null;
@@ -42,7 +43,9 @@ public class BoxAddActivity extends Activity {
     private Button bSave = null, bCancel = null;
     private BoxListData box = null;
     private BoxImageSaveLoad boxImageSaveLoader = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,6 @@ public class BoxAddActivity extends Activity {
         boxImageSaveLoader = new BoxImageSaveLoad(getApplicationContext());
         initInterface();
         initWindow();
-        initGlide();
         initView();
         initListener();
     }
@@ -62,9 +64,12 @@ public class BoxAddActivity extends Activity {
             ibThumb.setImageBitmap(LinkBoxController.boxImage);
         }
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initInterface() {
-        boxListWrapper = new BoxListWrapper();
+        initServerInterface();
+        initGlideInterface();
     }
     private void initWindow() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -73,18 +78,6 @@ public class BoxAddActivity extends Activity {
         layoutParams.dimAmount = 0.7f;
         getWindow().setAttributes(layoutParams);
         setContentView(R.layout.activity_box_add);
-    }
-    private void initGlide() {
-        synchronized (Glide.class){
-            if(!Glide.isSetup()){
-                File file = Glide.getPhotoCacheDir(getApplicationContext());
-                int size = 1024*1024*1024;
-                DiskCache cache = DiskLruCacheWrapper.get(file, size);
-                GlideBuilder builder = new GlideBuilder(getApplicationContext());
-                builder.setDiskCache(cache);
-                Glide.setup(builder);
-            }
-        }
     }
     private void initView() {
         etName = (EditText) findViewById(R.id.ET_box_name_box_add);
@@ -119,7 +112,28 @@ public class BoxAddActivity extends Activity {
             }
         });
     }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Server" defaultstate="collapsed">
+    private void initServerInterface() {
+        boxListWrapper = new BoxListWrapper();
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Glide" defaultstate="collapsed">
+    private void initGlideInterface() {
+        synchronized (Glide.class){
+            if(!Glide.isSetup()){
+                File file = Glide.getPhotoCacheDir(getApplicationContext());
+                int size = 1024*1024*1024;
+                DiskCache cache = DiskLruCacheWrapper.get(file, size);
+                GlideBuilder builder = new GlideBuilder(getApplicationContext());
+                builder.setDiskCache(cache);
+                Glide.setup(builder);
+            }
+        }
+    }
+    //</editor-fold>
 
+    //<editor-fold desc="Box Inner Classes" defaultstate="collapsed">
     private class BoxAddingCallback implements Callback<MainServerData<BoxListData>> {
         @Override
         public void success(MainServerData<BoxListData> wrappedBoxListData, Response response) {
@@ -127,6 +141,7 @@ public class BoxAddActivity extends Activity {
                 box.boxKey = wrappedBoxListData.object.boxKey;
                 LinkBoxController.boxListSource.add(box);
                 box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
+                LinkBoxController.notifyBoxDataSetChanged();
                 finish();
             }
             else {
@@ -139,4 +154,5 @@ public class BoxAddActivity extends Activity {
             RetrofitDebug.debug(error);
         }
     }
+    //</editor-fold>
 }

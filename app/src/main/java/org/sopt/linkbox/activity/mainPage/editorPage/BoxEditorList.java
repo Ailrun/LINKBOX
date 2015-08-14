@@ -33,6 +33,7 @@ import retrofit.client.Response;
 
 public class BoxEditorList extends AppCompatActivity {
 
+    //<editor-fold desc="Private Propeties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;
 
     private Toolbar tToolbar = null;
@@ -40,9 +41,9 @@ public class BoxEditorList extends AppCompatActivity {
     private TextView tvBoxName = null;
     private String sBox_name = null;
     private String sEditor_number = null;
+    //</editor-fold>
 
-    private SharedPreferences sharedPreferences = null;
-
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,43 +82,55 @@ public class BoxEditorList extends AppCompatActivity {
         super.onStop();
         SessionSaver.saveSession(this);
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initInterface() {
         boxListWrapper = new BoxListWrapper();
     }
     private void initData() {
-        sharedPreferences = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.usrListData.usrKey, 0);
         sBox_name = LinkBoxController.currentBox.boxName;
-        sEditor_number = Integer.toString(LinkBoxController.editorListSource.size());
         boxListWrapper.editorList(new BoxEditorListCallback());
     }
     private void initView() {
-        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
-        tToolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(tToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-        lvEditorList = (ListView) findViewById(R.id.LV_editor_list_editor_list);
-
-        tvBoxName = (TextView) findViewById(R.id.TV_box_name_editor_list);
-        tvBoxName.setText(sBox_name + " (" + sEditor_number + ")");
-
+        initToolbarView();
+        initMainView();
     }
     private void initListener() {
     }
     private void initControl() {
         LinkBoxController.linkEditorListAdapter =
                 new LinkEditorListAdapter(getApplicationContext(), LinkBoxController.editorListSource);
+        lvEditorList.setAdapter(LinkBoxController.linkEditorListAdapter);
     }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Toolbar" defaultstate="collapsed">
+    private void initToolbarView() {
+        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
+        tToolbar.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(tToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Main" defaultstate="collapsed">
+    private void initMainView() {
+        lvEditorList = (ListView) findViewById(R.id.LV_editor_list_editor_list);
 
+        tvBoxName = (TextView) findViewById(R.id.TV_box_name_editor_list);
+        tvBoxName.setText(sBox_name + " (" + sEditor_number + ")");
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Box Inner Classes" defaultstate="collapsed">
     private class BoxEditorListCallback implements Callback<MainServerData<List<UsrListData>>> {
         @Override
         public void success(MainServerData<List<UsrListData>> wrappedUsrListDatas, Response response) {
             if (wrappedUsrListDatas.result) {
-                LinkBoxController.editorListSource = (ArrayList<UsrListData>) wrappedUsrListDatas.object;
-                LinkBoxController.notifyEditorDataSetChanged();
+                LinkBoxController.editorListSource.clear();
+                LinkBoxController.editorListSource.addAll(wrappedUsrListDatas.object);
+                sEditor_number = Integer.toString(LinkBoxController.editorListSource.size());
             }
             else {
                 Toast.makeText(BoxEditorList.this, "Fail to load Box Editors", Toast.LENGTH_LONG).show();
@@ -127,6 +140,8 @@ public class BoxEditorList extends AppCompatActivity {
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            finish();
         }
     }
+    //</editor-fold>
 }

@@ -3,9 +3,6 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -21,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -31,16 +27,13 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.helpPage.HelpActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
-import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
 import org.sopt.linkbox.constant.MainStrings;
-import org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView;
+import org.sopt.linkbox.custom.widget.RoundedImageView;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
-import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.helper.ImageSaveLoad;
@@ -51,10 +44,6 @@ import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -352,6 +341,8 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String url = ((UrlListData)lvUrlList.getItemAtPosition(position)).url;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
             }
         });
     }
@@ -458,6 +449,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
     //</editor-fold>
 
+    //<editor-fold desc="Inbox Submethods" defaultstate="collapsed">
     private void ifInBox() {
         if (LinkBoxController.currentBox != null) {
             urlListWrapper.boxList(0, 20, new UrlLoading());
@@ -508,6 +500,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         srlUrlList.setProgressViewOffset(true, 0, 70);
         srlUrlList.setColorScheme(R.color.indigo500);
     }
+    //</editor-fold>
 
     //<editor-fold desc="Initiate Dummy Data" defaultstate="collapsed">
     //For Test. Deprecated
@@ -539,9 +532,10 @@ public class LinkBoxActivity extends AppCompatActivity {
         @Override
         public void success(MainServerData<List<UrlListData>> wrappedUrlListDatas, Response response) {
             if (wrappedUrlListDatas.result) {
-                LinkBoxController.urlListSource = (ArrayList<UrlListData>) wrappedUrlListDatas.object;
-                LinkBoxController.notifyUrlDataSetChanged();
+                LinkBoxController.urlListSource.clear();
+                LinkBoxController.urlListSource.addAll(wrappedUrlListDatas.object);
                 srlUrlList.setRefreshing(false);
+                tvUrlNum.setText(Integer.toString(wrappedUrlListDatas.object.size()));
             }
             else {
                 srlUrlList.setRefreshing(false);

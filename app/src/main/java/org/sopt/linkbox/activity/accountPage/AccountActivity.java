@@ -131,6 +131,7 @@ public class AccountActivity extends AppCompatActivity {
     }
     //</editor-fold>
 
+    //<editor-fold desc="Account Inner Classes" defaultstate="collapsed">
     //Inner Class
     private class FacebookLoginCallback implements FacebookCallback<LoginResult> {
         @Override
@@ -148,7 +149,8 @@ public class AccountActivity extends AppCompatActivity {
             FacebookDebug.debug(e);
         }
     }
-
+    //</editor-fold>
+    //<editor-fold desc="Account Helper Methods" defaultstate="collapsed">
     private void loginLoading(String usremail, String pass) {
         Intent intent = new Intent(this, AccountLoadingActivity.class);
         intent.putExtra(AccountStrings.usrID, usremail);
@@ -156,4 +158,5 @@ public class AccountActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    //</editor-fold>
 }

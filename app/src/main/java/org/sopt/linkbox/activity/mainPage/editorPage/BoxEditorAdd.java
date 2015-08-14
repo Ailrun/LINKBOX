@@ -20,6 +20,7 @@ import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.data.tempData.TwoString;
 import org.sopt.linkbox.custom.helper.SessionSaver;
 import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
+import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -28,21 +29,21 @@ import retrofit.client.Response;
 
 public class BoxEditorAdd extends AppCompatActivity {
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;
 
     private Toolbar tToolbar = null;
     private EditText etEmail = null;
     private EditText tvMessage = null;
-    private String sUser_name = null;
-    private String sBox_name = null;
+    //</editor-fold>
 
-    private SharedPreferences spUserSettings = null;
-
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box_editor_add);
 
+        initInterface();
         initData();
         initView();
         initListener();
@@ -77,34 +78,40 @@ public class BoxEditorAdd extends AppCompatActivity {
         super.onStop();
         SessionSaver.saveSession(this);
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initInterface() {
         boxListWrapper = new BoxListWrapper();
     }
     private void initData() {
-        spUserSettings = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.usrListData.usrKey, 0);
-
-        sUser_name = LinkBoxController.usrListData.usrName;
-        sBox_name = LinkBoxController.currentBox.boxName;
-
     }
     private void initView() {
+        initToolbarView();
+        initMainView();
+    }
+    private void initListener() {
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Toolbar">
+    private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_add);
         tToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Main">
+    private void initMainView() {
         etEmail = (EditText) findViewById(R.id.ET_editor_email_editor_add);
         tvMessage = (EditText) findViewById(R.id.ET_message_box_editor_add);
-
-        tvMessage.setHint(sUser_name + "님이 당신을 '" + sBox_name + "'박스 에 초대했습니다.");
-
+        tvMessage.setHint(LinkBoxController.usrListData.usrName + "님이 당신을 '" + LinkBoxController.currentBox.boxName + "'박스 에 초대했습니다.");
     }
-    private void initListener() {
-    }
+    //</editor-fold>
 
+    //<editor-fold desc="Box Inner Classes" defaultstate="collapsed">
     private class BoxInviteCallback implements Callback<MainServerData<Object>> {
         @Override
         public void success(MainServerData<Object> objectMainServerData, Response response) {
@@ -114,6 +121,8 @@ public class BoxEditorAdd extends AppCompatActivity {
         @Override
         public void failure(RetrofitError error) {
             Toast.makeText(BoxEditorAdd.this, "Fail to invite", Toast.LENGTH_SHORT).show();
+            RetrofitDebug.debug(error);
         }
     }
+    //</editor-fold>
 }

@@ -28,6 +28,7 @@ import retrofit.client.Response;
 
 public class UserSettingActivity extends AppCompatActivity {
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private UsrListWrapper usrListWrapper = null;
 
     private Toolbar tToolbar = null;
@@ -37,7 +38,9 @@ public class UserSettingActivity extends AppCompatActivity {
     private SharedPreferences.Editor speProfile;
     private SharedPreferences spUserSettings;
     private SharedPreferences.Editor speUserSettings;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,20 +61,33 @@ public class UserSettingActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     void initInterface() {
         usrListWrapper = new UsrListWrapper();
     }
     void initData() {
-    }
-    void initView() {
         spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
         speProfile = spProfile.edit();
 
         spUserSettings = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.usrListData.usrKey, 0);
         speUserSettings = spUserSettings.edit();
+    }
+    void initView() {
+        initToolbarView();
+        initMainView();
+    }
+    void initListener() {
+        initMainListener();
+    }
+    void initControl() {
+    }
+    //</editor-fold>
 
+    //<editor-fold desc="Initiate Toolbar" defaultstate="collapsed">
+    void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
         tToolbar.setTitleTextColor(Color.WHITE);
         tToolbar.setTitle("설정");
@@ -79,9 +95,13 @@ public class UserSettingActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Main" defaultstate="collapsed">
+    void initMainView() {
         tvLogout = (TextView) findViewById(R.id.TV_logout_user_setting);
     }
-    void initListener() {
+    void initMainListener() {
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,9 +112,9 @@ public class UserSettingActivity extends AppCompatActivity {
             }
         });
     }
-    void initControl() {
-    }
+    //</editor-fold>
 
+    //<editor-fold desc="User Inner Classes" defaultstate="collapsed">
     private class LogoutCallback implements Callback<MainServerData<Object>> {
         @Override
         public void success(MainServerData<Object> objectMainServerData, Response response) {
@@ -108,4 +128,5 @@ public class UserSettingActivity extends AppCompatActivity {
             RetrofitDebug.debug(error);
         }
     }
+    //</editor-fold>
 }

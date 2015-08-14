@@ -50,6 +50,7 @@ public class LinkBoxController extends Application {
         return applicationID;
     }
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     public void onCreate() {
         super.onCreate();
@@ -57,15 +58,23 @@ public class LinkBoxController extends Application {
         LinkBoxController.application = this;
         this.init();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="No Use" defaultstate="collapsed">
     private EmbedlyInterface linkNetworkEmbedlyInterface;
+    //</editor-fold>
+    //<editor-fold desc="Private Interfaces" defaultstate="collapsed">
     private UsrListInterface usrListInterface;
     private BoxListInterface boxListInterface;
     private UrlListInterface urlListInterface;
     private AlarmListInterface alarmListInterface;
+    //</editor-fold>
+    //<editor-fold desc="No Use" defaultstate="collapsed">
     public EmbedlyInterface getLinkNetworkEmbedlyInterface() {
         return linkNetworkEmbedlyInterface;
     }
+    //</editor-fold>
+    //<editor-fold desc="Interface Getters" defaultstate="collapsed">
     public UsrListInterface getUsrListInterface() {
         return usrListInterface;
     }
@@ -78,6 +87,7 @@ public class LinkBoxController extends Application {
     public AlarmListInterface getAlarmListInterface() {
         return alarmListInterface;
     }
+    //</editor-fold>
 
     private void init() {
         initNetwork();
@@ -111,7 +121,6 @@ public class LinkBoxController extends Application {
     // Code for user profile image cropping
     // public static Bitmap temporaryImage = null;
     public static Bitmap userImage = null;
-    public static Bitmap temporaryImage = null;
     public static Bitmap boxImage = null;
 
     public static BoxListData currentBox = null;    // TODO : Current box must be filled whenever box is pressed

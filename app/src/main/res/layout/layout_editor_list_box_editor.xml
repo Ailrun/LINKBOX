@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="#fff">
-    <org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView
+    <org.sopt.linkbox.custom.widget.RoundedImageView
         android:id="@+id/IV_profile_link_editor"
         android:layout_width="36dp"
         android:layout_height="36dp"

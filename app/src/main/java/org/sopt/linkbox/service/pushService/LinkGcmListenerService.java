@@ -30,8 +30,11 @@ public class LinkGcmListenerService extends GcmListenerService{
     private static final int urlNotiOffset = 0x55;
     private static final int goodNotiOffset = 0x99;
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private NotificationManager nm = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     public void onMessageReceived(String from, Bundle data) {
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -61,7 +64,9 @@ public class LinkGcmListenerService extends GcmListenerService{
             }
         }
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Set Notifications" defaultstate="collapsed">
     private void boxNotification(JSONObject jsonObject) {
         Intent intent = new Intent(this, InvitedBoxActivity.class);
         intent.putExtra(GCMString.isPush, true);
@@ -114,8 +119,11 @@ public class LinkGcmListenerService extends GcmListenerService{
         builder.setPriority(Notification.PRIORITY_MAX);
         nm.notify(goodNotiOffset, builder.build());
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Set Badges" defaultstate="collapsed">
     private void setIconBadge(int i) {  // TODO : Amount of push alarm. Ex) facebook alarm
         ShortcutBadger.with(getApplicationContext()).count(1);
     }
+    //</editor-fold>
 }

@@ -40,6 +40,7 @@ import retrofit.client.Response;
  */
 public class BoxEditActivity extends Activity {
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;
 
     private ImageView ibThumb = null;
@@ -47,19 +48,19 @@ public class BoxEditActivity extends Activity {
     private Button bSave = null, bCancel = null;
     private BoxListData box = null;
     private BoxImageSaveLoad boxImageSaveLoader = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        initWindow();
-
         super.onCreate(savedInstanceState);
+
         boxImageSaveLoader = new BoxImageSaveLoad(getApplicationContext());
 
-        initGlide();
-
+        initInterface();
+        initWindow();
         initView();
         initListener();
-
     }
     @Override
     protected void onResume() {
@@ -88,9 +89,12 @@ public class BoxEditActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initInterface() {
-        boxListWrapper = new BoxListWrapper();
+        initServerInterface();
+        initGlideInterface();
     }
     private void initWindow() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -99,18 +103,6 @@ public class BoxEditActivity extends Activity {
         layoutParams.dimAmount = 0.7f;
         getWindow().setAttributes(layoutParams);
         setContentView(R.layout.activity_box_edit);
-    }
-    private void initGlide() {
-        synchronized (Glide.class){
-            if(!Glide.isSetup()){
-                File file = Glide.getPhotoCacheDir(getApplicationContext());
-                int size = 1024*1024*1024;
-                DiskCache cache = DiskLruCacheWrapper.get(file, size);
-                GlideBuilder builder = new GlideBuilder(getApplicationContext());
-                builder.setDiskCache(cache);
-                Glide.setup(builder);
-            }
-        }
     }
     private void initView() {
         etName = (EditText) findViewById(R.id.ET_box_name_box_add);
@@ -124,6 +116,7 @@ public class BoxEditActivity extends Activity {
             public void onClick(View view) {
                 box = LinkBoxController.boxListSource.get(getIntent().getIntExtra("boxIndex", 0));
                 LinkBoxController.boxListSource.get(box.boxIndex).boxName = etName.getText().toString();
+                boxListWrapper.edit(box, new BoxEditCallback());
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -140,17 +133,38 @@ public class BoxEditActivity extends Activity {
             }
         });
     }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Server" defaultstate="collapsed">
+    private void initServerInterface() {
+        boxListWrapper = new BoxListWrapper();
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Glide" defaultstate="collapsed">
+    private void initGlideInterface() {
+        synchronized (Glide.class){
+            if(!Glide.isSetup()){
+                File file = Glide.getPhotoCacheDir(getApplicationContext());
+                int size = 1024*1024*1024;
+                DiskCache cache = DiskLruCacheWrapper.get(file, size);
+                GlideBuilder builder = new GlideBuilder(getApplicationContext());
+                builder.setDiskCache(cache);
+                Glide.setup(builder);
+            }
+        }
+    }
+    //</editor-fold>
 
+    //<editor-fold desc="Box Inner Classes" defaultstate="collapsed">
     private class BoxEditCallback implements Callback<MainServerData<Object>> {
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
             if (wrappedObject.result) {
-                LinkBoxController.boxListSource.add(box);
                 box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
                 Drawable drawable = ibThumb.getDrawable();
                 BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
                 Bitmap bitmap = bitmapDrawable.getBitmap();
                 LinkBoxController.boxListSource.get(box.boxIndex).boxThumbnail = boxImageSaveLoader.saveProfileImage(bitmap, box.boxIndex);
+                LinkBoxController.notifyBoxDataSetChanged();
                 finish();
             }
             else {
@@ -161,6 +175,8 @@ public class BoxEditActivity extends Activity {
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            finish();
         }
     }
+    //</editor-fold>
 }
