@@ -1,6 +1,7 @@
 package org.sopt.linkbox.activity.accountPage;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,8 @@ public class SignupActivity extends AppCompatActivity {
 
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_signup);
+        tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("회원가입");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

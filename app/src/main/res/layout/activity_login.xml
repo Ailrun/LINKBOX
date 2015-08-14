@@ -5,13 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="org.sopt.linkbox.activity.accountPage.LoginActivity"
-    android:background="@color/indigo500">
+    >
     <include
         android:id="@+id/T_toolbar_login"
         layout="@layout/layout_toolbar"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/indigo500"
+        >
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

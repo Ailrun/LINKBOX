@@ -62,32 +62,21 @@
             >
             <Button
                 android:id="@+id/B_save_box_add"
-                android:layout_width="wrap_content"
                 android:layout_height="36dp"
-                android:background="#00ffffff"
-                android:gravity="center_horizontal|center"
                 android:layout_alignParentEnd="true"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
                 android:text="완료"
-                android:textColor="@color/indigo500"
-                android:textSize="14dp"
+                android:layout_marginEnd="16dp"
+                style="@style/button_style"
 
                 />
 
             <Button
                 android:id="@+id/B_cancel_box_add"
-                android:layout_width="wrap_content"
                 android:layout_height="36dp"
                 android:layout_marginEnd="30dp"
                 android:layout_toStartOf="@+id/B_save_box_add"
-                android:background="#00ffffff"
-                android:gravity="center_horizontal|center"
-                android:paddingEnd="5dp"
-                android:paddingStart="5dp"
                 android:text="취소"
-                android:textColor="@color/indigo500"
-                android:textSize="14dp"
+                style="@style/button_style"
 
                 />
         </RelativeLayout>

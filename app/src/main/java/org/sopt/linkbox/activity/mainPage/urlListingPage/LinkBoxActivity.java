@@ -3,6 +3,9 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -18,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -27,6 +31,7 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.helpPage.HelpActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
+import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
 import org.sopt.linkbox.constant.MainStrings;
@@ -34,6 +39,8 @@ import org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.helper.ImageSaveLoad;
@@ -44,6 +51,10 @@ import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,6 +95,9 @@ public class LinkBoxActivity extends AppCompatActivity {
     //drawer layout
     private RoundedImageView ivProfile = null;
     private ListView lvFavoriteBoxList = null;
+
+    private TextView tvUserName = null;
+    private TextView tvUserEmail = null;
 
     private RelativeLayout rlRecentLink = null;
     private RelativeLayout rlMyBox = null;
@@ -346,6 +360,8 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initDrawerView() {
         ivProfile = (RoundedImageView) findViewById(R.id.RIV_profile_link_box);
         // tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
+        tvUserName = (TextView) findViewById(R.id.TV_profile_name_link_box);
+        tvUserEmail = (TextView) findViewById(R.id.TV_profile_email_link_box);
 
         rlRecentLink = (RelativeLayout) findViewById(R.id.RL_recent_link_link_box);
         rlMyBox = (RelativeLayout) findViewById(R.id.RL_my_box_link_box);
@@ -358,6 +374,9 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlToHelp = (RelativeLayout) findViewById(R.id.RL_help_link_box);
     }
     private void initDrawerListener() {
+        tvUserName.setText(LinkBoxController.usrListData.usrName);
+        tvUserEmail.setText(LinkBoxController.usrListData.usrID);
+
         rlRecentLink.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -507,6 +526,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         String arr[] = {"요리", "육아", "개발", "일상", "주방", "맛집", "위생", "공부"};
         for (int i = 0; i < arr.length; i++) {
             boxListData.boxName = arr[i];
+            boxListData.boxKey = i;
+            boxListData.boxIndex = i;
             LinkBoxController.boxListSource.add(boxListData);
             boxListData = new BoxListData();
         }

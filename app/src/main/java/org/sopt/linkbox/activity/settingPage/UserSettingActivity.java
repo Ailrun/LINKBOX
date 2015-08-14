@@ -2,6 +2,7 @@ package org.sopt.linkbox.activity.settingPage;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -72,6 +73,8 @@ public class UserSettingActivity extends AppCompatActivity {
         speUserSettings = spUserSettings.edit();
 
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
+        tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("설정");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

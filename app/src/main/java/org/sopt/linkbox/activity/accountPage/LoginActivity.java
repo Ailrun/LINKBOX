@@ -1,6 +1,7 @@
 package org.sopt.linkbox.activity.accountPage;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,10 +42,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initView()  {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_login);
+        tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("로그인");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         etEmail = (EditText) findViewById(R.id.ET_email_login);
         etPass = (EditText) findViewById(R.id.ET_password_login);
         bLogin = (Button) findViewById(R.id.B_login_login);

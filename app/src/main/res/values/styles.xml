@@ -13,4 +13,12 @@
         <item name="android:gravity">center_horizontal|center</item>
     </style>
 
+    <style name="toolbar_style" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/indigo500</item>
+        <item name="android:textColor">@color/real_white</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingEnd">15dp</item>
+        <item name="android:minHeight">56dp</item>
+    </style>
+\
 </resources>

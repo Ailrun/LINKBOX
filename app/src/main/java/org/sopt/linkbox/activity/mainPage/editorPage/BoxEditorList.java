@@ -2,6 +2,7 @@ package org.sopt.linkbox.activity.mainPage.editorPage;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -93,6 +94,7 @@ public class BoxEditorList extends AppCompatActivity {
     }
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
+        tToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

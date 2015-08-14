@@ -1,6 +1,7 @@
 package org.sopt.linkbox.activity.helpPage;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class HelpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_help_main);
 
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
+        tToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

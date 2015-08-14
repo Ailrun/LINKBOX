@@ -5,7 +5,8 @@
     android:orientation="vertical">
     <include
         android:id="@+id/T_toolbar_settings"
-        layout="@layout/layout_toolbar"/>
+        layout="@layout/layout_toolbar"
+        />
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
