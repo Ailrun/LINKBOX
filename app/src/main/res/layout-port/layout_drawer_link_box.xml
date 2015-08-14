@@ -108,17 +108,6 @@
             android:id="@+id/RL_buyed_box"
             android:layout_below="@id/RL_my_box_link_box">
 
-            <TextView
-                android:id="@+id/TV_buyed_box_link_box"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="구매한 박스"
-                android:textStyle="bold"
-                android:paddingStart="16dp"
-                android:gravity="center_vertical"
-                android:textSize="16dp"
-                android:textColor="#df000000"/>
-
         </RelativeLayout>
         <!-- Buyed Box (Extra feature) -->
 
@@ -145,7 +134,7 @@
     <ListView
         android:id="@+id/LV_favorite_box_link_box"
         android:layout_width="match_parent"
-        android:layout_height="80dp"/>
+        android:layout_height="120dp"/>
 
     <!-- divider start -->
     <View

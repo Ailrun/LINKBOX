@@ -40,6 +40,7 @@ public class SignupActivity extends AppCompatActivity {
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_signup);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("회원가입");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

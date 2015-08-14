@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -95,6 +97,9 @@ public class LinkBoxActivity extends AppCompatActivity {
     private RoundedImageView ivProfile = null;
     private ListView lvFavoriteBoxList = null;
 
+    private TextView tvUserName = null;
+    private TextView tvUserEmail = null;
+
     private RelativeLayout rlRecentLink = null;
     private RelativeLayout rlMyBox = null;
     private RelativeLayout rlBuyedBox = null;
@@ -172,6 +177,10 @@ public class LinkBoxActivity extends AppCompatActivity {
         for (int i = 0; i < menu.size(); i++) {
             menuItems[i] = menu.getItem(i);
         }
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_search_white_24px);
+        menuItems[0].setIcon(drawable);
+        drawable = getResources().getDrawable(R.drawable.ic_mainpage_editorinfo_24px);
+        menuItems[1].setIcon(drawable);
         return true;
     }
     @Override
@@ -310,6 +319,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
+        tToolbar.setTitle("최근 링크");
         tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
         setSupportActionBar(tToolbar);
     }
@@ -345,6 +355,8 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initDrawerView() {
         ivProfile = (RoundedImageView) findViewById(R.id.RIV_profile_link_box);
         // tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
+        tvUserName = (TextView) findViewById(R.id.TV_profile_name_link_box);
+        tvUserEmail = (TextView) findViewById(R.id.TV_profile_email_link_box);
 
         rlRecentLink = (RelativeLayout) findViewById(R.id.RL_recent_link_link_box);
         rlMyBox = (RelativeLayout) findViewById(R.id.RL_my_box_link_box);
@@ -357,6 +369,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlToHelp = (RelativeLayout) findViewById(R.id.RL_help_link_box);
     }
     private void initDrawerListener() {
+        tvUserName.setText(LinkBoxController.usrListData.usrName);
+        tvUserEmail.setText(LinkBoxController.usrListData.usrProfile);
 
         rlRecentLink.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -493,6 +507,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         String arr[] = {"요리", "육아", "개발", "일상", "주방", "맛집", "위생", "공부"};
         for (int i = 0; i < arr.length; i++) {
             boxListData.boxName = arr[i];
+            boxListData.boxKey = i;
+            boxListData.boxIndex = i;
             LinkBoxController.boxListSource.add(boxListData);
             boxListData = new BoxListData();
         }

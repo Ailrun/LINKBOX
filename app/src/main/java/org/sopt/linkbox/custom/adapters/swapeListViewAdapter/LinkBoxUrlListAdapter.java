@@ -89,8 +89,14 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
 
         ImageButton ibDelete = ViewHolder.get(view, R.id.IB_delete_link_box);
+        ibDelete.setScaleX(0.45f);
+        ibDelete.setScaleY(0.45f);
         ImageButton ibEdit = ViewHolder.get(view, R.id.IB_edit_link_box);
+        ibEdit.setScaleX(0.35f);
+        ibEdit.setScaleY(0.35f);
         ImageButton ibShare = ViewHolder.get(view, R.id.IB_share_link_box);
+        ibShare.setScaleX(0.42f);
+        ibShare.setScaleY(0.42f);
 
         tvUrlTitle.setText(urlListData.urlTitle);
         tvUrlAddress.setText(urlListData.url);

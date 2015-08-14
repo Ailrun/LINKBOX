@@ -60,6 +60,7 @@ public class UserSettingActivity extends AppCompatActivity {
 
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("설정");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

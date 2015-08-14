@@ -184,6 +184,7 @@ public class LinkItActivity extends Activity {
             public void onClick(View view) {
                 urlListData.urlTitle = etName.getText().toString();
                 urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                finish();
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {

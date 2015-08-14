@@ -20,19 +20,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/indigo200"
-                android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
+                android:src="@drawable/ic_drawer_editlist"/>
             <ImageButton
                 android:id="@+id/IB_edit_link_box"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/indigo200"
-                android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
+                android:src="@drawable/ic_delete_box_white"/>
             <ImageButton
                 android:id="@+id/IB_share_link_box"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/indigo200"
-                android:src="@drawable/abc_btn_check_to_on_mtrl_015"/>
+                android:src="@drawable/mainpage_editorplus"/>
         </TableRow>
     </TableLayout>
     <RelativeLayout
@@ -53,7 +53,9 @@
             android:layout_toEndOf="@id/IV_thumb_link_box"
             android:layout_height="52dp"
             android:layout_marginStart="16dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -99,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:text="url address"
-                android:textSize="14dp"
+                android:textSize="10dp"
                 android:textColor="#8a000000"
                 />
 

@@ -39,6 +39,7 @@ public class InvitedBoxActivity extends AppCompatActivity {
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("초대받은 박스");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

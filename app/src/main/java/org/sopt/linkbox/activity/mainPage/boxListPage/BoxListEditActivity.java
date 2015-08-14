@@ -2,6 +2,7 @@ package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +17,8 @@ import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 public class BoxListEditActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
     private GridView gvBoxList = null;
-
+    private Menu menu = null;
+    private MenuItem[] menuItems = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,15 @@ public class BoxListEditActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_box_list_edit, menu);
+        this.menu = menu;
+        menuItems = new MenuItem[menu.size()];
+        for (int i = 0; i < menu.size(); i++) {
+            menuItems[i] = menu.getItem(i);
+        }
+        Drawable drawable = getResources().getDrawable(R.drawable.ic_drawer_mybox_24px);
+        menuItems[0].setIcon(drawable);
+        drawable = getResources().getDrawable(R.drawable.ic_mainpage_editorinfo_24px);
+        menuItems[1].setIcon(drawable);
         return true;
     }
     @Override
@@ -59,6 +70,7 @@ public class BoxListEditActivity extends AppCompatActivity {
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("내 박스");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
