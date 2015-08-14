@@ -12,6 +12,7 @@ import com.google.android.gms.gcm.GcmListenerService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sopt.linkbox.activity.mainPage.boxListPage.InvitedBoxActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.GCMString;
@@ -62,7 +63,7 @@ public class LinkGcmListenerService extends GcmListenerService{
     }
 
     private void boxNotification(JSONObject jsonObject) {
-        Intent intent = new Intent(this, LinkBoxActivity.class);
+        Intent intent = new Intent(this, InvitedBoxActivity.class);
         intent.putExtra(GCMString.isPush, true);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Notification.Builder builder = new Notification.Builder(this);

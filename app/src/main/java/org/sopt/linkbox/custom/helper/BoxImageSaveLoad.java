@@ -8,7 +8,6 @@ import android.util.Log;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.UsrListData;
 
 import java.io.File;
 import java.io.FileInputStream;

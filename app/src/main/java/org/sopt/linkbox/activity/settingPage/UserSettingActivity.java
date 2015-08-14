@@ -16,9 +16,19 @@ import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.accountPage.AccountActivity;
 import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.network.main.usr.UsrListWrapper;
+import org.sopt.linkbox.debugging.RetrofitDebug;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class UserSettingActivity extends AppCompatActivity {
+
+    private UsrListWrapper usrListWrapper = null;
+
     private Toolbar tToolbar = null;
     private TextView tvLogout = null;
 
@@ -33,6 +43,7 @@ public class UserSettingActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_user_setting);
 
+        initInterface();
         initData();
         initView();
         initControl();
@@ -47,6 +58,9 @@ public class UserSettingActivity extends AppCompatActivity {
         super.onStop();
     }
 
+    void initInterface() {
+        usrListWrapper = new UsrListWrapper();
+    }
     void initData() {
     }
     void initView() {
@@ -70,21 +84,25 @@ public class UserSettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 speProfile.remove(AccountStrings.usrID);
                 speProfile.remove(AccountStrings.usrPassword);
-                Intent intent = new Intent(UserSettingActivity.this, AccountActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 LoginManager.getInstance().logOut();
-                startActivity(intent);
-                finish();
+                usrListWrapper.logout(new LogoutCallback());
             }
         });
-
-
-        // sharedPreferences - userProfile파일에 저장하고 막판에 DB 갱신?
-        /******************************************************/
-
-        // 로그아웃 버튼
-        // 회원탈퇴 버튼
     }
     void initControl() {
+    }
+
+    private class LogoutCallback implements Callback<MainServerData<Object>> {
+        @Override
+        public void success(MainServerData<Object> objectMainServerData, Response response) {
+            Intent intent = new Intent(UserSettingActivity.this, AccountActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            RetrofitDebug.debug(error);
+        }
     }
 }

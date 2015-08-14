@@ -206,7 +206,13 @@
         <activity
             android:name=".activity.mainPage.boxListPage.BoxAddActivity"
             android:label="@string/title_activity_box_add"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleTask">
+        </activity>
+        <activity android:name=".activity.mainPage.boxListPage.BoxEditActivity"
+            android:label="BoxEditActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:launchMode="singleTask">
         </activity>
         <!-- Box Activities End -->
         <!-- Editor Activities Start -->
@@ -255,10 +261,6 @@
         </activity>
         <activity android:name=".activity.mainPage.boxListPage.BoxImageCropActivity"
             android:label="BoxImageCropActivity">
-        </activity>
-        <activity android:name=".activity.mainPage.boxListPage.BoxEditActivity"
-            android:label="BoxEditActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
         <!-- Main Activities End -->
     </application>

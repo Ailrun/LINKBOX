@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -184,6 +185,7 @@ public class LinkItActivity extends Activity {
             public void onClick(View view) {
                 urlListData.urlTitle = etName.getText().toString();
                 urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                urlListWrapper.add(urlListData, new UrlAddingCallback());
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -284,10 +286,20 @@ public class LinkItActivity extends Activity {
     private class UrlAddingCallback implements Callback<MainServerData<UrlListData>> {
         @Override
         public void success(MainServerData<UrlListData> wrappedUrlListData, Response response) {
+            if (wrappedUrlListData.result) {
+                LinkBoxController.urlListSource.add(wrappedUrlListData.object);
+                LinkBoxController.notifyUrlDataSetChanged();
+                finish();
+            }
+            else {
+                Toast.makeText(LinkItActivity.this, "There is some error in adding url", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            finish();
         }
     }
 }

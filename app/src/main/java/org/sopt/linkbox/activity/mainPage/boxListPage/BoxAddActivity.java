@@ -1,28 +1,28 @@
 package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
+import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
-import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.UrlListData;
 import org.sopt.linkbox.custom.helper.BoxImageSaveLoad;
-import org.sopt.linkbox.custom.helper.ImageSaveLoad;
+import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
+import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.io.File;
 
@@ -31,6 +31,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class BoxAddActivity extends Activity {
+
+    private BoxListWrapper boxListWrapper = null;
 
     private ImageView ibThumb = null;
     private EditText etName = null;
@@ -43,12 +45,24 @@ public class BoxAddActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         boxImageSaveLoader = new BoxImageSaveLoad(getApplicationContext());
+        initInterface();
         initWindow();
         initGlide();
         initView();
         initListener();
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(LinkBoxController.boxImage != null){
+            // Bitmap bmp = boxImageSaveLoader.loadProfileImage(LinkBoxController.currentBox.boxKey);
+            ibThumb.setImageBitmap(LinkBoxController.boxImage);
+        }
+    }
 
+    private void initInterface() {
+        boxListWrapper = new BoxListWrapper();
+    }
     private void initWindow() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -82,14 +96,10 @@ public class BoxAddActivity extends Activity {
                 box = new BoxListData();
                 int boxIndex = LinkBoxController.boxListSource.size();
                 box.boxIndex = boxIndex;
-                box.boxKey = boxIndex;
                 box.boxName = etName.getText().toString();
-                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), boxIndex);
                 box.isFavorite = 0;
                 box.boxUrlNum = 0;
-
-                LinkBoxController.boxListSource.add(box);
-                finish();
+                boxListWrapper.add(box, new BoxAddingCallback());
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -107,13 +117,23 @@ public class BoxAddActivity extends Activity {
         });
     }
 
-    private class BoxAdding implements Callback<MainServerData<BoxListData>> {
+    private class BoxAddingCallback implements Callback<MainServerData<BoxListData>> {
         @Override
         public void success(MainServerData<BoxListData> wrappedBoxListData, Response response) {
-
+            if (wrappedBoxListData.result) {
+                box.boxKey = wrappedBoxListData.object.boxKey;
+                LinkBoxController.boxListSource.add(box);
+                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
+                finish();
+            }
+            else {
+                Toast.makeText(BoxAddActivity.this, "Fail to add Box", Toast.LENGTH_LONG).show();
+                finish();
+            }
         }
         @Override
         public void failure(RetrofitError error) {
+            RetrofitDebug.debug(error);
         }
     }
 }

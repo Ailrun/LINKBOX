@@ -67,9 +67,7 @@ public class BoxImageCropActivity extends AppCompatActivity {
             public void onClick(View v) {
                 LinkBoxController.boxImage = cropImageView.getCroppedImage();
                 // String saveStatus = .saveProfileImage(LinkBoxController.userImage);
-                // Log.d("Save Status : ", saveStatus);
-                Intent intent = new Intent(BoxImageCropActivity.this, BoxEditActivity.class);
-                startActivity(intent);
+                // Log.d("Save Status : ", saveStatus);]
                 finish();
 
             }
@@ -77,8 +75,6 @@ public class BoxImageCropActivity extends AppCompatActivity {
         decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BoxImageCropActivity.this, BoxEditActivity.class);
-                startActivity(intent);
                 finish();
             }
         });

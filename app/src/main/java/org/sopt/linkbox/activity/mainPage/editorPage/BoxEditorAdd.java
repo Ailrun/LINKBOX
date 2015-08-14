@@ -8,15 +8,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.data.tempData.TwoString;
 import org.sopt.linkbox.custom.helper.SessionSaver;
+import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class BoxEditorAdd extends AppCompatActivity {
+
+    private BoxListWrapper boxListWrapper = null;
+
     private Toolbar tToolbar = null;
     private EditText etEmail = null;
     private EditText tvMessage = null;
@@ -45,7 +57,10 @@ public class BoxEditorAdd extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.action_send :
-                startActivity(new Intent(this, LinkBoxActivity.class));
+                TwoString twoString = new TwoString();
+                twoString.usrID = etEmail.getText().toString();
+                twoString.message = tvMessage.getText().toString();
+                boxListWrapper.invite(twoString, new BoxInviteCallback());
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -62,6 +77,9 @@ public class BoxEditorAdd extends AppCompatActivity {
         SessionSaver.saveSession(this);
     }
 
+    private void initInterface() {
+        boxListWrapper = new BoxListWrapper();
+    }
     private void initData() {
         spUserSettings = getSharedPreferences(SettingStrings.shared_user_settings
                 + LinkBoxController.usrListData.usrKey, 0);
@@ -83,5 +101,17 @@ public class BoxEditorAdd extends AppCompatActivity {
 
     }
     private void initListener() {
+    }
+
+    private class BoxInviteCallback implements Callback<MainServerData<Object>> {
+        @Override
+        public void success(MainServerData<Object> objectMainServerData, Response response) {
+            Toast.makeText(BoxEditorAdd.this, "Successfully Invite!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            Toast.makeText(BoxEditorAdd.this, "Fail to invite", Toast.LENGTH_SHORT).show();
+        }
     }
 }

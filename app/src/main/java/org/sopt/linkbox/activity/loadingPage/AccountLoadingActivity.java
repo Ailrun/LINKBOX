@@ -217,5 +217,4 @@ public class AccountLoadingActivity extends Activity {
         }
     }
     //</editor-fold>
-
 }
