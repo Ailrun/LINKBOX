@@ -20,9 +20,6 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
-import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.BoxImageSaveLoad;
 import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
 import org.sopt.linkbox.debugging.RetrofitDebug;
@@ -90,8 +87,7 @@ public class BoxAddActivity extends Activity {
             @Override
             public void onClick(View view) {
                 box = new BoxListData();
-                int boxIndex = LinkBoxController.boxListSource.size();
-                box.boxIndex = boxIndex;
+                box.boxIndex = LinkBoxController.boxListSource.size();
                 box.boxName = etName.getText().toString();
                 box.isFavorite = 0;
                 box.boxUrlNum = 0;

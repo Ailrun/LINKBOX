@@ -72,7 +72,6 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     //toolbar layout
     private Toolbar tToolbar = null;
-    private Menu menu = null;
     private MenuItem menuItems[] = null;
     //main layout
     private SwipeRefreshLayout srlUrlList = null;
@@ -103,13 +102,6 @@ public class LinkBoxActivity extends AppCompatActivity {
     private final String skuIDPremium = "id_mUImErpEmEkAMU";
     private List<String> skuList = null;
 
-    // profile photo from gallery
-    private Uri imgURI = null;
-    private String filePath = null;
-    private Bitmap bmp = null;
-    private Bitmap user_image = null;
-    private RoundedBitmapDrawable roundBitmap = null;
-
     // Load Save
     private ImageSaveLoad imageSaveLoader = null;
     //</editor-fold>
@@ -120,10 +112,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
-
-        imageSaveLoader = new ImageSaveLoad(getApplicationContext());
-        user_image = imageSaveLoader.loadProfileImage();
-        LinkBoxController.userImage = user_image;
 
         initInterface();
         initData();
@@ -171,7 +159,6 @@ public class LinkBoxActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_link_box, menu);
-        this.menu = menu;
         menuItems = new MenuItem[menu.size()];
         for (int i = 0; i < menu.size(); i++) {
             menuItems[i] = menu.getItem(i);
@@ -228,6 +215,10 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initData() {
         //InApp billing init
         // initInAppPayData();
+
+        //Profile data
+        imageSaveLoader = new ImageSaveLoad(getApplicationContext());
+        LinkBoxController.userImage = imageSaveLoader.loadProfileImage();
 
         //Page Data
         inBox = getIntent().getBooleanExtra(MainStrings.inBox, false);

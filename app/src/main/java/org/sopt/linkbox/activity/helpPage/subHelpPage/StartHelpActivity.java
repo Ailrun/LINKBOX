@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.sopt.linkbox.R;
 
 /**
  * Created by MinGu on 2015-08-10.
+ *
  */
 public class StartHelpActivity extends AppCompatActivity{
 

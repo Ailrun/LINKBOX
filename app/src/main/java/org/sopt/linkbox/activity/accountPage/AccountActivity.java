@@ -38,7 +38,6 @@ public class AccountActivity extends AppCompatActivity {
     Button bSignup = null;
 
     private SharedPreferences spProfile = null; // 02 Save preference or use preference that is saved. Bunched up data
-    private SharedPreferences.Editor speProfile = null;
 
     private CallbackManager callbackManager = null;
     //</editor-fold>
@@ -81,7 +80,6 @@ public class AccountActivity extends AppCompatActivity {
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initData() {
         spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
-        speProfile = spProfile.edit();  // 03 Shared preference cannot edit data.
     }
     private void initAutoLogin() {
         String usremail = spProfile.getString(AccountStrings.usrID, "");

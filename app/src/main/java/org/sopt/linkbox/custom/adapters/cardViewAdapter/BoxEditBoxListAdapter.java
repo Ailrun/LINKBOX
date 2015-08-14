@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 /**
  * Created by Junyoung on 2015-07-10.
+ *
  */
 public class BoxEditBoxListAdapter extends BaseAdapter {
     private static final String TAG = "TEST/" + BoxEditBoxListAdapter.class.getName() + " : ";
@@ -75,12 +76,14 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         tvBoxImage.setImageBitmap(boxImage);    // TODO : Unfinished
 
         final ImageView favoriteBtn = (ImageView) view.findViewById(R.id.IV_favorite_btn);
+        final BitmapDrawable bookmark = (BitmapDrawable) context.getResources().getDrawable(R.drawable.ic_box_bookmark);
+        final BitmapDrawable bookmarkSelected = (BitmapDrawable) context.getResources().getDrawable(R.drawable.ic_box_bookmark_selected);
 
-        if(boxListData.isFavorite == 1){
-            favoriteBtn.setImageBitmap(((BitmapDrawable)context.getResources().getDrawable(R.drawable.ic_box_bookmark_selected)).getBitmap());
+        if(boxListData.isFavorite == 1 && bookmark != null){
+            favoriteBtn.setImageBitmap(bookmark.getBitmap());
         }
-        else if(boxListData.isFavorite == 0){
-            favoriteBtn.setImageBitmap(((BitmapDrawable)context.getResources().getDrawable(R.drawable.ic_box_bookmark)).getBitmap());
+        else if(boxListData.isFavorite == 0 && bookmarkSelected != null){
+            favoriteBtn.setImageBitmap(bookmarkSelected.getBitmap());
         }
 
         ImageView modifyBtn = (ImageView) view.findViewById(R.id.IV_modify_btn);
@@ -89,13 +92,13 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         favoriteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(boxListData.isFavorite == 1){
+                if(boxListData.isFavorite == 1 && bookmark != null){
                     boxListData.isFavorite = 0;
-                    favoriteBtn.setImageBitmap(((BitmapDrawable)context.getResources().getDrawable(R.drawable.ic_box_bookmark)).getBitmap());
+                    favoriteBtn.setImageBitmap(bookmark.getBitmap());
                 }
-                else{
+                else if (bookmarkSelected != null){
                     boxListData.isFavorite = 1;
-                    favoriteBtn.setImageBitmap(((BitmapDrawable)context.getResources().getDrawable(R.drawable.ic_box_bookmark_selected)).getBitmap());
+                    favoriteBtn.setImageBitmap(bookmarkSelected.getBitmap());
                 }
             }
         });

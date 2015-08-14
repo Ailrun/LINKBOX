@@ -1,7 +1,5 @@
 package org.sopt.linkbox.activity.mainPage.editorPage;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +11,6 @@ import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
-import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.constant.SettingStrings;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.data.tempData.TwoString;
 import org.sopt.linkbox.custom.helper.SessionSaver;

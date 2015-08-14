@@ -16,17 +16,16 @@ import org.sopt.linkbox.R;
 
 /**
  * Created by MinGu on 2015-08-11.
+ *
  */
 public class PhotoCropActivity extends AppCompatActivity {
+    protected final int SELECT_GALLERY = 1;
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private CropImageView cropImageView = null;
     private Button accept = null;
     private Button decline = null;
     private Button ratio = null;
-    protected final int SELECT_GALLERY = 1;
-    private Uri imgURI = null;
-    private Bitmap bmp = null;
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
@@ -49,10 +48,10 @@ public class PhotoCropActivity extends AppCompatActivity {
         if(resultCode == RESULT_OK) {
 
             try {
-                imgURI = data.getData();
+                Uri imgURI = data.getData();
                 // ivProfile.setImageURI(imgURI);
                 // filePath = getRealPathFromURI(imgURI);
-                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
+                Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
                 // LinkBoxController.temporaryImage = bmp;
                 // ivProfile.setImageBitmap(bmp);
                 // ivProfile.getCroppedBitmap(bmp, 15);

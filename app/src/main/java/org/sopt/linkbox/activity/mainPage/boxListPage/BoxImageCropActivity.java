@@ -17,28 +17,22 @@ import org.sopt.linkbox.custom.helper.ImageSaveLoad;
 
 /**
  * Created by MinGu on 2015-08-13.
+ *
  */
 public class BoxImageCropActivity extends AppCompatActivity {
+    private final int SELECT_GALLERY = 1;
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private CropImageView cropImageView = null;
     private Button accept = null;
     private Button decline = null;
     private Button ratio = null;
-
-    protected final int SELECT_GALLERY = 1;
-    private Uri imgURI = null;
-    private Bitmap bmp = null;
-
-    private ImageSaveLoad imageSaveLoader = null;
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        imageSaveLoader = new ImageSaveLoad(getApplicationContext());
 
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -55,10 +49,10 @@ public class BoxImageCropActivity extends AppCompatActivity {
      protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == RESULT_OK) {
             try {
-                imgURI = data.getData();
+                Uri imgURI = data.getData();
                 // ivProfile.setImageURI(imgURI);
                 // filePath = getRealPathFromURI(imgURI);
-                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
+                Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
                 // LinkBoxController.temporaryImage = bmp;
                 // ivProfile.setImageBitmap(bmp);
                 // ivProfile.getCroppedBitmap(bmp, 15);
@@ -125,7 +119,6 @@ public class BoxImageCropActivity extends AppCompatActivity {
                     cropImageView.setFixedAspectRatio(false);
                     ratio.setText("Free");
                 }
-
             }
         });
     }
