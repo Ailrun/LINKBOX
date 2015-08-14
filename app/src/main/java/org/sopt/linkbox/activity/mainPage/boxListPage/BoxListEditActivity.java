@@ -39,10 +39,6 @@ public class BoxListEditActivity extends AppCompatActivity {
         for (int i = 0; i < menu.size(); i++) {
             menuItems[i] = menu.getItem(i);
         }
-        Drawable drawable = getResources().getDrawable(R.drawable.ic_drawer_mybox_24px);
-        menuItems[0].setIcon(drawable);
-        drawable = getResources().getDrawable(R.drawable.ic_mainpage_editorinfo_24px);
-        menuItems[1].setIcon(drawable);
         return true;
     }
     @Override
