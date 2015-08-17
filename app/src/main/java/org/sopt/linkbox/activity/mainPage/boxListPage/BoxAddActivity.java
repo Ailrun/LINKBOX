@@ -8,8 +8,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -20,11 +20,9 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
-import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.BoxImageSaveLoad;
-import org.sopt.linkbox.custom.helper.ImageSaveLoad;
+import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
+import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.io.File;
 
@@ -34,23 +32,42 @@ import retrofit.client.Response;
 
 public class BoxAddActivity extends Activity {
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
+    private BoxListWrapper boxListWrapper = null;
+
     private ImageView ibThumb = null;
     private EditText etName = null;
     private Button bSave = null, bCancel = null;
     private BoxListData box = null;
     private BoxImageSaveLoad boxImageSaveLoader = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         boxImageSaveLoader = new BoxImageSaveLoad(getApplicationContext());
+        initInterface();
         initWindow();
-        initGlide();
         initView();
         initListener();
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(LinkBoxController.boxImage != null){
+            // Bitmap bmp = boxImageSaveLoader.loadProfileImage(LinkBoxController.currentBox.boxKey);
+            ibThumb.setImageBitmap(LinkBoxController.boxImage);
+        }
+    }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
+    private void initInterface() {
+        initServerInterface();
+        initGlideInterface();
+    }
     private void initWindow() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -58,18 +75,6 @@ public class BoxAddActivity extends Activity {
         layoutParams.dimAmount = 0.7f;
         getWindow().setAttributes(layoutParams);
         setContentView(R.layout.activity_box_add);
-    }
-    private void initGlide() {
-        synchronized (Glide.class){
-            if(!Glide.isSetup()){
-                File file = Glide.getPhotoCacheDir(getApplicationContext());
-                int size = 1024*1024*1024;
-                DiskCache cache = DiskLruCacheWrapper.get(file, size);
-                GlideBuilder builder = new GlideBuilder(getApplicationContext());
-                builder.setDiskCache(cache);
-                Glide.setup(builder);
-            }
-        }
     }
     private void initView() {
         etName = (EditText) findViewById(R.id.ET_box_name_box_add);
@@ -82,16 +87,11 @@ public class BoxAddActivity extends Activity {
             @Override
             public void onClick(View view) {
                 box = new BoxListData();
-                int boxIndex = LinkBoxController.boxListSource.size();
-                box.boxIndex = boxIndex;
-                box.boxKey = boxIndex;
+                box.boxIndex = LinkBoxController.boxListSource.size();
                 box.boxName = etName.getText().toString();
-                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), boxIndex);
                 box.isFavorite = 0;
                 box.boxUrlNum = 0;
-
-                LinkBoxController.boxListSource.add(box);
-                finish();
+                boxListWrapper.add(box, new BoxAddingCallback());
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -108,14 +108,47 @@ public class BoxAddActivity extends Activity {
             }
         });
     }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Server" defaultstate="collapsed">
+    private void initServerInterface() {
+        boxListWrapper = new BoxListWrapper();
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Glide" defaultstate="collapsed">
+    private void initGlideInterface() {
+        synchronized (Glide.class){
+            if(!Glide.isSetup()){
+                File file = Glide.getPhotoCacheDir(getApplicationContext());
+                int size = 1024*1024*1024;
+                DiskCache cache = DiskLruCacheWrapper.get(file, size);
+                GlideBuilder builder = new GlideBuilder(getApplicationContext());
+                builder.setDiskCache(cache);
+                Glide.setup(builder);
+            }
+        }
+    }
+    //</editor-fold>
 
-    private class BoxAdding implements Callback<MainServerData<BoxListData>> {
+    //<editor-fold desc="Box Inner Classes" defaultstate="collapsed">
+    private class BoxAddingCallback implements Callback<MainServerData<BoxListData>> {
         @Override
         public void success(MainServerData<BoxListData> wrappedBoxListData, Response response) {
-
+            if (wrappedBoxListData.result) {
+                box.boxKey = wrappedBoxListData.object.boxKey;
+                LinkBoxController.boxListSource.add(box);
+                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
+                LinkBoxController.notifyBoxDataSetChanged();
+                finish();
+            }
+            else {
+                Toast.makeText(BoxAddActivity.this, "Fail to add Box", Toast.LENGTH_LONG).show();
+                finish();
+            }
         }
         @Override
         public void failure(RetrofitError error) {
+            RetrofitDebug.debug(error);
         }
     }
+    //</editor-fold>
 }

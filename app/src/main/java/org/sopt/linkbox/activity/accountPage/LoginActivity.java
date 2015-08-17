@@ -20,13 +20,16 @@ import org.sopt.linkbox.constant.UsrType;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + LoginActivity.class.getName() + " : ";
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;
     private EditText etEmail = null;
     private EditText etPass = null;
     private Button bLogin = null;
     private String emailHint = null;
     private String passwordHint = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +42,13 @@ public class LoginActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initView()  {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_login);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("로그인");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -71,7 +77,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Account Helper Methods" defaultstate="collapsed">
     private void loginLoading(String usremail, String pass) {
         Intent intent = new Intent(this, AccountLoadingActivity.class);
         intent.putExtra(AccountStrings.usrID, usremail);
@@ -80,4 +88,5 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    //</editor-fold>
 }

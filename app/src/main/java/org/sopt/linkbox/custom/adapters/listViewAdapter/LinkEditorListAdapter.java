@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -14,7 +13,7 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.adapters.imageViewAdapter.RoundedImageView;
+import org.sopt.linkbox.custom.widget.RoundedImageView;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 

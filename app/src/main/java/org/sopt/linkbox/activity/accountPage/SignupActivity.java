@@ -20,14 +20,16 @@ import org.sopt.linkbox.constant.UsrType;
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + SignupActivity.class.getName() + " : ";
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;
-
     private EditText etID = null;
     private EditText etName = null;
     private EditText etPassword = null;
     private EditText etPasswordCheck = null;
     private Button bSignup = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,10 +38,13 @@ public class SignupActivity extends AppCompatActivity {
         initView();
         initListener();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_signup);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("회원가입");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -58,7 +63,6 @@ public class SignupActivity extends AppCompatActivity {
         etPassword.setTypeface(typeface);
         etPasswordCheck.setTypeface(typeface);
     }
-
     private void initListener() {
         bSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +79,9 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Account Helper Methods" defaultstate="collapsed">
     private void signupLoading(String usrID, String usrName, String usrPassword) {
         Intent intent = new Intent(this, AccountLoadingActivity.class);
         intent.putExtra(AccountStrings.usrID, usrID);
@@ -84,4 +90,5 @@ public class SignupActivity extends AppCompatActivity {
         intent.putExtra(AccountStrings.usrType, UsrType.new_user);
         startActivity(intent);
     }
+    //</editor-fold>
 }

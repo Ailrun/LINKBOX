@@ -4,19 +4,15 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -36,6 +32,7 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sy on 2015-08-12.
+ *
  */
 public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
     private static final String TAG = "TEST/" + BoxEditInvitedBoxListAdapter.class.getName() + " : ";
@@ -96,18 +93,16 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
         Button bDisagree = ViewHolder.get(view, R.id.B_invited_box_reject);
         try {
             bmBoxThumbnail = Glide.with(context).load(boxListData.boxThumbnail).asBitmap().into(100, 100).get();
-        }//왜 에러를 안받아주면 오류가 나는가
-        catch (final ExecutionException e) {
-            Log.e(TAG, e.getMessage());
-        } catch (final InterruptedException e) {
-            Log.e(TAG, e.getMessage());
+        }
+        catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
 
         final Drawable drawable = new BitmapDrawable(bmBoxThumbnail);
 
-        final RelativeLayout rel = (RelativeLayout) ViewHolder.get(view, R.id.RL_invited_box_layout);
-        final LinearLayout mLinearLayout = (LinearLayout) ViewHolder.get(view, R.id.LL_invited_box_expandable);
-        LinearLayout mLinearLayoutHeader = (LinearLayout) ViewHolder.get(view, R.id.LL_invited_box_header);
+        final RelativeLayout rel = ViewHolder.get(view, R.id.RL_invited_box_layout);
+        final LinearLayout mLinearLayout = ViewHolder.get(view, R.id.LL_invited_box_expandable);
+        LinearLayout mLinearLayoutHeader = ViewHolder.get(view, R.id.LL_invited_box_header);
 
         tvBoxName.setText(boxListData.boxName);
         tvBoxDate.setText(boxListData.boxDate);

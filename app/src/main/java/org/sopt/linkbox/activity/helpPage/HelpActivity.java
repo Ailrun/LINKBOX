@@ -3,7 +3,6 @@ package org.sopt.linkbox.activity.helpPage;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,8 +20,9 @@ import org.sopt.linkbox.activity.helpPage.subHelpPage.StartHelpActivity;
  *
  */
 public class HelpActivity extends AppCompatActivity {
-    private Toolbar tToolbar = null;
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
+    private Toolbar tToolbar = null;
     // Help Contents
     private TextView tvStartHelp = null;
     private TextView tvFunctionsHelp = null;
@@ -32,24 +32,40 @@ public class HelpActivity extends AppCompatActivity {
     private RelativeLayout rlAddBoxHelp = null;
     private RelativeLayout rlShareBoxHelp = null;
     private RelativeLayout rlSupportHelp = null;
+    //</editor-fold>
+
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help_main);
 
+        initView();
+        initListener();
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
+    private void initView() {
+        initToolbarView();
+        initHelpContentsView();
+    }
+    private void initListener() {
+        initHelpListener();
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Toolbar" defaultstate="collapsed">
+    private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        initHelpContents();
-        initHelpListener();
     }
-
-    public void initHelpContents(){
-
+    //</editor-fold>
+    //<editor-fold desc="Initiate Help Contents" defaultstate="collapsed">
+    private void initHelpContentsView() {
         // Typeface boldTypeface = Typeface.createFromAsset(getAssets(), "NotoSansKR-Bold-Hestia.otf");
         Typeface regularTypeface = Typeface.createFromAsset(getAssets(), "NotoSansKR-Regular-Hestia.otf");
 
@@ -73,10 +89,8 @@ public class HelpActivity extends AppCompatActivity {
         tvStartHelp.setTypeface(regularTypeface);
         tvFunctionsHelp.setTypeface(regularTypeface);
         tvSupportHelp.setTypeface(regularTypeface);
-
     }
-
-    public void initHelpListener(){
+    private void initHelpListener() {
         rlStartHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -113,6 +127,6 @@ public class HelpActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(emailIntent, "Send mail using..."));
             }
         });
-
     }
+    //</editor-fold>
 }

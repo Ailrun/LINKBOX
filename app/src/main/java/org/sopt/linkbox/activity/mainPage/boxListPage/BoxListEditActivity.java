@@ -14,18 +14,20 @@ import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 
 public class BoxListEditActivity extends AppCompatActivity {
+
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;
     private GridView gvBoxList = null;
+    //</editor-fold>
 
-
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_box_list_edit);
 
-        // Moved to onResume
-        //initView();
-        //initControl();
+        initView();
+        initControl();
 
     }
     @Override
@@ -52,25 +54,24 @@ public class BoxListEditActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        initView();
-        initControl();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_edit_box);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("내 박스");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         gvBoxList = (GridView) findViewById(R.id.GV_box_box_list_edit);
     }
-
     private void initControl() {
         LinkBoxController.boxEditBoxListAdapter =
                 new BoxEditBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
-
         gvBoxList.setAdapter(LinkBoxController.boxEditBoxListAdapter);
     }
-
+    //</editor-fold>
 }

@@ -3,36 +3,32 @@ package org.sopt.linkbox;
 import android.app.Application;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Environment;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.okhttp.OkHttpClient;
 
-import org.sopt.linkbox.custom.network.main.MainServerInterface;
-import org.sopt.linkbox.custom.data.mainData.InviteBoxData;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.BoxEditInvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
-import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
+import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.InviteBoxData;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.helper.Installation;
+import org.sopt.linkbox.custom.network.embedly.EmbedlyInterface;
+import org.sopt.linkbox.custom.network.main.MainServerInterface;
 import org.sopt.linkbox.custom.network.main.alarm.AlarmListInterface;
 import org.sopt.linkbox.custom.network.main.box.BoxListInterface;
-import org.sopt.linkbox.custom.network.embedly.EmbedlyInterface;
 import org.sopt.linkbox.custom.network.main.url.UrlListInterface;
 import org.sopt.linkbox.custom.network.main.usr.UsrListInterface;
 import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.ArrayList;
@@ -54,6 +50,7 @@ public class LinkBoxController extends Application {
         return applicationID;
     }
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     public void onCreate() {
         super.onCreate();
@@ -61,15 +58,23 @@ public class LinkBoxController extends Application {
         LinkBoxController.application = this;
         this.init();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="No Use" defaultstate="collapsed">
     private EmbedlyInterface linkNetworkEmbedlyInterface;
+    //</editor-fold>
+    //<editor-fold desc="Private Interfaces" defaultstate="collapsed">
     private UsrListInterface usrListInterface;
     private BoxListInterface boxListInterface;
     private UrlListInterface urlListInterface;
     private AlarmListInterface alarmListInterface;
+    //</editor-fold>
+    //<editor-fold desc="No Use" defaultstate="collapsed">
     public EmbedlyInterface getLinkNetworkEmbedlyInterface() {
         return linkNetworkEmbedlyInterface;
     }
+    //</editor-fold>
+    //<editor-fold desc="Interface Getters" defaultstate="collapsed">
     public UsrListInterface getUsrListInterface() {
         return usrListInterface;
     }
@@ -82,6 +87,7 @@ public class LinkBoxController extends Application {
     public AlarmListInterface getAlarmListInterface() {
         return alarmListInterface;
     }
+    //</editor-fold>
 
     private void init() {
         initNetwork();
@@ -115,7 +121,6 @@ public class LinkBoxController extends Application {
     // Code for user profile image cropping
     // public static Bitmap temporaryImage = null;
     public static Bitmap userImage = null;
-    public static Bitmap temporaryImage = null;
     public static Bitmap boxImage = null;
 
     public static BoxListData currentBox = null;    // TODO : Current box must be filled whenever box is pressed

@@ -1,4 +1,4 @@
-package org.sopt.linkbox.custom.adapters.imageViewAdapter;
+package org.sopt.linkbox.custom.widget;
 
 import android.content.Context;
 import android.graphics.Bitmap;

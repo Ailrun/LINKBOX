@@ -40,11 +40,9 @@ public class AccountLoadingActivity extends Activity {
 
     private String usrID = null;
     private String usrName = null;
-    private String usrProfile = null;
     private String usrPassword = null;
     private int usrType = 0;
 
-    private SharedPreferences spProfile = null;
     private SharedPreferences.Editor speProfile = null;
     //</editor-fold>
 
@@ -64,7 +62,7 @@ public class AccountLoadingActivity extends Activity {
     }
     //</editor-fold>
 
-    //<editor-fold desc="inits" defaultstate="collapsed">
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initWindow() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -82,11 +80,9 @@ public class AccountLoadingActivity extends Activity {
         Intent intent = getIntent();
         usrID = intent.getStringExtra(AccountStrings.usrID);
         usrName = intent.getStringExtra(AccountStrings.usrName);
-        usrProfile = intent.getStringExtra(AccountStrings.usrProfile);
         usrPassword = intent.getStringExtra(AccountStrings.usrPassword);
         usrType = intent.getIntExtra(AccountStrings.usrType, 0);
-        spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
-        speProfile = spProfile.edit();
+        speProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0).edit();
     }
     private void initView() {
     }
@@ -108,7 +104,7 @@ public class AccountLoadingActivity extends Activity {
     }
     //</editor-fold>
 
-    //<editor-fold desc="Login Inner Classes" defaultstate="collapsed">
+    //<editor-fold desc="User Inner Classes" defaultstate="collapsed">
     private class FacebookLoginCallback implements Callback<MainServerData<UsrListData>> {
         @Override
         public void success(MainServerData<UsrListData> wrappedUserData, Response response) {
@@ -217,5 +213,4 @@ public class AccountLoadingActivity extends Activity {
         }
     }
     //</editor-fold>
-
 }

@@ -4,7 +4,6 @@
     android:background="@color/real_black">
 
     <com.edmodo.cropper.CropImageView
-        xmlns:custom="http://schemas.android.com/apk/res-auto"
         android:id="@+id/CIV_crop_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

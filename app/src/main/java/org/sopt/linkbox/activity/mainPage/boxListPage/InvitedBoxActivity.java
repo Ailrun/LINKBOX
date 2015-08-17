@@ -18,10 +18,14 @@ import org.sopt.linkbox.custom.adapters.listViewAdapter.BoxEditInvitedBoxListAda
  * Created by MinGu on 2015-08-02.
  */
 public class InvitedBoxActivity extends AppCompatActivity {
-    private Toolbar tToolbar = null;
-    //private GridView gvBoxList = null;
-    private ListView lvBoxList = null;
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
+    private Toolbar tToolbar = null;
+
+    private ListView lvBoxList = null;
+    //</editor-fold>
+
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,32 +33,35 @@ public class InvitedBoxActivity extends AppCompatActivity {
 
         initView();
         initControl();
-
     }
     @Override
     public void onResume() {
         super.onResume();
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("초대받은 박스");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         lvBoxList = (ListView) findViewById(R.id.LV_invite_box_invite_list);
     }
-
     private void initControl() {
         LinkBoxController.boxEditInvitedBoxListAdapter =
                 new BoxEditInvitedBoxListAdapter(getApplicationContext(), LinkBoxController.invitedBoxListSource);
         if (LinkBoxController.boxEditInvitedBoxListAdapter != null) {
             lvBoxList.setAdapter(LinkBoxController.boxEditInvitedBoxListAdapter);
         }
-
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Maybe Divided to helper class" defaultstate="collapsed">
+    //TODO : DIVIDE?
     private void expand(final View v) {
         //set Visible
         v.setVisibility(View.VISIBLE);
@@ -67,7 +74,6 @@ public class InvitedBoxActivity extends AppCompatActivity {
         ValueAnimator mAnimator = slideAnimator(0, v.getMeasuredHeight(), v);
         mAnimator.start();
     }
-
     private void collapse(final View v) {
         int finalHeight = v.getHeight();
 
@@ -79,15 +85,12 @@ public class InvitedBoxActivity extends AppCompatActivity {
                 //Height=0, but it set visibility to GONE
                 v.setVisibility(View.GONE);
             }
-
             @Override
             public void onAnimationStart(Animator animator) {
             }
-
             @Override
             public void onAnimationCancel(Animator animator) {
             }
-
             @Override
             public void onAnimationRepeat(Animator animator) {
             }
@@ -110,4 +113,5 @@ public class InvitedBoxActivity extends AppCompatActivity {
         });
         return animator;
     }
+    //</editor-fold>
 }

@@ -5,40 +5,53 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.sopt.linkbox.R;
 
 /**
  * Created by MinGu on 2015-08-10.
+ *
  */
 public class StartHelpActivity extends AppCompatActivity{
-    private Toolbar tToolbar = null;
 
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
+    private Toolbar tToolbar = null;
     private TextView tvHowToAddQuestion = null;
     private TextView tvHowToAddAnswer = null;
     private TextView tvWhereShareQuestion = null;
     private TextView tvWhereShareAnswer = null;
     private ImageView ivHowToAdd = null;
     private ImageView ivWhereShare = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_help);
 
+        initView();
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
+    private void initView() {
+        initToolbarView();
+        initHelpContentsView();
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate Toolbar" defaultstate="collapsed">
+    private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        initHelpContents();
     }
-
-    public void initHelpContents(){
-
+    //</editor-fold>
+    //<editor-fold desc="Initiate Help Contents" defaultstate="collapsed">
+    private void initHelpContentsView(){
         // Typeface boldTypeface = Typeface.createFromAsset(getAssets(), "NotoSansKR-Bold-Hestia.otf");
         Typeface regularTypeface = Typeface.createFromAsset(getAssets(), "NotoSansKR-Regular-Hestia.otf");
 
@@ -56,7 +69,6 @@ public class StartHelpActivity extends AppCompatActivity{
         tvWhereShareQuestion.setTypeface(regularTypeface);
         tvHowToAddAnswer.setTypeface(regularTypeface);
         tvWhereShareAnswer.setTypeface(regularTypeface);
-
     }
-
+    //</editor-fold>
 }

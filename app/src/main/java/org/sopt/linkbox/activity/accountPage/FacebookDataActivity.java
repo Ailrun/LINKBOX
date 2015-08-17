@@ -23,6 +23,7 @@ public class FacebookDataActivity extends Activity {
 
     private CallbackManager callbackManager = null;
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +53,9 @@ public class FacebookDataActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Graph Classes" defaultstate="collapsed">
     private class GraphCallback implements GraphRequest.GraphJSONObjectCallback {
         private final String TAG = "TEST/" + GraphCallback.class.getName() + " : ";
         @Override
@@ -68,7 +71,9 @@ public class FacebookDataActivity extends Activity {
             }
         }
     }
+    //</editor-fold>
 
+    //<editor-fold desc="Account Helper Methods" defaultstate="collapsed">
     private void facebookLoading(String usrID, String usrName, String usrProfile, String usrPassword) {
         Intent intent = new Intent(this, AccountLoadingActivity.class);
         intent.putExtra(AccountStrings.usrID, usrID);
@@ -78,6 +83,6 @@ public class FacebookDataActivity extends Activity {
         intent.putExtra(AccountStrings.usrType, UsrType.facebook_user);
         startActivity(intent);
         finish();
-
     }
+    //</editor-fold>
 }

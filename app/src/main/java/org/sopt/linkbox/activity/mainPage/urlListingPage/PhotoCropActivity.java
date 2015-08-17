@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -14,20 +13,22 @@ import com.edmodo.cropper.CropImageView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.helper.ImageSaveLoad;
 
 /**
  * Created by MinGu on 2015-08-11.
+ *
  */
 public class PhotoCropActivity extends AppCompatActivity {
+    protected final int SELECT_GALLERY = 1;
+
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private CropImageView cropImageView = null;
     private Button accept = null;
     private Button decline = null;
     private Button ratio = null;
-    protected final int SELECT_GALLERY = 1;
-    private Uri imgURI = null;
-    private Bitmap bmp = null;
+    //</editor-fold>
 
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +43,37 @@ public class PhotoCropActivity extends AppCompatActivity {
         // initControl();
         initListener();
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == RESULT_OK) {
 
+            try {
+                Uri imgURI = data.getData();
+                // ivProfile.setImageURI(imgURI);
+                // filePath = getRealPathFromURI(imgURI);
+                Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
+                // LinkBoxController.temporaryImage = bmp;
+                // ivProfile.setImageBitmap(bmp);
+                // ivProfile.getCroppedBitmap(bmp, 15);
+                // ivProfile.setCropToPadding(true);
+                cropImageView.setImageBitmap(bmp);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            if(LinkBoxController.userImage != null){
+                cropImageView.setImageBitmap(LinkBoxController.userImage);
+            }
+            else{
+                finish();
+            }
+        }
+    }
+    //</editor-fold>
+
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     public void initView(){
         cropImageView = (CropImageView) findViewById(R.id.CIV_crop_image);
         // cropImageView.setAspectRatio(1, 1);
@@ -90,34 +121,5 @@ public class PhotoCropActivity extends AppCompatActivity {
             }
         });
     }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(resultCode == RESULT_OK) {
-
-            try {
-                imgURI = data.getData();
-                // ivProfile.setImageURI(imgURI);
-                // filePath = getRealPathFromURI(imgURI);
-                bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
-                // LinkBoxController.temporaryImage = bmp;
-                // ivProfile.setImageBitmap(bmp);
-                // ivProfile.getCroppedBitmap(bmp, 15);
-                // ivProfile.setCropToPadding(true);
-                cropImageView.setImageBitmap(bmp);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        else{
-            if(LinkBoxController.userImage != null){
-                cropImageView.setImageBitmap(LinkBoxController.userImage);
-            }
-            else{
-                finish();
-            }
-        }
-    }
-
+    //</editor-fold>
 }
