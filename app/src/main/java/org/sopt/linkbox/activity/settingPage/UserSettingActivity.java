@@ -60,7 +60,6 @@ public class UserSettingActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_user_setting);
 
-
         initInterface();
         initData();
         initView();
