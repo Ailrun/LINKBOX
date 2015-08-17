@@ -263,6 +263,13 @@
             android:label="BoxImageCropActivity">
         </activity>
         <!-- Main Activities End -->
+
+        <activity android:name=".activity.settingPage.AlarmDialog"
+            android:label="AlarmDialog"
+            android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".activity.settingPage.ReadLaterDialog"
+            android:label="ReadLaterDialog"
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>
