@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LINKBOX</string>
+    <string name="app_name">Linkbox</string>
 
     <string name="action_settings">Settings</string>
 
@@ -10,4 +10,18 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_link_home">LinkHomeActivity</string>
+    <string name="password_check">Password Check</string>
+
+    <string name="start_help">시작하기</string>
+    <string name="functions_help">기능들</string>
+    <string name="support_help">지원</string>
+    <string name="answer_01">- 웹서핑 중에 저장하고 싶은 홈페이지가 있다면 (공유)버튼에서 Linkbox를 눌러주세요!</string>
+    <string name="answer_02">- 박스를 같이 관리하고 싶은 사람이 있다면 해당 박스로 이동 후에 박스 정보 아이콘을 클릭하세요. 박스정보 페이지에서 에디터추가 버튼을 누른 후 이메일 주소를 입력하면 초대 메일이 전송됩니다.</string>
+    <string name="answer_03">- fullstackfactory@gmail.com 으로 연락주시면 신속하게 조치하겠습니다 감사합니다!</string>
+
+    <string name="user_name_hint">이름</string>
+    <string name="user_password_hint">비밀번호</string>
+    <string name="user_email_hint">이메일 주소</string>
+    <string name="user_password_check_hint">비밀번호 확인</string>
+    <string name="title_activity_box_add">BoxAddActivity</string>
 </resources>

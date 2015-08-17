@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.mainData.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.io.File;
@@ -89,8 +89,14 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
 
         ImageButton ibDelete = ViewHolder.get(view, R.id.IB_delete_link_box);
+        ibDelete.setScaleX(0.45f);
+        ibDelete.setScaleY(0.45f);
         ImageButton ibEdit = ViewHolder.get(view, R.id.IB_edit_link_box);
+        ibEdit.setScaleX(0.35f);
+        ibEdit.setScaleY(0.35f);
         ImageButton ibShare = ViewHolder.get(view, R.id.IB_share_link_box);
+        ibShare.setScaleX(0.42f);
+        ibShare.setScaleY(0.42f);
 
         tvUrlTitle.setText(urlListData.urlTitle);
         tvUrlAddress.setText(urlListData.url);

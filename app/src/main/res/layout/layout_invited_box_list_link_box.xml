@@ -1,57 +1,142 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:scrollbars="none">
-
-    <android.support.v7.widget.CardView
-        xmlns:card_view = "http://schemas.android.com/apk/res-auto"
-        android:layout_width="170dp"
-        android:layout_height="235dp"
-        android:layout_margin="5dp"
-        card_view:cardCornerRadius="2dp">
-
-        <LinearLayout
+    <!--
+        <android.support.v7.widget.CardView
+            xmlns:card_view = "http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:weightSum="1"
-            android:id="@+id/invited_box_layout">
-
-            <TextView
-                android:id="@+id/invited_box_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/invited_box_image"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:layout_gravity="bottom"/>
+            android:layout_height="200dp"
+            card_view:cardCornerRadius="2dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="150dp"
+                android:orientation="vertical"
+                android:weightSum="1"
+                android:id="@+id/RL_invited_box_layout">
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:id="@+id/IV_invited_box_thumbnail"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"/>
+
+                <TextView
+                    android:id="@+id/TV_invited_box_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_toEndOf="@id/IV_invited_box_thumbnail"
+                    android:layout_marginTop="20dp"
+                    android:textSize="14dp" />
+
+                <ImageView
+                    android:id="@+id/invited_box_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="170dp"
+                    android:layout_gravity="bottom"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_below="@id/RL_invited_box_layout"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:background="@drawable/invited_box_agree_button"
-                    android:layout_width="85dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/agree_btn" />
+                    <ImageView
+                        android:background="@drawable/invited_box_agree_button"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:id="@+id/agree_btn" />
 
-                <ImageView
-                    android:background="@drawable/invited_box_disagree_button"
-                    android:layout_width="85dp"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/agree_btn"
-                    android:id="@+id/disagree_btn" />
+                    <ImageView
+                        android:background="@drawable/invited_box_disagree_button"
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:layout_toRightOf="@id/agree_btn"
+                        android:id="@+id/disagree_btn" />
 
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+    -->
+    <RelativeLayout
+        android:id="@+id/RL_invited_box_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/real_white"
+
+        >
+
+        <LinearLayout
+            android:id="@+id/LL_invited_box_header"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/TV_invited_box_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="80dp"
+                    android:layout_marginStart="30dp"
+
+                    android:text="여기는 글자가 들어갈 것이다! 록타! 오가르!" />
+
+                <TextView
+                    android:id="@+id/TV_invited_box_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="14dp"
+                    android:maxWidth="60dp"
+                    android:singleLine="true"
+                    android:text="시간" />
             </RelativeLayout>
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+        <LinearLayout
+            android:id="@+id/LL_invited_box_expandable"
+            android:layout_width="match_parent"
+            android:layout_height="88dp"
+            android:layout_below="@id/LL_invited_box_header"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingEnd="16dp">
+
+                <Button
+                    android:id="@+id/B_invited_box_reject"
+                    style="@style/button_style"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="10dp"
+                    android:text="거절" />
+
+                <Button
+                    android:id="@+id/B_invited_box_accept"
+                    style="@style/button_style"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="30dp"
+                    android:layout_toLeftOf="@id/B_invited_box_reject"
+                    android:text="수락"
+
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

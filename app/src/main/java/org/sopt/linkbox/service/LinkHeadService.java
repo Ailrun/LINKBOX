@@ -228,7 +228,7 @@ public class LinkHeadService extends Service {
     private void initEditView() {
         cetEdit = new ClearableEditText(getApplicationContext());
         cetEdit.setHint("http://URL.url/input");
-        cetEdit.setBackgroundColor(getResources().getColor(R.color.indigo_500));
+        cetEdit.setBackgroundColor(getResources().getColor(R.color.indigo500));
         cetEdit.setSingleLine();
         cetEdit.setImeOptions(EditorInfo.IME_ACTION_SEND);
 

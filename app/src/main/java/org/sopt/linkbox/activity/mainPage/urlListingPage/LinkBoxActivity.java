@@ -1,57 +1,58 @@
 package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.h6ah4i.android.materialshadowninepatch.MaterialShadowContainerView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
+import org.sopt.linkbox.activity.helpPage.HelpActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
-import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.constant.MainStrings;
+import org.sopt.linkbox.custom.widget.RoundedImageView;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.UrlListData;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.helper.ImageSaveLoad;
 import org.sopt.linkbox.custom.helper.SessionSaver;
-import org.sopt.linkbox.custom.network.MainServerWrapper;
+import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
+import org.sopt.linkbox.debugging.RetrofitDebug;
 import org.sopt.linkbox.libUtils.util.IabHelper;
 import org.sopt.linkbox.libUtils.util.IabResult;
 import org.sopt.linkbox.libUtils.util.Inventory;
-import org.sopt.linkbox.service.pushService.LinkRegistrationService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import me.leolin.shortcutbadger.ShortcutBadger;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Junyoung on 2015-06-30.
@@ -63,84 +64,134 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  */
 public class LinkBoxActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + LinkBoxActivity.class.getName() + " : ";
-    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
-    private InputMethodManager immLinkBox = null;
+    //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private LayoutInflater layoutInflater = null;
 
-    private MainServerWrapper mainServerWrapper = null;
+    private UrlListWrapper urlListWrapper = null;
+
+    private boolean inBox = false;
+    private String boxTitle = null;
+
     //toolbar layout
     private Toolbar tToolbar = null;
+    private MenuItem menuItems[] = null;
     //main layout
+    private SwipeRefreshLayout srlUrlList = null;
     private ListView lvUrlList = null;
+    private LinearLayout llUrlHeader = null;
+    private TextView tvBoxTitle = null;
+    private TextView tvUrlNum = null;
     private LinearLayout llUrlEmptyView = null;
     //drawer layout
-    private ImageView ivProfile = null;
-    private TextView tvBoxNumber = null;
-    private ListView lvBoxList = null;
-    private PullToRefreshListView pullToRefreshView = null;
-    private LinearLayout llBoxHeaderViewButton = null;
-    private Button rlHeaderButton = null;
-    private LinearLayout llBoxHeaderViewEdit = null;
-    private EditText etAddBoxName = null;
-    private Button bAddBoxCancel = null;
-    private Button bToSettings = null;
-    private Button bToPremium = null;
+    private RoundedImageView ivProfile = null;
+    private ListView lvFavoriteBoxList = null;
 
-    private DrawerLayout dlBoxList = null;
-    private ActionBarDrawerToggle abBoxList = null;
+    private TextView tvUserName = null;
+    private TextView tvUserEmail = null;
 
-    private SharedPreferences spProfile = null;
+    private RelativeLayout rlRecentLink = null;
+    private RelativeLayout rlMyBox = null;
+    private RelativeLayout rlBuyedBox = null;
+
+    private RelativeLayout rlToSetting = null;
+    private RelativeLayout rlToHelp = null;
+
+    private DrawerLayout dlDrawer = null;
+    private ActionBarDrawerToggle abdtDrawer = null;
 
     private IabHelper iabHelper = null;
     private String base64EncodedPublicKey = null;
     private final String skuIDPremium = "id_mUImErpEmEkAMU";
     private List<String> skuList = null;
 
+    private ImageButton ibDeleteLinkBox = null;
+    private ImageButton ibEditLinkBox = null;
+    private ImageButton ibShareLinkBox = null;
+    // Load Save
+    private ImageSaveLoad imageSaveLoader = null;
+    //</editor-fold>
+
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
+
         initInterface();
-        initPush();
         initData();
         initView();
         initControl();
         initListener();
+        initInBox();
+
+
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (LinkBoxController.userImage != null) {
+            ivProfile.setImageBitmap(LinkBoxController.userImage);
+            String saveStatus = imageSaveLoader.saveProfileImage(LinkBoxController.userImage);
+            Log.d("Save Status : ", saveStatus);
+        }
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        Log.d(TAG, "In NewIntent : " + LinkBoxController.currentBox.toString());
+        Log.d(TAG, "inBox? : " + getIntent().getBooleanExtra(MainStrings.inBox, false));
+        inBox = getIntent().getBooleanExtra(MainStrings.inBox, false);
+        initInBox();
+        invalidateOptionsMenu();
+        dlDrawer.closeDrawers();
     }
     @Override
     protected void onStart() {
         super.onStart();
+        invalidateOptionsMenu();
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        abBoxList.syncState();
+        abdtDrawer.syncState();
     }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        abBoxList.onConfigurationChanged(newConfig);
+        abdtDrawer.onConfigurationChanged(newConfig);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_link_box, menu);
+        menuItems = new MenuItem[menu.size()];
+        for (int i = 0; i < menu.size(); i++) {
+            menuItems[i] = menu.getItem(i);
+        }
         return true;
     }
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menuItems[1].setVisible(!inBox);
+        menuItems[2].setVisible(inBox);
+        return super.onPrepareOptionsMenu(menu);
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (abBoxList.onOptionsItemSelected(item)) {
+        if (abdtDrawer.onOptionsItemSelected(item)) {
             return true;
         }
         switch (item.getItemId())
         {
-            case R.id.action_share :
-                startActivity(new Intent(getApplicationContext(), BoxEditorAdd.class));
+            case R.id.action_search :
+                break;
+            case R.id.action_alarms:
                 break;
             case R.id.action_editors :
-                startActivity(new Intent(getApplicationContext(), BoxEditorList.class));
+                startActivity(new Intent(this, BoxEditorList.class));
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -162,31 +213,31 @@ public class LinkBoxActivity extends AppCompatActivity {
 //        if (spProfile.getBoolean("floating", true)) {
 //            startService(new Intent(getApplicationContext(), LinkHeadService.class));
 //        }
-}
-
-    private void initInterface() {
-        mainServerWrapper = new MainServerWrapper();
     }
-    private void initPush() {
-        if (isGoogleServiceAvailable()) {
-            Intent intent = new Intent(this, LinkRegistrationService.class);
-            startService(intent);
-        }
+    //</editor-fold>
+
+    //<editor-fold desc="Default Initiate" defaultstate="collapsed">
+    private void initInterface() {
+        urlListWrapper = new UrlListWrapper();
     }
     private void initData() {
-//        InApp billing init
-//        initInAppData();
+        //InApp billing init
+        // initInAppPayData();
+
+        //Profile data
+        imageSaveLoader = new ImageSaveLoad(getApplicationContext());
+        LinkBoxController.userImage = imageSaveLoader.loadProfileImage();
+
+        //Page Data
+        inBox = getIntent().getBooleanExtra(MainStrings.inBox, false);
 
         //other data init;
-        spProfile = getSharedPreferences(SettingStrings.shared_user_settings
-                + LinkBoxController.userData.usrKey, 0);
-        immLinkBox = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);    // TODO : This needs cleanup
-        initUrlDummyData();
-        initBoxDummyData();
+        //initUrlDummyData();
+        //initBoxDummyData();
 
     }
-    private  void initView() {
-        layoutInflater = getLayoutInflater();   // TODO : Find reference. When needs to inflate something that is not on memory
+    private void initView() {
+        layoutInflater = getLayoutInflater();
 
         //toolbar init
         initToolbarView();
@@ -196,32 +247,36 @@ public class LinkBoxActivity extends AppCompatActivity {
 
         //drawer init
         initDrawerView();
-        initDrawerButtonHeaderView();
-        initDrawerEditHeaderView();
+        // initDrawerButtonHeaderView();
+        // initDrawerEditHeaderView();
+
+
     }
     private void initListener() {
         //InApp billing init
-//        initInAppListener();
+        // initInAppPayListener();
 
         //main init
         initMainListener();
 
         //drawer init
         initDrawerListener();
-        initDrawerButtonHeaderListener();   // TODO : Delete
-        initDrawerEditHeaderListener();
+        // initDrawerButtonHeaderListener();
+        // initDrawerEditHeaderListener();
     }
     private void initControl() {
+        //TODO : Change To FavoriteBox's Adapter
         LinkBoxController.linkBoxBoxListAdapter =
             new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkBoxUrlListAdapter =
             new LinkBoxUrlListAdapter(getApplicationContext(), LinkBoxController.urlListSource);
 
         lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
-        lvBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
+        lvFavoriteBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
     }
-
-    private void initInAppData() {
+    //</editor-fold>
+    //<editor-fold desc="Initiate InAppPays" defaultstate="collapsed">
+    private void initInAppPayData() {
         base64EncodedPublicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiVdcBxJfbqtVYooV";
         base64EncodedPublicKey += "X8zI/i9FxWgmq2UYDDmaSAl3CKaB/1z4RusVD8pKVkHjumWFZ0OFyBPDc3ku";
         base64EncodedPublicKey += "nFxjh5gGKUvDTdCjdAK2SCPHuW0PNb6fbydRX6i8gmq9sDZq+acy4gq2JEa0";
@@ -233,7 +288,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         skuList = new ArrayList<>();
         skuList.add(skuIDPremium);
     }
-    private void initInAppListener() {
+    private void initInAppPayListener() {
         iabHelper.startSetup(new IabHelper.OnIabSetupFinishedListener() {
             @Override
             public void onIabSetupFinished(IabResult result) {
@@ -255,97 +310,117 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         });
     }
-
+    //</editor-fold>
+    //<editor-fold desc="Initiate Toolbars" defaultstate="collapsed">
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
-        tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
         tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
-        if (LinkBoxController.boxListSource.size() > LinkBoxController.currentBox.boxIndex) {
-            tToolbar.setTitle((LinkBoxController.boxListSource.get(LinkBoxController.currentBox.boxIndex)).boxName);
-        }
-        else {
-            tToolbar.setTitle("새 박스");
-        }
+        tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
         setSupportActionBar(tToolbar);
     }
-
+    //</editor-fold>
+    //<editor-fold desc="Initiate Mains" defaultstate="collapsed">
     private void initMainView() {
-        pullToRefreshView = (PullToRefreshListView) findViewById(R.id.LV_url_list_link_box);
-        //lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
+        srlUrlList = (SwipeRefreshLayout) findViewById(R.id.SRL_url_list_link_box);
+        lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
+        llUrlHeader = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_url_list_link_box, lvUrlList, false);
+        tvBoxTitle = (TextView) llUrlHeader.findViewById(R.id.TV_box_title_link_box);
+        tvUrlNum = (TextView) llUrlHeader.findViewById(R.id.TV_url_number_link_box);
 //        ViewGroup viewGroup = (ViewGroup) lvUrlList.getParent();
 //        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
 //        viewGroup.addView(llUrlEmptyView);
 //        lvUrlList.setEmptyView(llUrlEmptyView);
     }
     private void initMainListener() {
-        pullToRefreshView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+        srlUrlList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
-                // Do work to refresh the list here.
+            public void onRefresh() {
+                initInBox();
             }
         });
-       /* lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = ((UrlListData)lvUrlList.getItemAtPosition(position)).url;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
             }
         });
-        lvUrlList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                return false;
-            }
-        });
-        lvUrlList.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView absListView, int i) {
-            }
-            @Override
-            public void onScroll(AbsListView absListView, int i, int i2, int i3) {
-            }
-        });*/
     }
-
+    //</editor-fold>
+    //<editor-fold desc="Initiate Drawers" defaultstate="collapsed">
     private void initDrawerView() {
-        ivProfile = (ImageView) findViewById(R.id.IV_profile_link_box);
-        tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
-        lvBoxList = (ListView) findViewById(R.id.LV_box_list_link_box);
-        lvBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
-        dlBoxList = (DrawerLayout) findViewById(R.id.DL_root_layout);
-        bToPremium = (Button) findViewById(R.id.B_to_premium_link_box);
-        bToSettings = (Button) findViewById(R.id.B_to_settings_link_box);
+        ivProfile = (RoundedImageView) findViewById(R.id.RIV_profile_link_box);
+        // tvBoxNumber = (TextView) findViewById(R.id.TV_box_number_link_box);
+        tvUserName = (TextView) findViewById(R.id.TV_profile_name_link_box);
+        tvUserEmail = (TextView) findViewById(R.id.TV_profile_email_link_box);
+
+        rlRecentLink = (RelativeLayout) findViewById(R.id.RL_recent_link_link_box);
+        rlMyBox = (RelativeLayout) findViewById(R.id.RL_my_box_link_box);
+        rlBuyedBox = (RelativeLayout) findViewById(R.id.RL_buyed_box);
+
+        lvFavoriteBoxList = (ListView) findViewById(R.id.LV_favorite_box_link_box);
+        lvFavoriteBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
+        dlDrawer = (DrawerLayout) findViewById(R.id.DL_root_layout_link_box);
+        rlToSetting = (RelativeLayout) findViewById(R.id.RL_setting_link_box);
+        rlToHelp = (RelativeLayout) findViewById(R.id.RL_help_link_box);
+
+        ibDeleteLinkBox = (ImageButton) findViewById(R.id.IB_delete_link_box);
+        ibEditLinkBox = (ImageButton) findViewById(R.id.IB_edit_link_box);
+        ibShareLinkBox = (ImageButton) findViewById(R.id.IB_share_link_box);
+
     }
     private void initDrawerListener() {
-        lvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        tvUserName.setText(LinkBoxController.usrListData.usrName);
+        tvUserEmail.setText(LinkBoxController.usrListData.usrID);
+
+        rlRecentLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inBox = false;
+                initInBox();
+                invalidateOptionsMenu();
+                dlDrawer.closeDrawers();
+            }
+        });
+
+        rlMyBox.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        rlBuyedBox.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Log.d(TAG, "BuyedBox Clicked");
+            }
+        });
+
+        ivProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LinkBoxActivity.this, PhotoCropActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        lvFavoriteBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BoxListData boxListData = (BoxListData) adapterView.getItemAtPosition(i);
-                String str = null;
-                if (boxListData != null) {
-                    str = boxListData.boxName;
-                    LinkBoxController.currentBox = (BoxListData) adapterView.getItemAtPosition(i);
-                } else {
-                    str = "새 박스";
-                    LinkBoxController.currentBox = new BoxListData();
-                }
-                LinkBoxController.linkBoxUrlListAdapter.setSource(LinkBoxController.urlListSource);
-                tToolbar.setTitle(str);
-                dlBoxList.closeDrawers();
+                LinkBoxController.currentBox = (BoxListData) adapterView.getItemAtPosition(i);
+                inBox = true;
+                initInBox();
+                invalidateOptionsMenu();
+                dlDrawer.closeDrawers();
             }
         });
-        lvBoxList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {    // TODO : Deprecated
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                return false;
-            }
-        });
-        abBoxList = new ActionBarDrawerToggle(this, dlBoxList,
+        abdtDrawer = new ActionBarDrawerToggle(this, dlDrawer,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
-                immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
-                lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
-                lvBoxList.removeHeaderView(llBoxHeaderViewButton);
-                lvBoxList.addHeaderView(llBoxHeaderViewButton);
                 super.onDrawerClosed(drawerView);
             }
             @Override
@@ -353,123 +428,141 @@ public class LinkBoxActivity extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
-        dlBoxList.setDrawerListener(abBoxList);
-        bToSettings.setOnClickListener(new View.OnClickListener() {
+        dlDrawer.setDrawerListener(abdtDrawer);
+        rlToSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
             }
         });
-        bToPremium.setOnClickListener(new View.OnClickListener() {  // TODO : Deprecated. Needs to add new buttons
-            @Override
-            public void onClick(View view) {
-            }
-        });
-    }
 
-    private void initDrawerButtonHeaderView() {
-        llBoxHeaderViewButton = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_button_link_box, null);
-        rlHeaderButton = (Button) llBoxHeaderViewButton.findViewById(R.id.RL_header_button_link_box);
-        lvBoxList.addHeaderView(llBoxHeaderViewButton);
-    }
-    private void initDrawerEditHeaderView() {
-        llBoxHeaderViewEdit = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_edit_link_box, null);
-        etAddBoxName = (EditText) llBoxHeaderViewEdit.findViewById(R.id.ET_add_box_name_link_box);
-        etAddBoxName.setSingleLine(true);
-        etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        bAddBoxCancel = (Button) llBoxHeaderViewEdit.findViewById(R.id.IV_add_box_cancel_link_box);
-    }
-    private void initDrawerButtonHeaderListener() {
-        rlHeaderButton.setOnClickListener(new View.OnClickListener() {
+        rlToHelp.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-                lvBoxList.removeHeaderView(llBoxHeaderViewButton);
-                lvBoxList.addHeaderView(llBoxHeaderViewEdit);
-                etAddBoxName.setText("");
-                etAddBoxName.requestFocus();
-                etAddBoxName.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-                immLinkBox.showSoftInput(etAddBoxName, InputMethodManager.SHOW_FORCED);
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), HelpActivity.class));
             }
         });
-    }
-    private void initDrawerEditHeaderListener() {
-        etAddBoxName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
-                    lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
-                    lvBoxList.addHeaderView(llBoxHeaderViewButton);
-                    return true;
-                }
-                return false;
-            }
-        });
-        bAddBoxCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                etAddBoxName.setText("");
-                immLinkBox.hideSoftInputFromWindow(etAddBoxName.getWindowToken(), 0);
-                lvBoxList.removeHeaderView(llBoxHeaderViewEdit);
-                lvBoxList.addHeaderView(llBoxHeaderViewButton);
-            }
-        });
-    }
 
-    private boolean isGoogleServiceAvailable() {
-        int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
-        if (resultCode != ConnectionResult.SUCCESS) {
-            if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
-                GooglePlayServicesUtil.getErrorDialog(resultCode, this, PLAY_SERVICES_RESOLUTION_REQUEST).show();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "This device does not support Google Play Service :(", Toast.LENGTH_LONG).show();
-                finish();
-            }
-            return false;
+
+        MaterialShadowContainerView shadowView =
+                (MaterialShadowContainerView) findViewById(R.id.shadow_item_container);
+
+        float density = getResources().getDisplayMetrics().density;
+
+        shadowView.setShadowTranslationZ(density * 20.0f); // 2.0 dp
+        shadowView.setShadowElevation(density * 16.0f); // 4.0 dp
+        shadowView.setVisibility(View.VISIBLE);
+    }
+    //</editor-fold>
+    //<editor-fold desc="Initiate InBox" defaultstate="collapsed">
+    private void initInBox() {
+        if (inBox) {
+            ifInBox();
         }
-        return true;
+        else {
+            elseInBox();
+        }
     }
+    //</editor-fold>
 
-    private void setIconBadge(int i) {  // TODO : Amount of push alarm. Ex) facebook alarm
-        ShortcutBadger.with(getApplicationContext()).count(1);
+    //<editor-fold desc="Inbox Submethods" defaultstate="collapsed">
+    private void ifInBox() {
+        if (LinkBoxController.currentBox != null) {
+            urlListWrapper.boxList(0, 20, new UrlLoading());
+            boxTitle = LinkBoxController.currentBox.boxName;
+            tToolbar.setTitle("");
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle("");
+            }
+            tvBoxTitle.setText(boxTitle);
+            if (lvUrlList.getHeaderViewsCount() == 0) {
+                lvUrlList.addHeaderView(llUrlHeader);
+            }
+            lvUrlList.setOnScrollListener(new AbsListView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(AbsListView view, int scrollState) {
+                }
+
+                @Override
+                public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                    View v = lvUrlList.getChildAt(0);
+                    int top = (v == null) ? 0 : v.getTop();
+                    final int titleSize = 50;
+                    tvBoxTitle.setAlpha((firstVisibleItem != 0 || v == null || v.getHeight() == 0) ? 1.0f : (1.0f + ((float) top) / titleSize));
+                    if (top < -titleSize || firstVisibleItem != 0) {
+                        tToolbar.setTitle(boxTitle);
+                    } else {
+                        tToolbar.setTitle("");
+                    }
+                }
+            });
+            lvUrlList.setSelection(0);
+            srlUrlList.setProgressViewOffset(true, 80, 150);
+            srlUrlList.setColorScheme(R.color.indigo500);
+        }
+        else {
+            Log.e(TAG, "ERROR!!! inBox=" + inBox + " and currentBox=null");
+        }
     }
+    private void elseInBox() {
+        urlListWrapper.allList(0, 20, new UrlLoading());
+        tToolbar.setTitle("최근 링크");
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("최근 링크");
+        }
+        lvUrlList.removeHeaderView(llUrlHeader);
+        lvUrlList.setOnScrollListener(null);
+        lvUrlList.setSelection(0);
+        srlUrlList.setProgressViewOffset(true, 0, 70);
+        srlUrlList.setColorScheme(R.color.indigo500);
+    }
+    //</editor-fold>
 
-
+    //<editor-fold desc="Initiate Dummy Data" defaultstate="collapsed">
     //For Test. Deprecated
     private void initUrlDummyData() {
         UrlListData urlListData = new UrlListData();
-        urlListData.url = "www.facebook.com";
-        urlListData.urlTitle = "페북";
-        urlListData.urlWriterUsrName = "ME";
-        LinkBoxController.urlListSource.add(urlListData);
+        for (int i = 0; i < 30; i++) {
+            urlListData.url = "www.facebook.com";
+            urlListData.urlTitle = "페북";
+            urlListData.urlWriterUsrName = "ME";
+            LinkBoxController.urlListSource.add(urlListData);
+            urlListData = new UrlListData();
+        }
     }
     private void initBoxDummyData() {
         BoxListData boxListData = new BoxListData();
-        boxListData.boxName = "요리";
-        LinkBoxController.boxListSource.add(boxListData);
-        // LinkBoxController.boxEditBoxListAdapter.getView(0, boxListData, );
-        boxListData = new BoxListData();
-        boxListData.boxName = "육아";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.boxName = "개발";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.boxName = "일상";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.boxName = "주방";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.boxName = "맛집";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.boxName = "위생";
-        LinkBoxController.boxListSource.add(boxListData);
-        boxListData = new BoxListData();
-        boxListData.boxName = "공부";
-        LinkBoxController.boxListSource.add(boxListData);
+        String arr[] = {"요리", "육아", "개발", "일상", "주방", "맛집", "위생", "공부"};
+        for (int i = 0; i < arr.length; i++) {
+            boxListData.boxName = arr[i];
+            boxListData.boxKey = i;
+            boxListData.boxIndex = i;
+            LinkBoxController.boxListSource.add(boxListData);
+            boxListData = new BoxListData();
+        }
     }
+    //</editor-fold>
+
+    //<editor-fold desc="URL Inner Classes" defaultstate="collapsed">
+    private class UrlLoading implements Callback<MainServerData<List<UrlListData>>> {
+        @Override
+        public void success(MainServerData<List<UrlListData>> wrappedUrlListDatas, Response response) {
+            if (wrappedUrlListDatas.result) {
+                LinkBoxController.urlListSource.clear();
+                LinkBoxController.urlListSource.addAll(wrappedUrlListDatas.object);
+                srlUrlList.setRefreshing(false);
+                tvUrlNum.setText(Integer.toString(wrappedUrlListDatas.object.size()));
+            }
+            else {
+                srlUrlList.setRefreshing(false);
+            }
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            srlUrlList.setRefreshing(false);
+            RetrofitDebug.debug(error);
+        }
+    }
+    //</editor-fold>
 
 }

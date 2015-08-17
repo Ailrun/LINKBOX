@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="440dp"
+    android:layout_gravity="center"
+    android:background="@color/real_white"
+    tools:context="org.sopt.linkbox.activity.mainPage.boxListPage.BoxEditActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="11"
+        >
+
+        <ImageView
+            android:id="@+id/IB_thumbnail_box_add"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:scaleType="centerCrop"
+            android:src="@drawable/splash"
+            android:background="#00ffffff"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            >
+
+            <TextView
+                android:id="@+id/TV_text_box_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="박스이름"
+                android:layout_centerVertical="true"
+                android:textSize="16dp"
+                android:textColor="@color/real_black"
+                android:layout_marginStart="16dp"
+                />
+            <EditText
+                android:id="@+id/ET_box_name_box_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/TV_text_box_add"
+                android:singleLine="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="30dp"
+                android:textSize="14dp"
+                android:hint="박스 이름을 써주세요"
+                />
+
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+            <Button
+                android:id="@+id/B_save_box_add"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:text="완료"
+                android:layout_marginEnd="16dp"
+                style="@style/button_style"
+
+                />
+
+            <Button
+                android:id="@+id/B_cancel_box_add"
+                android:layout_height="36dp"
+                android:layout_marginEnd="30dp"
+                android:layout_toStartOf="@+id/B_save_box_add"
+                android:text="취소"
+                style="@style/button_style"
+
+                />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

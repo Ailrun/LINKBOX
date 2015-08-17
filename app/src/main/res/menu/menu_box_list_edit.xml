@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity">
+    <item
+        android:id="@+id/action_add_box"
+        android:title="add box"
+        android:icon="@drawable/ic_drawer_mybox_24px"
+        android:orderInCategory="0"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_invited_box"
+        android:title="invited box"
+        android:icon="@drawable/ic_mainpage_editorinfo_24px"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"/>
+</menu>

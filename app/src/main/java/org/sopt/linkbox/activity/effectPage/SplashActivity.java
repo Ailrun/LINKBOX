@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.activity.loginPage.AccountActivity;
+import org.sopt.linkbox.activity.accountPage.AccountActivity;
 import org.sopt.linkbox.custom.helper.SessionSaver;
 
 
 public class SplashActivity extends Activity {
     private static final int SPLASH_TIME=3000;
+
+    //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,4 +37,5 @@ public class SplashActivity extends Activity {
             }
         },SPLASH_TIME);
     }
+    //</editor-fold>
 }
