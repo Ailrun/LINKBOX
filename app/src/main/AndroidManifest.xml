@@ -248,7 +248,7 @@
         <activity
             android:name=".activity.mainPage.LinkItActivity"
             android:label="@string/title_activity_link_it"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@style/AppTheme" >
             <intent-filter android:label="LINKBOX" >
                 <action
                     android:name="android.intent.action.SEND" />

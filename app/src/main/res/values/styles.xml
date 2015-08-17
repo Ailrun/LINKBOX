@@ -29,6 +29,7 @@
     <!-- Changes the spinner drop down item radio button style -->
     <style name="DropDownItemSpinnerTheme" parent="android:Widget.DropDownItem.Spinner">
         <item name="android:checkMark">@drawable/apptheme_btn_radio_holo_light</item>
+
     </style>
 
     <style name="ListViewSpinnerTheme" parent="android:Widget.ListView">

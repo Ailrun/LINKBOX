@@ -1,15 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
-    android:layout_height="432dp"
+    android:layout_height="448dp"
     android:layout_gravity="center"
     android:background="@color/real_white"
-    tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity">
+    tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity"
+    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:weightSum="27">
+        android:weightSum="28">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -34,7 +35,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="12"
+            android:layout_weight="13"
             android:padding="16dp"
             android:orientation="vertical">
             <TextView
@@ -46,7 +47,7 @@
             <EditText
                 android:id="@+id/ET_name_link_it"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="30dp"
                 android:paddingTop="3dp"
                 android:paddingStart="30dp"
                 android:background="#00ffffff"
@@ -71,12 +72,12 @@
                 <Spinner
                     android:id="@+id/S_box_link_it"
                     android:layout_width="match_parent"
-                    android:layout_height="30dp"
+                    android:layout_height="40dp"
                     android:layout_alignParentStart="true"
-                    android:background="#00ffffff"
+                    android:background="@color/real_white"
                     android:paddingStart="30dp"
                     android:paddingTop="3dp"
-                    android:spinnerMode="dropdown" />
+                    />
 
                 <ImageView
                     android:layout_width="14dp"
