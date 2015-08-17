@@ -10,7 +10,48 @@
         android:layout_below="@id/T_toolbar_link_box"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:verticalScrollbarPosition="defaultPosition"
+    >
+    <TextView
+        android:id="@+id/TV_how_to_add_box_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="박스 추가는 어떻게 하나요?"
+        />
+<TextView
+    android:id="@+id/TV_how_to_add_box_answer_1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:text="내 박스 화면의 우측상단에 위치한, 아래 사진에 초록색 원으로 표시된 박스 추가 버튼을 누르면 박스 추가 팝업이 떠오릅니다."
+    />
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/help_add_box_page"
+        android:adjustViewBounds="true"
+        />
+    <TextView
+        android:id="@+id/TV_how_to_add_box_answer_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="박스 이름을 쓰면 세로운 박스를 만들 수 있습니다. 또한 파란색의 기본 이미지를 터치하시면 박스 이미지를 바꿀 수 있습니다."
+        />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/help_box_add_page"
+        android:adjustViewBounds="true"
+        />
+</LinearLayout>
 
     </ScrollView>
 </RelativeLayout>

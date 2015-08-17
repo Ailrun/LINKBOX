@@ -1,5 +1,6 @@
 package org.sopt.linkbox.activity.helpPage.subHelpPage;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -44,6 +45,7 @@ public class StartHelpActivity extends AppCompatActivity{
     //<editor-fold desc="Initiate Toolbar" defaultstate="collapsed">
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
+        tToolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

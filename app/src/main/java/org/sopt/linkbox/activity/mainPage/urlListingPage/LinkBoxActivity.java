@@ -451,6 +451,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 
         shadowView.setShadowTranslationZ(density * 20.0f); // 2.0 dp
         shadowView.setShadowElevation(density * 16.0f); // 4.0 dp
+        shadowView.setVisibility(View.VISIBLE);
     }
     //</editor-fold>
     //<editor-fold desc="Initiate InBox" defaultstate="collapsed">
