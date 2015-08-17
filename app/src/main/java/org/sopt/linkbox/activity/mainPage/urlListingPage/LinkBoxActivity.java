@@ -18,10 +18,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.h6ah4i.android.materialshadowninepatch.MaterialShadowContainerView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -102,6 +105,9 @@ public class LinkBoxActivity extends AppCompatActivity {
     private final String skuIDPremium = "id_mUImErpEmEkAMU";
     private List<String> skuList = null;
 
+    private ImageButton ibDeleteLinkBox = null;
+    private ImageButton ibEditLinkBox = null;
+    private ImageButton ibShareLinkBox = null;
     // Load Save
     private ImageSaveLoad imageSaveLoader = null;
     private SharedPreferences prefs = null;
@@ -122,6 +128,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         initControl();
         initListener();
         initInBox();
+
+
     }
     @Override
     protected void onResume() {
@@ -297,6 +305,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         initDrawerView();
         // initDrawerButtonHeaderView();
         // initDrawerEditHeaderView();
+
+
     }
     private void initListener() {
         //InApp billing init
@@ -410,14 +420,19 @@ public class LinkBoxActivity extends AppCompatActivity {
         dlDrawer = (DrawerLayout) findViewById(R.id.DL_root_layout_link_box);
         rlToSetting = (RelativeLayout) findViewById(R.id.RL_setting_link_box);
         rlToHelp = (RelativeLayout) findViewById(R.id.RL_help_link_box);
+
+        ibDeleteLinkBox = (ImageButton) findViewById(R.id.IB_delete_link_box);
+        ibEditLinkBox = (ImageButton) findViewById(R.id.IB_edit_link_box);
+        ibShareLinkBox = (ImageButton) findViewById(R.id.IB_share_link_box);
+
     }
     private void initDrawerListener() {
         tvUserName.setText(LinkBoxController.usrListData.usrName);
         tvUserEmail.setText(LinkBoxController.usrListData.usrID);
 
-        rlRecentLink.setOnClickListener(new View.OnClickListener(){
+        rlRecentLink.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 inBox = false;
                 initInBox();
                 invalidateOptionsMenu();
@@ -483,6 +498,16 @@ public class LinkBoxActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), HelpActivity.class));
             }
         });
+
+
+        MaterialShadowContainerView shadowView =
+                (MaterialShadowContainerView) findViewById(R.id.shadow_item_container);
+
+        float density = getResources().getDisplayMetrics().density;
+
+        shadowView.setShadowTranslationZ(density * 20.0f); // 2.0 dp
+        shadowView.setShadowElevation(density * 16.0f); // 4.0 dp
+        shadowView.setVisibility(View.VISIBLE);
     }
     //</editor-fold>
     //<editor-fold desc="Initiate InBox" defaultstate="collapsed">
@@ -595,4 +620,5 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
     }
     //</editor-fold>
+
 }

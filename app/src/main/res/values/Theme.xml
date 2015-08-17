@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="Theme.CustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
 
@@ -9,5 +9,14 @@
     <style name="MyActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@color/indigo500</item>
 
+    </style>
+
+    <style name="AppTheme" parent="android:Theme.Translucent.NoTitleBar">
+        <item name="android:spinnerStyle">@style/SpinnerTheme</item>
+        <item name="android:dropDownSpinnerStyle">@style/SpinnerTheme.DropDown</item>
+        <item name="android:spinnerDropDownItemStyle">@style/DropDownItemSpinnerTheme</item>
+        <item name="android:listViewStyle">@style/ListViewSpinnerTheme</item>
+        <item name="android:listViewWhiteStyle">@style/ListViewSpinnerTheme.White</item>
+        <item name="android:spinnerItemStyle">@style/SpinnerItemTheme</item>
     </style>
 </resources>
