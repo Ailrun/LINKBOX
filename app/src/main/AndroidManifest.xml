@@ -248,7 +248,7 @@
         <activity
             android:name=".activity.mainPage.LinkItActivity"
             android:label="@string/title_activity_link_it"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@style/AppTheme" >
             <intent-filter android:label="LINKBOX" >
                 <action
                     android:name="android.intent.action.SEND" />
@@ -263,6 +263,13 @@
             android:label="BoxImageCropActivity">
         </activity>
         <!-- Main Activities End -->
+
+        <activity android:name=".activity.settingPage.AlarmDialog"
+            android:label="AlarmDialog"
+            android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".activity.settingPage.ReadLaterDialog"
+            android:label="ReadLaterDialog"
+            android:theme="@android:style/Theme.Dialog"/>
     </application>
 
 </manifest>

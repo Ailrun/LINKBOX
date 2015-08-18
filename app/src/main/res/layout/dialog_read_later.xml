@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/real_white"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/TV_hour_later"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1시간 후"
+                    android:textColor="@color/real_black"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="150dp"
+                    android:paddingTop="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/RB_hour_later"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/TV_hour_later"
+                    android:paddingRight="5dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/TV_2hours_later"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2시간 후"
+                    android:textColor="@color/real_black"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="150dp"
+                    android:paddingTop="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/RB_2hours_later"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/TV_2hours_later"
+                    android:paddingRight="5dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/TV_tomorrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="다음 날"
+                    android:textColor="@color/real_black"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="159dp"
+                    android:paddingTop="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/RB_tomorrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/TV_tomorrow"
+                    android:paddingRight="5dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/TV_2tomorrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이틀 후"
+                    android:textColor="@color/real_black"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="159dp"
+                    android:paddingTop="8dp"/>
+
+                <RadioButton
+                    android:id="@+id/RB_2tomorrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/TV_2tomorrow"
+                    android:paddingRight="5dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <Button
+                    android:id="@+id/B_read_later_save"
+                    style="@style/button_style"
+                    android:layout_height="36dp"
+                    android:layout_toStartOf="@+id/B_read_later_cancel"
+                    android:text="저장" />
+
+                <Button
+                    android:id="@+id/B_read_later_cancel"
+                    style="@style/button_style"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="취소" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RadioGroup>
+</LinearLayout>
