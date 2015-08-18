@@ -135,7 +135,7 @@ public class BoxAddActivity extends Activity {
         public void success(MainServerData<BoxListData> wrappedBoxListData, Response response) {
             if (wrappedBoxListData.result) {
                 box.boxKey = wrappedBoxListData.object.boxKey;
-                LinkBoxController.boxListSource.add(box);
+                LinkBoxController.boxListSource.add(0, box);
                 box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
                 LinkBoxController.notifyBoxDataSetChanged();
                 finish();

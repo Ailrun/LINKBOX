@@ -1,9 +1,9 @@
-package org.sopt.linkbox.custom.data.tempData;
+package org.sopt.linkbox.custom.data.networkData;
 
 /**
  * Created by Junyoung on 2015-07-11.
  */
-public class EmbedlyResult {
+public class EmbedlyData {
     public String provider_url;
     public String description;
     public String title;

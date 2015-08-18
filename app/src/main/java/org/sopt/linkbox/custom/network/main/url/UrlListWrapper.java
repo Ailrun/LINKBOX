@@ -36,8 +36,8 @@ public class UrlListWrapper {
     public void boxList(int startNum, int urlNum, Callback<MainServerData<List<UrlListData>>> callback) {
         urlListInterface.boxList(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, startNum, urlNum, callback);
     }
-    public void add(UrlListData urlListData, Callback<MainServerData<UrlListData>> callback) {
-        urlListInterface.add(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData, callback);
+    public void add(UrlListData urlListData, BoxListData boxListData, Callback<MainServerData<UrlListData>> callback) {
+        urlListInterface.add(LinkBoxController.usrListData.usrKey, boxListData.boxKey, urlListData, callback);
     }
     public void remove(UrlListData urlListData, Callback<MainServerData<Object>> callback) {
         urlListInterface.remove(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData, callback);

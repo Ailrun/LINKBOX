@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
@@ -213,7 +214,7 @@ public class LinkItActivity extends Activity {
                 urlListData.urlWriterUsrName = LinkBoxController.usrListData.usrName;
                 urlListData.urlTitle = etName.getText().toString();
                 urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-                urlListWrapper.add(urlListData, new UrlAddingCallback());
+                urlListWrapper.add(urlListData, (BoxListData)sBox.getSelectedItem(), new UrlAddingCallback());
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -310,7 +311,7 @@ public class LinkItActivity extends Activity {
         @Override
         public void success(MainServerData<UrlListData> wrappedUrlListData, Response response) {
             if (wrappedUrlListData.result) {
-                LinkBoxController.urlListSource.add(wrappedUrlListData.object);
+                LinkBoxController.urlListSource.add(0, wrappedUrlListData.object);
                 LinkBoxController.notifyUrlDataSetChanged();
                 finish();
             }

@@ -1,7 +1,7 @@
 package org.sopt.linkbox.custom.network.embedly;
 
 import org.sopt.linkbox.LinkBoxController;
-import org.sopt.linkbox.custom.data.tempData.EmbedlyResult;
+import org.sopt.linkbox.custom.data.networkData.EmbedlyData;
 
 import java.util.HashMap;
 
@@ -18,7 +18,7 @@ public class EmbedlyWrapper {
             embedlyInterface = LinkBoxController.getApplication().getLinkNetworkEmbedlyInterface();
         }
     }
-    public void getThumbAsync(String url, Callback<EmbedlyResult> callback) {
+    public void getThumbAsync(String url, Callback<EmbedlyData> callback) {
         fillInterface();
         HashMap<String, String> parameter = new HashMap<>();
         parameter.put("url", url);

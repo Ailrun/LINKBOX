@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
+import com.bumptech.glide.module.GlideModule;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import org.sopt.linkbox.R;
@@ -48,7 +49,6 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
             }
         }
     }
-
     public void setSource(ArrayList<UrlListData> source) {
         this.source = source;
         notifyDataSetChanged();
@@ -67,20 +67,22 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
     public long getItemId(int i) {
         return i;
     }
-
     @Override
     public int getSwipeLayoutResourceId(int i) {
         return R.id.SL_swape_link_box;
     }
-
     @Override
     public View generateView(int i, ViewGroup viewGroup) {
         return LayoutInflater.from(context).inflate(R.layout.layout_url_list_link_box, viewGroup, false);
     }
-
     @Override
     public void fillValues(int i, View view) {
         UrlListData urlListData = (UrlListData)getItem(i);
+        fillMainValues(i, view, urlListData);
+        fillHiddenValues(i, view, urlListData);
+    }
+
+    private void fillMainValues(int i, View view, UrlListData urlListData) {
         TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_name_link_box);
         TextView tvUrlAddress = ViewHolder.get(view, R.id.TV_url_address_link_box);
         TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
@@ -88,6 +90,15 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
 
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
 
+        tvUrlTitle.setText(urlListData.urlTitle);
+        tvUrlAddress.setText(urlListData.url);
+        tvUrlWriter.setText(urlListData.urlWriterUsrName);
+        tvUrlDate.setText(urlListData.urlDate);
+
+        Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
+    }
+
+    private void fillHiddenValues(int i, View view, UrlListData urlListData) {
         ImageButton ibDelete = ViewHolder.get(view, R.id.IB_delete_link_box);
         ibDelete.setScaleX(0.45f);
         ibDelete.setScaleY(0.45f);
@@ -98,19 +109,11 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         ibShare.setScaleX(0.42f);
         ibShare.setScaleY(0.42f);
 
-        tvUrlTitle.setText(urlListData.urlTitle);
-        tvUrlAddress.setText(urlListData.url);
-        tvUrlWriter.setText(urlListData.urlWriterUsrName);
-        tvUrlDate.setText(urlListData.urlDate);
-
-        Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
-
         ibDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Delete!");
-                //TODO : delete url check popup
-                //Must include which url push this button
+
             }
         });
         ibEdit.setOnClickListener(new View.OnClickListener() {

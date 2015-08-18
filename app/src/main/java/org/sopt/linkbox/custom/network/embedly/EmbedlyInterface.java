@@ -1,6 +1,6 @@
 package org.sopt.linkbox.custom.network.embedly;
 
-import org.sopt.linkbox.custom.data.tempData.EmbedlyResult;
+import org.sopt.linkbox.custom.data.networkData.EmbedlyData;
 
 import java.util.HashMap;
 
@@ -18,5 +18,5 @@ public interface EmbedlyInterface {
     String embedlyAPIEndPoint = "http://api.embed.ly";
 
     @GET("/1/oembed")
-    void getThumbAsync(@QueryMap HashMap<String, String> parameters, Callback<EmbedlyResult> callback);
+    void getThumbAsync(@QueryMap HashMap<String, String> parameters, Callback<EmbedlyData> callback);
 }

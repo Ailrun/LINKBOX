@@ -51,17 +51,14 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
     public int getCount() {
         return source.size();
     }
-
     @Override
     public Object getItem(int i) {
         return source.get(i);
     }
-
     @Override
     public long getItemId(int i) {
         return i;
     }
-
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
         if (view == null) {
