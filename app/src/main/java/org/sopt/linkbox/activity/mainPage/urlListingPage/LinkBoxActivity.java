@@ -1,11 +1,11 @@
 package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -110,6 +110,8 @@ public class LinkBoxActivity extends AppCompatActivity {
     private ImageButton ibShareLinkBox = null;
     // Load Save
     private ImageSaveLoad imageSaveLoader = null;
+    private SharedPreferences prefs = null;
+
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
@@ -119,6 +121,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
 
+        initPreference();
         initInterface();
         initData();
         initView();
@@ -217,6 +220,59 @@ public class LinkBoxActivity extends AppCompatActivity {
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
+    private void initPreference(){
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs != null){
+            LinkBoxController.preference_readLater = prefs.getInt("read_later_preference", 2);
+            int defaultAlarmIndicator = prefs.getInt("alarm_enable", 0);
+            int defaultReadLaterIndicator = prefs.getInt("read_later_enable", 0);
+            int new_link_alarm = prefs.getInt("new_link_alarm", 0);
+            int invited_box_alarm = prefs.getInt("invited_box_alarm", 0);
+            int like_alarm = prefs.getInt("like_alarm", 0);
+            int comment_alarm = prefs.getInt("comment_alarm", 0);
+
+            if(defaultAlarmIndicator == 1){
+                LinkBoxController.defaultAlarm = true;
+            }
+            else if(defaultAlarmIndicator == 0){
+                LinkBoxController.defaultAlarm = false;
+            }
+
+            if(defaultReadLaterIndicator == 1){
+                LinkBoxController.defaultReadLater = true;
+            }
+            else if(defaultReadLaterIndicator == 0){
+                LinkBoxController.defaultReadLater = false;
+            }
+
+            if(new_link_alarm == 1){
+                LinkBoxController.new_link_alarm = true;
+            }
+            else if(new_link_alarm == 0){
+                LinkBoxController.new_link_alarm = false;
+            }
+            if(invited_box_alarm == 1){
+                LinkBoxController.invited_box_alarm = true;
+            }
+            else if(invited_box_alarm == 0){
+                LinkBoxController.invited_box_alarm = false;
+            }
+            if(like_alarm == 1){
+                LinkBoxController.like_alarm = true;
+            }
+            else if(like_alarm == 0){
+                LinkBoxController.like_alarm = false;
+            }
+            if(comment_alarm == 1){
+                LinkBoxController.comment_alarm = true;
+            }
+            else if(comment_alarm == 0){
+                LinkBoxController.comment_alarm = false;
+            }
+
+        }
+    }
+
     private void initInterface() {
         urlListWrapper = new UrlListWrapper();
     }
@@ -341,7 +397,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String url = ((UrlListData)lvUrlList.getItemAtPosition(position)).url;
+                String url = ((UrlListData) lvUrlList.getItemAtPosition(position)).url;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             }
@@ -436,7 +492,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         });
 
-        rlToHelp.setOnClickListener(new View.OnClickListener(){
+        rlToHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), HelpActivity.class));

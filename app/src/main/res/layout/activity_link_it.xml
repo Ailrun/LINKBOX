@@ -4,8 +4,7 @@
     android:layout_height="448dp"
     android:layout_gravity="center"
     android:background="@color/real_white"
-    tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity"
-    >
+    tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -77,7 +76,7 @@
                     android:background="@color/real_white"
                     android:paddingStart="30dp"
                     android:paddingTop="3dp"
-                    />
+                    android:spinnerMode="dropdown" />
 
                 <ImageView
                     android:layout_width="14dp"

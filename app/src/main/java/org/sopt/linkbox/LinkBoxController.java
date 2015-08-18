@@ -128,7 +128,14 @@ public class LinkBoxController extends Application {
 
 
     public static boolean defaultAlarm = false;
+    public static boolean defaultReadLater = false;
 
+    public static boolean new_link_alarm = false;
+    public static boolean invited_box_alarm = false;
+    public static boolean like_alarm = false;
+    public static boolean comment_alarm = false;
+
+    public static int preference_readLater = 2;
 
     public static ArrayList<UrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
