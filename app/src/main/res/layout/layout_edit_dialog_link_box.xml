@@ -39,6 +39,7 @@
             android:layout_marginTop="5dp"
             android:paddingStart="30dp"
             android:background="#00ffffff"
+            android:textColor="@color/real_black"
             android:singleLine="true"
             android:textSize="18dp"/>
         <View
