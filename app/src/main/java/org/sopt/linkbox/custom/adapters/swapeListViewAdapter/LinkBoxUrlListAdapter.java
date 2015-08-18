@@ -2,6 +2,7 @@ package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.EditDialogActivity;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.dialog.DeleteDialog;
@@ -135,13 +137,23 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Edit!");
-                //TODO : goto url edit popup
+                Intent intent = new Intent(context, EditDialogActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Index", i);
+                context.startActivity(intent);
             }
         });
         ibShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO : goto share popup
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/*");
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.putExtra(Intent.EXTRA_SUBJECT, urlListData.urlTitle);
+                intent.putExtra(Intent.EXTRA_TEXT, urlListData.url);
+                intent.putExtra(Intent.EXTRA_TITLE, urlListData.urlTitle);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }

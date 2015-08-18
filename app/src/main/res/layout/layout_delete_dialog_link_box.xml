@@ -14,7 +14,7 @@
         android:padding="15dp"
         android:background="@color/indigo500"
         android:gravity="center"
-        android:text="삭제"
+        android:text="링크 삭제"
         android:textSize="20dp"
         android:textColor="@color/real_white"/>
     <TextView
