@@ -117,6 +117,7 @@ public class LinkBoxController extends Application {
         }
     }
 
+
     public static UsrListData usrListData = null;
     // Code for user profile image cropping
     // public static Bitmap temporaryImage = null;
@@ -142,6 +143,11 @@ public class LinkBoxController extends Application {
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.notifyDataSetChanged();
+        }
+    }
+    public static void resetUrlDataSet() {
+        if (linkBoxUrlListAdapter != null) {
+            linkBoxUrlListAdapter.closeAllItems();
         }
     }
 

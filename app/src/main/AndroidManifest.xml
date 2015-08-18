@@ -270,6 +270,8 @@
         <activity android:name=".activity.settingPage.ReadLaterDialog"
             android:label="ReadLaterDialog"
             android:theme="@android:style/Theme.Dialog"/>
+        <activity android:name=".activity.mainPage.urlListingPage.DeleteDialogActivity"
+            android:label="DeleteDialog"/>
     </application>
 
 </manifest>

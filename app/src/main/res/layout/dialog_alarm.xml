@@ -3,82 +3,65 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/real_white"
         android:stretchColumns="0,1,2,3,4">
-
-
         <TableRow>
-
             <TextView
                 android:padding="10dp"
                 android:text="새 링크"
                 android:textColor="@color/real_black"/>
-
             <CheckBox
                 android:id="@+id/CB_new_link_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="5" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:padding="10dp"
                 android:text="초대받은 박스"
                 android:textColor="@color/real_black"/>
-
             <CheckBox
                 android:id="@+id/CB_invited_box_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="5" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:padding="10dp"
                 android:text="좋아요"
                 android:textColor="@color/real_black"/>
-
             <CheckBox
                 android:id="@+id/CB_like_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="5" />
         </TableRow>
-
         <TableRow>
-
             <TextView
                 android:padding="10dp"
                 android:text="댓글"
                 android:textColor="@color/real_black"/>
-
             <CheckBox
                 android:id="@+id/CB_comment_alarm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_column="5" />
         </TableRow>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2">
-
             <Button
                 android:id="@+id/B_alarm_save"
                 style="@style/button_style"
                 android:layout_height="36dp"
                 android:layout_toStartOf="@+id/B_alarm_cancel"
                 android:text="저장" />
-
             <Button
                 android:id="@+id/B_alarm_cancel"
                 style="@style/button_style"

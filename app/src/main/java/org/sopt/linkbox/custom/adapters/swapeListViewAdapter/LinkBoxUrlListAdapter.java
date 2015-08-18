@@ -1,6 +1,7 @@
 package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,12 +17,21 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import com.bumptech.glide.module.GlideModule;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
+import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.dialog.DeleteDialog;
 import org.sopt.linkbox.custom.helper.ViewHolder;
+import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Junyoung on 2015-07-02.
@@ -32,6 +42,8 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
     private ArrayList<UrlListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
+    private UrlListData urlListData = null;
+    private DeleteDialog deleteDialog = null;
 
     public LinkBoxUrlListAdapter(Context context, ArrayList<UrlListData> source) {
         layoutInflater =
@@ -77,12 +89,12 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
     }
     @Override
     public void fillValues(int i, View view) {
-        UrlListData urlListData = (UrlListData)getItem(i);
-        fillMainValues(i, view, urlListData);
-        fillHiddenValues(i, view, urlListData);
+        urlListData = (UrlListData)getItem(i);
+        fillMainValues(i, view);
+        fillHiddenValues(i, view);
     }
 
-    private void fillMainValues(int i, View view, UrlListData urlListData) {
+    private void fillMainValues(int i, View view) {
         TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_name_link_box);
         TextView tvUrlAddress = ViewHolder.get(view, R.id.TV_url_address_link_box);
         TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
@@ -98,7 +110,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
     }
 
-    private void fillHiddenValues(int i, View view, UrlListData urlListData) {
+    private void fillHiddenValues(final int i, View view) {
         ImageButton ibDelete = ViewHolder.get(view, R.id.IB_delete_link_box);
         ibDelete.setScaleX(0.45f);
         ibDelete.setScaleY(0.45f);
@@ -113,7 +125,10 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Delete!");
-
+                Intent intent = new Intent(context, DeleteDialogActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("Index", i);
+                context.startActivity(intent);
             }
         });
         ibEdit.setOnClickListener(new View.OnClickListener() {
