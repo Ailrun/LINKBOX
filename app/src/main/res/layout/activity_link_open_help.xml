@@ -8,7 +8,6 @@
         layout="@layout/layout_toolbar" />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/ScrollView01"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/T_toolbar_link_box">
@@ -54,16 +53,6 @@
                 android:src="@drawable/help_box_link_page"
                 android:adjustViewBounds="true"
                 />
-
-            <TextView
-                android:id="@+id/TV_how_to_edit_box"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:textStyle="bold"
-                android:text="이미 만들어진 박스는 어떻게 수정하나요?"
-                />
-
         </LinearLayout>
     </ScrollView>
 

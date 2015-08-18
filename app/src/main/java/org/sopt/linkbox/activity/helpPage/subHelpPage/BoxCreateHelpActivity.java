@@ -5,6 +5,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import org.sopt.linkbox.R;
@@ -14,7 +16,12 @@ import org.sopt.linkbox.R;
  */
 public class BoxCreateHelpActivity extends AppCompatActivity {
     private Toolbar tToolbar = null;
-
+    private ScrollView svHelpAdd = null;
+    private TextView tvAddboxQuestion = null;
+    private TextView tvAddboxAnswer_1 = null;
+    private TextView tvAddboxAnswer_2 = null;
+    private TextView tvEditboxQuestion = null;
+    private TextView tvEditboxAnswer = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +35,7 @@ public class BoxCreateHelpActivity extends AppCompatActivity {
     private void initView() {
         initToolbarView();
         initHelpContentsView();
+
     }
     //</editor-fold>
     //<editor-fold desc="Initiate Toolbar" defaultstate="collapsed">
@@ -44,16 +52,22 @@ public class BoxCreateHelpActivity extends AppCompatActivity {
     private void initHelpContentsView(){
         // Typeface boldTypeface = Typeface.createFromAsset(getAssets(), "NotoSansKR-Bold-Hestia.otf");
         Typeface regularTypeface = Typeface.createFromAsset(getAssets(), "NotoSansKR-Regular-Hestia.otf");
-/*
-        tvQuestion = (TextView)findViewById(R.id.TV_how_to_open_link_question);
-        tvAnswer1 = (TextView)findViewById(R.id.TV_how_to_open_link_answer_1);
-        tvAnswer2 = (TextView)findViewById(R.id.TV_how_to_open_link_answer_2);
 
-        tvQuestion.setTextColor(getResources().getColor(R.color.indigo500));
+        svHelpAdd = (ScrollView) findViewById(R.id.SV_help_add_box);
+        tvAddboxQuestion = (TextView)findViewById(R.id.TV_how_to_add_box_question);
+        tvAddboxAnswer_1 = (TextView)findViewById(R.id.TV_how_to_add_box_answer_1);
+        tvAddboxAnswer_2 = (TextView) findViewById(R.id.TV_how_to_add_box_answer_2);
+        tvEditboxQuestion = (TextView) findViewById(R.id.TV_how_to_edit_box_question);
+        tvEditboxAnswer = (TextView) findViewById(R.id.TV_how_to_edit_box_answer);
 
-        tvQuestion.setTypeface(regularTypeface);
-        tvAnswer1.setTypeface(regularTypeface);
-        tvAnswer2.setTypeface(regularTypeface);
-    */
+        tvAddboxQuestion.setTextColor(getResources().getColor(R.color.indigo500));
+        tvEditboxQuestion.setTextColor(getResources().getColor(R.color.indigo500));
+
+        tvAddboxQuestion.setTypeface(regularTypeface);
+        tvAddboxAnswer_1.setTypeface(regularTypeface);
+        tvAddboxAnswer_2.setTypeface(regularTypeface);
+        tvEditboxQuestion.setTypeface(regularTypeface);
+        tvEditboxAnswer.setTypeface(regularTypeface);
     }
+
 }

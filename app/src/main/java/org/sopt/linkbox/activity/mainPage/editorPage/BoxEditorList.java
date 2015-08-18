@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -36,7 +37,7 @@ public class BoxEditorList extends AppCompatActivity {
     private ListView lvEditorList = null;
     private TextView tvBoxName = null;
     private String sBox_name = null;
-    private String sEditor_number = null;
+    private int editor_number = 0;
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
@@ -115,7 +116,7 @@ public class BoxEditorList extends AppCompatActivity {
         lvEditorList = (ListView) findViewById(R.id.LV_editor_list_editor_list);
 
         tvBoxName = (TextView) findViewById(R.id.TV_box_name_editor_list);
-        tvBoxName.setText(sBox_name + " (" + sEditor_number + ")");
+        tvBoxName.setText(sBox_name + " (" + editor_number + ")");
     }
     //</editor-fold>
 
@@ -126,7 +127,7 @@ public class BoxEditorList extends AppCompatActivity {
             if (wrappedUsrListDatas.result) {
                 LinkBoxController.editorListSource.clear();
                 LinkBoxController.editorListSource.addAll(wrappedUsrListDatas.object);
-                sEditor_number = Integer.toString(LinkBoxController.editorListSource.size());
+                editor_number = LinkBoxController.editorListSource.size();
             }
             else {
                 Toast.makeText(BoxEditorList.this, "Fail to load Box Editors", Toast.LENGTH_LONG).show();
