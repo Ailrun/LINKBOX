@@ -64,6 +64,11 @@ public class BoxEditorList extends AppCompatActivity {
         {
             case R.id.action_add_editor :
                 startActivity(new Intent(this, BoxEditorAdd.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+                break;
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -78,6 +83,12 @@ public class BoxEditorList extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         SessionSaver.saveSession(this);
+    }
+
+
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
     //</editor-fold>
 

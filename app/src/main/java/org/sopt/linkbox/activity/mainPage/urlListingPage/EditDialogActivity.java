@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import org.sopt.linkbox.LinkBoxController;
+import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.dialog.DeleteDialog;

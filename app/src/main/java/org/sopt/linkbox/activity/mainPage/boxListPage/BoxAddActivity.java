@@ -61,6 +61,11 @@ public class BoxAddActivity extends Activity {
             ibThumb.setImageBitmap(LinkBoxController.boxImage);
         }
     }
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+    }
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
@@ -92,12 +97,14 @@ public class BoxAddActivity extends Activity {
                 box.isFavorite = 0;
                 box.boxUrlNum = 0;
                 boxListWrapper.add(box, new BoxAddingCallback());
+
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
         ibThumb.setOnClickListener(new View.OnClickListener() {
@@ -139,10 +146,12 @@ public class BoxAddActivity extends Activity {
                 box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
                 LinkBoxController.notifyBoxDataSetChanged();
                 finish();
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
             else {
                 Toast.makeText(BoxAddActivity.this, "Fail to add Box", Toast.LENGTH_LONG).show();
                 finish();
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         }
         @Override
