@@ -41,6 +41,7 @@ public class BoxDeleteDialogActivity extends Activity {
 
         initInterface();
         initWindow();
+        initData();
         initView();
         initListener();
     }

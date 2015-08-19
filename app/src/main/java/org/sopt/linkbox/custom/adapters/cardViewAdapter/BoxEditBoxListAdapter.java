@@ -116,6 +116,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, BoxEditActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Log.d(TAG, "BoxIndex : " + i);
                 intent.putExtra("boxIndex", i);
                 context.startActivity(intent);
             }
@@ -123,9 +124,9 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.e("RESPONSE", "Delete");
                 Intent intent = new Intent(context, BoxDeleteDialogActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Log.d(TAG, "BoxIndex : " + i);
                 intent.putExtra("boxIndex", i);
                 context.startActivity(intent);
             }
