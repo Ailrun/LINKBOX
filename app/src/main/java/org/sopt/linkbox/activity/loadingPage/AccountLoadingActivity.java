@@ -1,6 +1,8 @@
 package org.sopt.linkbox.activity.loadingPage;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -33,6 +35,8 @@ import retrofit.client.Response;
 public class AccountLoadingActivity extends Activity {
     private static final String TAG = "TEST/" + AccountLoadingActivity.class.getName() + " : ";
 
+    public static final int PROGRESS_DIALOG = 1001;
+    ProgressDialog progressDialog;
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private UsrListWrapper usrListWrapper = null;
     private BoxListWrapper boxListWrapper = null;
@@ -50,6 +54,8 @@ public class AccountLoadingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        showDialog(PROGRESS_DIALOG);
         initWindow();
         initInterface();
         initData();
@@ -60,6 +66,7 @@ public class AccountLoadingActivity extends Activity {
     public void onResume() {
         super.onResume();
     }
+
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
@@ -101,6 +108,19 @@ public class AccountLoadingActivity extends Activity {
                 //TODO:Add google login
                 break;
         }
+    }
+
+    public Dialog onCreateDialog(int id)
+    {
+        switch (id){
+            case (PROGRESS_DIALOG):
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setMessage("로그인 중입니다.");
+
+                return progressDialog;
+        }
+        return null;
     }
     //</editor-fold>
 
