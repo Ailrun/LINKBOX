@@ -15,6 +15,7 @@ import org.sopt.linkbox.R;
  *
  */
 public class StartHelpActivity extends AppCompatActivity{
+    private static final String TAG = "TEST/" + StartHelpActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;

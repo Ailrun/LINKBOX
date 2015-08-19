@@ -38,8 +38,8 @@ public interface BoxListInterface {
     @POST(MainServerInterface.boxListPath + "/Invite/{" + MainServerInterface.usrKeyPath + "}/{" + MainServerInterface.boxKeyPath + "}")
     void invite(@Path(MainServerInterface.usrKeyPath) int usrKey, @Path(MainServerInterface.boxKeyPath) int boxKey, @Body TwoString twoString, Callback<MainServerData<Object>> callback);
     @Headers(MainServerInterface.jsonHeader)
-    @POST(MainServerInterface.boxListPath + "/Accept/{" + MainServerInterface.alarmKeyPath + "}")
-    void accept(@Path(MainServerInterface.alarmKeyPath) int alarmKey, @Body BoxListData boxListData, Callback<MainServerData<Object>> callback);
+    @POST(MainServerInterface.boxListPath + "/Accept/{" + MainServerInterface.alarmKeyPath + "}/{" + MainServerInterface.usrKeyPath + "}")
+    void accept(@Path(MainServerInterface.alarmKeyPath) int alarmKey, @Path(MainServerInterface.usrKeyPath) int usrKey, @Body BoxListData boxListData, Callback<MainServerData<BoxListData>> callback);
     @Headers(MainServerInterface.jsonHeader)
     @POST(MainServerInterface.boxListPath + "/Decline/{" + MainServerInterface.alarmKeyPath + "}")
     void decline(@Path(MainServerInterface.alarmKeyPath) int alarmKey, Callback<MainServerData<Object>> callback);

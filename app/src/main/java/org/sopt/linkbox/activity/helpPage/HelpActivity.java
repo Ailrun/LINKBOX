@@ -20,6 +20,7 @@ import org.sopt.linkbox.activity.helpPage.subHelpPage.StartHelpActivity;
  *
  */
 public class HelpActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + HelpActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;

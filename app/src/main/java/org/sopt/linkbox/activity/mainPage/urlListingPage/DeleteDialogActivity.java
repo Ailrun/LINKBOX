@@ -18,6 +18,8 @@ import retrofit.client.Response;
  * Created by Junyoung on 2015-08-18.
  */
 public class DeleteDialogActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + DeleteDialogActivity.class.getName() + " : ";
+
     private DeleteDialog deleteDialog = null;
     private UrlListWrapper urlListWrapper = null;
     private UrlListData urlListData = null;
@@ -42,7 +44,6 @@ public class DeleteDialogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 deleteDialog.dismiss();
-                LinkBoxController.resetUrlDataSet();
                 finish();
             }
         });
@@ -58,7 +59,6 @@ public class DeleteDialogActivity extends AppCompatActivity {
         public void success(MainServerData<Object> objectMainServerData, Response response) {
             LinkBoxController.urlListSource.remove(urlListData);
             LinkBoxController.notifyUrlDataSetChanged();
-            LinkBoxController.resetUrlDataSet();
             finish();
         }
         @Override

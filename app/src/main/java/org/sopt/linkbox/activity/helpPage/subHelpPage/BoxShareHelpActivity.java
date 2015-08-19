@@ -14,6 +14,7 @@ import org.sopt.linkbox.R;
  * Created by MinGu on 2015-08-10.
  */
 public class BoxShareHelpActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxShareHelpActivity.class.getName() + " : ";
 
     private Toolbar tToolbar = null;
     private TextView tvBoxshareQuestion = null;

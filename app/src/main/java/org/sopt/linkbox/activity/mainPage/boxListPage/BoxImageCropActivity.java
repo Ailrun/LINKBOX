@@ -20,6 +20,8 @@ import org.sopt.linkbox.custom.helper.ImageSaveLoad;
  *
  */
 public class BoxImageCropActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxImageCropActivity.class.getName() + " : ";
+
     private final int SELECT_GALLERY = 1;
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">

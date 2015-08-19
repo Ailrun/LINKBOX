@@ -39,6 +39,7 @@ import retrofit.client.Response;
  * Created by MinGu on 2015-08-13.
  */
 public class BoxEditActivity extends Activity {
+    private static final String TAG = "TEST/" + BoxEditActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;

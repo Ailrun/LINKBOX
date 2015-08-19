@@ -14,6 +14,7 @@ import org.sopt.linkbox.R;
  * Created by MinGu on 2015-08-10.
  */
 public class LinkOpenHelpActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + LinkOpenHelpActivity.class.getName() + " : ";
 
     private Toolbar tToolbar = null;
     private TextView tvQuestion = null;

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,61 +29,50 @@ import me.leolin.shortcutbadger.ShortcutBadger;
 public class LinkGcmListenerService extends GcmListenerService{
     private static final String TAG = LinkGcmListenerService.class.getName();
     private static final String NotiTitle = "Linkbox";
-    private static final int boxNotiOffset = 0;
-    private static final int urlNotiOffset = 0x55;
-    private static final int goodNotiOffset = 0x99;
+    private static final int boxNotiOffset = 0x0;
+    private static final int urlNotiOffset = 0x0;
+    private static final int goodNotiOffset = 0x0;
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private NotificationManager nm = null;
+    private AlarmListData alarmListData = null;
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     public void onMessageReceived(String from, Bundle data) {
         nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        String json = data.getString("object");
-        JSONObject jsonObject = null;
+        String json = data.getString(GCMString.object);
         Log.d(TAG, json);
-        try {
-            jsonObject = new JSONObject(json);
-            Log.d(TAG, jsonObject.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if (jsonObject != null) {
-            String type = jsonObject.optString(GCMString.pushType);
-            if (type != null) {
-                switch (type) {
-                    case GCMString.typeBox:
-                        boxNotification(jsonObject);
-                        break;
-                    case GCMString.typeUrl:
-                        urlNotification(jsonObject);
-                        break;
-                    case GCMString.typeGood:
-                        goodNotification(jsonObject);
-                        break;
-                }
+        Gson gson = new Gson();
+        alarmListData = gson.fromJson(json, AlarmListData.class);
+        if (alarmListData != null) {
+            switch (alarmListData.alarmType) {
+                case GCMString.typeBox:
+                    boxNotification();
+                    break;
+                case GCMString.typeUrl:
+                    urlNotification();
+                    break;
+                case GCMString.typeGood:
+                    goodNotification();
+                    break;
+                default:
+                    return;
             }
+            setIconBadge(LinkBoxController.alarmCount);
         }
     }
     //</editor-fold>
 
     //<editor-fold desc="Set Notifications" defaultstate="collapsed">
-    private void boxNotification(JSONObject jsonObject) {
-        AlarmListData alarmListData = new AlarmListData();
-        alarmListData.alarmKey = jsonObject.optInt(GCMString.alarmKey);
-        alarmListData.alarmSetUsrName = jsonObject.optString(GCMString.usrName);
-        alarmListData.alarmUrlKey = jsonObject.optInt(GCMString.urlKey);
-        alarmListData.alarmUrlTitle = jsonObject.optString(GCMString.urlTitle);
-        alarmListData.alarmBoxKey = jsonObject.optInt(GCMString.boxKey);
-        alarmListData.alarmBoxName = jsonObject.optString(GCMString.boxName);
-        alarmListData.alarmMessage = jsonObject.optString(GCMString.message);
-        alarmListData.alarmDate = jsonObject.optString(GCMString.date);
+    private void boxNotification() {
+        LinkBoxController.alarmCount++;
         if (LinkBoxController.invitedBoxListSource != null) {
             LinkBoxController.invitedBoxListSource.add(alarmListData);
             LinkBoxController.notifyInvitedDataSetChanged();
         }
+        //TODO : Add Alarm List Source
         Intent intent = new Intent(this, InvitedBoxActivity.class);
         intent.putExtra(GCMString.isPush, true);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -90,7 +80,7 @@ public class LinkGcmListenerService extends GcmListenerService{
         builder.setSmallIcon(R.mipmap.logo);
         builder.setTicker("새로운 박스가 공유되었습니다.");
         builder.setWhen(System.currentTimeMillis());
-        builder.setNumber(1); //TODO : Set Number = What does the number of each noti mean? #noti of each box? #noti of each user?
+        builder.setNumber(LinkBoxController.alarmCount); //TODO : Set Number = What does the number of each noti mean? #noti of each box? #noti of each user?
         builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         builder.setContentTitle(NotiTitle);
         builder.setContentText(alarmListData.alarmSetUsrName + " 님이 \""
@@ -100,7 +90,8 @@ public class LinkGcmListenerService extends GcmListenerService{
         builder.setPriority(Notification.PRIORITY_MAX);
         nm.notify(boxNotiOffset, builder.build());
     }
-    private void urlNotification(JSONObject jsonObject) {
+    private void urlNotification() {
+        LinkBoxController.alarmCount++;
         Intent intent = new Intent(this, LinkBoxActivity.class);
         intent.putExtra(GCMString.isPush, true);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -108,27 +99,28 @@ public class LinkGcmListenerService extends GcmListenerService{
         builder.setSmallIcon(R.mipmap.logo);
         builder.setTicker("새로운 링크가 올라왔습니다.");
         builder.setWhen(System.currentTimeMillis());
-        builder.setNumber(1);
+        builder.setNumber(LinkBoxController.alarmCount);
         builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         builder.setContentTitle(NotiTitle);
-        builder.setContentText(jsonObject.optString(GCMString.usrName) + " 님이 \""
-                + jsonObject.optString(GCMString.boxName) + "\" 박스에 " + jsonObject.optString(GCMString.url) + "를 추가하셨습니다.");
+        builder.setContentText(alarmListData.alarmSetUsrName + " 님이 \""
+                + alarmListData.alarmBoxName + "\" 박스에 " + alarmListData.alarmUrlTitle + "를 추가하셨습니다.");
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
         builder.setPriority(Notification.PRIORITY_MAX);
-        nm.notify(jsonObject.optInt(GCMString.boxKey) + urlNotiOffset, builder.build());
+        nm.notify(urlNotiOffset, builder.build());
     }
-    private void goodNotification(JSONObject jsonObject) {
+    private void goodNotification() {
+        LinkBoxController.alarmCount++;
         Intent intent = new Intent(this, LinkBoxActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.logo);
         builder.setTicker("링크에 좋아요를 받으셨습니다.");
         builder.setWhen(System.currentTimeMillis());
-        builder.setNumber(1);
+        builder.setNumber(LinkBoxController.alarmCount);
         builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         builder.setContentTitle(NotiTitle);
-        builder.setContentText(jsonObject.optString(GCMString.usrName) + " 님이 회원님의 링크에 좋아요를 눌렀습니다.");
+        builder.setContentText(alarmListData.alarmSetUsrName + " 님이 회원님의 링크에 좋아요를 눌렀습니다.");
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
         builder.setPriority(Notification.PRIORITY_MAX);
@@ -137,8 +129,8 @@ public class LinkGcmListenerService extends GcmListenerService{
     //</editor-fold>
 
     //<editor-fold desc="Set Badges" defaultstate="collapsed">
-    private void setIconBadge(int i) {  // TODO : Amount of push alarm. Ex) facebook alarm
-        ShortcutBadger.with(getApplicationContext()).count(1);
+    private void setIconBadge(int i) {
+        ShortcutBadger.with(getApplicationContext()).count(i);
     }
     //</editor-fold>
 }

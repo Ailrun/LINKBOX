@@ -24,6 +24,7 @@ import java.io.FileOutputStream;
  * Created by MinGu on 2015-08-17.
  */
 public class ReadLaterDialog extends Activity {
+    private static final String TAG = "TEST/" + ReadLaterDialog.class.getName() + " : ";
 
     private RadioButton rbHour = null;
     private RadioButton rbTwoHour = null;

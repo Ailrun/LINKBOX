@@ -29,6 +29,7 @@ import retrofit.client.Response;
 
 
 public class BoxEditorList extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxEditorList.class.getName() + " : ";
 
     //<editor-fold desc="Private Propeties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;

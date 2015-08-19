@@ -21,6 +21,8 @@ import retrofit.client.Response;
  * Created by sy on 2015-08-18.
  */
 public class BoxDeleteDialogActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxDeleteDialogActivity.class.getName() + " : ";
+
     private BoxDeleteDialog boxDeleteDialog = null;
     private BoxListWrapper boxListWrapper = null;
     private BoxListData boxListData = null;
@@ -58,14 +60,12 @@ public class BoxDeleteDialogActivity extends AppCompatActivity {
         public BoxRemoveCallback(BoxListData boxListData) {
             this.boxListData = boxListData;
         }
-
         @Override
         public void success(MainServerData<Object> objectMainServerData, Response response) {
             LinkBoxController.boxListSource.remove(boxListData);
             LinkBoxController.notifyBoxDataSetChanged();
             finish();
         }
-
         @Override
         public void failure(RetrofitError error) {
             finish();

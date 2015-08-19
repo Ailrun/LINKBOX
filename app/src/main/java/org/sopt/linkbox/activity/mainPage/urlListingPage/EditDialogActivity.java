@@ -49,7 +49,6 @@ public class EditDialogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 editDialog.dismiss();
-                LinkBoxController.resetUrlDataSet();
                 finish();
             }
         });
@@ -66,7 +65,6 @@ public class EditDialogActivity extends AppCompatActivity {
         public void success(MainServerData<Object> objectsMainServerData, Response response) {
             urlListData.urlTitle = urlName;
             LinkBoxController.notifyUrlDataSetChanged();
-            LinkBoxController.resetUrlDataSet();
             finish();
         }
         @Override
@@ -75,5 +73,4 @@ public class EditDialogActivity extends AppCompatActivity {
             finish();
         }
     }
-
 }

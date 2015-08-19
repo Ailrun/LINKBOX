@@ -139,6 +139,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             String saveStatus = imageSaveLoader.saveProfileImage(LinkBoxController.userImage);
             Log.d("Save Status : ", saveStatus);
         }
+        LinkBoxController.resetUrlDataSet();
     }
     @Override
     protected void onNewIntent(Intent intent) {
