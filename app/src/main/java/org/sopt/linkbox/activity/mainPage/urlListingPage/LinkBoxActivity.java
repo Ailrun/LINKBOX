@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -65,6 +66,7 @@ import retrofit.client.Response;
  */
 public class LinkBoxActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + LinkBoxActivity.class.getName() + " : ";
+    private static final int RESULT_HELP = 1;
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private LayoutInflater layoutInflater = null;
@@ -132,6 +134,21 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     }
     @Override
+    protected void onPause() {
+        super.onPause();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dlDrawer.closeDrawers();
+            }
+        }, 500);
+
+
+
+
+    }
+    @Override
     protected void onResume() {
         super.onResume();
         if (LinkBoxController.userImage != null) {
@@ -150,12 +167,12 @@ public class LinkBoxActivity extends AppCompatActivity {
         LinkBoxController.inboxIndicator = getIntent().getBooleanExtra(MainStrings.inBox, false);
         initInBox();
         invalidateOptionsMenu();
-        dlDrawer.closeDrawers();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        initInBox();
         invalidateOptionsMenu();
     }
     @Override
@@ -200,6 +217,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                 break;
             case R.id.action_editors :
                 startActivity(new Intent(this, BoxEditorList.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -222,6 +240,28 @@ public class LinkBoxActivity extends AppCompatActivity {
 //            startService(new Intent(getApplicationContext(), LinkHeadService.class));
 //        }
     }
+
+    @Override
+    public void onBackPressed() {
+
+        // 여기에 코드 입력
+
+        if(LinkBoxController.inboxIndicator)
+        {
+            Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+            invalidateOptionsMenu();
+        }
+        else
+        {
+            Intent intent = new Intent(LinkBoxActivity.this, LinkBoxActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
+
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
@@ -505,20 +545,11 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlToHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), HelpActivity.class));
+                startActivityForResult(new Intent(getApplicationContext(), HelpActivity.class), RESULT_HELP);
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
-
-
-        MaterialShadowContainerView shadowView =
-                (MaterialShadowContainerView) findViewById(R.id.shadow_item_container);
-
-        float density = getResources().getDisplayMetrics().density;
-
-        shadowView.setShadowTranslationZ(density * 20.0f); // 2.0 dp
-        shadowView.setShadowElevation(density * 16.0f); // 4.0 dp
-        shadowView.setVisibility(View.VISIBLE);
+        
     }
     //</editor-fold>
     //<editor-fold desc="Initiate InBox" defaultstate="collapsed">
@@ -585,27 +616,6 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
     //</editor-fold>
 
-    @Override
-    public void onBackPressed() {
-
-        // 여기에 코드 입력
-
-        if(LinkBoxController.inboxIndicator)
-        {
-            Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
-            finish();
-        }
-        else
-        {
-            Intent intent = new Intent(LinkBoxActivity.this, LinkBoxActivity.class);
-            startActivity(intent);
-            finish();
-        }
-
-
-    }
     //<editor-fold desc="Initiate Dummy Data" defaultstate="collapsed">
     //For Test. Deprecated
     private void initUrlDummyData() {

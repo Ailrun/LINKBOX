@@ -60,6 +60,10 @@ public class BoxEditorAdd extends AppCompatActivity {
                 twoString.message = tvMessage.getText().toString();
                 boxListWrapper.invite(twoString, new BoxInviteCallback());
                 break;
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+                break;
             default :
                 return super.onOptionsItemSelected(item);
         }
@@ -73,6 +77,12 @@ public class BoxEditorAdd extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         SessionSaver.saveSession(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
     //</editor-fold>
 

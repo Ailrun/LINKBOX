@@ -52,9 +52,11 @@ public class BoxListEditActivity extends AppCompatActivity {
         {
             case R.id.action_add_box :
                 startActivity(new Intent(this, BoxAddActivity.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
             case R.id.action_invited_box :
                 startActivity(new Intent(this, InvitedBoxActivity.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -97,9 +99,9 @@ public class BoxListEditActivity extends AppCompatActivity {
         // 여기에 코드 입력
 
         LinkBoxController.inboxIndicator = false;
-        Intent intent = new Intent(BoxListEditActivity.this, LinkBoxActivity.class);
-        startActivity(intent);
+
         finish();
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
     private void initControl() {
         LinkBoxController.boxEditBoxListAdapter =

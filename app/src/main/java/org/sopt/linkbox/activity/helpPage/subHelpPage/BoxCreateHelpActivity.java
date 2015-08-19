@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -72,4 +73,24 @@ public class BoxCreateHelpActivity extends AppCompatActivity {
         tvEditboxAnswer.setTypeface(regularTypeface);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.anim_top_in, R.anim.anim_bottom_out);
+                break;
+
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.anim_top_in, R.anim.anim_bottom_out);
+    }
 }

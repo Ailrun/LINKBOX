@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -77,6 +78,26 @@ public class UserSettingActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+                break;
+
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+@Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
     //</editor-fold>
 
