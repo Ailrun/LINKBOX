@@ -16,13 +16,13 @@
                 android:layout_height="match_parent">
             </LinearLayout>
             <ImageButton
-                android:id="@+id/IB_delete_link_box"
+                android:id="@+id/IB_edit_link_box"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/indigo200"
                 android:src="@drawable/ic_drawer_editlist"/>
             <ImageButton
-                android:id="@+id/IB_edit_link_box"
+                android:id="@+id/IB_delete_link_box"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:background="@color/indigo200"

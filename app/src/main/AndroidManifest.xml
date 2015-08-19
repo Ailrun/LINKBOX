@@ -272,6 +272,8 @@
             android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".activity.mainPage.urlListingPage.DeleteDialogActivity"
             android:label="DeleteDialog"/>
+        <activity android:name=".activity.mainPage.urlListingPage.EditDialogActivity"
+            android:label="EditDialog"/>
     </application>
 
 </manifest>
