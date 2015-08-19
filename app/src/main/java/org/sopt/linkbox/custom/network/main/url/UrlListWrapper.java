@@ -47,7 +47,7 @@ public class UrlListWrapper {
         urlListData.urlTitle = newTitle;
         urlListInterface.edit(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData, callback);
     }
-    public void hidden(UrlListData origInal, char hidden, Callback<MainServerData<Object>> callback) {
+    public void hidden(UrlListData origInal, int hidden, Callback<MainServerData<Object>> callback) {
         UrlListData urlListData = origInal.clone();
         urlListData.hidden = hidden;
         urlListInterface.hidden(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData, callback);
@@ -55,7 +55,7 @@ public class UrlListWrapper {
     public void share(UrlListData urlListData, BoxListData newBox, Callback<MainServerData<UrlListData>> callback) {
         urlListInterface.share(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, newBox.boxKey, urlListData, callback);
     }
-    public void like(UrlListData original, char good, Callback<MainServerData<Object>> callback) {
+    public void like(UrlListData original, int good, Callback<MainServerData<Object>> callback) {
         UrlListData urlListData = original.clone();
         urlListData.good = good;
         urlListInterface.like(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData, callback);
