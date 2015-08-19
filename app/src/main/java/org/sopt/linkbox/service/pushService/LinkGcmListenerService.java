@@ -11,8 +11,6 @@ import android.util.Log;
 import com.google.android.gms.gcm.GcmListenerService;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.activity.mainPage.boxListPage.InvitedBoxActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;

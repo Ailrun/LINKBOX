@@ -117,6 +117,7 @@ public class BoxEditorList extends AppCompatActivity {
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("에디터 리스트");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

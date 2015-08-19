@@ -45,6 +45,7 @@ public class BoxCreateHelpActivity extends AppCompatActivity {
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("도움말");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

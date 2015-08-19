@@ -3,7 +3,7 @@ package org.sopt.linkbox.custom.adapters.listViewAdapter;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +20,8 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
+import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
@@ -112,13 +113,10 @@ public class InvitedBoxListAdapter extends BaseAdapter {
         LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(LL_invited_box_expandable.getVisibility() == View.GONE)
-                {
+                if (LL_invited_box_expandable.getVisibility() == View.GONE) {
                     expand(LL_invited_box_expandable);
 
-                }
-                else
-                {
+                } else {
                     collapse(LL_invited_box_expandable);
                 }
             }
@@ -210,6 +208,11 @@ public class InvitedBoxListAdapter extends BaseAdapter {
                 LinkBoxController.notifyInvitedDataSetChanged();
                 LinkBoxController.boxListSource.add(wrappedBoxListData.object);
                 LinkBoxController.notifyBoxDataSetChanged();
+                LinkBoxController.currentBox = wrappedBoxListData.object;
+                Intent intent = new Intent(context, LinkBoxActivity.class);
+                intent.putExtra(MainStrings.inBox, true);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
             }
             else {
                 Log.d(TAG, "Fail to accept");

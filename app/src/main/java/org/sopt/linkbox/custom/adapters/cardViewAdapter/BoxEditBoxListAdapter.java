@@ -3,6 +3,7 @@ package org.sopt.linkbox.custom.adapters.cardViewAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,18 +13,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kogitune.activity_transition.ActivityTransitionLauncher;
-
-import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxDeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxEditActivity;
-import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
-import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
-import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.BoxImageSaveLoad;
 import org.sopt.linkbox.custom.helper.ViewHolder;
+import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
 
 import java.util.ArrayList;
 
@@ -37,6 +33,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater = null;
     private ArrayList<BoxListData> source = null;
     private Context context = null;
+    private BoxListWrapper boxListWrapper = null;
     private BoxImageSaveLoad boxImageSaveLoader = null;
 
     public BoxEditBoxListAdapter(Context context, ArrayList<BoxListData> source) {
@@ -71,6 +68,9 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         final BoxListData boxListData = (BoxListData) getItem(i);
         Log.e("Loaded Image Number", boxListData.toString());
         Bitmap boxImage = boxImageSaveLoader.loadProfileImage(i);
+        if (boxImage == null) {
+            boxImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.splash);
+        }
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_title);
         ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_box_image);  // TODO : Unfinished. Needs to import data
         tvBoxName.setText(boxListData.boxName);
