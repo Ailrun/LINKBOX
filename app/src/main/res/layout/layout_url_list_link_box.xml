@@ -39,15 +39,12 @@
         android:layout_width="match_parent"
         android:layout_height="88dp"
         android:padding="16dp">
-
         <ImageView
             android:id="@+id/IV_thumb_link_box"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_alignParentStart="true"
-            android:background="@drawable/mainpage_image"
-            />
-
+            android:background="@drawable/mainpage_image"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_toEndOf="@id/IV_thumb_link_box"
@@ -59,7 +56,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <TextView
                     android:id="@+id/TV_url_writer_link_box"
                     android:layout_width="wrap_content"
@@ -79,11 +75,8 @@
                     android:layout_alignParentEnd="true"
                     android:text="date"
                     android:textColor="#ff5b6abf"
-                    android:textSize="12dp"
-
-                    />
+                    android:textSize="12dp"/>
             </RelativeLayout>
-
             <TextView
                 android:id="@+id/TV_url_name_link_box"
                 android:layout_width="match_parent"
@@ -92,8 +85,7 @@
                 android:singleLine="true"
                 android:text="url title"
                 android:textColor="#df000000"
-                android:textSize="16dp"
-                />
+                android:textSize="16dp"/>
             <TextView
                 android:id="@+id/TV_url_address_link_box"
                 android:layout_width="match_parent"
@@ -102,13 +94,8 @@
                 android:singleLine="true"
                 android:text="url address"
                 android:textSize="10dp"
-                android:textColor="#8a000000"
-                />
-
-
-
+                android:textColor="#8a000000"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -122,16 +109,12 @@
                 android:layout_gravity="center_vertical"
                 android:singleLine="true"
                 android:text="like"
-                android:textColor="#ff80cbc4"
-                />
+                android:textColor="#ff80cbc4"/>
         <ImageView
-            android:id="@+id/IB_like_link_box"
+            android:id="@+id/IV_like_link_box"
             android:layout_width="24dp"
             android:layout_height="24dp"
-
-            android:background="@drawable/mainpage_bookmark_unchecked"
-            />
-
+            android:background="@drawable/mainpage_bookmark_unchecked"/>
         </LinearLayout>
     </RelativeLayout>
 </com.daimajia.swipe.SwipeLayout>

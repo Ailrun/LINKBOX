@@ -117,6 +117,13 @@ public class LinkBoxController extends Application {
         }
     }
 
+    public static void notifyInvitedDataSetChanged() {
+        if (boxEditInvitedBoxListAdapter != null) {
+            boxEditInvitedBoxListAdapter.notifyDataSetChanged();
+        }
+
+    }
+
 
     public static UsrListData usrListData = null;
     // Code for user profile image cropping

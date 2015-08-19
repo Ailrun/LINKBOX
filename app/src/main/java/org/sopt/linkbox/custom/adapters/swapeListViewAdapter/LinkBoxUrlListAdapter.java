@@ -1,9 +1,7 @@
 package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,16 +14,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
-import com.bumptech.glide.module.GlideModule;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
-import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.EditDialogActivity;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.custom.dialog.DeleteDialog;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
 
@@ -104,29 +99,8 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
         TextView tvUrlDate = ViewHolder.get(view, R.id.TV_url_date_link_box);
 
-        final ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
-
-        ivUrlThumb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (urlListData.good == 0) {
-                    urlListWrapper.like(urlListData, (char)1, new Callback<MainServerData<Object>>() {
-                        @Override
-                        public void success(MainServerData<Object> wrappdeObject, Response response) {
-                            if (wrappdeObject.result) {
-                            }
-                        }
-                        @Override
-                        public void failure(RetrofitError error) {
-
-                        }
-                    });
-                }
-                else {
-
-                }
-            }
-        });
+        ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
+        final ImageView ivLike = ViewHolder.get(view, R.id.IV_like_link_box);
 
         tvUrlTitle.setText(urlListData.urlTitle);
         tvUrlAddress.setText(urlListData.url);
@@ -134,6 +108,13 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         tvUrlDate.setText(urlListData.urlDate);
 
         Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
+        ivLike.setImageResource(urlListData.good == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
+        ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                urlListWrapper.like(urlListData, (1-urlListData.good), new UrlLikeCallback(urlListData, ivLike));
+            }
+        });
     }
     private void fillHiddenValues(final int i, View view) {
         ImageButton ibDelete = ViewHolder.get(view, R.id.IB_delete_link_box);
@@ -179,5 +160,23 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
                 context.startActivity(intent);
             }
         });
+    }
+
+    private class UrlLikeCallback implements Callback<MainServerData<Object>> {
+        UrlListData urlListData = null;
+        ImageView ivLike = null;
+
+        public UrlLikeCallback(UrlListData urlListData, ImageView ivLike) {
+            this.urlListData = urlListData;
+            this.ivLike = ivLike;
+        }
+        @Override
+        public void success(MainServerData<Object> objectMainServerData, Response response) {
+            urlListData.good = (1-urlListData.good);
+            ivLike.setImageResource(urlListData.good == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
+        }
+        @Override
+        public void failure(RetrofitError error) {
+        }
     }
 }

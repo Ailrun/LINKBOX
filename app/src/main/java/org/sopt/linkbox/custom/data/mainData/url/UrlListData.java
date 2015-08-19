@@ -14,11 +14,11 @@ public class UrlListData implements Cloneable {
     public String urlWriterUsrName;
     public String urlDate;
     public String urlThumbnail;
-    public char good;
-    public char hidden;
-    public char readLater;
+    public int good;
+    public int hidden;
+    public int readLater;
     public int goodNum;
-    public List<String> urlTags;
+    public List<TagListData> urlTags;
     @Override
     public String toString(){
         return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle
@@ -36,6 +36,6 @@ public class UrlListData implements Cloneable {
     }
     public String getTag(int i)
     {
-        return urlTags.get(i);
+        return urlTags.get(i).tag;
     }
 }

@@ -37,6 +37,9 @@ public class UserSettingActivity extends AppCompatActivity {
     private UsrListWrapper usrListWrapper = null;
 
     private Toolbar tToolbar = null;
+
+    private TextView tvUsrName = null;
+    private TextView tvUsrID = null;
     private TextView tvLogout = null;
 
     private CheckBox cbAlarmEnable = null;
@@ -114,13 +117,18 @@ public class UserSettingActivity extends AppCompatActivity {
     //</editor-fold>
     //<editor-fold desc="Initiate Main" defaultstate="collapsed">
     void initMainView() {
+        tvUsrName = (TextView) findViewById(R.id.TV_user_name_user_setting);
         tvLogout = (TextView) findViewById(R.id.TV_logout_user_setting);
+        tvUsrID = (TextView) findViewById(R.id.TV_user_id_user_setting);
 
         cbAlarmEnable = (CheckBox) findViewById(R.id.CB_alarm_enable);
         cbReadLaterEnable = (CheckBox) findViewById(R.id.CB_read_later_enable);
 
         tvAlarmChoice = (TextView) findViewById(R.id.TV_alarm_choice);
         tvReadLaterTime = (TextView) findViewById(R.id.TV_read_later_time);
+
+        tvUsrName.setText(LinkBoxController.usrListData.usrName);
+        tvUsrID.setText(LinkBoxController.usrListData.usrID);
 
         // Set checked for CheckBoxes
         if(LinkBoxController.defaultAlarm == true){
@@ -228,6 +236,4 @@ public class UserSettingActivity extends AppCompatActivity {
         }
     }
     //</editor-fold>
-
-
 }
