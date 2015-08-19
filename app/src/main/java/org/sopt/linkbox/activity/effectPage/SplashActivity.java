@@ -24,6 +24,7 @@ public class SplashActivity extends Activity {
         if (savedSession != null) {
             Intent intent = new Intent(this, savedSession.getClass());
             startActivity(intent);
+            overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_out);
             finish();
             return;
         }
@@ -34,6 +35,7 @@ public class SplashActivity extends Activity {
                 overridePendingTransition(0,android.R.anim.fade_in);
                 Intent intent = new Intent(SplashActivity.this, AccountActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_out);
                 finish();
             }
         },SPLASH_TIME);

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -103,6 +105,25 @@ public class InvitedBoxListAdapter extends BaseAdapter {
         tvMessage.setText(alarmListData.alarmMessage);
         tvDate.setText(alarmListData.alarmDate);
 
+        LinearLayout LL_invited_box_header = ViewHolder.get(view, R.id.LL_invited_box_header);
+        final LinearLayout LL_invited_box_expandable = ViewHolder.get(view, R.id.LL_invited_box_expandable);
+
+        LL_invited_box_expandable.setVisibility(View.GONE);
+        LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(LL_invited_box_expandable.getVisibility() == View.GONE)
+                {
+                    expand(LL_invited_box_expandable);
+
+                }
+                else
+                {
+                    collapse(LL_invited_box_expandable);
+                }
+            }
+        });
+
         bAgree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,13 +136,6 @@ public class InvitedBoxListAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Log.d(TAG, "Disagree!");
                 boxListWrapper.decline(alarmListData, new BoxDeclineCallback());
-            }
-        });
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 

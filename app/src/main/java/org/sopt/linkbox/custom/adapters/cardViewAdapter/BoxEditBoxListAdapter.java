@@ -12,10 +12,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
+
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxDeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxEditActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
@@ -116,18 +119,6 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, BoxDeleteDialogActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("boxIndex", i);
-                context.startActivity(intent);
-            }
-        });
-
-        tvBoxImage.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                LinkBoxController.currentBox = boxListData;
-                Intent intent = new Intent(context, LinkBoxActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra(MainStrings.inBox, true);
-                Log.d(TAG, "current Box : " + LinkBoxController.currentBox.toString());
                 context.startActivity(intent);
             }
         });

@@ -49,6 +49,7 @@ public class LinkBoxController extends Application {
     public static String getApplicationID() {
         return applicationID;
     }
+    public static boolean inboxIndicator = false;
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override

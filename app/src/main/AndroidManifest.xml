@@ -83,28 +83,28 @@
         <!-- Account Activities Start -->
         <activity
             android:name=".activity.accountPage.AccountActivity"
-            android:label="@string/title_activity_account"
+            android:label="@string/app_name"
             android:launchMode="singleTask" >
         </activity>
         <activity
             android:name=".activity.accountPage.LoginActivity"
-            android:label="@string/title_activity_login"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:parentActivityName=".activity.accountPage.AccountActivity" >
         </activity>
         <activity
             android:name=".activity.accountPage.SignupActivity"
-            android:label="@string/title_activity_signup"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:parentActivityName=".activity.accountPage.AccountActivity" >
         </activity>
         <activity
             android:name=".activity.accountPage.FacebookDataActivity"
-            android:label="@string/title_activity_facebook_data" >
+            android:label="@string/app_name" >
         </activity>
         <activity
             android:name=".activity.loadingPage.AccountLoadingActivity"
-            android:label="@string/title_activity_account_loading"
+            android:label="@string/app_name"
             android:launchMode="singleTask" >
         </activity>
 
@@ -136,24 +136,24 @@
         <!-- Help Activities Start -->
         <activity
             android:name=".activity.helpPage.HelpActivity"
-            android:label="HelpActivity"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity" >
         </activity>
         <activity
             android:name=".activity.helpPage.subHelpPage.StartHelpActivity"
-            android:label="StartHelpActivity"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.helpPage.HelpActivity" />
         <activity
             android:name=".activity.helpPage.subHelpPage.LinkOpenHelpActivity"
-            android:label="LinkOpenHelpActivity"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.helpPage.HelpActivity" />
         <activity
             android:name=".activity.helpPage.subHelpPage.BoxCreateHelpActivity"
-            android:label="BoxCreateHelpActivity"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.helpPage.HelpActivity" />
         <activity
             android:name=".activity.helpPage.subHelpPage.BoxShareHelpActivity"
-            android:label="BoxShareHelpActivity"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.helpPage.HelpActivity" />
         <!-- Help Activities End -->
 
@@ -195,22 +195,22 @@
         <!-- Box Activities Start -->
         <activity
             android:name=".activity.mainPage.boxListPage.BoxListEditActivity"
-            android:label="@string/title_activity_box_list_edit"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity">
         </activity>
         <activity
             android:name=".activity.mainPage.boxListPage.InvitedBoxActivity"
-            android:label="InvitedBoxActiviy"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.mainPage.boxListPage.BoxListEditActivity">
         </activity>
         <activity
             android:name=".activity.mainPage.boxListPage.BoxAddActivity"
-            android:label="@string/title_activity_box_add"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleTask">
         </activity>
         <activity android:name=".activity.mainPage.boxListPage.BoxEditActivity"
-            android:label="BoxEditActivity"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:launchMode="singleTask">
         </activity>
@@ -218,38 +218,38 @@
         <!-- Editor Activities Start -->
         <activity
             android:name=".activity.mainPage.editorPage.BoxEditorAdd"
-            android:label="@string/title_activity_box_editor_add"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.mainPage.editorPage.BoxEditorList" >
         </activity>
         <activity
             android:name=".activity.mainPage.editorPage.BoxEditorList"
-            android:label="@string/title_activity_box_editor_list"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity" >
         </activity>
         <!-- Editor Activities End -->
         <!-- URL Activities Start -->
         <activity
             android:name=".activity.mainPage.urlListingPage.LinkBoxActivity"
-            android:label="@string/title_activity_link_box"
+            android:label="@string/app_name"
             android:launchMode="singleTask" >
         </activity>
         <activity android:name=".activity.mainPage.urlListingPage.PhotoCropActivity"
-            android:label="PhotoCropActivity">
+            android:label="@string/app_name">
         </activity>
         <!-- URL Activities End -->
         <!-- Setting Activities Start -->
         <activity
             android:name=".activity.settingPage.UserSettingActivity"
-            android:label="@string/title_activity_user_setting"
+            android:label="@string/app_name"
             android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity">
         </activity>
         <!-- Setting Activities End -->
 
         <activity
             android:name=".activity.mainPage.LinkItActivity"
-            android:label="@string/title_activity_link_it"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme" >
-            <intent-filter android:label="LINKBOX" >
+            <intent-filter android:label="@string/app_name" >
                 <action
                     android:name="android.intent.action.SEND" />
                 <category
@@ -260,22 +260,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.mainPage.boxListPage.BoxImageCropActivity"
-            android:label="BoxImageCropActivity">
+            android:label="@string/app_name">
         </activity>
         <!-- Main Activities End -->
 
         <activity android:name=".activity.settingPage.AlarmDialog"
-            android:label="AlarmDialog"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".activity.settingPage.ReadLaterDialog"
-            android:label="ReadLaterDialog"
+            android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".activity.mainPage.urlListingPage.DeleteDialogActivity"
-            android:label="DeleteDialog"/>
+            android:label="@string/app_name"/>
         <activity android:name=".activity.mainPage.urlListingPage.EditDialogActivity"
-            android:label="EditDialog"/>
+            android:label="@string/app_name"/>
         <activity android:name=".activity.mainPage.boxListPage.BoxDeleteDialogActivity"
-            android:label="BoxDeleteDialog"/>
+            android:label="@string/app_name"/>
     </application>
 
 </manifest>
