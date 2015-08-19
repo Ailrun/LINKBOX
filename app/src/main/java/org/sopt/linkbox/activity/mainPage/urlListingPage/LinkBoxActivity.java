@@ -470,6 +470,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         ibEditLinkBox = (ImageButton) findViewById(R.id.IB_edit_link_box);
         ibShareLinkBox = (ImageButton) findViewById(R.id.IB_share_link_box);
 
+
     }
     private void initDrawerListener() {
         tvUserName.setText(LinkBoxController.usrListData.usrName);

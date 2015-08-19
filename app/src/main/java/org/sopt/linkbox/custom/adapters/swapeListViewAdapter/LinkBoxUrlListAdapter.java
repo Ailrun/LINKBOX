@@ -1,5 +1,6 @@
 package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.EditDialogActivity;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
@@ -135,6 +137,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("Index", i);
                 context.startActivity(intent);
+
             }
         });
         ibEdit.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +148,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("Index", i);
                 context.startActivity(intent);
+
             }
         });
         ibShare.setOnClickListener(new View.OnClickListener() {

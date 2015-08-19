@@ -79,6 +79,7 @@ public class EditDialogActivity extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
             }
         });
     }
@@ -93,11 +94,17 @@ public class EditDialogActivity extends Activity {
             urlListData.urlTitle = urlTitle;
             LinkBoxController.notifyUrlDataSetChanged();
             finish();
+            overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
         }
         @Override
         public void failure(RetrofitError error) {
             LinkBoxController.resetUrlDataSet();
             finish();
+            overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
         }
+    }
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
 }
