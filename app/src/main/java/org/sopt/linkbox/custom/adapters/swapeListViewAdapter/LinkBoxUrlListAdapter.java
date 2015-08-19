@@ -1,5 +1,6 @@
 package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -43,13 +44,14 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
     private LayoutInflater layoutInflater = null;
     private Context context = null;
     private UrlListData urlListData = null;
-    private DeleteDialog deleteDialog = null;
+    private UrlListWrapper urlListWrapper = null;
 
     public LinkBoxUrlListAdapter(Context context, ArrayList<UrlListData> source) {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
         this.context = context;
+        urlListWrapper = new UrlListWrapper();
         synchronized (Glide.class){
             if(!Glide.isSetup()){
                 File file = Glide.getPhotoCacheDir(context);
@@ -100,7 +102,29 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
         TextView tvUrlDate = ViewHolder.get(view, R.id.TV_url_date_link_box);
 
-        ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
+        final ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
+
+        ivUrlThumb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (urlListData.good == 0) {
+                    urlListWrapper.like(urlListData, (char)1, new Callback<MainServerData<Object>>() {
+                        @Override
+                        public void success(MainServerData<Object> wrappdeObject, Response response) {
+                            if (wrappdeObject.result) {
+                            }
+                        }
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                        }
+                    });
+                }
+                else {
+
+                }
+            }
+        });
 
         tvUrlTitle.setText(urlListData.urlTitle);
         tvUrlAddress.setText(urlListData.url);
@@ -109,7 +133,6 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
 
         Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
     }
-
     private void fillHiddenValues(final int i, View view) {
         ImageButton ibDelete = ViewHolder.get(view, R.id.IB_delete_link_box);
         ibDelete.setScaleX(0.45f);
