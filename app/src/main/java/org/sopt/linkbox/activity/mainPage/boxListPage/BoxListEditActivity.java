@@ -37,6 +37,7 @@ public class BoxListEditActivity extends AppCompatActivity {
         initView();
         initControl();
 
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -87,6 +88,17 @@ public class BoxListEditActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_left_in,R.anim.anim_right_out);
             }
         });
+    }
+    @Override
+
+    public void onBackPressed() {
+
+        // 여기에 코드 입력
+
+        LinkBoxController.inboxIndicator = false;
+        Intent intent = new Intent(BoxListEditActivity.this, LinkBoxActivity.class);
+        startActivity(intent);
+        finish();
     }
     private void initControl() {
         LinkBoxController.boxEditBoxListAdapter =

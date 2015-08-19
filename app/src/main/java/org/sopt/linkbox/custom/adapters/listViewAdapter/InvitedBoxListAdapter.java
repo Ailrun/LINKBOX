@@ -35,7 +35,6 @@ public class InvitedBoxListAdapter extends BaseAdapter {
     private ArrayList<AlarmListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
-    private Bitmap bmBoxThumbnail = null;
 
     public InvitedBoxListAdapter(Context context, ArrayList<AlarmListData> source) {
         layoutInflater =
@@ -90,6 +89,25 @@ public class InvitedBoxListAdapter extends BaseAdapter {
 
         tvBoxName.setText(alarmListData.alarmBoxName);
         tvBoxDate.setText(alarmListData.alarmDate);
+
+        LinearLayout LL_invited_box_header = ViewHolder.get(view, R.id.LL_invited_box_header);
+        final LinearLayout LL_invited_box_expandable = ViewHolder.get(view, R.id.LL_invited_box_expandable);
+
+        LL_invited_box_expandable.setVisibility(View.GONE);
+        LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(LL_invited_box_expandable.getVisibility() == View.GONE)
+                {
+                    expand(LL_invited_box_expandable);
+
+                }
+                else
+                {
+                    collapse(LL_invited_box_expandable);
+                }
+            }
+        });
 
         //Glide.with(context).load(boxListData.boxThumbnail).asBitmap().into(bmBoxThumbnail);
 

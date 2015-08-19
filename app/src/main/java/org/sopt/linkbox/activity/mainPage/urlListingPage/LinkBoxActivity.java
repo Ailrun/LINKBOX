@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.h6ah4i.android.materialshadowninepatch.MaterialShadowContainerView;
 
@@ -70,7 +71,6 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     private UrlListWrapper urlListWrapper = null;
 
-    private boolean inBox = false;
     private String boxTitle = null;
 
     //toolbar layout
@@ -146,7 +146,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         setIntent(intent);
         Log.d(TAG, "In NewIntent : " + LinkBoxController.currentBox.toString());
         Log.d(TAG, "inBox? : " + getIntent().getBooleanExtra(MainStrings.inBox, false));
-        inBox = getIntent().getBooleanExtra(MainStrings.inBox, false);
+        LinkBoxController.inboxIndicator = getIntent().getBooleanExtra(MainStrings.inBox, false);
         initInBox();
         invalidateOptionsMenu();
         dlDrawer.closeDrawers();
@@ -180,8 +180,8 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menuItems[1].setVisible(!inBox);
-        menuItems[2].setVisible(inBox);
+        menuItems[1].setVisible(!LinkBoxController.inboxIndicator);
+        menuItems[2].setVisible(LinkBoxController.inboxIndicator);
         return super.onPrepareOptionsMenu(menu);
     }
     @Override
@@ -192,8 +192,10 @@ public class LinkBoxActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.action_search :
+                Toast.makeText(LinkBoxActivity.this, "베타에서 만나요.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_alarms:
+                Toast.makeText(LinkBoxActivity.this, "베타에서 만나요.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_editors :
                 startActivity(new Intent(this, BoxEditorList.class));
@@ -287,7 +289,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         LinkBoxController.userImage = imageSaveLoader.loadProfileImage();
 
         //Page Data
-        inBox = getIntent().getBooleanExtra(MainStrings.inBox, false);
+        LinkBoxController.inboxIndicator = getIntent().getBooleanExtra(MainStrings.inBox, false);
 
         //other data init;
         //initUrlDummyData();
@@ -435,7 +437,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlRecentLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inBox = false;
+                LinkBoxController.inboxIndicator = false;
                 initInBox();
                 invalidateOptionsMenu();
                 dlDrawer.closeDrawers();
@@ -448,6 +450,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                 dlDrawer.closeDrawers();
                 Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
 
@@ -463,6 +466,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LinkBoxActivity.this, PhotoCropActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
 
@@ -470,10 +474,11 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 LinkBoxController.currentBox = (BoxListData) adapterView.getItemAtPosition(i);
-                inBox = true;
+                LinkBoxController.inboxIndicator = true;
                 initInBox();
                 invalidateOptionsMenu();
                 dlDrawer.closeDrawers();
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
         abdtDrawer = new ActionBarDrawerToggle(this, dlDrawer,
@@ -492,6 +497,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
 
@@ -499,6 +505,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), HelpActivity.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
 
@@ -515,7 +522,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     //</editor-fold>
     //<editor-fold desc="Initiate InBox" defaultstate="collapsed">
     private void initInBox() {
-        if (inBox) {
+        if (LinkBoxController.inboxIndicator) {
             ifInBox();
         }
         else {
@@ -560,7 +567,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             srlUrlList.setColorScheme(R.color.indigo500);
         }
         else {
-            Log.e(TAG, "ERROR!!! inBox=" + inBox + " and currentBox=null");
+            Log.e(TAG, "ERROR!!! inBox=" + LinkBoxController.inboxIndicator + " and currentBox=null");
         }
     }
     private void elseInBox() {
@@ -577,6 +584,28 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
     //</editor-fold>
 
+    @Override
+
+    public void onBackPressed() {
+
+        // 여기에 코드 입력
+
+        if(LinkBoxController.inboxIndicator)
+        {
+            Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+            finish();
+        }
+        else
+        {
+            Intent intent = new Intent(LinkBoxActivity.this, LinkBoxActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+
+    }
     //<editor-fold desc="Initiate Dummy Data" defaultstate="collapsed">
     //For Test. Deprecated
     private void initUrlDummyData() {
