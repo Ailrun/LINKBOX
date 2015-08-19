@@ -5,13 +5,21 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
+
+import com.kogitune.activity_transition.ActivityTransitionLauncher;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
+import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 
 public class BoxListEditActivity extends AppCompatActivity {
 
@@ -67,6 +75,18 @@ public class BoxListEditActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         gvBoxList = (GridView) findViewById(R.id.GV_box_box_list_edit);
+        gvBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LinkBoxController.currentBox = (BoxListData) gvBoxList.getItemAtPosition(position);
+                final Intent intent = new Intent(BoxListEditActivity.this, LinkBoxActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(MainStrings.inBox, true);
+                Log.d("I'm Tag", "current Box : " + LinkBoxController.currentBox.toString());
+                ActivityTransitionLauncher.with(BoxListEditActivity.this).from(view).launch(intent);
+                overridePendingTransition(R.anim.anim_left_in,R.anim.anim_right_out);
+            }
+        });
     }
     private void initControl() {
         LinkBoxController.boxEditBoxListAdapter =

@@ -151,6 +151,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         invalidateOptionsMenu();
         dlDrawer.closeDrawers();
     }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -176,6 +177,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
         return true;
     }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menuItems[1].setVisible(!inBox);
@@ -443,6 +445,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlMyBox.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                dlDrawer.closeDrawers();
                 Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
                 startActivity(intent);
             }
