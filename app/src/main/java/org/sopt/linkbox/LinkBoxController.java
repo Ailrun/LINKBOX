@@ -10,14 +10,14 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
-import org.sopt.linkbox.custom.adapters.listViewAdapter.BoxEditInvitedBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
+import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
-import org.sopt.linkbox.custom.data.mainData.InviteBoxData;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.helper.Installation;
@@ -95,12 +95,12 @@ public class LinkBoxController extends Application {
     }
 
     public static ArrayList<BoxListData> boxListSource = null;
-    public static ArrayList<InviteBoxData> invitedBoxListSource = null;   // Added for invited box list
+    public static ArrayList<AlarmListData> invitedBoxListSource = null;   // Added for invited box list
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
     public static BoxEditBoxListAdapter boxEditBoxListAdapter = null;
-    public static BoxEditInvitedBoxListAdapter boxEditInvitedBoxListAdapter = null; // Added for invited box list Adapter
+    public static InvitedBoxListAdapter invitedBoxListAdapter = null; // Added for invited box list Adapter
 
     public static void notifyBoxDataSetChanged() {
         if (linkBoxBoxListAdapter != null) {
@@ -118,8 +118,8 @@ public class LinkBoxController extends Application {
     }
 
     public static void notifyInvitedDataSetChanged() {
-        if (boxEditInvitedBoxListAdapter != null) {
-            boxEditInvitedBoxListAdapter.notifyDataSetChanged();
+        if (invitedBoxListAdapter != null) {
+            invitedBoxListAdapter.notifyDataSetChanged();
         }
 
     }
