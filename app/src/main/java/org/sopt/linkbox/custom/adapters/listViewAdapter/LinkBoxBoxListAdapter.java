@@ -12,12 +12,14 @@ import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Junyoung on 2015-07-02.
  *
  */
 public class LinkBoxBoxListAdapter extends BaseAdapter {
+    private List<BoxListData> favorite = null;
     private ArrayList<BoxListData> source = null;
     private LayoutInflater layoutInflater = null;
 
@@ -33,13 +35,19 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        setFavorite();
+        super.notifyDataSetChanged();
+    }
+
+    @Override
     public int getCount() {
-        return (source != null) ? source.size() : 0;
+        return (favorite != null) ? favorite.size() : 0;
     }
     @Override
     public Object getItem(int i) {
-        return (source != null && i < source.size() && i >= 0) ?
-                source.get(i) : null;
+        return (favorite != null && i < favorite.size() && i >= 0) ?
+                favorite.get(i) : null;
     }
     @Override
     public long getItemId(int i) {
@@ -54,5 +62,14 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
         tvBoxName.setText(boxListData.boxName);
         return view;
+    }
+
+    private void setFavorite() {
+        favorite.clear();
+        for (BoxListData b : source) {
+            if (b.isFavorite == 1) {
+                favorite.add(b);
+            }
+        }
     }
 }

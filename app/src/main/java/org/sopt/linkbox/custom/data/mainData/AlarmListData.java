@@ -5,6 +5,7 @@ package org.sopt.linkbox.custom.data.mainData;
  */
 public class AlarmListData implements Cloneable {
     public int alarmKey;
+    public int alarmType;
     public String alarmSetUsrName;
     public int alarmBoxKey;
     public String alarmBoxName;

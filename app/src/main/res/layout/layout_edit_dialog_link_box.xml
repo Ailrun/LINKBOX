@@ -9,7 +9,7 @@
     android:weightSum="4"
     android:background="@color/real_white">
    <TextView
-       android:id="@+id/TV_title_edit_dialog"
+       android:id="@+id/TV_name_edit_dialog"
        android:layout_width="match_parent"
        android:layout_height="0dp"
        android:layout_weight="1"
@@ -33,7 +33,7 @@
             android:textColor="#8a000000"
             android:textSize="16dp"/>
         <EditText
-            android:id="@+id/ET_name_edit_dialog"
+            android:id="@+id/ET_title_edit_dialog"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="5dp"

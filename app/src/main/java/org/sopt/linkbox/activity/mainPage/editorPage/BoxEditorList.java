@@ -29,6 +29,7 @@ import retrofit.client.Response;
 
 
 public class BoxEditorList extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxEditorList.class.getName() + " : ";
 
     //<editor-fold desc="Private Propeties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;
@@ -64,6 +65,11 @@ public class BoxEditorList extends AppCompatActivity {
         {
             case R.id.action_add_editor :
                 startActivity(new Intent(this, BoxEditorAdd.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+                break;
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -78,6 +84,12 @@ public class BoxEditorList extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         SessionSaver.saveSession(this);
+    }
+
+
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
     //</editor-fold>
 
@@ -105,6 +117,7 @@ public class BoxEditorList extends AppCompatActivity {
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("에디터 리스트");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

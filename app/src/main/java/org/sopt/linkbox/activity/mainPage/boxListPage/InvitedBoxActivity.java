@@ -18,6 +18,7 @@ import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
  * Created by MinGu on 2015-08-02.
  */
 public class InvitedBoxActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + InvitedBoxActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;

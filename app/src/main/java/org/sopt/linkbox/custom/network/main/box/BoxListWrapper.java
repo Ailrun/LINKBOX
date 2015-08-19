@@ -45,10 +45,11 @@ public class BoxListWrapper {
     public void invite(TwoString twoString, Callback<MainServerData<Object>> callback) {
         boxListInterface.invite(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, twoString, callback);
     }
-    public void accept(AlarmListData alarmListData, int index, Callback<MainServerData<Object>> callback) {
+    public void accept(AlarmListData alarmListData, int index, Callback<MainServerData<BoxListData>> callback) {
         BoxListData boxListData = new BoxListData();
+        boxListData.boxKey = alarmListData.alarmBoxKey;
         boxListData.boxIndex = index;
-        boxListInterface.accept(alarmListData.alarmKey, boxListData, callback);
+        boxListInterface.accept(alarmListData.alarmKey, LinkBoxController.usrListData.usrKey, boxListData, callback);
     }
     public void decline(AlarmListData alarmListData, Callback<MainServerData<Object>> callback) {
         boxListInterface.decline(alarmListData.alarmKey, callback);

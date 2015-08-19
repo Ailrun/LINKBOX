@@ -22,6 +22,7 @@ import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 
 public class BoxListEditActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxListEditActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;
@@ -37,6 +38,7 @@ public class BoxListEditActivity extends AppCompatActivity {
         initView();
         initControl();
 
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,9 +52,11 @@ public class BoxListEditActivity extends AppCompatActivity {
         {
             case R.id.action_add_box :
                 startActivity(new Intent(this, BoxAddActivity.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
             case R.id.action_invited_box :
                 startActivity(new Intent(this, InvitedBoxActivity.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
             default :
                 return super.onOptionsItemSelected(item);
@@ -87,6 +91,17 @@ public class BoxListEditActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_left_in,R.anim.anim_right_out);
             }
         });
+    }
+    @Override
+
+    public void onBackPressed() {
+
+        // 여기에 코드 입력
+
+        LinkBoxController.inboxIndicator = false;
+
+        finish();
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
     private void initControl() {
         LinkBoxController.boxEditBoxListAdapter =

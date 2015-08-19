@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -15,6 +16,8 @@ import org.sopt.linkbox.R;
  * Created by MinGu on 2015-08-10.
  */
 public class BoxCreateHelpActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxCreateHelpActivity.class.getName() + " : ";
+
     private Toolbar tToolbar = null;
     private ScrollView svHelpAdd = null;
     private TextView tvAddboxQuestion = null;
@@ -42,6 +45,7 @@ public class BoxCreateHelpActivity extends AppCompatActivity {
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("도움말");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -70,4 +74,24 @@ public class BoxCreateHelpActivity extends AppCompatActivity {
         tvEditboxAnswer.setTypeface(regularTypeface);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.anim_top_in, R.anim.anim_bottom_out);
+                break;
+
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.anim_top_in, R.anim.anim_bottom_out);
+    }
 }
