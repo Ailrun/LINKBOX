@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.boxListPage.BoxDeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxEditActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.MainStrings;
@@ -112,6 +113,10 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Log.e("RESPONSE", "Delete");
+                Intent intent = new Intent(context, BoxDeleteDialogActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("boxIndex", i);
+                context.startActivity(intent);
             }
         });
 

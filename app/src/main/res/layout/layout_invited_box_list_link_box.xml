@@ -74,8 +74,10 @@
         <LinearLayout
             android:id="@+id/LL_invited_box_header"
             android:layout_width="match_parent"
-            android:layout_height="88dp"
+            android:layout_height="wrap_content"
+            android:minHeight="88dp"
             android:orientation="horizontal">
+
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -88,7 +90,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="80dp"
                     android:layout_marginStart="30dp"
-
                     android:text="여기는 글자가 들어갈 것이다! 록타! 오가르!" />
 
                 <TextView

@@ -274,6 +274,8 @@
             android:label="DeleteDialog"/>
         <activity android:name=".activity.mainPage.urlListingPage.EditDialogActivity"
             android:label="EditDialog"/>
+        <activity android:name=".activity.mainPage.boxListPage.BoxDeleteDialogActivity"
+            android:label="BoxDeleteDialog"/>
     </application>
 
 </manifest>
