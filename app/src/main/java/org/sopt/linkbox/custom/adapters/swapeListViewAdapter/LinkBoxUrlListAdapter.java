@@ -98,6 +98,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         TextView tvUrlAddress = ViewHolder.get(view, R.id.TV_url_address_link_box);
         TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
         TextView tvUrlDate = ViewHolder.get(view, R.id.TV_url_date_link_box);
+        TextView tvLikeNum = ViewHolder.get(view, R.id.TV_like_num_link_box);
 
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
         final ImageView ivLike = ViewHolder.get(view, R.id.IV_like_link_box);
@@ -106,6 +107,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         tvUrlAddress.setText(urlListData.url);
         tvUrlWriter.setText(urlListData.urlWriterUsrName);
         tvUrlDate.setText(urlListData.urlDate);
+        tvLikeNum.setText(Integer.toString(urlListData.goodNum));
 
         Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
         ivLike.setImageResource(urlListData.good == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);

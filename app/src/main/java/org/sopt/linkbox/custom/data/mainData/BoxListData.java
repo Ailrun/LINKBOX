@@ -10,7 +10,7 @@ public class BoxListData implements Cloneable {
     public String boxName;
     public String boxThumbnail;
     public int boxUrlNum;
-    public int isFavorite;
+    public int boxFavorite;
     @Override
     public String toString() {
         return "boxKey="+ boxKey +", boxIndex="+ boxIndex +", boxName="+ boxName;
