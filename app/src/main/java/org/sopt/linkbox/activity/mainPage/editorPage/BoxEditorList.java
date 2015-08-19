@@ -151,6 +151,7 @@ public class BoxEditorList extends AppCompatActivity {
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
             finish();
+            Toast.makeText(BoxEditorList.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
         }
     }
     //</editor-fold>

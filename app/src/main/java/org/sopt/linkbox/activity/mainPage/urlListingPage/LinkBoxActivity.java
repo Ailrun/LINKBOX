@@ -455,6 +455,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         ibEditLinkBox = (ImageButton) findViewById(R.id.IB_edit_link_box);
         ibShareLinkBox = (ImageButton) findViewById(R.id.IB_share_link_box);
 
+
     }
     private void initDrawerListener() {
         tvUserName.setText(LinkBoxController.usrListData.usrName);
@@ -633,12 +634,15 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
             else {
                 srlUrlList.setRefreshing(false);
+                Toast.makeText(LinkBoxActivity.this, "URL list data가 null입니다.", Toast.LENGTH_SHORT).show();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             srlUrlList.setRefreshing(false);
             RetrofitDebug.debug(error);
+            Toast.makeText(LinkBoxActivity.this, "서버와의 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+
         }
     }
     //</editor-fold>

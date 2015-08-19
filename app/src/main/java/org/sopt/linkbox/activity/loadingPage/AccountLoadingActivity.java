@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -204,11 +205,14 @@ public class AccountLoadingActivity extends Activity {
             }
             else {
                 Log.d(TAG, wrappedBoxListDatas.message);
+                Toast.makeText(AccountLoadingActivity.this, "BoxLoading에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(AccountLoadingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
         }
     }
     //</editor-fold>
@@ -225,11 +229,15 @@ public class AccountLoadingActivity extends Activity {
             }
             else {
                 Log.d(TAG, wrappedUrlListDatas.message);
+                finish();
+                Toast.makeText(AccountLoadingActivity.this, "UrlLoading에 실패했습니다.", Toast.LENGTH_SHORT).show();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(AccountLoadingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     //</editor-fold>
