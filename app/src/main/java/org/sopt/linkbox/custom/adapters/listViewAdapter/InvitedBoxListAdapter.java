@@ -4,9 +4,6 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,25 +20,24 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.mainData.InviteBoxData;
+import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sy on 2015-08-12.
  *
  */
-public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
-    private static final String TAG = "TEST/" + BoxEditInvitedBoxListAdapter.class.getName() + " : ";
-    private ArrayList<InviteBoxData> source = null;
+public class InvitedBoxListAdapter extends BaseAdapter {
+    private static final String TAG = "TEST/" + InvitedBoxListAdapter.class.getName() + " : ";
+    private ArrayList<AlarmListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
     private Bitmap bmBoxThumbnail = null;
 
-    public BoxEditInvitedBoxListAdapter(Context context, ArrayList<InviteBoxData> source) {
+    public InvitedBoxListAdapter(Context context, ArrayList<AlarmListData> source) {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
@@ -58,7 +54,7 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
         }
     }
 
-    public void setSource(ArrayList<InviteBoxData> source) {
+    public void setSource(ArrayList<AlarmListData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -85,30 +81,17 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_invited_box_list_link_box, viewGroup, false);
         }
 
-        InviteBoxData boxListData = (InviteBoxData) getItem(position);
+        AlarmListData alarmListData = (AlarmListData) getItem(position);
         //final ImageView ivBoximage = ViewHolder.get(view, R.id.IV_invited_box_thumbnail);
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_invited_box_name);
         TextView tvBoxDate = ViewHolder.get(view, R.id.TV_invited_box_time);
         Button bAgree = ViewHolder.get(view, R.id.B_invited_box_accept);
         Button bDisagree = ViewHolder.get(view, R.id.B_invited_box_reject);
-        try {
-            bmBoxThumbnail = Glide.with(context).load(boxListData.boxThumbnail).asBitmap().into(100, 100).get();
-        }
-        catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
 
-        final Drawable drawable = new BitmapDrawable(bmBoxThumbnail);
-
-        final RelativeLayout rel = ViewHolder.get(view, R.id.RL_invited_box_layout);
-        final LinearLayout mLinearLayout = ViewHolder.get(view, R.id.LL_invited_box_expandable);
-        LinearLayout mLinearLayoutHeader = ViewHolder.get(view, R.id.LL_invited_box_header);
-
-        tvBoxName.setText(boxListData.boxName);
-        tvBoxDate.setText(boxListData.boxDate);
+        tvBoxName.setText(alarmListData.alarmBoxName);
+        tvBoxDate.setText(alarmListData.alarmDate);
 
         //Glide.with(context).load(boxListData.boxThumbnail).asBitmap().into(bmBoxThumbnail);
-
 
         bAgree.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,25 +109,9 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
             }
         });
 
-        mLinearLayout.setVisibility(View.GONE);
-        mLinearLayoutHeader.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (mLinearLayout.getVisibility() == View.GONE) {
-                    expand(mLinearLayout);
-                    rel.setBackground(drawable);
-
-                } else {
-                    collapse(mLinearLayout);
-                    rel.setBackground(null);
-                    rel.setBackgroundColor(Color.parseColor("#FFFFFFFF"));
-                }
-            }
-        });
-
         return view;
     }
+
     private void expand(final View v) {
         //set Visible
         v.setVisibility(View.VISIBLE);
@@ -157,7 +124,6 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
         ValueAnimator mAnimator = slideAnimator(0, v.getMeasuredHeight(), v);
         mAnimator.start();
     }
-
     private void collapse(final View v) {
         int finalHeight = v.getHeight();
 
@@ -184,6 +150,7 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
         });
         mAnimator.start();
     }
+
     private ValueAnimator slideAnimator(int start, int end, final View v) {
 
         ValueAnimator animator = ValueAnimator.ofInt(start, end);
@@ -200,5 +167,4 @@ public class BoxEditInvitedBoxListAdapter extends BaseAdapter {
         });
         return animator;
     }
-
 }

@@ -12,7 +12,7 @@ import android.widget.ListView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.adapters.listViewAdapter.BoxEditInvitedBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
 
 /**
  * Created by MinGu on 2015-08-02.
@@ -52,10 +52,10 @@ public class InvitedBoxActivity extends AppCompatActivity {
         lvBoxList = (ListView) findViewById(R.id.LV_invite_box_invite_list);
     }
     private void initControl() {
-        LinkBoxController.boxEditInvitedBoxListAdapter =
-                new BoxEditInvitedBoxListAdapter(getApplicationContext(), LinkBoxController.invitedBoxListSource);
-        if (LinkBoxController.boxEditInvitedBoxListAdapter != null) {
-            lvBoxList.setAdapter(LinkBoxController.boxEditInvitedBoxListAdapter);
+        LinkBoxController.invitedBoxListAdapter =
+                new InvitedBoxListAdapter(getApplicationContext(), LinkBoxController.invitedBoxListSource);
+        if (LinkBoxController.invitedBoxListAdapter != null) {
+            lvBoxList.setAdapter(LinkBoxController.invitedBoxListAdapter);
         }
     }
     //</editor-fold>

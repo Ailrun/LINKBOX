@@ -12,10 +12,12 @@ import com.google.android.gms.gcm.GcmListenerService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.activity.mainPage.boxListPage.InvitedBoxActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.GCMString;
+import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
 
@@ -25,7 +27,7 @@ import me.leolin.shortcutbadger.ShortcutBadger;
  */
 public class LinkGcmListenerService extends GcmListenerService{
     private static final String TAG = LinkGcmListenerService.class.getName();
-    private static final String NotiTitle = "linkbox";
+    private static final String NotiTitle = "Linkbox";
     private static final int boxNotiOffset = 0;
     private static final int urlNotiOffset = 0x55;
     private static final int goodNotiOffset = 0x99;
@@ -68,6 +70,19 @@ public class LinkGcmListenerService extends GcmListenerService{
 
     //<editor-fold desc="Set Notifications" defaultstate="collapsed">
     private void boxNotification(JSONObject jsonObject) {
+        AlarmListData alarmListData = new AlarmListData();
+        alarmListData.alarmKey = jsonObject.optInt(GCMString.alarmKey);
+        alarmListData.alarmSetUsrName = jsonObject.optString(GCMString.usrName);
+        alarmListData.alarmUrlKey = jsonObject.optInt(GCMString.urlKey);
+        alarmListData.alarmUrlTitle = jsonObject.optString(GCMString.urlTitle);
+        alarmListData.alarmBoxKey = jsonObject.optInt(GCMString.boxKey);
+        alarmListData.alarmBoxName = jsonObject.optString(GCMString.boxName);
+        alarmListData.alarmMessage = jsonObject.optString(GCMString.message);
+        alarmListData.alarmDate = jsonObject.optString(GCMString.date);
+        if (LinkBoxController.invitedBoxListSource != null) {
+            LinkBoxController.invitedBoxListSource.add(alarmListData);
+            LinkBoxController.notifyInvitedDataSetChanged();
+        }
         Intent intent = new Intent(this, InvitedBoxActivity.class);
         intent.putExtra(GCMString.isPush, true);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
@@ -78,8 +93,8 @@ public class LinkGcmListenerService extends GcmListenerService{
         builder.setNumber(1); //TODO : Set Number = What does the number of each noti mean? #noti of each box? #noti of each user?
         builder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
         builder.setContentTitle(NotiTitle);
-        builder.setContentText(jsonObject.optString(GCMString.usrName) + " 님이 \""
-                + jsonObject.optString(GCMString.boxName) + "\" 박스로 초대하셨습니다.");
+        builder.setContentText(alarmListData.alarmSetUsrName + " 님이 \""
+                + alarmListData.alarmBoxName + "\" 박스로 초대하셨습니다.");
         builder.setContentIntent(pendingIntent);
         builder.setAutoCancel(true);
         builder.setPriority(Notification.PRIORITY_MAX);

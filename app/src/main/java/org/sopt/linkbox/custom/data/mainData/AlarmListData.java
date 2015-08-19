@@ -10,4 +10,6 @@ public class AlarmListData implements Cloneable {
     public String alarmBoxName;
     public int alarmUrlKey;
     public String alarmUrlTitle;
+    public String alarmMessage;
+    public String alarmDate;
 }
