@@ -68,7 +68,6 @@ public class LinkBoxActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + LinkBoxActivity.class.getName() + " : ";
     private static final int RESULT_HELP = 1;
 
-
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private LayoutInflater layoutInflater = null;
 
@@ -157,6 +156,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             String saveStatus = imageSaveLoader.saveProfileImage(LinkBoxController.userImage);
             Log.d("Save Status : ", saveStatus);
         }
+        LinkBoxController.resetUrlDataSet();
     }
     @Override
     protected void onNewIntent(Intent intent) {
@@ -174,7 +174,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onStart();
         initInBox();
         invalidateOptionsMenu();
-
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -489,6 +488,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlMyBox.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                dlDrawer.closeDrawers();
                 Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
@@ -549,8 +549,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
-
-
+        
     }
     //</editor-fold>
     //<editor-fold desc="Initiate InBox" defaultstate="collapsed">

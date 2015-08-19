@@ -23,6 +23,7 @@ import retrofit.client.Response;
 
 
 public class BoxEditorAdd extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxEditorAdd.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;
@@ -102,6 +103,7 @@ public class BoxEditorAdd extends AppCompatActivity {
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_add);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("에디터 추가");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

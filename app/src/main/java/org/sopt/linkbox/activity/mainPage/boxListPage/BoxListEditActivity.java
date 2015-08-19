@@ -22,6 +22,7 @@ import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 
 public class BoxListEditActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + BoxListEditActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;

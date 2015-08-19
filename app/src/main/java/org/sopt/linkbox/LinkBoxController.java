@@ -133,7 +133,8 @@ public class LinkBoxController extends Application {
     public static Bitmap boxImage = null;
 
     public static BoxListData currentBox = null;    // TODO : Current box must be filled whenever box is pressed
-    // public static BoxListData currentInvitedBox = null;
+
+    public static int alarmCount = 0;
 
 
     public static boolean defaultAlarm = false;
@@ -159,6 +160,7 @@ public class LinkBoxController extends Application {
         }
     }
 
+
     public static ArrayList<UsrListData> editorListSource = null;
     public static LinkEditorListAdapter linkEditorListAdapter = null;
     public static void notifyEditorDataSetChanged() {
@@ -166,6 +168,13 @@ public class LinkBoxController extends Application {
             linkEditorListAdapter.notifyDataSetChanged();
         }
     }
+
+
+    /*
+    * TODO : When Alarm List is added, Plz Control InvitedBoxListAdapter
+    *
+    * TODO : PLZZZZZZZ
+    */
 
 
     private void initNetwork() {
@@ -182,6 +191,7 @@ public class LinkBoxController extends Application {
         boxListSource = new ArrayList<>();
         urlListSource = new ArrayList<>();
         editorListSource = new ArrayList<>();
+        invitedBoxListSource = new ArrayList<>();
     }
     private void initGcm() {
         if (isGoogleServiceAvailable()) {

@@ -31,6 +31,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 public class BoxAddActivity extends Activity {
+    private static final String TAG = "TEST/" + BoxAddActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private BoxListWrapper boxListWrapper = null;

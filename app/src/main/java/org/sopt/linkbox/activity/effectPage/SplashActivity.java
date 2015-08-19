@@ -11,6 +11,7 @@ import org.sopt.linkbox.custom.helper.SessionSaver;
 
 
 public class SplashActivity extends Activity {
+    private static final String TAG = "TEST/" + SplashActivity.class.getName() + " : ";
     private static final int SPLASH_TIME=3000;
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">

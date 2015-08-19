@@ -19,6 +19,8 @@ import org.sopt.linkbox.R;
  *
  */
 public class PhotoCropActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + PhotoCropActivity.class.getName() + " : ";
+
     protected final int SELECT_GALLERY = 1;
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">

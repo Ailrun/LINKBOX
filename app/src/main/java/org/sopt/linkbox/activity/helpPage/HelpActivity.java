@@ -25,6 +25,7 @@ import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
  *
  */
 public class HelpActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + HelpActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;
@@ -84,6 +85,7 @@ public class HelpActivity extends AppCompatActivity {
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(Color.WHITE);
+        tToolbar.setTitle("도움말");
         setSupportActionBar(tToolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -1,6 +1,5 @@
 package org.sopt.linkbox.activity.settingPage;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -33,6 +32,7 @@ import retrofit.client.Response;
 
 
 public class UserSettingActivity extends AppCompatActivity {
+    private static final String TAG = "TEST/" + UserSettingActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private UsrListWrapper usrListWrapper = null;
