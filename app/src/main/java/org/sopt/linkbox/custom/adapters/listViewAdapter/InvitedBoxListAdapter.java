@@ -87,7 +87,7 @@ public class InvitedBoxListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_inivted_box, viewGroup, false);
         }
@@ -126,14 +126,14 @@ public class InvitedBoxListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Agree!");
-                boxListWrapper.accept(alarmListData, LinkBoxController.boxListSource.size(), new BoxAcceptCallback(alarmListData));
+                boxListWrapper.accept((AlarmListData)getItem(position), LinkBoxController.boxListSource.size(), new BoxAcceptCallback((AlarmListData)getItem(position)));
             }
         });
         bDisagree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Disagree!");
-                boxListWrapper.decline(alarmListData, new BoxDeclineCallback());
+                boxListWrapper.decline((AlarmListData)getItem(position), new BoxDeclineCallback());
             }
         });
 

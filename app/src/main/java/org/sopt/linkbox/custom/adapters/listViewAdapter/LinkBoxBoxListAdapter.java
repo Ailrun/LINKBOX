@@ -12,6 +12,7 @@ import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -27,6 +28,8 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
+        favorite = new ArrayList<>();
+        notifyDataSetChanged();
     }
 
     public void setSource(ArrayList<BoxListData> source) {

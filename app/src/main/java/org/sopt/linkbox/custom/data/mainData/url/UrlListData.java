@@ -14,16 +14,16 @@ public class UrlListData implements Cloneable {
     public String urlWriterUsrName;
     public String urlDate;
     public String urlThumbnail;
-    public int good;
+    public int liked;
     public int hidden;
     public int readLater;
-    public int goodNum;
+    public int likedNum;
     public List<TagListData> urlTags;
     @Override
     public String toString(){
         return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle
                 +", urlWriterUsrName="+ urlWriterUsrName +", urlDate="+ urlDate +", urlThumbnail"+ urlThumbnail
-                + (good==0?"True":"False") + "goodNum=" + goodNum;
+                + (liked ==0?"True":"False") + "likedNum=" + likedNum;
     }
     @Override
     public UrlListData clone() {
