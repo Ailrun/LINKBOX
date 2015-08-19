@@ -130,8 +130,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         initControl();
         initListener();
         initInBox();
-
-
     }
     @Override
     protected void onPause() {
@@ -143,10 +141,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                 dlDrawer.closeDrawers();
             }
         }, 500);
-
-
-
-
     }
     @Override
     protected void onResume() {
@@ -168,7 +162,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         initInBox();
         invalidateOptionsMenu();
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -243,9 +236,6 @@ public class LinkBoxActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
-        // 여기에 코드 입력
-
         if(LinkBoxController.inboxIndicator)
         {
             Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
@@ -259,9 +249,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
-
     }
-
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
@@ -282,14 +270,12 @@ public class LinkBoxActivity extends AppCompatActivity {
             else if(defaultAlarmIndicator == 0){
                 LinkBoxController.defaultAlarm = false;
             }
-
             if(defaultReadLaterIndicator == 1){
                 LinkBoxController.defaultReadLater = true;
             }
             else if(defaultReadLaterIndicator == 0){
                 LinkBoxController.defaultReadLater = false;
             }
-
             if(new_link_alarm == 1){
                 LinkBoxController.new_link_alarm = true;
             }
@@ -314,7 +300,6 @@ public class LinkBoxActivity extends AppCompatActivity {
             else if(comment_alarm == 0){
                 LinkBoxController.comment_alarm = false;
             }
-
         }
     }
 
@@ -485,7 +470,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                 dlDrawer.closeDrawers();
             }
         });
-
         rlMyBox.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -495,14 +479,12 @@ public class LinkBoxActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
-
         rlBuyedBox.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 Log.d(TAG, "BuyedBox Clicked");
             }
         });
-
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -511,7 +493,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
-
         lvFavoriteBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -542,7 +523,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
-
         rlToHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -581,7 +561,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                 @Override
                 public void onScrollStateChanged(AbsListView view, int scrollState) {
                 }
-
                 @Override
                 public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
                     View v = lvUrlList.getChildAt(0);
@@ -649,6 +628,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             if (wrappedUrlListDatas.result) {
                 LinkBoxController.urlListSource.clear();
                 LinkBoxController.urlListSource.addAll(wrappedUrlListDatas.object);
+                LinkBoxController.notifyUrlDataSetChanged();
                 srlUrlList.setRefreshing(false);
                 tvUrlNum.setText(Integer.toString(wrappedUrlListDatas.object.size()));
             }
@@ -663,5 +643,4 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
     }
     //</editor-fold>
-
 }

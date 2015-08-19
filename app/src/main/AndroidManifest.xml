@@ -271,11 +271,14 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".activity.mainPage.urlListingPage.DeleteDialogActivity"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".activity.mainPage.urlListingPage.EditDialogActivity"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
         <activity android:name=".activity.mainPage.boxListPage.BoxDeleteDialogActivity"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
     </application>
 
 </manifest>

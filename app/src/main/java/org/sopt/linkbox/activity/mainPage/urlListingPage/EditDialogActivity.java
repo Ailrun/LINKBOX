@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +49,7 @@ public class EditDialogActivity extends Activity {
         urlListWrapper = new UrlListWrapper();
     }
     private void initWindow() {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams lpDialog = new WindowManager.LayoutParams();
         lpDialog.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         lpDialog.dimAmount = 0.7f;

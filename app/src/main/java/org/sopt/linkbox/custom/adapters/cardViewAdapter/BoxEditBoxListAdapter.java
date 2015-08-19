@@ -17,11 +17,16 @@ import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxDeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxEditActivity;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.helper.BoxImageSaveLoad;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
 
 import java.util.ArrayList;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by Junyoung on 2015-07-10.
@@ -29,6 +34,8 @@ import java.util.ArrayList;
  */
 public class BoxEditBoxListAdapter extends BaseAdapter {
     private static final String TAG = "TEST/" + BoxEditBoxListAdapter.class.getName() + " : ";
+    private static BitmapDrawable bookmark = null;
+    private static BitmapDrawable bookmarkSelected = null;
 
     private LayoutInflater layoutInflater = null;
     private ArrayList<BoxListData> source = null;
@@ -41,6 +48,13 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         this.source = source;
         this.context = context;
         boxImageSaveLoader = new BoxImageSaveLoad(context.getApplicationContext());
+
+        if (bookmark == null) {
+            bookmark = (BitmapDrawable) context.getResources().getDrawable(R.drawable.ic_box_bookmark);
+        }
+        if (bookmarkSelected == null) {
+            bookmarkSelected = (BitmapDrawable) context.getResources().getDrawable(R.drawable.ic_box_bookmark_selected);
+        }
     }
 
     public void setSource(ArrayList<BoxListData> source) {
@@ -76,30 +90,29 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         tvBoxName.setText(boxListData.boxName);
         tvBoxImage.setImageBitmap(boxImage);    // TODO : Unfinished
 
-        final ImageView favoriteBtn = (ImageView) view.findViewById(R.id.IV_favorite_btn);
-        final BitmapDrawable bookmark = (BitmapDrawable) context.getResources().getDrawable(R.drawable.ic_box_bookmark);
-        final BitmapDrawable bookmarkSelected = (BitmapDrawable) context.getResources().getDrawable(R.drawable.ic_box_bookmark_selected);
+        final ImageView ivFavorite = (ImageView) view.findViewById(R.id.IV_favorite_btn);
 
-        if(boxListData.isFavorite == 1 && bookmark != null){
-            favoriteBtn.setImageBitmap(bookmark.getBitmap());
+        if(boxListData.boxFavorite == 0 && bookmark != null){
+            ivFavorite.setImageBitmap(bookmark.getBitmap());
         }
-        else if(boxListData.isFavorite == 0 && bookmarkSelected != null){
-            favoriteBtn.setImageBitmap(bookmarkSelected.getBitmap());
+        else if(boxListData.boxFavorite == 1 && bookmarkSelected != null){
+            ivFavorite.setImageBitmap(bookmarkSelected.getBitmap());
         }
 
         ImageView modifyBtn = (ImageView) view.findViewById(R.id.IV_modify_btn);
         ImageView deleteBtn = (ImageView) view.findViewById(R.id.IV_delete_btn);
 
-        favoriteBtn.setOnClickListener(new View.OnClickListener(){
+        ivFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(boxListData.isFavorite == 1 && bookmark != null){
-                    boxListData.isFavorite = 0;
-                    favoriteBtn.setImageBitmap(bookmark.getBitmap());
-                }
-                else if (bookmarkSelected != null){
-                    boxListData.isFavorite = 1;
-                    favoriteBtn.setImageBitmap(bookmarkSelected.getBitmap());
+                boxListData.boxFavorite = 1 - boxListData.boxFavorite;
+                boxListWrapper.favorite(boxListData, new BoxFavoriteCallback(boxListData, ivFavorite));
+                if (boxListData.boxFavorite == 1 && bookmark != null) {
+                    boxListData.boxFavorite = 0;
+                    ivFavorite.setImageBitmap(bookmark.getBitmap());
+                } else if (bookmarkSelected != null) {
+                    boxListData.boxFavorite = 1;
+                    ivFavorite.setImageBitmap(bookmarkSelected.getBitmap());
                 }
             }
         });
@@ -124,5 +137,20 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         });
 
         return view;
+    }
+
+    private class BoxFavoriteCallback implements Callback<MainServerData<Object>> {
+        BoxListData boxListData = null;
+        ImageView ivFavorite = null;
+        public BoxFavoriteCallback(BoxListData boxListData, ImageView ivFavorite) {
+            this.boxListData = boxListData;
+            this.ivFavorite = ivFavorite;
+        }
+        @Override
+        public void success(MainServerData<Object> objectMainServerData, Response response) {
+        }
+        @Override
+        public void failure(RetrofitError error) {
+        }
     }
 }

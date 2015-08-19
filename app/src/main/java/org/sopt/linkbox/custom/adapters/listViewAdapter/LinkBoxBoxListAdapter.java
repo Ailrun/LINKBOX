@@ -67,7 +67,7 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
     private void setFavorite() {
         favorite.clear();
         for (BoxListData b : source) {
-            if (b.isFavorite == 1) {
+            if (b.boxFavorite == 1) {
                 favorite.add(b);
             }
         }
