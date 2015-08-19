@@ -147,7 +147,8 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             this.ivFavorite = ivFavorite;
         }
         @Override
-        public void success(MainServerData<Object> objectMainServerData, Response response) {
+        public void success(MainServerData<Object> wrapperObject, Response response) {
+
         }
         @Override
         public void failure(RetrofitError error) {

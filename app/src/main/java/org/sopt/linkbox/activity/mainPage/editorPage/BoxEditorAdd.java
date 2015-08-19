@@ -121,14 +121,21 @@ public class BoxEditorAdd extends AppCompatActivity {
     //<editor-fold desc="Box Inner Classes" defaultstate="collapsed">
     private class BoxInviteCallback implements Callback<MainServerData<Object>> {
         @Override
-        public void success(MainServerData<Object> objectMainServerData, Response response) {
-            Toast.makeText(BoxEditorAdd.this, "Successfully Invite!", Toast.LENGTH_SHORT).show();
-            finish();
+        public void success(MainServerData<Object> wrapperObject, Response response) {
+            if(wrapperObject.result) {
+                Toast.makeText(BoxEditorAdd.this, "Successfully Invite!", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else {
+                Toast.makeText(BoxEditorAdd.this, "Fail to invite", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
         @Override
         public void failure(RetrofitError error) {
-            Toast.makeText(BoxEditorAdd.this, "Fail to invite", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BoxEditorAdd.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
             RetrofitDebug.debug(error);
+            finish();
         }
     }
     //</editor-fold>

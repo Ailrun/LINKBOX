@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -85,13 +86,21 @@ public class BoxDeleteDialogActivity extends Activity {
             this.boxListData = boxListData;
         }
         @Override
-        public void success(MainServerData<Object> objectMainServerData, Response response) {
-            LinkBoxController.boxListSource.remove(boxListData);
-            LinkBoxController.notifyBoxDataSetChanged();
-            finish();
+        public void success(MainServerData<Object> wrapperObject, Response response) {
+            if(wrapperObject.result) {
+                LinkBoxController.boxListSource.remove(boxListData);
+                LinkBoxController.notifyBoxDataSetChanged();
+                finish();
+            }
+            else
+            {
+                Toast.makeText(BoxDeleteDialogActivity.this, "삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
         @Override
         public void failure(RetrofitError error) {
+            Toast.makeText(BoxDeleteDialogActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

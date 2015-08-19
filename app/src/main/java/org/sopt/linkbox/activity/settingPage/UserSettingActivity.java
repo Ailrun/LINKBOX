@@ -9,10 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -245,15 +247,23 @@ public class UserSettingActivity extends AppCompatActivity {
     //<editor-fold desc="User Inner Classes" defaultstate="collapsed">
     private class LogoutCallback implements Callback<MainServerData<Object>> {
         @Override
-        public void success(MainServerData<Object> objectMainServerData, Response response) {
-            Intent intent = new Intent(UserSettingActivity.this, AccountActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            if (wrappedObject.result) {
+                Intent intent = new Intent(UserSettingActivity.this, AccountActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+                Log.d(TAG, "fail to Logout");
+                Toast.makeText(UserSettingActivity.this, "로그아웃이 실패했습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(UserSettingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     //</editor-fold>

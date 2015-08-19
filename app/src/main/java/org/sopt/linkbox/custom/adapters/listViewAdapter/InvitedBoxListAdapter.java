@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -20,6 +21,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.boxListPage.InvitedBoxActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
@@ -216,11 +218,13 @@ public class InvitedBoxListAdapter extends BaseAdapter {
             }
             else {
                 Log.d(TAG, "Fail to accept");
+                Toast.makeText(context, "BoxListData가 null입니다.", Toast.LENGTH_SHORT).show();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             Log.d(TAG, "Fail to accept at all");
+            Toast.makeText(context, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
         }
     }
     private class BoxDeclineCallback implements Callback<MainServerData<Object>> {
@@ -232,11 +236,13 @@ public class InvitedBoxListAdapter extends BaseAdapter {
             }
             else {
                 Log.d(TAG, "Fail to decline");
+                Toast.makeText(context, "Object.result가 false입니다..", Toast.LENGTH_SHORT).show();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             Log.d(TAG, "Fail to decline at all");
+            Toast.makeText(context, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
         }
     }
 }
