@@ -99,7 +99,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         fillHiddenValues(i, view);
     }
 
-    private void fillMainValues(int i, View view) {
+    private void fillMainValues(final int i, View view) {
         TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_name_link_box);
         TextView tvUrlAddress = ViewHolder.get(view, R.id.TV_url_address_link_box);
         TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
@@ -116,7 +116,6 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         String urlDate = DateCalculator.compareDates(urlListData.urlDate);
         Log.e("Compared time", urlDate);
         tvUrlDate.setText(urlDate);
-        tvUrlDate.setText(urlListData.urlDate);
         tvLikeNum.setText(Integer.toString(urlListData.likedNum));
 
         Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
