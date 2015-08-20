@@ -6,10 +6,10 @@ android {
     buildToolsVersion "22.0.1"
     defaultConfig {
         applicationId "org.sopt.linkbox"
-        minSdkVersion 18
+        minSdkVersion 17
         targetSdkVersion 22
-        versionCode 1
-        versionName "0.1"
+        versionCode 3
+        versionName "0.0.52"
     }
     buildTypes {
         release {

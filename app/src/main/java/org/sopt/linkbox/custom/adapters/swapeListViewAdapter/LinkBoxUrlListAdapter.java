@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
+import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.EditDialogActivity;
@@ -103,6 +104,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         TextView tvUrlAddress = ViewHolder.get(view, R.id.TV_url_address_link_box);
         TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
         TextView tvUrlDate = ViewHolder.get(view, R.id.TV_url_date_link_box);
+        TextView tvLikeNum = ViewHolder.get(view, R.id.TV_like_num_link_box);
 
         ImageView ivUrlThumb = ViewHolder.get(view, R.id.IV_thumb_link_box);
         final ImageView ivLike = ViewHolder.get(view, R.id.IV_like_link_box);
@@ -114,13 +116,15 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         String urlDate = DateCalculator.compareDates(urlListData.urlDate);
         Log.e("Compared time", urlDate);
         tvUrlDate.setText(urlDate);
+        tvUrlDate.setText(urlListData.urlDate);
+        tvLikeNum.setText(Integer.toString(urlListData.likedNum));
 
         Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
-        ivLike.setImageResource(urlListData.good == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
+        ivLike.setImageResource(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                urlListWrapper.like(urlListData, (1-urlListData.good), new UrlLikeCallback(urlListData, ivLike));
+                urlListWrapper.like((UrlListData)getItem(i), (1-((UrlListData)getItem(i)).liked), new UrlLikeCallback((UrlListData)getItem(i), ivLike));
             }
         });
     }
@@ -179,9 +183,11 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
             this.ivLike = ivLike;
         }
         @Override
-        public void success(MainServerData<Object> objectMainServerData, Response response) {
-            urlListData.good = (1-urlListData.good);
-            ivLike.setImageResource(urlListData.good == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            urlListData.liked = (1-urlListData.liked);
+            urlListData.likedNum += 2*urlListData.liked - 1;
+            ivLike.setImageResource(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
+            LinkBoxController.notifyUrlDataSetChanged();
         }
         @Override
         public void failure(RetrofitError error) {

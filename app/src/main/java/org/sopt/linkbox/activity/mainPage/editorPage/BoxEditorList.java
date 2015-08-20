@@ -141,15 +141,17 @@ public class BoxEditorList extends AppCompatActivity {
                 LinkBoxController.editorListSource.clear();
                 LinkBoxController.editorListSource.addAll(wrappedUsrListDatas.object);
                 editor_number = LinkBoxController.editorListSource.size();
+                tvBoxName.setText(sBox_name + " (" + editor_number + ")");
             }
             else {
-                Toast.makeText(BoxEditorList.this, "Fail to load Box Editors", Toast.LENGTH_LONG).show();
+                Toast.makeText(BoxEditorList.this, "박스 에디터 로딩에 실패했습니다.", Toast.LENGTH_LONG).show();
                 finish();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(BoxEditorList.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
             finish();
         }
     }

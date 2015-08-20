@@ -19,7 +19,7 @@ import java.util.List;
  *
  */
 public class LinkBoxBoxListAdapter extends BaseAdapter {
-    private List<BoxListData> favorite = null;
+    private List<BoxListData> favoriteBox = null;
     private ArrayList<BoxListData> source = null;
     private LayoutInflater layoutInflater = null;
 
@@ -27,6 +27,8 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
         layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
+        favoriteBox = new ArrayList<>();
+        notifyDataSetChanged();
     }
 
     public void setSource(ArrayList<BoxListData> source) {
@@ -42,12 +44,12 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return (favorite != null) ? favorite.size() : 0;
+        return (favoriteBox != null) ? favoriteBox.size() : 0;
     }
     @Override
     public Object getItem(int i) {
-        return (favorite != null && i < favorite.size() && i >= 0) ?
-                favorite.get(i) : null;
+        return (favoriteBox != null && i < favoriteBox.size() && i >= 0) ?
+                favoriteBox.get(i) : null;
     }
     @Override
     public long getItemId(int i) {
@@ -65,10 +67,10 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
     }
 
     private void setFavorite() {
-        favorite.clear();
+        favoriteBox.clear();
         for (BoxListData b : source) {
-            if (b.isFavorite == 1) {
-                favorite.add(b);
+            if (b.boxFavorite == 1) {
+                favoriteBox.add(b);
             }
         }
     }

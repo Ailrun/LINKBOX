@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -37,7 +36,7 @@ public class AlarmDialog extends Activity {
         initListener();
     }
 
-    public void initView(){
+    private void initView(){
         cbNewLink = (CheckBox) findViewById(R.id.CB_new_link_alarm);
         cbInvitedBox = (CheckBox) findViewById(R.id.CB_invited_box_alarm);
         cbLike = (CheckBox) findViewById(R.id.CB_like_alarm);
@@ -72,7 +71,7 @@ public class AlarmDialog extends Activity {
 
     }
 
-    public void initListener(){
+    private void initListener(){
         bSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -89,7 +88,7 @@ public class AlarmDialog extends Activity {
         });
     }
 
-    public void saveState(){
+    private void saveState(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
 

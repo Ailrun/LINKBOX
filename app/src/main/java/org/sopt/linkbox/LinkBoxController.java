@@ -55,9 +55,8 @@ public class LinkBoxController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
         LinkBoxController.application = this;
-        this.init();
+        init();
     }
     //</editor-fold>
 
@@ -95,13 +94,22 @@ public class LinkBoxController extends Application {
         initData();
     }
 
+    public static ArrayList<AlarmListData> alarmBoxListSource = null;   // Added for invited box list
+    public static InvitedBoxListAdapter invitedBoxListAdapter = null; // Added for invited box list Adapter
+
+    public static void notifyAlarmDataSetChanged() {
+        if (invitedBoxListAdapter != null) {
+            invitedBoxListAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+
     public static ArrayList<BoxListData> boxListSource = null;
-    public static ArrayList<AlarmListData> invitedBoxListSource = null;   // Added for invited box list
     public static LinkBoxBoxListAdapter linkBoxBoxListAdapter = null;
     public static LinkItBoxListAdapter linkItBoxListAdapter = null;
     public static NotificationListAdapter notificationListAdapter = null;
     public static BoxEditBoxListAdapter boxEditBoxListAdapter = null;
-    public static InvitedBoxListAdapter invitedBoxListAdapter = null; // Added for invited box list Adapter
 
     public static void notifyBoxDataSetChanged() {
         if (linkBoxBoxListAdapter != null) {
@@ -116,13 +124,6 @@ public class LinkBoxController extends Application {
         if (boxEditBoxListAdapter != null) {
             boxEditBoxListAdapter.notifyDataSetChanged();
         }
-    }
-
-    public static void notifyInvitedDataSetChanged() {
-        if (invitedBoxListAdapter != null) {
-            invitedBoxListAdapter.notifyDataSetChanged();
-        }
-
     }
 
 
@@ -191,7 +192,7 @@ public class LinkBoxController extends Application {
         boxListSource = new ArrayList<>();
         urlListSource = new ArrayList<>();
         editorListSource = new ArrayList<>();
-        invitedBoxListSource = new ArrayList<>();
+        alarmBoxListSource = new ArrayList<>();
     }
     private void initGcm() {
         if (isGoogleServiceAvailable()) {

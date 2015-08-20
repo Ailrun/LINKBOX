@@ -5,14 +5,14 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
@@ -102,10 +102,10 @@ public class UserSettingActivity extends AppCompatActivity {
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
-    void initInterface() {
+    private void initInterface() {
         usrListWrapper = new UsrListWrapper();
     }
-    void initData() {
+    private void initData() {
         spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
         speProfile = spProfile.edit();
 
@@ -114,19 +114,19 @@ public class UserSettingActivity extends AppCompatActivity {
         speUserSettings = spUserSettings.edit();
 
     }
-    void initView() {
+    private void initView() {
         initToolbarView();
         initMainView();
     }
-    void initListener() {
+    private void initListener() {
         initMainListener();
     }
-    void initControl() {
+    private  void initControl() {
     }
     //</editor-fold>
 
     //<editor-fold desc="Initiate Toolbar" defaultstate="collapsed">
-    void initToolbarView() {
+    private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_settings);
         tToolbar.setTitleTextColor(Color.WHITE);
         tToolbar.setTitle("설정");
@@ -137,7 +137,7 @@ public class UserSettingActivity extends AppCompatActivity {
     }
     //</editor-fold>
     //<editor-fold desc="Initiate Main" defaultstate="collapsed">
-    void initMainView() {
+    private void initMainView() {
         tvUsrName = (TextView) findViewById(R.id.TV_user_name_user_setting);
         tvLogout = (TextView) findViewById(R.id.TV_logout_user_setting);
         tvUsrID = (TextView) findViewById(R.id.TV_user_id_user_setting);
@@ -152,21 +152,21 @@ public class UserSettingActivity extends AppCompatActivity {
         tvUsrID.setText(LinkBoxController.usrListData.usrID);
 
         // Set checked for CheckBoxes
-        if(LinkBoxController.defaultAlarm == true){
+        if(LinkBoxController.defaultAlarm){
             cbAlarmEnable.setChecked(true);
         }
-        else if(LinkBoxController.defaultAlarm == false){
+        else {
             cbAlarmEnable.setChecked(false);
         }
 
-        if(LinkBoxController.defaultReadLater == true){
+        if(LinkBoxController.defaultReadLater){
             cbReadLaterEnable.setChecked(true);
         }
-        else if(LinkBoxController.defaultReadLater == false){
+        else {
             cbReadLaterEnable.setChecked(false);
         }
     }
-    void initMainListener() {
+    private void initMainListener() {
 
         tvLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,23 +181,21 @@ public class UserSettingActivity extends AppCompatActivity {
         cbAlarmEnable.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(cbAlarmEnable.isChecked() == false){
-                    LinkBoxController.defaultAlarm = true;
-                    // cbAlarmEnable.setChecked(true);
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("alarm_enable", 1);
-                    editor.commit();
-
-                }
-                else if(cbAlarmEnable.isChecked() == true){
+                if(cbAlarmEnable.isChecked()){
                     LinkBoxController.defaultAlarm = false;
                     // cbAlarmEnable.setChecked(false);
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("alarm_enable", 0);
                     editor.commit();
-
+                }
+                else {
+                    LinkBoxController.defaultAlarm = true;
+                    // cbAlarmEnable.setChecked(true);
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("alarm_enable", 1);
+                    editor.commit();
                 }
             }
         });
@@ -205,20 +203,20 @@ public class UserSettingActivity extends AppCompatActivity {
         cbReadLaterEnable.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if(cbReadLaterEnable.isChecked() == false){
-                    LinkBoxController.defaultReadLater = true;
-                    // cbReadLaterEnable.setChecked(true);
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = prefs.edit();
-                    editor.putInt("read_later_enable", 1);
-                    editor.commit();
-                }
-                else if(cbReadLaterEnable.isChecked() == true){
+                if(cbReadLaterEnable.isChecked()){
                     LinkBoxController.defaultReadLater = false;
                     // cbReadLaterEnable.setChecked(false);
                     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("read_later_enable", 0);
+                    editor.commit();
+                }
+                else {
+                    LinkBoxController.defaultReadLater = true;
+                    // cbReadLaterEnable.setChecked(true);
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = prefs.edit();
+                    editor.putInt("read_later_enable", 1);
                     editor.commit();
                 }
             }
@@ -245,15 +243,23 @@ public class UserSettingActivity extends AppCompatActivity {
     //<editor-fold desc="User Inner Classes" defaultstate="collapsed">
     private class LogoutCallback implements Callback<MainServerData<Object>> {
         @Override
-        public void success(MainServerData<Object> objectMainServerData, Response response) {
-            Intent intent = new Intent(UserSettingActivity.this, AccountActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(intent);
-            finish();
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            if (wrappedObject.result) {
+                Intent intent = new Intent(UserSettingActivity.this, AccountActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+                Log.d(TAG, "fail to Logout");
+                Toast.makeText(UserSettingActivity.this, "로그아웃이 실패했습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(UserSettingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     //</editor-fold>

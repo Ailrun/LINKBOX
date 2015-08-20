@@ -15,6 +15,7 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.activity.mainPage.boxListPage.InvitedBoxActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.constant.AlarmType;
 import org.sopt.linkbox.constant.GCMString;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 
@@ -46,13 +47,13 @@ public class LinkGcmListenerService extends GcmListenerService{
         alarmListData = gson.fromJson(json, AlarmListData.class);
         if (alarmListData != null) {
             switch (alarmListData.alarmType) {
-                case GCMString.typeBox:
+                case AlarmType.typeBox:
                     boxNotification();
                     break;
-                case GCMString.typeUrl:
+                case AlarmType.typeUrl:
                     urlNotification();
                     break;
-                case GCMString.typeGood:
+                case AlarmType.typeGood:
                     goodNotification();
                     break;
                 default:
@@ -66,9 +67,9 @@ public class LinkGcmListenerService extends GcmListenerService{
     //<editor-fold desc="Set Notifications" defaultstate="collapsed">
     private void boxNotification() {
         LinkBoxController.alarmCount++;
-        if (LinkBoxController.invitedBoxListSource != null) {
-            LinkBoxController.invitedBoxListSource.add(alarmListData);
-            LinkBoxController.notifyInvitedDataSetChanged();
+        if (LinkBoxController.alarmBoxListSource != null) {
+            LinkBoxController.alarmBoxListSource.add(alarmListData);
+            LinkBoxController.notifyAlarmDataSetChanged();
         }
         //TODO : Add Alarm List Source
         Intent intent = new Intent(this, InvitedBoxActivity.class);

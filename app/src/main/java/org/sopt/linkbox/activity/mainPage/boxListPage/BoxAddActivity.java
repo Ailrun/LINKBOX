@@ -95,7 +95,7 @@ public class BoxAddActivity extends Activity {
                 box = new BoxListData();
                 box.boxIndex = LinkBoxController.boxListSource.size();
                 box.boxName = etName.getText().toString();
-                box.isFavorite = 0;
+                box.boxFavorite = 0;
                 box.boxUrlNum = 0;
                 boxListWrapper.add(box, new BoxAddingCallback());
 

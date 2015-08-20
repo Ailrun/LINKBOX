@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -21,6 +22,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
+import org.sopt.linkbox.constant.AlarmType;
 import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
@@ -30,6 +32,7 @@ import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -41,6 +44,8 @@ import retrofit.client.Response;
  */
 public class InvitedBoxListAdapter extends BaseAdapter {
     private static final String TAG = "TEST/" + InvitedBoxListAdapter.class.getName() + " : ";
+
+    private List<AlarmListData> invitedAlarm = null;
     private ArrayList<AlarmListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
@@ -52,6 +57,9 @@ public class InvitedBoxListAdapter extends BaseAdapter {
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
         this.context = context;
+        invitedAlarm = new ArrayList<>();
+        notifyDataSetChanged();
+
         boxListWrapper = new BoxListWrapper();
         synchronized (Glide.class){
             if(!Glide.isSetup()){
@@ -71,14 +79,20 @@ public class InvitedBoxListAdapter extends BaseAdapter {
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        setInvited();
+        super.notifyDataSetChanged();
+    }
+
+    @Override
     public int getCount() {
-        return (source != null) ? source.size() : 0;
+        return (invitedAlarm != null) ? invitedAlarm.size() : 0;
     }
 
     @Override
     public Object getItem(int position) {
-        return (source != null && position < source.size() && position >= 0) ?
-                source.get(position) : null;
+        return (invitedAlarm != null && position < invitedAlarm.size() && position >= 0) ?
+                invitedAlarm.get(position) : null;
     }
 
     @Override
@@ -87,7 +101,7 @@ public class InvitedBoxListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
+    public View getView(final int position, View view, ViewGroup viewGroup) {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_inivted_box, viewGroup, false);
         }
@@ -115,7 +129,6 @@ public class InvitedBoxListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 if (LL_invited_box_expandable.getVisibility() == View.GONE) {
                     expand(LL_invited_box_expandable);
-
                 } else {
                     collapse(LL_invited_box_expandable);
                 }
@@ -126,24 +139,32 @@ public class InvitedBoxListAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Agree!");
-                boxListWrapper.accept(alarmListData, LinkBoxController.boxListSource.size(), new BoxAcceptCallback(alarmListData));
+                boxListWrapper.accept((AlarmListData)getItem(position), LinkBoxController.boxListSource.size(), new BoxAcceptCallback((AlarmListData)getItem(position)));
             }
         });
         bDisagree.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "Disagree!");
-                boxListWrapper.decline(alarmListData, new BoxDeclineCallback());
+                boxListWrapper.decline((AlarmListData)getItem(position), new BoxDeclineCallback());
             }
         });
 
         return view;
     }
 
+    private void setInvited() {
+        invitedAlarm.clear();
+        for (AlarmListData a : source) {
+            if (a.alarmType == AlarmType.typeBox) {
+                invitedAlarm.add(a);
+            }
+        }
+    }
+
     private void expand(final View v) {
         //set Visible
         v.setVisibility(View.VISIBLE);
-
 
         final int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         final int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
@@ -204,8 +225,8 @@ public class InvitedBoxListAdapter extends BaseAdapter {
         @Override
         public void success(MainServerData<BoxListData> wrappedBoxListData, Response response) {
             if (wrappedBoxListData.result) {
-                LinkBoxController.invitedBoxListSource.remove(alarmListData);
-                LinkBoxController.notifyInvitedDataSetChanged();
+                LinkBoxController.alarmBoxListSource.remove(alarmListData);
+                LinkBoxController.notifyAlarmDataSetChanged();
                 LinkBoxController.boxListSource.add(wrappedBoxListData.object);
                 LinkBoxController.notifyBoxDataSetChanged();
                 LinkBoxController.currentBox = wrappedBoxListData.object;
@@ -216,27 +237,31 @@ public class InvitedBoxListAdapter extends BaseAdapter {
             }
             else {
                 Log.d(TAG, "Fail to accept");
+                Toast.makeText(context, "박스 정보가 없습니다.", Toast.LENGTH_SHORT).show();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             Log.d(TAG, "Fail to accept at all");
+            Toast.makeText(context, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
         }
     }
     private class BoxDeclineCallback implements Callback<MainServerData<Object>> {
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
             if (wrappedObject.result) {
-                LinkBoxController.invitedBoxListSource.remove(alarmListData);
-                LinkBoxController.notifyInvitedDataSetChanged();
+                LinkBoxController.alarmBoxListSource.remove(alarmListData);
+                LinkBoxController.notifyAlarmDataSetChanged();
             }
             else {
                 Log.d(TAG, "Fail to decline");
+                Toast.makeText(context, "Object.result가 false입니다..", Toast.LENGTH_SHORT).show();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             Log.d(TAG, "Fail to decline at all");
+            Toast.makeText(context, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
         }
     }
 }

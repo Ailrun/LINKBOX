@@ -37,6 +37,7 @@ import retrofit.client.Response;
 
 /**
  * Created by MinGu on 2015-08-13.
+ * 
  */
 public class BoxEditActivity extends Activity {
     private static final String TAG = "TEST/" + BoxEditActivity.class.getName() + " : ";
@@ -47,8 +48,10 @@ public class BoxEditActivity extends Activity {
     private ImageView ibThumb = null;
     private EditText etName = null;
     private Button bSave = null, bCancel = null;
-    private BoxListData box = null;
+    private BoxListData boxListData = null;
     private BoxImageSaveLoad boxImageSaveLoader = null;
+    private int index;
+    private String boxName = null;
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
@@ -60,6 +63,7 @@ public class BoxEditActivity extends Activity {
 
         initInterface();
         initWindow();
+        initData();
         initView();
         initListener();
     }
@@ -105,8 +109,13 @@ public class BoxEditActivity extends Activity {
         getWindow().setAttributes(layoutParams);
         setContentView(R.layout.activity_box_edit);
     }
+    private void initData() {
+        index = getIntent().getIntExtra("boxIndex", 0);
+    }
     private void initView() {
+        boxListData = LinkBoxController.boxListSource.get(index);
         etName = (EditText) findViewById(R.id.ET_box_name_box_add);
+        etName.setText(boxListData.boxName);
         ibThumb = (ImageView) findViewById(R.id.IB_thumbnail_box_add);
         bSave = (Button) findViewById(R.id.B_save_box_add);
         bCancel = (Button) findViewById(R.id.B_cancel_box_add);
@@ -115,9 +124,10 @@ public class BoxEditActivity extends Activity {
         bSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                box = LinkBoxController.boxListSource.get(getIntent().getIntExtra("boxIndex", 0));
-                LinkBoxController.boxListSource.get(box.boxIndex).boxName = etName.getText().toString();
-                boxListWrapper.edit(box, new BoxEditCallback());
+                BoxListData box = boxListData.clone();
+                boxName = etName.getText().toString();
+                box.boxName = boxName;
+                boxListWrapper.edit(box, new BoxEditCallback(LinkBoxController.boxListSource.get(index)));
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -157,14 +167,19 @@ public class BoxEditActivity extends Activity {
 
     //<editor-fold desc="Box Inner Classes" defaultstate="collapsed">
     private class BoxEditCallback implements Callback<MainServerData<Object>> {
+        BoxListData boxListData = null;
+        public BoxEditCallback(BoxListData boxListData) {
+            this.boxListData = boxListData;
+        }
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
             if (wrappedObject.result) {
-                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
+                boxListData.boxName = boxName;
+                boxListData.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), boxListData.boxIndex);
                 Drawable drawable = ibThumb.getDrawable();
                 BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
                 Bitmap bitmap = bitmapDrawable.getBitmap();
-                LinkBoxController.boxListSource.get(box.boxIndex).boxThumbnail = boxImageSaveLoader.saveProfileImage(bitmap, box.boxIndex);
+                LinkBoxController.boxListSource.get(index).boxThumbnail = boxImageSaveLoader.saveProfileImage(bitmap, boxListData.boxIndex);
                 LinkBoxController.notifyBoxDataSetChanged();
                 finish();
             }

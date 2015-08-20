@@ -7,8 +7,4 @@ public class GCMString {
     public static final String object = "object";
 
     public static final String isPush = "isPush";
-
-    public static final int typeBox = 0;
-    public static final int typeUrl = 1;
-    public static final int typeGood = 2;
 }

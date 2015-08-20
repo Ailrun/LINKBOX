@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -31,11 +32,11 @@ public class AccountActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + AccountActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
-    LoginButton lbFacebookLogin = null;
-    Button bFacebookLogin = null;
-    Button bGoogleLogin = null;
-    Button bLogin = null;
-    Button bSignup = null;
+    private LoginButton lbFacebookLogin = null;
+    private Button bFacebookLogin = null;
+    private Button bGoogleLogin = null;
+    private Button bLogin = null;
+    private Button bSignup = null;
 
     private SharedPreferences spProfile = null; // 02 Save preference or use preference that is saved. Bunched up data
 
@@ -145,6 +146,7 @@ public class AccountActivity extends AppCompatActivity {
         @Override
         public void onError(FacebookException e) {  // TODO: FACEBOOK ERROR NEEDS AN UPDATE
             FacebookDebug.debug(e);
+            Toast.makeText(AccountActivity.this, "페이스북 로그인에 문제가 생겼습니다.", Toast.LENGTH_SHORT).show();
         }
     }
     //</editor-fold>

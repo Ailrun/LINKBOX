@@ -1,12 +1,15 @@
 package org.sopt.linkbox.activity.loadingPage;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
@@ -32,8 +35,10 @@ import retrofit.client.Response;
 
 public class AccountLoadingActivity extends Activity {
     private static final String TAG = "TEST/" + AccountLoadingActivity.class.getName() + " : ";
+    private static final int PROGRESS_DIALOG = 1001;
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
+    private ProgressDialog progressDialog;
     private UsrListWrapper usrListWrapper = null;
     private BoxListWrapper boxListWrapper = null;
     private UrlListWrapper urlListWrapper = null;
@@ -50,6 +55,8 @@ public class AccountLoadingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        showDialog(PROGRESS_DIALOG);
         initWindow();
         initInterface();
         initData();
@@ -59,6 +66,20 @@ public class AccountLoadingActivity extends Activity {
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    @Override
+    public Dialog onCreateDialog(int id)
+    {
+        switch (id){
+            case (PROGRESS_DIALOG):
+                progressDialog = new ProgressDialog(this);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                progressDialog.setMessage("로그인 중입니다.");
+
+                return progressDialog;
+        }
+        return null;
     }
     //</editor-fold>
 
@@ -81,7 +102,7 @@ public class AccountLoadingActivity extends Activity {
         usrID = intent.getStringExtra(AccountStrings.usrID);
         usrName = intent.getStringExtra(AccountStrings.usrName);
         usrPassword = intent.getStringExtra(AccountStrings.usrPassword);
-        usrType = intent.getIntExtra(AccountStrings.usrType, 0);
+        usrType = intent.getIntExtra(AccountStrings.usrType, UsrType.normal_user);
         speProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0).edit();
     }
     private void initView() {
@@ -124,6 +145,8 @@ public class AccountLoadingActivity extends Activity {
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(AccountLoadingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     private class LoginCallback implements Callback<MainServerData<UsrListData>> {
@@ -134,15 +157,20 @@ public class AccountLoadingActivity extends Activity {
                 LinkBoxController.usrListData = usrListData;
                 speProfile.putString(AccountStrings.usrID, usrListData.usrID);
                 speProfile.putString(AccountStrings.usrPassword, usrListData.usrPassword);
+                speProfile.apply();
                 boxListWrapper.list(new BoxLoadingCallback());
             }
             else {
                 Log.d(TAG, wrappedUserData.message);
+                Toast.makeText(AccountLoadingActivity.this, "존재하지 않는 아이디거나 비밀번호를 잘못 입력하셨습니다.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(AccountLoadingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     private class SignupCallback implements Callback<MainServerData<UsrListData>> {
@@ -153,15 +181,20 @@ public class AccountLoadingActivity extends Activity {
                 LinkBoxController.usrListData = usrListData;
                 speProfile.putString(AccountStrings.usrID, usrListData.usrID);
                 speProfile.putString(AccountStrings.usrPassword, usrListData.usrPassword);
+                speProfile.apply();
                 boxListWrapper.list(new BoxLoadingCallback());
             }
             else {
                 Log.d(TAG, wrappedUsrListData.message);
+                Toast.makeText(AccountLoadingActivity.this, "이미 존재하는 아이디입니다.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(AccountLoadingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     //</editor-fold>
@@ -184,11 +217,18 @@ public class AccountLoadingActivity extends Activity {
             }
             else {
                 Log.d(TAG, wrappedBoxListDatas.message);
+                Toast.makeText(AccountLoadingActivity.this, "박스 로딩에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(AccountLoadingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     //</editor-fold>
@@ -205,11 +245,18 @@ public class AccountLoadingActivity extends Activity {
             }
             else {
                 Log.d(TAG, wrappedUrlListDatas.message);
+                Toast.makeText(AccountLoadingActivity.this, "URL 로딩에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
             }
         }
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);
+            Toast.makeText(AccountLoadingActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     //</editor-fold>

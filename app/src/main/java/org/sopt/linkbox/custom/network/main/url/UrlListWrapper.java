@@ -57,7 +57,7 @@ public class UrlListWrapper {
     }
     public void like(UrlListData original, int good, Callback<MainServerData<Object>> callback) {
         UrlListData urlListData = original.clone();
-        urlListData.good = good;
+        urlListData.liked = good;
         urlListInterface.like(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData, callback);
     }
     public void tagList(UrlListData urlListData, Callback<MainServerData<List<TagListData>>> callback) {
