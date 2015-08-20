@@ -2,7 +2,6 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -24,6 +23,7 @@ import retrofit.client.Response;
 
 /**
  * Created by Junyoung on 2015-08-18.
+ *
  */
 public class EditDialogActivity extends Activity {
     private static final String TAG = "TEST/" + EditDialogActivity.class.getName() + " : ";

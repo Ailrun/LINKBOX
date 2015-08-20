@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -184,15 +183,15 @@ public class LinkItActivity extends Activity {
         sBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                boxCheck(adapterView, i);
+                boxCheck(i);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                boxCheck(adapterView, 0);
+                boxCheck(0);
             }
 
-            private void boxCheck(AdapterView<?> adapterView, int i) {
+            private void boxCheck(int i) {
                 checkedBox = i;
             }
         });

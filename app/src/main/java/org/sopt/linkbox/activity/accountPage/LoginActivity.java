@@ -1,7 +1,5 @@
 package org.sopt.linkbox.activity.accountPage;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;

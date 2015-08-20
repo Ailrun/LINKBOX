@@ -37,6 +37,7 @@ import retrofit.client.Response;
 
 /**
  * Created by MinGu on 2015-08-13.
+ * 
  */
 public class BoxEditActivity extends Activity {
     private static final String TAG = "TEST/" + BoxEditActivity.class.getName() + " : ";
@@ -126,7 +127,7 @@ public class BoxEditActivity extends Activity {
                 BoxListData box = boxListData.clone();
                 boxName = etName.getText().toString();
                 box.boxName = boxName;
-                boxListWrapper.edit(box, new BoxEditCallback(LinkBoxController.boxListSource.get(index), index));
+                boxListWrapper.edit(box, new BoxEditCallback(LinkBoxController.boxListSource.get(index)));
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -167,7 +168,7 @@ public class BoxEditActivity extends Activity {
     //<editor-fold desc="Box Inner Classes" defaultstate="collapsed">
     private class BoxEditCallback implements Callback<MainServerData<Object>> {
         BoxListData boxListData = null;
-        public BoxEditCallback(BoxListData boxListData, int index) {
+        public BoxEditCallback(BoxListData boxListData) {
             this.boxListData = boxListData;
         }
         @Override

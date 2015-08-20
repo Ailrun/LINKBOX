@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.TextView;
 
 import org.sopt.linkbox.R;
 
 /**
  * Created by sy on 2015-08-18.
+ *
  */
 public class BoxDeleteDialog extends Dialog {
 

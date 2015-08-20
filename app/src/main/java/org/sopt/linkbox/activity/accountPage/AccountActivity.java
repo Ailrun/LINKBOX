@@ -32,11 +32,11 @@ public class AccountActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + AccountActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
-    LoginButton lbFacebookLogin = null;
-    Button bFacebookLogin = null;
-    Button bGoogleLogin = null;
-    Button bLogin = null;
-    Button bSignup = null;
+    private LoginButton lbFacebookLogin = null;
+    private Button bFacebookLogin = null;
+    private Button bGoogleLogin = null;
+    private Button bLogin = null;
+    private Button bSignup = null;
 
     private SharedPreferences spProfile = null; // 02 Save preference or use preference that is saved. Bunched up data
 

@@ -26,8 +26,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.h6ah4i.android.materialshadowninepatch.MaterialShadowContainerView;
-
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.helpPage.HelpActivity;

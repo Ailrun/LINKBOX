@@ -13,7 +13,6 @@ import com.edmodo.cropper.CropImageView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.helper.ImageSaveLoad;
 
 /**
  * Created by MinGu on 2015-08-13.
@@ -77,7 +76,7 @@ public class BoxImageCropActivity extends AppCompatActivity {
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
-    public void initView(){
+    private void initView(){
         cropImageView = (CropImageView) findViewById(R.id.CIV_crop_image);
         // cropImageView.setAspectRatio(1, 1);
         // cropImageView.setFixedAspectRatio(true);
@@ -92,7 +91,7 @@ public class BoxImageCropActivity extends AppCompatActivity {
         cropImageView.setImageBitmap(LinkBoxController.temporaryImage);
     }
     */
-    public void initListener(){
+    private void initListener(){
         accept.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
