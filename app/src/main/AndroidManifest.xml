@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.sopt.linkbox"
-    android:versionCode="1"
-    android:versionName="0.0.5" >
+    package="org.sopt.linkbox">
 
-    <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="22" />
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--

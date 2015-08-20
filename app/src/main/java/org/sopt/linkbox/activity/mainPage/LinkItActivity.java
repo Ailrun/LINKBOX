@@ -314,10 +314,11 @@ public class LinkItActivity extends Activity {
             if (wrappedUrlListData.result) {
                 LinkBoxController.urlListSource.add(0, wrappedUrlListData.object);
                 LinkBoxController.notifyUrlDataSetChanged();
+                Toast.makeText(LinkItActivity.this, "URL이 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
             else {
-                Toast.makeText(LinkItActivity.this, "There is some error in adding url", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LinkItActivity.this, "URL을 저장하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

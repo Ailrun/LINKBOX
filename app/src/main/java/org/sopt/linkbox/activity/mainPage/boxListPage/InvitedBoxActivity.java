@@ -10,10 +10,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
+import org.sopt.linkbox.custom.data.mainData.AlarmListData;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.network.main.alarm.AlarmListWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 /**
  * Created by MinGu on 2015-08-02.
@@ -22,6 +33,8 @@ public class InvitedBoxActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + InvitedBoxActivity.class.getName() + " : ";
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
+    private AlarmListWrapper alarmListWrapper = null;
+
     private Toolbar tToolbar = null;
 
     private ListView lvBoxList = null;
@@ -64,6 +77,12 @@ public class InvitedBoxActivity extends AppCompatActivity {
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
+    private void initInterface() {
+        alarmListWrapper = new AlarmListWrapper();
+    }
+    private void initData() {
+        alarmListWrapper.allList(new InvitedListCallback());
+    }
     private void initView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_editor_list);  // TODO : REVIVE THIS PART AFTER FINISHING THE REST
         tToolbar.setTitleTextColor(Color.WHITE);
@@ -76,7 +95,7 @@ public class InvitedBoxActivity extends AppCompatActivity {
     }
     private void initControl() {
         LinkBoxController.invitedBoxListAdapter =
-                new InvitedBoxListAdapter(getApplicationContext(), LinkBoxController.invitedBoxListSource);
+                new InvitedBoxListAdapter(getApplicationContext(), LinkBoxController.alarmBoxListSource);
         if (LinkBoxController.invitedBoxListAdapter != null) {
             lvBoxList.setAdapter(LinkBoxController.invitedBoxListAdapter);
         }
@@ -137,4 +156,23 @@ public class InvitedBoxActivity extends AppCompatActivity {
         return animator;
     }
     //</editor-fold>
+
+    private class InvitedListCallback implements Callback<MainServerData<List<AlarmListData>>> {
+        @Override
+        public void success(MainServerData<List<AlarmListData>> wrappedAlarmListDatas, Response response) {
+            if (wrappedAlarmListDatas.result) {
+                LinkBoxController.alarmBoxListSource = (ArrayList<AlarmListData>) wrappedAlarmListDatas.object;
+                LinkBoxController.notifyAlarmDataSetChanged();
+            }
+            else {
+                Toast.makeText(InvitedBoxActivity.this, "초대 목록 로딩에 실패했습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            Toast.makeText(InvitedBoxActivity.this, "서버와 연결할 수 없습니다.", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+    }
 }

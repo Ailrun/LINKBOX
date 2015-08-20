@@ -23,8 +23,7 @@ import org.sopt.linkbox.constant.UsrType;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + LoginActivity.class.getName() + " : ";
-
-
+    
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;
     private EditText etEmail = null;
@@ -99,6 +98,4 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
     //</editor-fold>
-
-
 }
