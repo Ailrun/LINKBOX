@@ -66,7 +66,6 @@ public class BoxListEditActivity extends AppCompatActivity {
     }
     @Override
     public void onBackPressed() {
-
         // 여기에 코드 입력
 
         LinkBoxController.inboxIndicator = false;

@@ -48,10 +48,8 @@ public class DateCalculator {
         Calendar currentTime = Calendar.getInstance();
         String sCurrent = currentTime.getTime().toString();
 
-        Log.e("sPrevious Log", sPrevious);
         GregorianCalendar gcPrevious = new GregorianCalendar(year, month - 1, day, hour, minute, second);
         Date dPrevious = gcPrevious.getTime();
-        Log.e("Date class previous", dPrevious.toString());
         Date dCurrent = new Date();
 
         try {
@@ -61,7 +59,7 @@ public class DateCalculator {
             e.printStackTrace();
         }
 
-        long timeDifference = dCurrent.getTime() - (dPrevious.getTime());
+        long timeDifference = dCurrent.getTime() - (dPrevious.getTime() + 324000);
         Log.e("TimeDifference", String.valueOf(timeDifference));
         Log.e("Previous backtime", String.valueOf(dPrevious));
 

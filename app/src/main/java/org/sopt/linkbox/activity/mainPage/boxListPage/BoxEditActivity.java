@@ -175,10 +175,11 @@ public class BoxEditActivity extends Activity {
         public void success(MainServerData<Object> wrappedObject, Response response) {
             if (wrappedObject.result) {
                 boxListData.boxName = boxName;
-                boxListData.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), boxListData.boxIndex);
+                // boxListData.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), boxListData.boxIndex);
                 Drawable drawable = ibThumb.getDrawable();
                 BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
                 Bitmap bitmap = bitmapDrawable.getBitmap();
+                LinkBoxController.boxListSource.get(index).boxThumbnail = boxImageSaveLoader.saveProfileImage(bitmap, index);
                 LinkBoxController.notifyBoxDataSetChanged();
                 finish();
             }
