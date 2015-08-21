@@ -82,7 +82,6 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
         BoxListData boxListData = (BoxListData) getItem(i);
-        Log.e("Loaded Image Number", boxListData.toString());
         Bitmap boxImage = boxImageSaveLoader.loadProfileImage(i);
 
         if (boxImage == null) {
@@ -90,9 +89,9 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         }
 
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_title);
-        ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_box_image);  // TODO : Unfinished. Needs to import data
+        ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_box_image);
         tvBoxName.setText(boxListData.boxName);
-        tvBoxImage.setImageBitmap(boxImage);    // TODO : Unfinished
+        tvBoxImage.setImageBitmap(boxImage);
 
 
         final ImageView ivFavorite = (ImageView) view.findViewById(R.id.IV_favorite_btn);

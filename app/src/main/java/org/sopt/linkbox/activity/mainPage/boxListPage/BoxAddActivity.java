@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -96,6 +97,7 @@ public class BoxAddActivity extends Activity {
             public void onClick(View view) {
                 box = new BoxListData();
                 box.boxIndex = LinkBoxController.boxListSource.size();
+                Log.e("box index", String.valueOf(box.boxIndex));
                 box.boxName = etName.getText().toString();
                 box.boxFavorite = 0;
                 box.boxUrlNum = 0;
@@ -145,12 +147,14 @@ public class BoxAddActivity extends Activity {
         public void success(MainServerData<BoxListData> wrappedBoxListData, Response response) {
             if (wrappedBoxListData.result) {
                 box.boxKey = wrappedBoxListData.object.boxKey;
+
                 LinkBoxController.boxListSource.add(0, box);
 
                 // Coding note : ImageView.getDrawingCache() DOES NOT RETREIVE THE IMAGE. It only retrieves the canvas
                 BitmapDrawable bdRetreivedImage = (BitmapDrawable) ibThumb.getDrawable();
                 Bitmap bRetrievedBitmap = bdRetreivedImage.getBitmap();
-                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(bRetrievedBitmap, box.boxIndex);
+                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(bRetrievedBitmap, 0);
+
                 LinkBoxController.notifyBoxDataSetChanged();
                 finish();
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
