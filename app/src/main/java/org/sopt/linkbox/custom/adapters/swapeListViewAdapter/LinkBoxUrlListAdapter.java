@@ -116,6 +116,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View v) {
                 urlListWrapper.like((UrlListData)getItem(i), (1-((UrlListData)getItem(i)).liked), new UrlLikeCallback((UrlListData)getItem(i), ivLike));
+                ivLike.setEnabled(false);
             }
         });
     }
@@ -180,10 +181,12 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
             urlListData.liked = (1-urlListData.liked);
             urlListData.likedNum += 2*urlListData.liked - 1;
             ivLike.setImageResource(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
+            ivLike.setEnabled(true);
             LinkBoxController.notifyUrlDataSetChanged();
         }
         @Override
         public void failure(RetrofitError error) {
+            ivLike.setEnabled(true);
         }
     }
 }

@@ -93,7 +93,6 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(AccountStrings.usrPassword, pass);
         intent.putExtra(AccountStrings.usrType, UsrType.normal_user);
         startActivity(intent);
-        finish();
     }
     //</editor-fold>
 }

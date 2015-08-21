@@ -109,6 +109,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 ((BoxListData)getItem(i)).boxFavorite = 1 - ((BoxListData)getItem(i)).boxFavorite;
                 boxListWrapper.favorite(((BoxListData)getItem(i)), new BoxFavoriteCallback(((BoxListData)getItem(i)), ivFavorite));
+                ivFavorite.setEnabled(false);
             }
         });
         modifyBtn.setOnClickListener(new View.OnClickListener(){
@@ -152,12 +153,14 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             }
             LinkBoxController.notifyBoxDataSetChanged();
             ivFavorite.setImageDrawable((boxListData.boxFavorite==0 ? bookmark : bookmarkSelected));
+            ivFavorite.setEnabled(true);
         }
         @Override
         public void failure(RetrofitError error) {
             boxListData.boxFavorite = 1 - boxListData.boxFavorite;
             LinkBoxController.notifyBoxDataSetChanged();
             ivFavorite.setImageDrawable((boxListData.boxFavorite==0 ? bookmark : bookmarkSelected));
+            ivFavorite.setEnabled(true);
         }
     }
 }
