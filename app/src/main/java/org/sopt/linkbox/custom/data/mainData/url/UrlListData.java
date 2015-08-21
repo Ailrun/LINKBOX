@@ -1,5 +1,6 @@
 package org.sopt.linkbox.custom.data.mainData.url;
 
+import java.sql.Date;
 import java.util.List;
 
 /**

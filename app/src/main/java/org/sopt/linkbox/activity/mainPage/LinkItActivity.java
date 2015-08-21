@@ -214,6 +214,7 @@ public class LinkItActivity extends Activity {
                 urlListData.urlWriterUsrName = LinkBoxController.usrListData.usrName;
                 urlListData.urlTitle = etName.getText().toString();
                 urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                Log.e("UrlDate", urlListData.urlDate);
                 urlListWrapper.add(urlListData, (BoxListData)sBox.getSelectedItem(), new UrlAddingCallback());
             }
         });
