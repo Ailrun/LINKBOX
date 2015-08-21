@@ -37,8 +37,6 @@ public class BoxListEditActivity extends AppCompatActivity {
 
         initView();
         initControl();
-
-
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,17 +46,16 @@ public class BoxListEditActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.action_add_box :
+        switch (item.getItemId()) {
+            case R.id.action_add_box:
                 startActivity(new Intent(this, BoxAddActivity.class));
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
-            case R.id.action_invited_box :
+            case R.id.action_invited_box:
                 startActivity(new Intent(this, InvitedBoxActivity.class));
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
-            default :
+            default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
@@ -66,6 +63,16 @@ public class BoxListEditActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+    }
+    @Override
+    public void onBackPressed() {
+
+        // 여기에 코드 입력
+
+        LinkBoxController.inboxIndicator = false;
+
+        finish();
+        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
     //</editor-fold>
 
@@ -88,20 +95,9 @@ public class BoxListEditActivity extends AppCompatActivity {
                 intent.putExtra(MainStrings.inBox, true);
                 Log.d("I'm Tag", "current Box : " + LinkBoxController.currentBox.toString());
                 ActivityTransitionLauncher.with(BoxListEditActivity.this).from(view).launch(intent);
-                overridePendingTransition(R.anim.anim_left_in,R.anim.anim_right_out);
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
-    }
-    @Override
-
-    public void onBackPressed() {
-
-        // 여기에 코드 입력
-
-        LinkBoxController.inboxIndicator = false;
-
-        finish();
-        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
     }
     private void initControl() {
         LinkBoxController.boxEditBoxListAdapter =

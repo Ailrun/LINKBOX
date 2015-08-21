@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -17,8 +16,8 @@ import org.sopt.linkbox.R;
  * Created by MinGu on 2015-08-17.
  *
  */
-public class ReadLaterDialog extends Activity {
-    private static final String TAG = "TEST/" + ReadLaterDialog.class.getName() + " : ";
+public class ReadLaterDialogActivity extends Activity {
+    private static final String TAG = "TEST/" + ReadLaterDialogActivity.class.getName() + " : ";
 
     private RadioButton rbHour = null;
     private RadioButton rbTwoHour = null;

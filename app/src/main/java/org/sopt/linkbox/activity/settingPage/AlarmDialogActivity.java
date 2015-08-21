@@ -15,8 +15,8 @@ import org.sopt.linkbox.R;
 /**
  * Created by MinGu on 2015-08-17.
  */
-public class AlarmDialog extends Activity {
-    private static final String TAG = "TEST/" + AlarmDialog.class.getName() + " : ";
+public class AlarmDialogActivity extends Activity {
+    private static final String TAG = "TEST/" + AlarmDialogActivity.class.getName() + " : ";
 
     private CheckBox cbNewLink = null;
     private CheckBox cbInvitedBox = null;

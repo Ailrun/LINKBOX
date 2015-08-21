@@ -61,9 +61,8 @@ public class BoxEditorList extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.action_add_editor :
+        switch (item.getItemId()) {
+            case R.id.action_add_editor:
                 startActivity(new Intent(this, BoxEditorAdd.class));
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
@@ -71,7 +70,7 @@ public class BoxEditorList extends AppCompatActivity {
                 finish();
                 overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
                 break;
-            default :
+            default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
@@ -85,8 +84,7 @@ public class BoxEditorList extends AppCompatActivity {
         super.onStop();
         SessionSaver.saveSession(this);
     }
-
-
+    @Override
     public void onBackPressed() {
         finish();
         overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);

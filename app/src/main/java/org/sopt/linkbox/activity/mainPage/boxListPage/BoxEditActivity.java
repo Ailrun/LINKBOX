@@ -179,7 +179,6 @@ public class BoxEditActivity extends Activity {
                 Drawable drawable = ibThumb.getDrawable();
                 BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
                 Bitmap bitmap = bitmapDrawable.getBitmap();
-                LinkBoxController.boxListSource.get(index).boxThumbnail = boxImageSaveLoader.saveProfileImage(bitmap, boxListData.boxIndex);
                 LinkBoxController.notifyBoxDataSetChanged();
                 finish();
             }

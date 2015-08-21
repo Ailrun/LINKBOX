@@ -28,6 +28,7 @@ import retrofit.client.Response;
 
 /**
  * Created by MinGu on 2015-08-02.
+ *
  */
 public class InvitedBoxActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + InvitedBoxActivity.class.getName() + " : ";

@@ -56,6 +56,10 @@ public class LinkGcmListenerService extends GcmListenerService{
                 case AlarmType.typeGood:
                     goodNotification();
                     break;
+                case AlarmType.typeUpdate :
+                    break;
+                case AlarmType.typeMaintenance :
+                    break;
                 default:
                     return;
             }

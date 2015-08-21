@@ -44,21 +44,23 @@ public class BoxEditorAdd extends AppCompatActivity {
         initView();
         initListener();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_box_editor_add, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId())
-        {
-            case R.id.action_send :
+        switch (item.getItemId()) {
+            case R.id.action_send:
                 if (etEmail.getText().toString().equals(LinkBoxController.usrListData.usrID)) {
                     TwoString twoString = new TwoString();
                     twoString.usrID = etEmail.getText().toString();
                     twoString.message = tvMessage.getText().toString();
+                    twoString.message = twoString.message.equals("") ? tvMessage.getHint().toString() : twoString.message;
                     boxListWrapper.invite(twoString, new BoxInviteCallback());
                 }
                 else {
@@ -69,15 +71,17 @@ public class BoxEditorAdd extends AppCompatActivity {
                 finish();
                 overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
                 break;
-            default :
+            default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
     }
+
     @Override
     protected void onResume() {
         super.onResume();
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -95,14 +99,18 @@ public class BoxEditorAdd extends AppCompatActivity {
     private void initInterface() {
         boxListWrapper = new BoxListWrapper();
     }
+
     private void initData() {
     }
+
     private void initView() {
         initToolbarView();
         initMainView();
     }
+
     private void initListener() {
     }
+
     //</editor-fold>
     //<editor-fold desc="Initiate Toolbar">
     private void initToolbarView() {
@@ -114,6 +122,7 @@ public class BoxEditorAdd extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
+
     //</editor-fold>
     //<editor-fold desc="Initiate Main">
     private void initMainView() {
@@ -127,7 +136,7 @@ public class BoxEditorAdd extends AppCompatActivity {
     private class BoxInviteCallback implements Callback<MainServerData<Object>> {
         @Override
         public void success(MainServerData<Object> wrapperObject, Response response) {
-            if(wrapperObject.result) {
+            if (wrapperObject.result) {
                 Toast.makeText(BoxEditorAdd.this, "초대가 발송되었습니다!", Toast.LENGTH_SHORT).show();
                 finish();
             }
