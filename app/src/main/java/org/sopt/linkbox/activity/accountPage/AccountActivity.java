@@ -120,7 +120,6 @@ public class AccountActivity extends AppCompatActivity {
         bGoogleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AccountActivity.this, LinkBoxActivity.class));
             }
         });
 
@@ -156,7 +155,6 @@ public class AccountActivity extends AppCompatActivity {
         intent.putExtra(AccountStrings.usrID, usremail);
         intent.putExtra(AccountStrings.usrPassword, pass);
         startActivity(intent);
-        finish();
     }
     //</editor-fold>
 }

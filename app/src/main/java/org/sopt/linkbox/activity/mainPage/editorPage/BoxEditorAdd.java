@@ -55,10 +55,15 @@ public class BoxEditorAdd extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.action_send :
-                TwoString twoString = new TwoString();
-                twoString.usrID = etEmail.getText().toString();
-                twoString.message = tvMessage.getText().toString();
-                boxListWrapper.invite(twoString, new BoxInviteCallback());
+                if (etEmail.getText().toString().equals(LinkBoxController.usrListData.usrID)) {
+                    TwoString twoString = new TwoString();
+                    twoString.usrID = etEmail.getText().toString();
+                    twoString.message = tvMessage.getText().toString();
+                    boxListWrapper.invite(twoString, new BoxInviteCallback());
+                }
+                else {
+                    Toast.makeText(BoxEditorAdd.this, "자신을 초대할 수 없습니다.", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case android.R.id.home:
                 finish();
@@ -123,11 +128,11 @@ public class BoxEditorAdd extends AppCompatActivity {
         @Override
         public void success(MainServerData<Object> wrapperObject, Response response) {
             if(wrapperObject.result) {
-                Toast.makeText(BoxEditorAdd.this, "Successfully Invite!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BoxEditorAdd.this, "초대가 발송되었습니다!", Toast.LENGTH_SHORT).show();
                 finish();
             }
             else {
-                Toast.makeText(BoxEditorAdd.this, "Fail to invite", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BoxEditorAdd.this, "초대에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

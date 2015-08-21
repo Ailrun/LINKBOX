@@ -161,7 +161,8 @@ public class InvitedBoxActivity extends AppCompatActivity {
         @Override
         public void success(MainServerData<List<AlarmListData>> wrappedAlarmListDatas, Response response) {
             if (wrappedAlarmListDatas.result) {
-                LinkBoxController.alarmBoxListSource = (ArrayList<AlarmListData>) wrappedAlarmListDatas.object;
+                LinkBoxController.alarmBoxListSource.clear();
+                LinkBoxController.alarmBoxListSource.addAll(wrappedAlarmListDatas.object);
                 LinkBoxController.notifyAlarmDataSetChanged();
             }
             else {
