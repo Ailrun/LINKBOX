@@ -84,13 +84,16 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         BoxListData boxListData = (BoxListData) getItem(i);
         Log.e("Loaded Image Number", boxListData.toString());
         Bitmap boxImage = boxImageSaveLoader.loadProfileImage(i);
+
         if (boxImage == null) {
             boxImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.splash);
         }
+
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_title);
         ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_box_image);  // TODO : Unfinished. Needs to import data
         tvBoxName.setText(boxListData.boxName);
         tvBoxImage.setImageBitmap(boxImage);    // TODO : Unfinished
+
 
         final ImageView ivFavorite = (ImageView) view.findViewById(R.id.IV_favorite_btn);
 

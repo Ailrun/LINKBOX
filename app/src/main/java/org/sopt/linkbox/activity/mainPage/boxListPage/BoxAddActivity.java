@@ -2,6 +2,8 @@ package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -144,7 +146,11 @@ public class BoxAddActivity extends Activity {
             if (wrappedBoxListData.result) {
                 box.boxKey = wrappedBoxListData.object.boxKey;
                 LinkBoxController.boxListSource.add(0, box);
-                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(ibThumb.getDrawingCache(), box.boxIndex);
+
+                // Coding note : ImageView.getDrawingCache() DOES NOT RETREIVE THE IMAGE. It only retrieves the canvas
+                BitmapDrawable bdRetreivedImage = (BitmapDrawable) ibThumb.getDrawable();
+                Bitmap bRetrievedBitmap = bdRetreivedImage.getBitmap();
+                box.boxThumbnail = boxImageSaveLoader.saveProfileImage(bRetrievedBitmap, box.boxIndex);
                 LinkBoxController.notifyBoxDataSetChanged();
                 finish();
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);

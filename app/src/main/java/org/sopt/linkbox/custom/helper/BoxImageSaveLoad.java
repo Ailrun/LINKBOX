@@ -32,7 +32,7 @@ public class BoxImageSaveLoad {
         // Create imageDir
         BoxListData boxListData = LinkBoxController.boxListSource.get(position);
         int boxKey = boxListData.boxKey;
-        File boxPath =new File(directory, boxKey + ".jpg");
+        File boxPath = new File(directory, boxKey + ".jpg");
         Log.e("BoxImage Save Status : ", boxPath.toString());
 
         FileOutputStream fos = null;
