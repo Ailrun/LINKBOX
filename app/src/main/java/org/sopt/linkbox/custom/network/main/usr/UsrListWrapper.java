@@ -34,6 +34,7 @@ public class UsrListWrapper {
         usrListData.usrID = usrID;
         usrListData.usrName = usrName;
         usrListData.usrPassword = usrPassword;
+        usrListData.usrType = usrType;
         usrListData.pushToken = LinkRegistrationService.getToken();
         usrListInterface.signup(LinkBoxController.getApplicationID(), usrListData, callback);
     }

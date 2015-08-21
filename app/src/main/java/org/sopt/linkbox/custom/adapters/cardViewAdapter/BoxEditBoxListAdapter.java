@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxDeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxEditActivity;
@@ -47,6 +48,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
         this.context = context;
+        boxListWrapper = new BoxListWrapper();
         boxImageSaveLoader = new BoxImageSaveLoad(context.getApplicationContext());
 
         if (bookmark == null) {
@@ -79,7 +81,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
-        final BoxListData boxListData = (BoxListData) getItem(i);
+        BoxListData boxListData = (BoxListData) getItem(i);
         Log.e("Loaded Image Number", boxListData.toString());
         Bitmap boxImage = boxImageSaveLoader.loadProfileImage(i);
         if (boxImage == null) {
@@ -105,15 +107,8 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         ivFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boxListData.boxFavorite = 1 - boxListData.boxFavorite;
-                boxListWrapper.favorite(boxListData, new BoxFavoriteCallback(boxListData, ivFavorite));
-                if (boxListData.boxFavorite == 1 && bookmark != null) {
-                    boxListData.boxFavorite = 0;
-                    ivFavorite.setImageBitmap(bookmark.getBitmap());
-                } else if (bookmarkSelected != null) {
-                    boxListData.boxFavorite = 1;
-                    ivFavorite.setImageBitmap(bookmarkSelected.getBitmap());
-                }
+                ((BoxListData)getItem(i)).boxFavorite = 1 - ((BoxListData)getItem(i)).boxFavorite;
+                boxListWrapper.favorite(((BoxListData)getItem(i)), new BoxFavoriteCallback(((BoxListData)getItem(i)), ivFavorite));
             }
         });
         modifyBtn.setOnClickListener(new View.OnClickListener(){
@@ -121,16 +116,17 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 Intent intent = new Intent(context, BoxEditActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("boxIndex", boxListData.boxIndex);
+                Log.d(TAG, "BoxIndex : " + i);
+                intent.putExtra("boxIndex", i);
                 context.startActivity(intent);
             }
         });
         deleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Log.e("RESPONSE", "Delete");
                 Intent intent = new Intent(context, BoxDeleteDialogActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Log.d(TAG, "BoxIndex : " + i);
                 intent.putExtra("boxIndex", i);
                 context.startActivity(intent);
             }
@@ -147,11 +143,21 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             this.ivFavorite = ivFavorite;
         }
         @Override
-        public void success(MainServerData<Object> wrapperObject, Response response) {
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            if (wrappedObject.result) {
 
+            }
+            else {
+                boxListData.boxFavorite = 1 - boxListData.boxFavorite;
+            }
+            LinkBoxController.notifyBoxDataSetChanged();
+            ivFavorite.setImageDrawable((boxListData.boxFavorite==0 ? bookmark : bookmarkSelected));
         }
         @Override
         public void failure(RetrofitError error) {
+            boxListData.boxFavorite = 1 - boxListData.boxFavorite;
+            LinkBoxController.notifyBoxDataSetChanged();
+            ivFavorite.setImageDrawable((boxListData.boxFavorite==0 ? bookmark : bookmarkSelected));
         }
     }
 }

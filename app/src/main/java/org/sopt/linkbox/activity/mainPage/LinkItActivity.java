@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -184,15 +183,15 @@ public class LinkItActivity extends Activity {
         sBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                boxCheck(adapterView, i);
+                boxCheck(i);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                boxCheck(adapterView, 0);
+                boxCheck(0);
             }
 
-            private void boxCheck(AdapterView<?> adapterView, int i) {
+            private void boxCheck(int i) {
                 checkedBox = i;
             }
         });
@@ -215,6 +214,7 @@ public class LinkItActivity extends Activity {
                 urlListData.urlWriterUsrName = LinkBoxController.usrListData.usrName;
                 urlListData.urlTitle = etName.getText().toString();
                 urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                Log.e("UrlDate", urlListData.urlDate);
                 urlListWrapper.add(urlListData, (BoxListData)sBox.getSelectedItem(), new UrlAddingCallback());
             }
         });
@@ -314,10 +314,11 @@ public class LinkItActivity extends Activity {
             if (wrappedUrlListData.result) {
                 LinkBoxController.urlListSource.add(0, wrappedUrlListData.object);
                 LinkBoxController.notifyUrlDataSetChanged();
+                Toast.makeText(LinkItActivity.this, "URL이 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
             else {
-                Toast.makeText(LinkItActivity.this, "There is some error in adding url", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LinkItActivity.this, "URL을 저장하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

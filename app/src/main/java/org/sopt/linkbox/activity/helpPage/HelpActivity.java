@@ -12,13 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.helpPage.subHelpPage.BoxCreateHelpActivity;
 import org.sopt.linkbox.activity.helpPage.subHelpPage.BoxShareHelpActivity;
 import org.sopt.linkbox.activity.helpPage.subHelpPage.LinkOpenHelpActivity;
 import org.sopt.linkbox.activity.helpPage.subHelpPage.StartHelpActivity;
-import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 
 /**
  * Created by MinGu on 2015-08-10.

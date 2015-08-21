@@ -1,7 +1,5 @@
 package org.sopt.linkbox.activity.accountPage;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,8 +21,7 @@ import org.sopt.linkbox.constant.UsrType;
 
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + LoginActivity.class.getName() + " : ";
-
-
+    
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private Toolbar tToolbar = null;
     private EditText etEmail = null;
@@ -99,6 +96,4 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
     //</editor-fold>
-
-
 }

@@ -2,7 +2,6 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -15,7 +14,6 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.custom.dialog.DeleteDialog;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
 
 import retrofit.Callback;
@@ -24,6 +22,7 @@ import retrofit.client.Response;
 
 /**
  * Created by Junyoung on 2015-08-18.
+ *
  */
 public class DeleteDialogActivity extends Activity {
     private static final String TAG = "TEST/" + DeleteDialogActivity.class.getName() + " : ";

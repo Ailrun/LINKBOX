@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -68,6 +69,8 @@ public class FacebookDataActivity extends Activity {
             }
             else {
                 Log.d(TAG, "jsonObject is NULL!!!!");
+                Toast.makeText(FacebookDataActivity.this, "Facebook과의 연결에 문제가 있습니다.", Toast.LENGTH_SHORT).show();
+                finish();
             }
         }
     }

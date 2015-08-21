@@ -1,10 +1,7 @@
 package org.sopt.linkbox.activity.settingPage;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -15,13 +12,10 @@ import android.widget.RadioButton;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
-import org.sopt.linkbox.custom.data.mainData.UsrListData;
-
-import java.io.File;
-import java.io.FileOutputStream;
 
 /**
  * Created by MinGu on 2015-08-17.
+ *
  */
 public class ReadLaterDialog extends Activity {
     private static final String TAG = "TEST/" + ReadLaterDialog.class.getName() + " : ";
@@ -47,7 +41,7 @@ public class ReadLaterDialog extends Activity {
         saveState();
     }
 
-    public void initView(){
+    private void initView(){
         rbHour = (RadioButton) findViewById(R.id.RB_hour_later);
         rbTwoHour = (RadioButton) findViewById(R.id.RB_2hours_later);
         rbTomorrow = (RadioButton) findViewById(R.id.RB_tomorrow);
@@ -69,7 +63,7 @@ public class ReadLaterDialog extends Activity {
         }
     }
 
-    public void initListener(){
+    private void initListener(){
 
         rbHour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,17 +117,17 @@ public class ReadLaterDialog extends Activity {
         });
     }
 
-    public void saveState(){
-        if(rbHour.isChecked() == true){
+    private void saveState(){
+        if(rbHour.isChecked()){
             readLaterIndicator = 1;
         }
-        else if(rbTwoHour.isChecked() == true){
+        else if(rbTwoHour.isChecked()){
             readLaterIndicator = 2;
         }
-        else if(rbTomorrow.isChecked() == true){
+        else if(rbTomorrow.isChecked()){
             readLaterIndicator = 3;
         }
-        else if(rbTwoTomorrow.isChecked() == true){
+        else if(rbTwoTomorrow.isChecked()){
             readLaterIndicator = 4;
         }
 
