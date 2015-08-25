@@ -274,14 +274,15 @@ public class LinkItActivity extends Activity {
             JSONObject jsonObject = null;
             try {
                 jsonObject = new JSONObject(json);
-                String id = jsonObject.optJSONObject("og_object").optString("id");
-                Bundle parameter = new Bundle();
-                parameter.putString("id", id);
-                parameter.putString("access_token", "1646442455642975|7bd84cfafd55d4e1fbf59c22a6030127");
-                String path = "/v2.4/";
-                GraphRequest graphRequest = new GraphRequest(null, path, parameter, HttpMethod.POST, new GetThumbnailCallback());
-                graphRequest.executeAsync();
-            }
+                if(jsonObject.optJSONObject("og_object") != null) {
+                    String id = jsonObject.optJSONObject("og_object").optString("id");
+                    Bundle parameter = new Bundle();
+                    parameter.putString("id", id);
+                    parameter.putString("access_token", "1646442455642975|7bd84cfafd55d4e1fbf59c22a6030127");
+                    String path = "/v2.4/";
+                    GraphRequest graphRequest = new GraphRequest(null, path, parameter, HttpMethod.POST, new GetThumbnailCallback());
+                    graphRequest.executeAsync();
+                }            }
             catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -295,10 +296,12 @@ public class LinkItActivity extends Activity {
             String json = graphResponse.getRawResponse();
             JSONObject jsonObject = null;
             try {
-                jsonObject = new JSONObject(json);
-                JSONArray jsonArray = jsonObject.getJSONArray("image");
-                urlListData.urlThumbnail = jsonArray.getJSONObject(0).getString("url");
-                Glide.with(LinkItActivity.this).load(urlListData.urlThumbnail).asBitmap().into(ivThumb);
+                if(json != null) {
+                    jsonObject = new JSONObject(json);
+                    JSONArray jsonArray = jsonObject.getJSONArray("image");
+                    urlListData.urlThumbnail = jsonArray.getJSONObject(0).getString("url");
+                    Glide.with(LinkItActivity.this).load(urlListData.urlThumbnail).asBitmap().into(ivThumb);
+                }
             }
             catch (JSONException e) {
                 e.printStackTrace();
