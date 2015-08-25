@@ -68,8 +68,8 @@ public class EditDialogActivity extends Activity {
         etTitle = (EditText) findViewById(R.id.ET_title_edit_dialog);
         bEdit = (Button) findViewById(R.id.B_edit_link_apply_edit_dialog);
         bCancel = (Button) findViewById(R.id.B_edit_link_cancel_edit_dialog);
-        if (urlListData.urlWriterUsrName != null) {
-            etTitle.setText(urlListData.urlWriterUsrName);
+        if (urlListData.urlTitle != null) {
+            etTitle.setText(urlListData.urlTitle);
         }
     }
     private void initListener() {

@@ -298,7 +298,7 @@ public class LinkItActivity extends Activity {
                 jsonObject = new JSONObject(json);
                 JSONArray jsonArray = jsonObject.getJSONArray("image");
                 urlListData.urlThumbnail = jsonArray.getJSONObject(0).getString("url");
-                Glide.with(LinkItActivity.this).load(urlListData.urlThumbnail).into(ivThumb);
+                Glide.with(LinkItActivity.this).load(urlListData.urlThumbnail).asBitmap().into(ivThumb);
             }
             catch (JSONException e) {
                 e.printStackTrace();

@@ -471,7 +471,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         rlMyBox.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                dlDrawer.closeDrawers();
                 Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
@@ -499,7 +498,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                 initInBox();
                 invalidateOptionsMenu();
                 dlDrawer.closeDrawers();
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
         abdtDrawer = new ActionBarDrawerToggle(this, dlDrawer,
