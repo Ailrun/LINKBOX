@@ -154,6 +154,7 @@ public class LinkItActivity extends Activity {
         parameter.putString("access_token", "1646442455642975|7bd84cfafd55d4e1fbf59c22a6030127");
         String path = "/v2.4/";
         GraphRequest graphRequest = new GraphRequest(null, path, parameter, HttpMethod.GET, new GetIDCallback());
+        // TODO : Unfinished
         Log.e(TAG, String.valueOf(graphRequest));
         if(graphRequest.getGraphObject() != null){
             graphRequest.executeAsync();
@@ -165,7 +166,6 @@ public class LinkItActivity extends Activity {
     private void initServerInterface() {
         urlListWrapper = new UrlListWrapper();
     }
-
     //</editor-fold>
     //<editor-fold desc="Initiate Glide" defaultstate="collapsed">
     private void initGlideInterface() {
@@ -180,7 +180,6 @@ public class LinkItActivity extends Activity {
             }
         }
     }
-
     //</editor-fold>
     //<editor-fold desc="Initiate Main" defaultstate="collapsed">
     private void initMainView() {
@@ -193,7 +192,6 @@ public class LinkItActivity extends Activity {
         bLinkit.setEnabled(false);
         bCancel = (Button) findViewById(R.id.B_cancel_link_it);
     }
-
     private void initMainListener() {
         sBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -241,7 +239,6 @@ public class LinkItActivity extends Activity {
             }
         });
     }
-
     //</editor-fold>
     //<editor-fold desc="Initiate Animation">
     private void initAnimationView() {
@@ -251,19 +248,16 @@ public class LinkItActivity extends Activity {
         animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_down);
         animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_up);
     }
-
     private void initAnimationListener() {
         animSlideDown.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
             }
-
             @Override
             public void onAnimationEnd(Animation animation) {
 
             }
-
             @Override
             public void onAnimationRepeat(Animation animation) {
 
@@ -274,12 +268,10 @@ public class LinkItActivity extends Activity {
             public void onAnimationStart(Animation animation) {
 
             }
-
             @Override
             public void onAnimationEnd(Animation animation) {
 
             }
-
             @Override
             public void onAnimationRepeat(Animation animation) {
 
@@ -293,7 +285,6 @@ public class LinkItActivity extends Activity {
         @Override
         public void onCompleted(GraphResponse graphResponse) {
             String json = graphResponse.getRawResponse();
-            // Log.e(TAG, json);
             JSONObject jsonObject = null;
             try {
                 jsonObject = new JSONObject(json).optJSONObject("og_object");
@@ -311,7 +302,6 @@ public class LinkItActivity extends Activity {
             }
         }
     }
-
     private class GetThumbnailCallback implements GraphRequest.Callback {
         @Override
         public void onCompleted(GraphResponse graphResponse) {
@@ -348,7 +338,6 @@ public class LinkItActivity extends Activity {
                 finish();
             }
         }
-
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);

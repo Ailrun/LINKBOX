@@ -70,9 +70,9 @@ public class BoxEditActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(LinkBoxController.boxImage != null){
-            // Bitmap bmp = boxImageSaveLoader.loadProfileImage(LinkBoxController.currentBox.boxKey);
-            ibThumb.setImageBitmap(LinkBoxController.boxImage);
+        if( boxImageSaveLoader.loadProfileImage(index) != null) {
+            Bitmap bmp = boxImageSaveLoader.loadProfileImage(index);
+            ibThumb.setImageBitmap(bmp);
         }
     }
     @Override

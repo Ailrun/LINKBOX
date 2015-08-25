@@ -90,6 +90,7 @@ public class BoxAddActivity extends Activity {
         ibThumb = (ImageView) findViewById(R.id.IB_thumbnail_box_add);
         bSave = (Button) findViewById(R.id.B_save_box_add);
         bCancel = (Button) findViewById(R.id.B_cancel_box_add);
+
     }
     private void initListener() {
         bSave.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +104,7 @@ public class BoxAddActivity extends Activity {
                 box.boxUrlNum = 0;
                 boxListWrapper.add(box, new BoxAddingCallback());
 
+               LinkBoxController.boxImage = null;
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +112,7 @@ public class BoxAddActivity extends Activity {
             public void onClick(View view) {
                 finish();
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+                LinkBoxController.boxImage = null;
             }
         });
         ibThumb.setOnClickListener(new View.OnClickListener() {
