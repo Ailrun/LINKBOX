@@ -53,7 +53,7 @@
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/Theme.CustomTheme" >
+        android:theme="@style/Theme.CustomTheme">
 
         <!-- Deprecated Start -->
         <service
@@ -66,7 +66,8 @@
             android:name=".activity.effectPage.SplashActivity"
             android:label="@string/app_name"
             android:launchMode="singleInstance"
-            android:noHistory="true" >
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action
                     android:name="android.intent.action.MAIN" />
@@ -79,28 +80,33 @@
         <activity
             android:name=".activity.accountPage.AccountActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.accountPage.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.accountPage.AccountActivity" >
+            android:parentActivityName=".activity.accountPage.AccountActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.accountPage.SignupActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
-            android:parentActivityName=".activity.accountPage.AccountActivity" >
+            android:parentActivityName=".activity.accountPage.AccountActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.accountPage.FacebookDataActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.loadingPage.AccountLoadingActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
 
         <!-- Facebook Start -->
@@ -108,7 +114,8 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait">
         </activity>
         <provider
             android:name="com.facebook.FacebookContentProvider"
@@ -132,24 +139,29 @@
         <activity
             android:name=".activity.helpPage.HelpActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity" >
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.helpPage.subHelpPage.StartHelpActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.helpPage.HelpActivity" />
+            android:parentActivityName=".activity.helpPage.HelpActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.helpPage.subHelpPage.LinkOpenHelpActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.helpPage.HelpActivity" />
+            android:parentActivityName=".activity.helpPage.HelpActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.helpPage.subHelpPage.BoxCreateHelpActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.helpPage.HelpActivity" />
+            android:parentActivityName=".activity.helpPage.HelpActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".activity.helpPage.subHelpPage.BoxShareHelpActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.helpPage.HelpActivity" />
+            android:parentActivityName=".activity.helpPage.HelpActivity"
+            android:screenOrientation="portrait"/>
         <!-- Help Activities End -->
 
         <!-- for Push -->
@@ -191,59 +203,69 @@
         <activity
             android:name=".activity.mainPage.boxListPage.BoxListEditActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity">
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.mainPage.boxListPage.InvitedBoxActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.mainPage.boxListPage.BoxListEditActivity">
+            android:parentActivityName=".activity.mainPage.boxListPage.BoxListEditActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.mainPage.boxListPage.BoxAddActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".activity.mainPage.boxListPage.BoxEditActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <!-- Box Activities End -->
         <!-- Editor Activities Start -->
         <activity
             android:name=".activity.mainPage.editorPage.BoxEditorAdd"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.mainPage.editorPage.BoxEditorList" >
+            android:parentActivityName=".activity.mainPage.editorPage.BoxEditorList"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activity.mainPage.editorPage.BoxEditorList"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity" >
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"
+            android:screenOrientation="portrait">
         </activity>
         <!-- Editor Activities End -->
         <!-- URL Activities Start -->
         <activity
             android:name=".activity.mainPage.urlListingPage.LinkBoxActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity android:name=".activity.mainPage.urlListingPage.PhotoCropActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
         <!-- URL Activities End -->
         <!-- Setting Activities Start -->
         <activity
             android:name=".activity.settingPage.UserSettingActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity">
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"
+            android:screenOrientation="portrait">
         </activity>
         <!-- Setting Activities End -->
 
         <activity
             android:name=".activity.mainPage.LinkItActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" >
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait">
             <intent-filter android:label="@string/app_name" >
                 <action
                     android:name="android.intent.action.SEND" />
@@ -255,25 +277,31 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.mainPage.boxListPage.BoxImageCropActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
         </activity>
         <!-- Main Activities End -->
 
         <activity android:name=".activity.settingPage.AlarmDialogActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.settingPage.ReadLaterDialogActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog"/>
+            android:theme="@android:style/Theme.Dialog"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.mainPage.urlListingPage.DeleteDialogActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.mainPage.urlListingPage.EditDialogActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.mainPage.boxListPage.BoxDeleteDialogActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

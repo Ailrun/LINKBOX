@@ -30,7 +30,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/drawer_background"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"/>
         <org.sopt.linkbox.custom.widget.RoundedImageView
             android:id="@+id/RIV_profile_link_box"
             android:layout_marginTop="16dp"
