@@ -36,7 +36,7 @@ public class BoxImageSaveLoad {
         // Create imageDir
         BoxListData boxListData = LinkBoxController.boxListSource.get(position);
         int boxKey = boxListData.boxKey;
-        File boxPath =new File(directory, boxKey + ".jpg");
+        File boxPath = new File(directory, boxKey + ".png");
         Log.e("BoxImage Save Status : ", boxPath.toString());
 
         FileOutputStream fos = null;
@@ -57,12 +57,12 @@ public class BoxImageSaveLoad {
         Bitmap temporaryImage = null;
         try {
             BoxListData boxListData = LinkBoxController.boxListSource.get(position);
+            Log.e("boxListSource position", String.valueOf(LinkBoxController.boxListSource.get(position)));
             int boxKey = boxListData.boxKey;
 
             ContextWrapper cw = new ContextWrapper(context);
             File directory = cw.getDir("boxImageDir", Context.MODE_PRIVATE);
-            File file = new File(directory, boxKey + ".jpg");
-            Log.e("BoxImage Load Status : ", file.toString());
+            File file = new File(directory, boxKey + ".png");
             temporaryImage = BitmapFactory.decodeStream(new FileInputStream(file));
         }
         catch (FileNotFoundException e)

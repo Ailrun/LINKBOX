@@ -181,22 +181,19 @@ public class UserSettingActivity extends AppCompatActivity {
         cbAlarmEnable.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = prefs.edit();
                 if(cbAlarmEnable.isChecked()){
                     LinkBoxController.defaultAlarm = false;
                     // cbAlarmEnable.setChecked(false);
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("alarm_enable", 0);
-                    editor.commit();
                 }
                 else {
                     LinkBoxController.defaultAlarm = true;
                     // cbAlarmEnable.setChecked(true);
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = prefs.edit();
                     editor.putInt("alarm_enable", 1);
-                    editor.commit();
                 }
+                editor.apply();
             }
         });
 
@@ -225,7 +222,7 @@ public class UserSettingActivity extends AppCompatActivity {
         tvAlarmChoice.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserSettingActivity.this, AlarmDialog.class);
+                Intent intent = new Intent(UserSettingActivity.this, AlarmDialogActivity.class);
                 startActivity(intent);
             }
         });
@@ -233,7 +230,7 @@ public class UserSettingActivity extends AppCompatActivity {
         tvReadLaterTime.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(UserSettingActivity.this, ReadLaterDialog.class);
+                Intent intent = new Intent(UserSettingActivity.this, ReadLaterDialogActivity.class);
                 startActivity(intent);
             }
         });

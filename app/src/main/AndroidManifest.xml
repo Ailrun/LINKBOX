@@ -259,10 +259,10 @@
         </activity>
         <!-- Main Activities End -->
 
-        <activity android:name=".activity.settingPage.AlarmDialog"
+        <activity android:name=".activity.settingPage.AlarmDialogActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog"/>
-        <activity android:name=".activity.settingPage.ReadLaterDialog"
+        <activity android:name=".activity.settingPage.ReadLaterDialogActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Dialog"/>
         <activity android:name=".activity.mainPage.urlListingPage.DeleteDialogActivity"

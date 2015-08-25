@@ -28,6 +28,7 @@ import retrofit.client.Response;
 
 /**
  * Created by MinGu on 2015-08-02.
+ *
  */
 public class InvitedBoxActivity extends AppCompatActivity {
     private static final String TAG = "TEST/" + InvitedBoxActivity.class.getName() + " : ";
@@ -161,7 +162,8 @@ public class InvitedBoxActivity extends AppCompatActivity {
         @Override
         public void success(MainServerData<List<AlarmListData>> wrappedAlarmListDatas, Response response) {
             if (wrappedAlarmListDatas.result) {
-                LinkBoxController.alarmBoxListSource = (ArrayList<AlarmListData>) wrappedAlarmListDatas.object;
+                LinkBoxController.alarmBoxListSource.clear();
+                LinkBoxController.alarmBoxListSource.addAll(wrappedAlarmListDatas.object);
                 LinkBoxController.notifyAlarmDataSetChanged();
             }
             else {

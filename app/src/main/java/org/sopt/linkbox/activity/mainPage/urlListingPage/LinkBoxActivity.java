@@ -425,9 +425,11 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String url = ((UrlListData) lvUrlList.getItemAtPosition(position)).url;
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
+                if (position > 0) {
+                    String url = ((UrlListData) lvUrlList.getItemAtPosition(position)).url;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                }
             }
         });
     }

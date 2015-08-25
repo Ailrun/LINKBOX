@@ -82,16 +82,17 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
         }
         BoxListData boxListData = (BoxListData) getItem(i);
-        Log.e("Loaded Image Number", boxListData.toString());
         Bitmap boxImage = boxImageSaveLoader.loadProfileImage(i);
 
         if (boxImage == null) {
             boxImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.box_default);
         }
+
         TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_title);
-        ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_box_image);  // TODO : Unfinished. Needs to import data
+        ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_box_image);
         tvBoxName.setText(boxListData.boxName);
-        tvBoxImage.setImageBitmap(boxImage);    // TODO : Unfinished
+        tvBoxImage.setImageBitmap(boxImage);
+
 
         final ImageView ivFavorite = (ImageView) view.findViewById(R.id.IV_favorite_btn);
 
@@ -110,6 +111,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             public void onClick(View v) {
                 ((BoxListData)getItem(i)).boxFavorite = 1 - ((BoxListData)getItem(i)).boxFavorite;
                 boxListWrapper.favorite(((BoxListData)getItem(i)), new BoxFavoriteCallback(((BoxListData)getItem(i)), ivFavorite));
+                ivFavorite.setEnabled(false);
             }
         });
         modifyBtn.setOnClickListener(new View.OnClickListener(){
@@ -153,12 +155,14 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
             }
             LinkBoxController.notifyBoxDataSetChanged();
             ivFavorite.setImageDrawable((boxListData.boxFavorite==0 ? bookmark : bookmarkSelected));
+            ivFavorite.setEnabled(true);
         }
         @Override
         public void failure(RetrofitError error) {
             boxListData.boxFavorite = 1 - boxListData.boxFavorite;
             LinkBoxController.notifyBoxDataSetChanged();
             ivFavorite.setImageDrawable((boxListData.boxFavorite==0 ? bookmark : bookmarkSelected));
+            ivFavorite.setEnabled(true);
         }
     }
 }
