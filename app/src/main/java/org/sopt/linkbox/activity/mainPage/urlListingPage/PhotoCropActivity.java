@@ -2,10 +2,12 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -54,6 +56,13 @@ public class PhotoCropActivity extends AppCompatActivity {
                 // ivProfile.setImageURI(imgURI);
                 // filePath = getRealPathFromURI(imgURI);
                 Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
+                /*
+                if(bmp.getHeight() > 2000 || bmp.getWidth() > 2000){
+                    bmp = resizeBitmap(bmp, 500.0f, 500.0f);
+                }
+                Log.e("Bitmap Size WIDTH", String.valueOf(bmp.getWidth()));
+                Log.e("Bitmap Size HEIGHT", String.valueOf(bmp.getHeight()));
+                */
                 // LinkBoxController.temporaryImage = bmp;
                 // ivProfile.setImageBitmap(bmp);
                 // ivProfile.getCroppedBitmap(bmp, 15);
@@ -74,6 +83,25 @@ public class PhotoCropActivity extends AppCompatActivity {
         }
     }
     //</editor-fold>
+
+    /*
+    public Bitmap resizeBitmap(Bitmap bmp, float newWidth, float newHeight){
+        int width = bmp.getWidth();
+        int height = bmp.getHeight();
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scaleWidth, scaleHeight);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bmp, 0, 0, width, height, matrix, false);
+        bmp.recycle();
+        return resizedBitmap;
+    }
+    */
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
     public void initView(){

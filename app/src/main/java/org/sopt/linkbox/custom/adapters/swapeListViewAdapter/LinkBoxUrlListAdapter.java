@@ -184,8 +184,19 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         }
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
+            /*
             urlListData.liked = (1-urlListData.liked);
             urlListData.likedNum += 2*urlListData.liked - 1;
+            */
+            if(urlListData.liked == 0){
+                urlListData.liked = 1;
+                urlListData.likedNum += 1;
+            }
+            else if(urlListData.liked == 1){
+                urlListData.liked = 0;
+                urlListData.likedNum -= 1;
+            }
+
             ivLike.setImageResource(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
             ivLike.setEnabled(true);
             LinkBoxController.notifyUrlDataSetChanged();

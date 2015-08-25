@@ -49,7 +49,8 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-/** T?O?D?O : make this as Single Instance
+/**
+ * T?O?D?O : make this as Single Instance
  * REFERENCE : http://www.androidpub.com/796480
  */
 public class LinkItActivity extends Activity {
@@ -90,10 +91,12 @@ public class LinkItActivity extends Activity {
         initListener();
         initControl();
     }
+
     @Override
     public void onResume() {
         super.onResume();
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -105,6 +108,7 @@ public class LinkItActivity extends Activity {
         initServerInterface();
         initGlideInterface();
     }
+
     private void initWindow() {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -113,32 +117,36 @@ public class LinkItActivity extends Activity {
         getWindow().setAttributes(layoutParams);
         setContentView(R.layout.activity_link_it);
     }
+
     private void initData() {
         urlListData = new UrlListData();
         Intent intent = getIntent();
         if (intent.hasExtra(Intent.EXTRA_TEXT)) {
             urlListData.url = intent.getStringExtra(Intent.EXTRA_TEXT);
             initThumbnail();
-        }
-        else {
+        } else {
             finish();
             Log.e(TAG, "There is no url but LinkItActivity start");
         }
     }
+
     private void initView() {
         initMainView();
         initAnimationView();
     }
+
     private void initListener() {
         initMainListener();
         initAnimationListener();
     }
+
     private void initControl() {
         LinkBoxController.linkItBoxListAdapter =
                 new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         sBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
     }
+
     private void initThumbnail() {
         Bundle parameter = new Bundle();
 
@@ -146,20 +154,25 @@ public class LinkItActivity extends Activity {
         parameter.putString("access_token", "1646442455642975|7bd84cfafd55d4e1fbf59c22a6030127");
         String path = "/v2.4/";
         GraphRequest graphRequest = new GraphRequest(null, path, parameter, HttpMethod.GET, new GetIDCallback());
-        graphRequest.executeAsync();
+        Log.e(TAG, String.valueOf(graphRequest));
+        if(graphRequest.getGraphObject() != null){
+            graphRequest.executeAsync();
+        }
     }
+
     //</editor-fold>
     //<editor-fold desc="Initiate Server" defaultstate="collapsed">
     private void initServerInterface() {
         urlListWrapper = new UrlListWrapper();
     }
+
     //</editor-fold>
     //<editor-fold desc="Initiate Glide" defaultstate="collapsed">
     private void initGlideInterface() {
-        synchronized (Glide.class){
-            if(!Glide.isSetup()){
+        synchronized (Glide.class) {
+            if (!Glide.isSetup()) {
                 File file = Glide.getPhotoCacheDir(getApplicationContext());
-                int size = 1024*1024*1024;
+                int size = 1024 * 1024 * 1024;
                 DiskCache cache = DiskLruCacheWrapper.get(file, size);
                 GlideBuilder builder = new GlideBuilder(getApplicationContext());
                 builder.setDiskCache(cache);
@@ -167,6 +180,7 @@ public class LinkItActivity extends Activity {
             }
         }
     }
+
     //</editor-fold>
     //<editor-fold desc="Initiate Main" defaultstate="collapsed">
     private void initMainView() {
@@ -179,6 +193,7 @@ public class LinkItActivity extends Activity {
         bLinkit.setEnabled(false);
         bCancel = (Button) findViewById(R.id.B_cancel_link_it);
     }
+
     private void initMainListener() {
         sBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -215,7 +230,8 @@ public class LinkItActivity extends Activity {
                 urlListData.urlTitle = etName.getText().toString();
                 urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 Log.e("UrlDate", urlListData.urlDate);
-                urlListWrapper.add(urlListData, (BoxListData)sBox.getSelectedItem(), new UrlAddingCallback());
+                urlListWrapper.add(urlListData, (BoxListData) sBox.getSelectedItem(), new UrlAddingCallback());
+                finish();
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
@@ -225,6 +241,7 @@ public class LinkItActivity extends Activity {
             }
         });
     }
+
     //</editor-fold>
     //<editor-fold desc="Initiate Animation">
     private void initAnimationView() {
@@ -234,16 +251,19 @@ public class LinkItActivity extends Activity {
         animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_down);
         animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_up);
     }
+
     private void initAnimationListener() {
         animSlideDown.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
             }
+
             @Override
             public void onAnimationEnd(Animation animation) {
 
             }
+
             @Override
             public void onAnimationRepeat(Animation animation) {
 
@@ -254,10 +274,12 @@ public class LinkItActivity extends Activity {
             public void onAnimationStart(Animation animation) {
 
             }
+
             @Override
             public void onAnimationEnd(Animation animation) {
 
             }
+
             @Override
             public void onAnimationRepeat(Animation animation) {
 
@@ -271,36 +293,41 @@ public class LinkItActivity extends Activity {
         @Override
         public void onCompleted(GraphResponse graphResponse) {
             String json = graphResponse.getRawResponse();
+            // Log.e(TAG, json);
             JSONObject jsonObject = null;
             try {
-                jsonObject = new JSONObject(json);
-                String id = jsonObject.optJSONObject("og_object").optString("id");
-                Bundle parameter = new Bundle();
-                parameter.putString("id", id);
-                parameter.putString("access_token", "1646442455642975|7bd84cfafd55d4e1fbf59c22a6030127");
-                String path = "/v2.4/";
-                GraphRequest graphRequest = new GraphRequest(null, path, parameter, HttpMethod.POST, new GetThumbnailCallback());
-                graphRequest.executeAsync();
-            }
-            catch (JSONException e) {
+                jsonObject = new JSONObject(json).optJSONObject("og_object");
+                if (jsonObject != null) {
+                    String id = jsonObject.optString("id");
+                    Bundle parameter = new Bundle();
+                    parameter.putString("id", id);
+                    parameter.putString("access_token", "1646442455642975|7bd84cfafd55d4e1fbf59c22a6030127");
+                    String path = "/v2.4/";
+                    GraphRequest graphRequest = new GraphRequest(null, path, parameter, HttpMethod.POST, new GetThumbnailCallback());
+                    graphRequest.executeAsync();
+                }
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
     }
+
     private class GetThumbnailCallback implements GraphRequest.Callback {
         @Override
         public void onCompleted(GraphResponse graphResponse) {
             bLinkit.setEnabled(true);
-            Log.d(TAG, graphResponse.toString());
+            Log.e(TAG, graphResponse.toString());
             String json = graphResponse.getRawResponse();
+            // Log.e("JSON ERROR INDICATOR", json);
             JSONObject jsonObject = null;
             try {
-                jsonObject = new JSONObject(json);
-                JSONArray jsonArray = jsonObject.getJSONArray("image");
-                urlListData.urlThumbnail = jsonArray.getJSONObject(0).getString("url");
-                Glide.with(LinkItActivity.this).load(urlListData.urlThumbnail).into(ivThumb);
-            }
-            catch (JSONException e) {
+                if (json != null) {
+                    jsonObject = new JSONObject(json);
+                    JSONArray jsonArray = jsonObject.getJSONArray("image");
+                    urlListData.urlThumbnail = jsonArray.getJSONObject(0).getString("url");
+                    Glide.with(LinkItActivity.this).load(urlListData.urlThumbnail).into(ivThumb);
+                }
+            } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -316,12 +343,12 @@ public class LinkItActivity extends Activity {
                 LinkBoxController.notifyUrlDataSetChanged();
                 Toast.makeText(LinkItActivity.this, "URL이 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 finish();
-            }
-            else {
+            } else {
                 Toast.makeText(LinkItActivity.this, "URL을 저장하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }
+
         @Override
         public void failure(RetrofitError error) {
             RetrofitDebug.debug(error);

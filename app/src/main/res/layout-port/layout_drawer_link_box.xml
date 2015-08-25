@@ -29,7 +29,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/drawer_background"
+            android:background="@drawable/drawer_background"
             android:scaleType="fitCenter"/>
         <org.sopt.linkbox.custom.widget.RoundedImageView
             android:id="@+id/RIV_profile_link_box"
