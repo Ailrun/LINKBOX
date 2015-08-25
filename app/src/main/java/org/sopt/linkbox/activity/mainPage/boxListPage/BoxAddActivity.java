@@ -104,7 +104,7 @@ public class BoxAddActivity extends Activity {
                 box.boxUrlNum = 0;
                 boxListWrapper.add(box, new BoxAddingCallback());
 
-                LinkBoxController.boxImage = null;
+               LinkBoxController.boxImage = null;
             }
         });
         bCancel.setOnClickListener(new View.OnClickListener() {
