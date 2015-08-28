@@ -436,10 +436,15 @@ public class LinkBoxActivity extends AppCompatActivity {
 
                     String url = ((UrlListData) lvUrlList.getItemAtPosition(position)).url;
                     String urlTitle = urlListData.urlTitle.toString();
+                    int liked = urlListData.liked;
                     Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
                     intent.putExtra("url", url);
                     intent.putExtra("title", urlTitle);
+                    intent.putExtra("liked", liked);
+                    intent.putExtra("position", position);
+                    intent.putExtra("urlkey", urlListData.urlKey);
                     startActivity(intent);
+                   overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
 
             }
         });

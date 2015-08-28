@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.internal.view.menu.ActionMenuItemView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,12 +16,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ActionMenuView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
+import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class WebviewActivity extends AppCompatActivity {
 
@@ -34,6 +45,9 @@ public class WebviewActivity extends AppCompatActivity {
 
     private EditText etReply;
     private ImageButton ibSendButton;
+    private int iLiked;
+    private int position;
+    private int urlkey;
 
     private InputMethodManager mInputMethodManager;
 
@@ -43,6 +57,9 @@ public class WebviewActivity extends AppCompatActivity {
     private FrameLayout eHeaderLayout;
     private Animation animation;
 
+    private UrlListData urlListData = null;
+    private UrlListWrapper urlListWrapper = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,9 +67,24 @@ public class WebviewActivity extends AppCompatActivity {
 
         mInputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
+        urlListWrapper = new UrlListWrapper();
+
+
         Intent intent = getIntent();
         sAddress = intent.getStringExtra("url");
         sTitle = intent.getStringExtra("title");
+        iLiked = intent.getIntExtra("liked", 0);
+        position = intent.getIntExtra("position", 0);
+        urlkey = intent.getIntExtra("urlkey", 0);
+
+        urlListData = new UrlListData();
+
+        urlListData.urlTitle = sTitle;
+        urlListData.url = sAddress;
+        urlListData.liked = iLiked;
+        urlListData.urlKey = urlkey;
+
+
 
         initview();
         initToolbarView();
@@ -80,19 +112,15 @@ public class WebviewActivity extends AppCompatActivity {
                 collapse(eContentLayout);
                 return;
         } else {
-            if (webView.canGoBack()) {
-
                 if (webView.canGoBack()) {
                     webView.goBack();
                 } else {
                     webView.clearCache(false);
                     finish();
+                    overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 }
                 return;
-            }
-
         }
-        super.onBackPressed();
     }
 
     //웹뷰 클라이언트
@@ -159,7 +187,24 @@ public class WebviewActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
+
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        MenuItem liked = menu.findItem(R.id.action_like);
+        if(iLiked == 0)
+        {
+            liked.setIcon(R.drawable.mainpage_bookmark_unchecked);
+        }
+        else
+        {
+            liked.setIcon(R.drawable.mainpage_bookmark_checked);
+        }
+        return true;
+    }
+
     private void expand(final View v)
     {
         v.measure(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -263,11 +308,65 @@ public class WebviewActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        etReply.setHint("title = " + sTitle);
-
-
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+                break;
+
+            case R.id.action_share:
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/*");
+                intent.addCategory(Intent.CATEGORY_DEFAULT);
+                intent.putExtra(Intent.EXTRA_SUBJECT, sTitle);
+                intent.putExtra(Intent.EXTRA_TEXT, sAddress);
+                intent.putExtra(Intent.EXTRA_TITLE, sTitle);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                break;
+
+            case R.id.action_like:
+
+                urlListWrapper.like(urlListData, iLiked, new UrlLikeCallback(urlListData, item));
+                item.setEnabled(false);
+
+
+                break;
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    private class UrlLikeCallback implements Callback<MainServerData<Object>> {
+        UrlListData urlListData = null;
+        MenuItem item = null;
+
+        public UrlLikeCallback(UrlListData urlListData, MenuItem item) {
+            this.urlListData = urlListData;
+            this.item = item;
+        }
+        @Override
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            urlListData.liked = (1-urlListData.liked);
+            urlListData.likedNum += 2*urlListData.liked - 1;
+            item.setIcon(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
+            item.setEnabled(true);
+            LinkBoxController.notifyUrlDataSetChanged();
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            item.setEnabled(true);
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -275,18 +374,4 @@ public class WebviewActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }

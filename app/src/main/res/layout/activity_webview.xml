@@ -87,7 +87,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:orientation="horizontal"
                     android:weightSum="1">
 
@@ -95,20 +95,24 @@
                         android:id="@+id/ET_reply_expandable_view_content"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
-                        android:background="@color/transparent"
+                        android:layout_weight="0.95"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/real_white"
                         android:hint="댓글을 입력하세요."
                         android:paddingStart="16dp"
                         android:textColor="@color/real_black" />
 
                     <ImageButton
                         android:id="@+id/IB_send_button_expandable_view_content"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
-                        android:layout_weight="0.1" />
+                        android:background="@color/real_white"
+                        android:src="@drawable/reply_send_button"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitXY"/>
 
                 </LinearLayout>
             </LinearLayout>
