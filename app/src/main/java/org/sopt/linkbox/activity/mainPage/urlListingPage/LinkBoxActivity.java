@@ -30,6 +30,7 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.helpPage.HelpActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.WebviewActivity;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
 import org.sopt.linkbox.constant.MainStrings;
@@ -425,11 +426,21 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
+
+                    UrlListData urlListData = new UrlListData();
+                if(LinkBoxController.inboxIndicator)
+                    urlListData = LinkBoxController.urlListSource.get(position-1);
+                else
+                    urlListData = LinkBoxController.urlListSource.get(position);
+
+
                     String url = ((UrlListData) lvUrlList.getItemAtPosition(position)).url;
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    String urlTitle = urlListData.urlTitle.toString();
+                    Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
+                    intent.putExtra("url", url);
+                    intent.putExtra("title", urlTitle);
                     startActivity(intent);
-                }
+
             }
         });
     }
