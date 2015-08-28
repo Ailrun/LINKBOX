@@ -60,6 +60,7 @@ public class WebviewActivity extends AppCompatActivity {
     private UrlListData urlListData = null;
     private UrlListWrapper urlListWrapper = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -183,7 +184,7 @@ public class WebviewActivity extends AppCompatActivity {
         ibSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mInputMethodManager.hideSoftInputFromWindow(etReply.getWindowToken(), 0);//보내기 버튼 누를때 키보드 숨기기
+                mInputMethodManager.hideSoftInputFromWindow(etReply.getWindowToken(), 0);//댓글 쓰기 버튼 누를때 키보드 숨기기
 
             }
         });
