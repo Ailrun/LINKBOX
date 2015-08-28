@@ -56,7 +56,7 @@ public class BoxEditorAdd extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_send:
-                if (etEmail.getText().toString().equals(LinkBoxController.usrListData.usrID)) {
+                if (!etEmail.getText().toString().equals(LinkBoxController.usrListData.usrID)) {
                     TwoString twoString = new TwoString();
                     twoString.usrID = etEmail.getText().toString();
                     twoString.message = tvMessage.getText().toString();
