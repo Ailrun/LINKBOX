@@ -2,6 +2,7 @@ package org.sopt.linkbox.custom.network.main.url;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.data.mainData.url.CommentListData;
 import org.sopt.linkbox.custom.data.mainData.url.TagListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
@@ -70,5 +71,17 @@ public class UrlListWrapper {
     }
     public void tagRemove(UrlListData urlListData, TagListData tagListData, Callback<MainServerData<Object>> callback) {
         urlListInterface.tagRemove(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData.urlKey, tagListData, callback);
+    }
+
+    public void commentList(UrlListData urlListData, Callback<MainServerData<List<CommentListData>>> callback){
+        urlListInterface.commentList(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData.urlKey, callback);
+    }
+    public void commentAdd(UrlListData urlListData, String comment, Callback<MainServerData<CommentListData>> callback){
+        CommentListData commentListData = new CommentListData();
+        commentListData.comment = comment;
+        urlListInterface.commentAdd(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData.urlKey, commentListData, callback);
+    }
+    public void commentRemove(UrlListData urlListData, CommentListData commentListData, Callback<MainServerData<Object>> callback){
+        urlListInterface.commentRemove(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData.urlKey, commentListData, callback);
     }
 }

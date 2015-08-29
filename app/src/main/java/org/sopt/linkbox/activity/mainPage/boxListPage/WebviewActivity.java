@@ -21,13 +21,20 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.WebviewReplyListAdapter;
+import org.sopt.linkbox.custom.data.mainData.url.CommentListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.data.tempData.TwoString;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
+import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -43,6 +50,7 @@ public class WebviewActivity extends AppCompatActivity {
     private WebView webView;
     private WebSettings webSettings;
 
+    private ListView lvReply;
     private EditText etReply;
     private ImageButton ibSendButton;
     private int iLiked;
@@ -89,7 +97,7 @@ public class WebviewActivity extends AppCompatActivity {
 
         initview();
         initToolbarView();
-
+        initControl();
 
 
         webSettings = webView.getSettings();
@@ -106,6 +114,10 @@ public class WebviewActivity extends AppCompatActivity {
         webView.loadUrl(sAddress);
     }
 
+    private void initControl() {
+        LinkBoxController.webviewReplyListAdapter = new WebviewReplyListAdapter(getApplicationContext(), LinkBoxController.commentListSource);
+        lvReply.setAdapter(LinkBoxController.webviewReplyListAdapter);
+    }
     @Override
     public void onBackPressed() {
             if (eContentLayout.getVisibility() == View.VISIBLE)
@@ -152,6 +164,7 @@ public class WebviewActivity extends AppCompatActivity {
     private void initview() {
 
         webView = (WebView)findViewById(R.id.WV_webview);
+        lvReply = (ListView) findViewById(R.id.LV_container_expandable_view_content);
         etReply = (EditText) findViewById(R.id.ET_reply_expandable_view_content);
         ibSendButton = (ImageButton) findViewById(R.id.IB_send_button_expandable_view_content);
 
@@ -185,6 +198,14 @@ public class WebviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mInputMethodManager.hideSoftInputFromWindow(etReply.getWindowToken(), 0);//댓글 쓰기 버튼 누를때 키보드 숨기기
+                //버튼 눌렀을떄 댓글 서버에 전송
+                if (etReply != null) {
+                    //boxListWrapper.invite(twoString, new BoxInviteCallback()); 같은 콜백 부르기
+                    urlListWrapper.commentAdd(urlListData, etReply.toString(), new ReplyCallback());
+                }
+                else {
+                    Toast.makeText(WebviewActivity.this, "내용을 입력하세요", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -375,4 +396,22 @@ public class WebviewActivity extends AppCompatActivity {
         return true;
     }
 
+    private class ReplyCallback implements Callback<MainServerData<CommentListData>> {
+        @Override
+        public void success(MainServerData<CommentListData> wrapperObject, Response response) {
+            if (wrapperObject.result) {
+                Toast.makeText(WebviewActivity.this, "댓글작성!", Toast.LENGTH_SHORT).show();
+                LinkBoxController.notifyUrlDataSetChanged();
+                etReply.setText("");
+            }
+            else {
+                Toast.makeText(WebviewActivity.this, "댓글작성 실패.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            Toast.makeText(WebviewActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            RetrofitDebug.debug(error);
+        }
+    }
 }

@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
+import org.sopt.linkbox.custom.data.mainData.url.CommentListData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 import org.sopt.linkbox.custom.widget.RoundedImageView;
 
@@ -24,11 +25,11 @@ import java.util.ArrayList;
  * Created by sy on 2015-08-28.
  */
 public class WebviewReplyListAdapter extends BaseAdapter {
-    private ArrayList<UsrListData> source = null;
+    private ArrayList<CommentListData> source = null;
     private LayoutInflater layoutInflater = null;
     private Context context = null;
 
-    public WebviewReplyListAdapter(Context context, ArrayList<UsrListData> source) {
+    public WebviewReplyListAdapter(Context context, ArrayList<CommentListData> source) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.source = source;
         this.context = context;
@@ -45,7 +46,7 @@ public class WebviewReplyListAdapter extends BaseAdapter {
         }
     }
 
-    public void setSource(ArrayList<UsrListData> source) {
+    public void setSource(ArrayList<CommentListData> source) {
         this.source = source;
         notifyDataSetChanged();
     }
@@ -67,13 +68,14 @@ public class WebviewReplyListAdapter extends BaseAdapter {
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_reply_list_webview, viewGroup, false);
         }
-        UsrListData usrListData = (UsrListData) getItem(i);
+
+        CommentListData commentListData = (CommentListData) getItem(i);
         RoundedImageView ivProfile = ViewHolder.get(view, R.id.IV_profile_reply_webview);
         TextView tvName = ViewHolder.get(view, R.id.TV_name_reply_webview);
         TextView tvContents = ViewHolder.get(view, R.id.TV_contents_reply_webview);
-        Glide.with(context).load(usrListData.usrProfile).into(ivProfile);
-        tvName.setText(usrListData.usrName);
-        //TODO 댓글 내용은 어디다 저장하고 어떻게 불러오는가
+        Glide.with(context).load(commentListData.usrThumbnail).into(ivProfile);
+        tvName.setText(commentListData.usrName);
+        tvContents.setText(commentListData.comment);
         return view;
     }
 

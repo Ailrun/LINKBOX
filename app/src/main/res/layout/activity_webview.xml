@@ -94,8 +94,8 @@
                     <EditText
                         android:id="@+id/ET_reply_expandable_view_content"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.95"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.87"
                         android:layout_gravity="center_vertical"
                         android:background="@color/real_white"
                         android:hint="댓글을 입력하세요."
@@ -104,15 +104,20 @@
 
                     <ImageButton
                         android:id="@+id/IB_send_button_expandable_view_content"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.1"
+                        android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginStart="16dp"
                         android:background="@color/real_white"
                         android:src="@drawable/reply_send_button"
                         android:adjustViewBounds="true"
-                        android:scaleType="fitXY"/>
+                        android:scaleType="fitCenter"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="0.03"
+                        android:layout_height="match_parent"
+
+                        />
 
                 </LinearLayout>
             </LinearLayout>
