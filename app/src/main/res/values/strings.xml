@@ -24,4 +24,5 @@
     <string name="user_email_hint">이메일 주소</string>
     <string name="user_password_check_hint">비밀번호 확인</string>
     <string name="title_activity_box_add">BoxAddActivity</string>
+    <string name="title_activity_webview">WebviewActivity</string>
 </resources>

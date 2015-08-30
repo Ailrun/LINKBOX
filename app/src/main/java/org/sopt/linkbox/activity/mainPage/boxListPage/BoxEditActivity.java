@@ -70,10 +70,13 @@ public class BoxEditActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-       /* if( boxImageSaveLoader.loadProfileImage(index) != null) {
+        /*
+        if( boxImageSaveLoader.loadProfileImage(index) != null) {
             Bitmap bmp = boxImageSaveLoader.loadProfileImage(index);
-            ibThumb.setImageBitmap(bmp);*/
+            ibThumb.setImageBitmap(bmp);
+        }*/
         if(LinkBoxController.boxImage != null){
+            // Bitmap bmp = boxImageSaveLoader.loadProfileImage(LinkBoxController.currentBox.boxKey);
             ibThumb.setImageBitmap(LinkBoxController.boxImage);
         }
     }

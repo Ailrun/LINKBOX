@@ -14,11 +14,13 @@ import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.WebviewReplyListAdapter;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.UsrListData;
+import org.sopt.linkbox.custom.data.mainData.url.CommentListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.helper.Installation;
 import org.sopt.linkbox.custom.network.embedly.EmbedlyInterface;
@@ -150,10 +152,19 @@ public class LinkBoxController extends Application {
 
     public static ArrayList<UrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
+
+    public static ArrayList<CommentListData> commentListSource = null;
+    public static WebviewReplyListAdapter webviewReplyListAdapter = null;
+
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.notifyDataSetChanged();
         }
+        if(webviewReplyListAdapter != null)
+        {
+            webviewReplyListAdapter.notifyDataSetChanged();
+        }
+
     }
     public static void resetUrlDataSet() {
         if (linkBoxUrlListAdapter != null) {
@@ -193,6 +204,7 @@ public class LinkBoxController extends Application {
         urlListSource = new ArrayList<>();
         editorListSource = new ArrayList<>();
         alarmBoxListSource = new ArrayList<>();
+        commentListSource = new ArrayList<>();
     }
     private void initGcm() {
         if (isGoogleServiceAvailable()) {
