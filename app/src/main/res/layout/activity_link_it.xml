@@ -1,154 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="320dp"
-    android:layout_height="448dp"
-    android:orientation="vertical"
-    android:layout_gravity="center"
-    android:weightSum="28"
-    android:background="@color/real_white"
-    tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="320dp"
+              android:layout_height="448dp"
+              android:layout_gravity="center"
+              android:background="@color/real_white"
+              android:orientation="vertical"
+              android:weightSum="28"
+              tools:context="org.sopt.linkbox.activity.mainPage.LinkItActivity">
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="11">
-        <ImageView
-            android:id="@+id/IV_thumb_link_it"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/splash"/>
+            android:layout_height="0dp"
+            android:layout_weight="11">
+        <ImageView
+                android:id="@+id/IV_thumb_link_it"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/splash"/>
         <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:text="박스에 링크 추가"
-            android:textColor="@color/real_white"
-            android:textSize="20dp"/>
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:padding="20dp"
+                android:text="박스에 링크 추가"
+                android:textColor="@color/real_white"
+                android:textSize="20dp"/>
     </RelativeLayout>
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="13"
-        android:padding="16dp"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="13"
+            android:orientation="vertical"
+            android:padding="16dp">
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="제목"
-            android:textColor="#8a000000"
-            android:textSize="16dp"/>
-        <EditText
-            android:id="@+id/ET_name_link_it"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:paddingTop="3dp"
-            android:paddingStart="30dp"
-            android:background="#00ffffff"
-            android:singleLine="true"
-            android:textSize="18dp"/>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="10dp"
-            android:background="#3a000000" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="박스 선택"
-            android:textColor="#8a000000"
-            android:textSize="16dp"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Spinner
-                android:id="@+id/S_box_link_it"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:background="@color/real_white"
-                android:paddingStart="30dp"
-                android:paddingTop="3dp"
-                android:spinnerMode="dropdown" />
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/spinner_arrow" />
-        </RelativeLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginStart="10dp"
-            android:background="#3a000000" />
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp">
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="나중에 읽기"
+                android:text="제목"
                 android:textColor="#8a000000"
                 android:textSize="16dp"/>
-            <CheckBox
-                android:id="@+id/CB_box_link_it"
+        <EditText
+                android:id="@+id/ET_name_link_it"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="#00ffffff"
+                android:paddingStart="30dp"
+                android:paddingTop="3dp"
+                android:singleLine="true"
+                android:textSize="18dp"/>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:background="#3a000000"/>
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="23dp"/>
+                android:layout_marginTop="10dp"
+                android:text="박스 선택"
+                android:textColor="#8a000000"
+                android:textSize="16dp"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <Spinner
+                    android:id="@+id/S_box_link_it"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:background="@color/real_white"
+                    android:paddingStart="30dp"
+                    android:paddingTop="3dp"
+                    android:spinnerMode="dropdown"/>
+            <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/spinner_arrow"/>
+        </RelativeLayout>
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:background="#3a000000"/>
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="나중에 읽기"
+                    android:textColor="#8a000000"
+                    android:textSize="16dp"/>
+            <CheckBox
+                    android:id="@+id/CB_box_link_it"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="23dp"/>
         </RelativeLayout>
     </LinearLayout>
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="-16dp"
-        android:layout_weight="2">
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="-16dp"
+            android:layout_weight="2">
         <TextView
-            android:id="@+id/TV_box_link_it"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@drawable/teal_back"
-            android:gravity="center_vertical"
-            android:paddingStart="10dp"
-            android:text="4시간 후에 알림을 받아봅니다."
-            android:textColor="@color/real_white"
-            android:textSize="14dp"/>
+                android:id="@+id/TV_box_link_it"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@drawable/teal_back"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:text="4시간 후에 알림을 받아봅니다."
+                android:textColor="@color/real_white"
+                android:textSize="14dp"/>
         <TextView
-            android:id="@+id/TV_blank"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:background="@color/real_white"
-            android:gravity="center_vertical"/>
+                android:id="@+id/TV_blank"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/real_white"
+                android:gravity="center_vertical"/>
     </RelativeLayout>
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:paddingEnd="24dp">
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:paddingEnd="24dp">
         <Button
-            android:id="@+id/B_linkit_link_it"
-            style="@style/button_style"
-            android:layout_height="36dp"
-            android:layout_alignParentEnd="true"
-            android:text="저장"/>
+                android:id="@+id/B_linkit_link_it"
+                style="@style/button_style"
+                android:layout_height="36dp"
+                android:layout_alignParentEnd="true"
+                android:text="저장"/>
         <Button
-            android:id="@+id/B_cancel_link_it"
-            style="@style/button_style"
-            android:layout_height="36dp"
-            android:layout_marginEnd="30dp"
-            android:layout_toStartOf="@id/B_linkit_link_it"
-            android:text="취소"/>
+                android:id="@+id/B_cancel_link_it"
+                style="@style/button_style"
+                android:layout_height="36dp"
+                android:layout_marginEnd="30dp"
+                android:layout_toStartOf="@id/B_linkit_link_it"
+                android:text="취소"/>
     </RelativeLayout>
 </LinearLayout>

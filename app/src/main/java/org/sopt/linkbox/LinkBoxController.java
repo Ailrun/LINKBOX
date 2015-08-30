@@ -38,7 +38,6 @@ import retrofit.client.OkClient;
 
 /**
  * Created by Junyoung on 2015-07-07.
- *
  */
 public class LinkBoxController extends Application {
     private static LinkBoxController application;
@@ -101,7 +100,6 @@ public class LinkBoxController extends Application {
         if (invitedBoxListAdapter != null) {
             invitedBoxListAdapter.notifyDataSetChanged();
         }
-
     }
 
 
@@ -182,8 +180,7 @@ public class LinkBoxController extends Application {
         initGcm();
         initNetworkServer();
     }
-    private void initData()
-    {
+    private void initData() {
         applicationID = Installation.id(this);
 
         currentBox = new BoxListData();
@@ -200,8 +197,7 @@ public class LinkBoxController extends Application {
             startService(intent);
         }
     }
-    private void initNetworkServer()
-    {
+    private void initNetworkServer() {
         CookieManager cookieManagerServer = new CookieManager();
         cookieManagerServer.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         OkHttpClient clientServer = new OkHttpClient();
