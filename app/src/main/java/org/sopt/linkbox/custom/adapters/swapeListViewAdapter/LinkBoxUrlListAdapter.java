@@ -22,16 +22,12 @@ import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.EditDialogActivity;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.custom.helper.DateCalculator;
 import org.sopt.linkbox.custom.helper.ViewHolder;
+import org.sopt.linkbox.custom.helper.DateCalculator;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

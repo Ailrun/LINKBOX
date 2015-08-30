@@ -2,12 +2,15 @@ package org.sopt.linkbox.custom.helper;
 
 import android.util.SparseArray;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * Created by Junyoung on 2015-07-02.
  * Dynamic ViewHolder
  */
 public class ViewHolder {
+
     @SuppressWarnings("unchecked")
     public static <T extends View> T get(View view, int id) {
         SparseArray<View> viewHolder = (SparseArray<View>) view.getTag();
