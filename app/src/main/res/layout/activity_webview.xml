@@ -9,6 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
         android:orientation="vertical">
         <include
             android:id="@+id/T_toolbar_link_box"
@@ -43,7 +44,8 @@
                     android:layout_marginStart="16dp"
                     android:text="댓글"
                     android:textColor="@color/real_white"
-                    android:textSize="20dp" />
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:id="@+id/IV_ballon_expandable_view_content"
