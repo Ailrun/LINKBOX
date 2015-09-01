@@ -7,12 +7,15 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -33,6 +36,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
+import com.tokenautocomplete.FilteredArrayAdapter;
+import com.tokenautocomplete.TokenCompleteTextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,8 +46,11 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.data.mainData.url.TagListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
+import org.sopt.linkbox.custom.helper.tagHelper.IndividualTag;
+import org.sopt.linkbox.custom.helper.tagHelper.TagCompletionView;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
 import org.sopt.linkbox.debugging.RetrofitDebug;
 
@@ -50,6 +58,7 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -60,7 +69,7 @@ import retrofit.client.Response;
  * T?O?D?O : make this as Single Instance
  * REFERENCE : http://www.androidpub.com/796480
  */
-public class LinkItActivity extends Activity {
+public class LinkItActivity extends Activity implements TagCompletionView.TokenListener<IndividualTag> {
     private static final String TAG = "TEST/" + LinkItActivity.class.getName();
 
     //<editor-fold desc="Private Propeties" defaultstate="collapsed">
@@ -70,7 +79,7 @@ public class LinkItActivity extends Activity {
     private ImageView ivThumb = null;
     private EditText etName = null;
     private Button bLinkit = null, bCancel = null;
-    private CheckBox cbReadLater = null;
+    // private CheckBox cbReadLater = null;
 
     private UrlListData urlListData = null;
     private int checkedBox = 0;
@@ -81,10 +90,11 @@ public class LinkItActivity extends Activity {
     private Animation animSlideDown;
     private Animation animSlideUp;
     // Tag
-    private ArrayList<Button> tagCollection = null;
-    private TableLayout tlTagCollection = null;
-    private EditText etSearch = null;
-    private TableLayout.LayoutParams tlLayoutParams = null;
+    TagCompletionView tcvCompletionView;
+    IndividualTag[] individualTags;
+    ArrayAdapter<IndividualTag> tagArrayAdapter;
+    ArrayList<IndividualTag> tagCompilation;
+
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
@@ -92,8 +102,6 @@ public class LinkItActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this);
-
-        tagCollection = new ArrayList<Button>();
 
         initInterface();
 
@@ -158,6 +166,7 @@ public class LinkItActivity extends Activity {
         LinkBoxController.linkItBoxListAdapter =
                 new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
+
         sBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
     }
 
@@ -201,17 +210,50 @@ public class LinkItActivity extends Activity {
         etName = (EditText) findViewById(R.id.ET_name_link_it);
         // etName.setHint(urlListData.url);
         ivThumb = (ImageView) findViewById(R.id.IV_thumb_link_it);
-        cbReadLater = (CheckBox) findViewById(R.id.CB_box_link_it);
+        // cbReadLater = (CheckBox) findViewById(R.id.CB_box_link_it);
         bLinkit = (Button) findViewById(R.id.B_linkit_link_it);
         bLinkit.setEnabled(false);
         bCancel = (Button) findViewById(R.id.B_cancel_link_it);
         // Tag Init
-        etSearch = (EditText) findViewById(R.id.ET_tag_add);
-        tlTagCollection = (TableLayout) findViewById(R.id.TL_tag_collection);
+        initTagView();
+        initTagAdapterView();
+    }
+
+    private void initTagView() {
+        individualTags = new IndividualTag[]{};
+    }
+
+    private void initTagAdapterView() {
+        tagCompilation = new ArrayList<>();
+        tagArrayAdapter = new FilteredArrayAdapter<IndividualTag>(this, R.layout.activity_link_it, individualTags) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                if (convertView == null) {
+
+                    LayoutInflater currentLayout = (LayoutInflater) getContext().getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+                    convertView = currentLayout.inflate(R.layout.activity_link_it, parent, false);
+                }
+
+                IndividualTag itCurrentTag = getItem(position);
+                ((TextView) convertView.findViewById(R.id.TV_tag_name)).setText(itCurrentTag.getTagName());
+
+                return convertView;
+            }
+
+            @Override
+            protected boolean keepObject(IndividualTag individualTag, String s) {
+                return false;
+            }
+        };
+
+        tcvCompletionView = (TagCompletionView) findViewById(R.id.CCV_tag_input);
+        tcvCompletionView.setAdapter(tagArrayAdapter);
+        tcvCompletionView.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Select);
+        tcvCompletionView.setTokenListener(this);
     }
 
     private void initMainListener() {
-        initTextWatcher();
+
         sBox.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -227,6 +269,7 @@ public class LinkItActivity extends Activity {
                 checkedBox = i;
             }
         });
+        /*
         cbReadLater.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -239,6 +282,7 @@ public class LinkItActivity extends Activity {
                 }
             }
         });
+        */
         bLinkit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -246,8 +290,19 @@ public class LinkItActivity extends Activity {
                 urlListData.urlWriterUsrName = LinkBoxController.usrListData.usrName;
                 urlListData.urlTitle = etName.getText().toString();
                 urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
-                Log.e("UrlDate", urlListData.urlDate);
+                // Log.e("UrlDate", urlListData.urlDate);
+
+                urlListData.urlTags = new ArrayList<>();
+
+                for (int i = 0; i < tagCompilation.size(); i++) {
+                    TagListData addTag = new TagListData(tagCompilation.get(i).getTagName());
+                    urlListData.urlTags.add(addTag);
+                    Log.e("AddedTag", urlListData.urlTags.get(i).tag);
+                }
+
                 urlListWrapper.add(urlListData, (BoxListData) sBox.getSelectedItem(), new UrlAddingCallback());
+
+
                 finish();
             }
         });
@@ -259,11 +314,24 @@ public class LinkItActivity extends Activity {
         });
     }
 
+    @Override
+    public void onTokenAdded(IndividualTag individualTag) {
+        Log.e("Tag Added :", individualTag.getTagName());
+        tagCompilation.add(individualTag);
+    }
+
+    @Override
+    public void onTokenRemoved(IndividualTag individualTag) {
+        Log.e("Tag Removed :", individualTag.getTagName());
+        tagCompilation.remove(individualTag);
+    }
+
+
     //</editor-fold>
     //<editor-fold desc="Initiate Animation">
     private void initAnimationView() {
-        tvMessage = (TextView) findViewById(R.id.TV_box_link_it);
-        tvBlank = (TextView) findViewById(R.id.TV_blank);
+        //tvMessage = (TextView) findViewById(R.id.TV_box_link_it);
+        //tvBlank = (TextView) findViewById(R.id.TV_blank);
 
         animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_down);
         animSlideUp = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anim_slide_up);
@@ -302,110 +370,6 @@ public class LinkItActivity extends Activity {
 
             }
         });
-    }
-
-    public void initTextWatcher() {
-        TextWatcher tagWatcher = new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                String convertedCharSequence = s.toString();
-                Log.e("ConvertedString", convertedCharSequence);
-                if (convertedCharSequence.length() > 0) {
-                    String subString = convertedCharSequence.substring(convertedCharSequence.length() - 1);
-                    Log.e("SubStringPosition", subString);
-
-                    if (subString.equals(",") || subString.equals(" ")) {
-
-                        Button bTagButton = new Button(LinkItActivity.this);
-                        bTagButton.setId(tagCollection.size());
-                        String currentText = etSearch.getText().toString().replaceAll(",", "");
-                        currentText.replaceAll(" ", "");
-                        bTagButton.setText(currentText);
-                        bTagButton.setBackgroundResource(R.color.indigo500);
-                        bTagButton.setTextColor(getResources().getColor(R.color.real_white));
-                        bTagButton.setPadding(10, 10, 10, 10);
-                        bTagButton.setTextSize(10.0f);
-
-                        tlLayoutParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT, 70);
-
-                        /*
-                        Log.e("bTagButton Width", String.valueOf(bTagButton.getWidth()));
-
-                        llLayoutParams.setMargins(0, 0, 0, 5);
-                        llLayoutParams.setMarginEnd(10);
-
-                        if(tagCollection.size() != 0){
-                            llLayoutParams.addRule(RelativeLayout.END_OF, tagCollection.get(tagCollection.size() - 1).getId());
-                        }
-                        */
-
-                        bTagButton.setLayoutParams(tlLayoutParams);
-
-                        bTagButton.setClickable(true);
-                        bTagButton.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-
-                                tagCollection.remove(tlTagCollection.indexOfChild(v));
-                                tlTagCollection.removeAllViews();
-                                TableRow trTag = new TableRow(LinkItActivity.this);
-                                trTag.removeAllViews();
-                                Display display = getWindowManager().getDefaultDisplay();
-                                int maxWidth = display.getWidth() - 20;
-                                int accumulatedWidth = 0;
-                                for (int i = 0; i < tagCollection.size(); i++) {
-                                    if (accumulatedWidth > maxWidth) {
-                                        tlTagCollection.addView(trTag);
-                                        trTag = new TableRow(LinkItActivity.this);
-                                        trTag.removeAllViews();
-                                        accumulatedWidth = 0;
-                                    }
-                                    trTag.addView(tagCollection.get(i));
-                                    accumulatedWidth += tagCollection.get(i).getWidth();
-                                }
-
-                            }
-                        });
-
-                        tagCollection.add(bTagButton);
-
-                        // Tag Collection LOGIC
-                        tlTagCollection.removeAllViews();
-                        TableRow trTag = new TableRow(LinkItActivity.this);
-                        trTag.removeAllViews();
-                        Display display = getWindowManager().getDefaultDisplay();
-                        int maxWidth = display.getWidth() - 20;
-                        int accumulatedWidth = 0;
-                        for (int i = 0; i < tagCollection.size(); i++) {
-                            if (accumulatedWidth > maxWidth) {
-                                tlTagCollection.addView(trTag);
-                                trTag = new TableRow(LinkItActivity.this);
-                                trTag.removeAllViews();
-                                accumulatedWidth = 0;
-                            }
-                            trTag.addView(tagCollection.get(i));
-                            accumulatedWidth += tagCollection.get(i).getWidth();
-                        }
-
-                        etSearch.setText("");
-                        etSearch.setSelection(0);
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        };
-        etSearch.addTextChangedListener(tagWatcher);
-
     }
 
 //</editor-fold>

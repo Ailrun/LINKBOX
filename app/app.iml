@@ -104,6 +104,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.google.android.gms/play-services/7.5.0/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.h6ah4i.android.materialshadowninepatch/materialshadowninepatch/0.6.3/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.kogitune/pre-lollipop-activity-transition/1.0.0/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.splitwise/tokenautocomplete/2.0.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/me.leolin/ShortcutBadger/1.1.2/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jacoco" />
@@ -138,6 +139,7 @@
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-7.5.0" level="project" />
+    <orderEntry type="library" exported="" name="tokenautocomplete-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-safetynet-7.5.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.0.0" level="project" />
