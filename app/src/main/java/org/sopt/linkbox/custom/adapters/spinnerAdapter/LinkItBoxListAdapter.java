@@ -56,4 +56,5 @@ public class LinkItBoxListAdapter extends BaseAdapter {
         tvBoxName.setText(boxListData.boxName);
         return view;
     }
+
 }
