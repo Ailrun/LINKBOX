@@ -10,6 +10,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.AlarmListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
@@ -98,12 +99,15 @@ public class LinkBoxController extends Application {
 
     public static ArrayList<AlarmListData> alarmBoxListSource = null;   // Added for invited box list
     public static InvitedBoxListAdapter invitedBoxListAdapter = null; // Added for invited box list Adapter
+    public static AlarmListAdapter alarmListAdapter = null;
 
     public static void notifyAlarmDataSetChanged() {
         if (invitedBoxListAdapter != null) {
             invitedBoxListAdapter.notifyDataSetChanged();
         }
-
+        if (alarmListAdapter != null) {
+            alarmListAdapter.notifyDataSetChanged();
+        }
     }
 
 

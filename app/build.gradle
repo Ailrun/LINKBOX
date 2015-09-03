@@ -43,10 +43,10 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'org.asynchttpclient:async-http-client-project:2.0.0-alpha8'
-    compile 'com.android.support:recyclerview-v7:22.2.1'
     compile 'com.android.support:support-v4:22.2.1'
     compile "com.daimajia.swipelayout:library:1.2.0@aar"
     compile 'com.edmodo:cropper:1.0.1'
     compile 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:0.6.3'
     compile 'com.kogitune:pre-lollipop-activity-transition:1.0.0'
+    compile 'me.relex:circleindicator:1.1.5@aar'
 }

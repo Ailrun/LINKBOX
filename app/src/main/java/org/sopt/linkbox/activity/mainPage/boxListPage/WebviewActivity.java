@@ -23,6 +23,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
@@ -52,10 +53,8 @@ public class WebviewActivity extends AppCompatActivity {
 
     private ListView lvReply;
     private EditText etReply;
+    private TextView tvNumOfReply;
     private ImageButton ibSendButton;
-    private int iLiked;
-    private int position;
-    private int urlkey;
 
     private InputMethodManager mInputMethodManager;
 
@@ -78,20 +77,16 @@ public class WebviewActivity extends AppCompatActivity {
 
         urlListWrapper = new UrlListWrapper();
 
-
-        Intent intent = getIntent();
-        sAddress = intent.getStringExtra("url");
-        sTitle = intent.getStringExtra("title");
-        iLiked = intent.getIntExtra("liked", 0);
-        position = intent.getIntExtra("position", 0);
-        urlkey = intent.getIntExtra("urlkey", 0);
-
         urlListData = new UrlListData();
+        Intent intent = getIntent();
+        urlListData.urlKey = intent.getIntExtra("urlkey", 0);
+        urlListData.url = intent.getStringExtra("url");
+        urlListData.urlTitle = intent.getStringExtra("title");
+        urlListData.liked = intent.getIntExtra("liked",0);
+        urlListData.likedNum = intent.getIntExtra("likednum",0);
 
-        urlListData.urlTitle = sTitle;
-        urlListData.url = sAddress;
-        urlListData.liked = iLiked;
-        urlListData.urlKey = urlkey;
+        sAddress = urlListData.url;
+        sTitle = urlListData.urlTitle;
 
 
 
@@ -166,6 +161,7 @@ public class WebviewActivity extends AppCompatActivity {
         webView = (WebView)findViewById(R.id.WV_webview);
         lvReply = (ListView) findViewById(R.id.LV_container_expandable_view_content);
         etReply = (EditText) findViewById(R.id.ET_reply_expandable_view_content);
+        tvNumOfReply = (TextView) findViewById(R.id.TV_number_of_reply_webview);//TODO 이거 숫자 어디서 어떻게 받아오지
         ibSendButton = (ImageButton) findViewById(R.id.IB_send_button_expandable_view_content);
 
 
@@ -216,7 +212,7 @@ public class WebviewActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu)
     {
         MenuItem liked = menu.findItem(R.id.action_like);
-        if(iLiked == 0)
+        if(urlListData.liked == 0)
         {
             liked.setIcon(R.drawable.mainpage_bookmark_unchecked);
         }
@@ -326,9 +322,11 @@ public class WebviewActivity extends AppCompatActivity {
         tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
         tToolbar.setTitle(sTitle);
         setSupportActionBar(tToolbar);
-        getSupportActionBar().setTitle(sTitle);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if(getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(sTitle);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
 
     }
@@ -356,7 +354,7 @@ public class WebviewActivity extends AppCompatActivity {
 
             case R.id.action_like:
 
-                urlListWrapper.like(urlListData, iLiked, new UrlLikeCallback(urlListData, item));
+                urlListWrapper.like(urlListData, urlListData.liked, new UrlLikeCallback(urlListData, item));
                 item.setEnabled(false);
 
 
@@ -377,8 +375,14 @@ public class WebviewActivity extends AppCompatActivity {
         }
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
-            urlListData.liked = (1-urlListData.liked);
-            urlListData.likedNum += 2*urlListData.liked - 1;
+            if(urlListData.liked == 0){
+                urlListData.liked = 1;
+                urlListData.likedNum += 1;
+            }
+            else if(urlListData.liked == 1){
+                urlListData.liked = 0;
+                urlListData.likedNum -= 1;
+            }
             item.setIcon(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
             item.setEnabled(true);
             LinkBoxController.notifyUrlDataSetChanged();

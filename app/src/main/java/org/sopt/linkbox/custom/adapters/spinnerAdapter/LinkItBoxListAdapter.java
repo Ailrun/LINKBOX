@@ -1,5 +1,6 @@
 package org.sopt.linkbox.custom.adapters.spinnerAdapter;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
