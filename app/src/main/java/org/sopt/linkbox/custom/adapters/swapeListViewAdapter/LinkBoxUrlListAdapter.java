@@ -134,9 +134,12 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         tvUrlDate.setText(urlDate);
         tvLikeNum.setText(Integer.toString(urlListData.likedNum));
 
-
-        Glide.with(context).load(urlListData.urlThumbnail).asBitmap().into(ivUrlThumb);
-
+        if(urlListData.urlThumbnail != null) {
+            Glide.with(context).load(urlListData.urlThumbnail).asBitmap().into(ivUrlThumb);
+        }
+        else{
+            ivUrlThumb.setImageResource(R.drawable.mainpage_image);
+        }
         ivLike.setImageResource(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override

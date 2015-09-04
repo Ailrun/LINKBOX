@@ -49,5 +49,6 @@ dependencies {
     compile 'com.edmodo:cropper:1.0.1'
     compile 'com.h6ah4i.android.materialshadowninepatch:materialshadowninepatch:0.6.3'
     compile 'com.kogitune:pre-lollipop-activity-transition:1.0.0'
+    compile 'me.relex:circleindicator:1.1.5@aar'
     compile "com.splitwise:tokenautocomplete:2.0.1@aar"
 }

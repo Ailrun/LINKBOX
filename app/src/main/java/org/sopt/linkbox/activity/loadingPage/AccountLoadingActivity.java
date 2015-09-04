@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.helpPage.TutorialActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.SettingStrings;
@@ -239,7 +240,7 @@ public class AccountLoadingActivity extends Activity {
             if (wrappedUrlListDatas.result) {
                 List<UrlListData> urlListDatas = wrappedUrlListDatas.object;
                 LinkBoxController.urlListSource = (ArrayList<UrlListData>) urlListDatas;
-                Intent intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                Intent intent = new Intent(AccountLoadingActivity.this, TutorialActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
