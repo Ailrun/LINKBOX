@@ -21,6 +21,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.alarmPage.AlarmActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.AlarmType;
 import org.sopt.linkbox.constant.MainStrings;
@@ -116,27 +117,39 @@ public class AlarmListAdapter extends BaseAdapter {
 
         tvBoxName.setText(alarmListData.alarmBoxName);
         tvUsrName.setText(alarmListData.alarmSetUsrName);
-        tvMessage.setText(alarmListData.alarmMessage);
         tvDate.setText(alarmListData.alarmDate);
 
         LinearLayout LL_invited_box_header = ViewHolder.get(view, R.id.LL_invited_box_header);
         final LinearLayout LL_invited_box_expandable = ViewHolder.get(view, R.id.LL_invited_box_expandable);
 
         LL_invited_box_expandable.setVisibility(View.GONE);
-        for (AlarmListData a : source) {
-            if (a.alarmType == AlarmType.typeBox) {
-                LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (LL_invited_box_expandable.getVisibility() == View.GONE) {
-                            expand(LL_invited_box_expandable);
-                        } else {
-                            collapse(LL_invited_box_expandable);
+
+            switch (alarmListData.alarmType)
+            {
+                case AlarmType.typeBox:
+                    tvMessage.setText(alarmListData.alarmMessage);
+                    LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (LL_invited_box_expandable.getVisibility() == View.GONE) {
+                                expand(LL_invited_box_expandable);
+                            } else {
+                                collapse(LL_invited_box_expandable);
+                            }
                         }
-                    }
-                });
+                    });
+                    break;
+
+                case AlarmType.typeUrl:
+                    tvMessage.setText(alarmListData.alarmSetUsrName + "님이 '" + alarmListData.alarmBoxName +"'박스에 " + alarmListData.alarmUrlTitle + "을 추가했습니다.");
+                break;
+
+                case AlarmType.typeGood:
+                    tvMessage.setText(alarmListData.alarmSetUsrName + "님이'" + alarmListData.alarmUrlTitle + "'에 좋아요를 눌렀습니다.");
+                    break;
             }
-        }
+
+
 
 
         bAgree.setOnClickListener(new View.OnClickListener() {
