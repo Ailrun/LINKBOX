@@ -1,158 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="vertical">
     <include
         android:id="@+id/T_toolbar_settings"
-        layout="@layout/layout_toolbar"/>
-    <LinearLayout
-        android:orientation="vertical"
+        layout="@layout/layout_toolbar"
+        />
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="1">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="User Profle"
-            android:id="@+id/TV_user_profile_user_setting"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp">
-
+        android:stretchColumns="0,1,2,3,4"
+        android:background="@color/real_white">
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Name"
-                android:id="@+id/TV_display_name_user_setting"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
-
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:text="계정설정"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_span="5"/>
+        </TableRow>
+        <TableLayout
+            android:stretchColumns="0,1,2,3,4"
+            android:divider="@drawable/res_indigo500_vertical_divider"
+            android:showDividers="beginning">
+            <TableRow>
+                <TextView
+                    android:padding="10dp"
+                    android:text="이름"/>
+                <TextView
+                    android:id="@+id/TV_user_name_user_setting"
+                    android:padding="10dp"
+                    android:text="이름"
+                    android:gravity="end"
+                    android:layout_span="4"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:padding="10dp"
+                    android:text="계정"/>
+                <TextView
+                    android:id="@+id/TV_user_id_user_setting"
+                    android:padding="10dp"
+                    android:text="계정"
+                    android:gravity="end"
+                    android:layout_span="4"/>
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:id="@+id/TV_logout_user_setting"
+                    android:padding="10dp"
+                    android:text="로그아웃"
+                    android:layout_span="5"/>
+                <TextView />
+            </TableRow>
+        </TableLayout>
+        <TableRow>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Email"
-                android:id="@+id/TV_display_email_user_setting"
-                android:layout_below="@+id/TV_display_name_user_setting"
-                android:layout_alignStart="@+id/TV_display_name_user_setting"
-                android:layout_marginBottom="8dp" />
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:text="박스 알람 설정"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_span="5"/>
+        </TableRow>
+        <TableLayout
+            android:stretchColumns="0,1,2,3,4"
+            android:divider="@drawable/res_indigo500_vertical_divider"
+            android:showDividers="beginning">
+            <TableRow>
+                <TextView
+                    android:padding="10dp"
+                    android:text="전체 알람 활성화"/>
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ET_name_user_setting"
-                android:text="userID"
-                android:ems="10"
-                android:layout_alignBottom="@+id/TV_display_name_user_setting"
-                android:layout_alignParentEnd="true"
-                android:inputType="none"/>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/CB_alarm_enable"
+                    android:layout_column="5" />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:padding="10dp"
+                    android:text="알람받을 항목 선택"
+                    android:id="@+id/TV_alarm_choice"
+                    android:layout_span="5"/>
+            </TableRow>
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ET_mail_user_setting"
-                android:text="userEmail"
-                android:ems="10"
-                android:layout_below="@+id/ET_name_user_setting"
-                android:layout_alignParentEnd="true"
-                android:inputType="none"/>
+        </TableLayout>
+        <TableRow>
+            <TextView
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:text="나중에 읽기 설정"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium"
+                android:layout_span="5"/>
+        </TableRow>
+        <TableLayout
+            android:stretchColumns="0,1,2,3,4"
+            android:divider="@drawable/res_indigo500_vertical_divider"
+            android:showDividers="beginning">
+            <TableRow>
+                <TextView
+                    android:padding="10dp"
+                    android:text="나중에 읽기 활성화"/>
 
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/ET_changepass_user_setting"
-                android:hint="Long Press to Change Password"
-                android:layout_below="@+id/TV_display_email_user_setting"
-                android:layout_alignStart="@+id/TV_display_email_user_setting"
-                android:layout_alignParentEnd="true"
-                android:inputType="none"/>
-
-
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Notification"
-            android:id="@+id/TV_display_notification_user_setting"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/IB_expand_user_setting"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/abc_btn_radio_to_on_mtrl_015"/>
-
-            <ExpandableListView
-                android:id="@+id/ELV_notification_list_user_setting"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:groupIndicator="@null"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Set Floating Button"
-            android:id="@+id/TV_display_floating_user_setting"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"/>
-
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hide Out-App Floating Head"
-            android:id="@+id/CB_floating_user_setting"
-            android:layout_marginStart="30dp"
-            android:layout_marginBottom="10dp"
-            android:checked="false" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="LOG OUT"
-                android:id="@+id/B_logout_user_setting"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="QUIT"
-                android:id="@+id/B_signdown_user_setting"
-                android:layout_below="@+id/B_logout_user_setting"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentEnd="true" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <!--회원탈퇴, 로그아웃 위젯-->
-
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/CB_read_later_enable"
+                    android:layout_column="5" />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:padding="10dp"
+                    android:text="나중에 읽을 시간"
+                    android:id="@+id/TV_read_later_time"
+                    android:layout_span="5"/>
+            </TableRow>
+        </TableLayout>
+    </TableLayout>
 </LinearLayout>

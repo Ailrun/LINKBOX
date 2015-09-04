@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    android:background="@color/real_white"
+    android:weightSum="1">
+    <TextView
+        android:id="@+id/TV_title_delete_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:padding="15dp"
+        android:background="@color/indigo500"
+        android:gravity="center"
+        android:text="링크 삭제"
+        android:textSize="20dp"
+        android:textColor="@color/real_white"/>
+    <TextView
+        android:id="@+id/TV_contents_delete_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="10dp"
+        android:gravity="center"
+        android:text="정말로 삭제하시겠습니까?"
+        android:textSize="16dp"
+        android:textColor="@color/indigo500"/>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0,1">
+        <TableRow>
+            <Button
+                android:id="@+id/B_delete_delete_dialog"
+                style="@style/button_style"
+                android:text="삭제"/>
+            <Button
+                android:id="@+id/B_cancel_delete_dialog"
+                style="@style/button_style"
+                android:text="취소"/>
+        </TableRow>
+    </TableLayout>
+</LinearLayout>

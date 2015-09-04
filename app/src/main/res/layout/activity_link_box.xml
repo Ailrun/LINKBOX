@@ -1,7 +1,8 @@
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/DL_root_layout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/DL_root_layout_link_box"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -9,19 +10,26 @@
         android:id="@+id/LL_activity_link_box"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".LinkBoxActivity">
+        android:layout_height="match_parent">
         <include
             android:id="@+id/T_toolbar_link_box"
-            layout="@layout/layout_toolbar"/>
-        <ListView
-            android:id="@+id/LV_url_list_link_box"
+            layout="@layout/layout_toolbar" />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/SRL_url_list_link_box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
+            <ListView
+                android:id="@+id/LV_url_list_link_box"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/bright_grey"
+                android:overScrollMode="never"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
     </LinearLayout>
     <include
         android:id="@+id/D_box_list_link_box"
-        android:layout_width="240dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         layout="@layout/layout_drawer_link_box"

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <include
+            android:id="@+id/T_toolbar_link_box"
+            layout="@layout/layout_toolbar"/>
+
+    <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@id/T_toolbar_link_box">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:verticalScrollbarPosition="defaultPosition">
+
+            <TextView
+                    android:id="@+id/TV_how_to_open_link_question"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="링크를 어디서 여나요?"
+                    android:textStyle="bold"/>
+
+            <TextView
+                    android:id="@+id/TV_how_to_open_link_answer_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="로그인 후 첫 화면에서 좌측 상단의 메뉴버튼을 누르면 메뉴가 나옵니다. 내 박스 화면에서 원하는 링크가 들어가있는 박스를 터치하면 링크들을 볼 수 있습니다."/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/help_my_box_page"/>
+
+            <TextView
+                    android:id="@+id/TV_how_to_open_link_answer_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text=" 그 중 원하는 링크를 터치하면 내가 찾던 페이지가 바로 나옵니다."/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/help_box_link_page"/>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

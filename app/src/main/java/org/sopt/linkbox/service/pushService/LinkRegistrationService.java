@@ -25,8 +25,8 @@ public class LinkRegistrationService extends IntentService {
         super(name);
     }
 
-    private String token;
-    public String getToken() {return token;}
+    private static String token;
+    public static String getToken() {return token;}
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -34,7 +34,7 @@ public class LinkRegistrationService extends IntentService {
             try {
                 InstanceID instanceID = InstanceID.getInstance(this);
                 token = instanceID.getToken(getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-
+                //TODO : SERVER ACT
                 Log.d("TEST", "GCM Token : " + token);
             }
             catch (IOException e) { e.printStackTrace(); }

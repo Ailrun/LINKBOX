@@ -2,7 +2,6 @@ package org.sopt.linkbox.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.IBinder;
@@ -17,7 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.sopt.linkbox.LinkItActivity;
+import org.sopt.linkbox.activity.mainPage.LinkItActivity;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.custom.widget.ClearableEditText;
 
@@ -104,7 +103,7 @@ public class LinkHeadService extends Service {
                 final long removeTime = 1000;
 
                 int initialX, initialY;
-                float initialTouchX, initialTouchY;;
+                float initialTouchX, initialTouchY;
                 int removeDiff;
                 boolean move;
             }
@@ -228,7 +227,7 @@ public class LinkHeadService extends Service {
 
     private void initEditView() {
         cetEdit = new ClearableEditText(getApplicationContext());
-        cetEdit.setHint("http://URL.address/input");
+        cetEdit.setHint("http://URL.url/input");
         cetEdit.setBackgroundColor(getResources().getColor(R.color.indigo500));
         cetEdit.setSingleLine();
         cetEdit.setImeOptions(EditorInfo.IME_ACTION_SEND);

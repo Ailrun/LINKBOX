@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <style name="Theme.CustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+
+    </style>
+
+    <style name="MyActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:background">@color/indigo500</item>
+
+    </style>
+
+
+</resources>

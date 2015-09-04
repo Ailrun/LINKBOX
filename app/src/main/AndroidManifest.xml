@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.sopt.linkbox"
-    android:versionCode="1"
-    android:versionName="1.0" >
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.sopt.linkbox" >
 
-    <uses-sdk
-        android:minSdkVersion="19"
-        android:targetSdkVersion="22" />
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect
      option is required to comply with the Google+ Sign-In developer policies
     -->
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" /> <!-- To retrieve the account name (email) as part of sign-in: -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" /> <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -45,106 +39,134 @@
         android:name="org.sopt.linkbox.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="org.sopt.linkbox.permission.C2D_MESSAGE" />
+
+    <!-- used for gallery permission -->
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
 
     <!-- InApp purchase -->
     <!-- <permission android:name="com.android.vending.BILLING" /> -->
+    <!-- Application start -->
     <application
         android:name=".LinkBoxController"
         android:allowBackup="true"
         android:icon="@drawable/logo"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        android:theme="@style/Theme.CustomTheme" >
+
+        <!-- Deprecated Start -->
+        <service
+            android:name=".service.LinkHeadService"
+            android:exported="false" >
+        </service>
+        <!-- Deprecated End -->
+
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.effectPage.SplashActivity"
             android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
-            android:noHistory="true">
+            android:launchMode="singleInstance"
+            android:noHistory="true"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Account Activities Start -->
         <activity
-            android:name=".LoginActivity"
-            android:label="LoginActivity"
+            android:name=".activity.accountPage.AccountActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.accountPage.LoginActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.accountPage.AccountActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.accountPage.SignupActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:parentActivityName=".activity.accountPage.AccountActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.accountPage.FacebookDataActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.loadingPage.AccountLoadingActivity"
+            android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" >
         </activity>
 
-        <!-- 아래 부분은 SDK 4.0.0 버전 이후로설정해줘야 하는 부분으로 가이드 라인에 나와있습니다 -->
-        <!-- https://developers.facebook.com/docs/android/getting-started#login_share -->
-
-
-        <!-- 이 부분 설정 필수 -->
+        <!-- Facebook Start -->
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
 
-        <!-- com.facebook.app.FacebookContentProvider 뒤에다가 App ID 추가 필수 -->
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider469652643208806"
-            android:exported="true" />
+            android:authorities="@string/facebook_authority"
+            android:exported="true" >
+        </provider>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <!-- 이 부분 설정 필수 -->
+            android:value="@string/facebook_app_id" >
+        </meta-data>
+        <!-- Facebook End -->
+
+
+        <!-- Account Activities End -->
 
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version" >
+        </meta-data>
 
-        <service
-            android:name=".service.LinkHeadService"
-            android:exported="false" >
-        </service>
-
+        <!-- Help Activities Start -->
         <activity
-            android:name=".LinkBoxActivity"
-            android:label="@string/title_activity_link_box"
-            android:launchMode="singleTask"
+            android:name=".activity.helpPage.HelpActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".LinkItActivity"
-            android:label="@string/title_activity_link_it"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-            <intent-filter android:label="LINKBOX" >
-                <action android:name="android.intent.action.SEND" />
+            android:name=".activity.helpPage.subHelpPage.StartHelpActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.helpPage.HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.helpPage.subHelpPage.LinkOpenHelpActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.helpPage.HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.helpPage.subHelpPage.BoxCreateHelpActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.helpPage.HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.helpPage.subHelpPage.BoxShareHelpActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.helpPage.HelpActivity"
+            android:screenOrientation="portrait" />
+        <!-- Help Activities End -->
 
-                <category android:name="android.intent.category.DEFAULT" />
-
-                <data
-                    android:host="http"
-                    android:mimeType="text/plain" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".SignupActivity"
-            android:label="@string/title_activity_signup"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".LoginDataActivity"
-            android:label="@string/title_activity_login_data"
-            android:screenOrientation="portrait" >
-        </activity>
-        <activity
-            android:name=".UserSettingActivity"
-            android:label="@string/title_activity_user_setting"
-            android:parentActivityName=".LinkBoxActivity"
-            android:screenOrientation="portrait" >
-        </activity>
 
         <!-- for Push -->
         <service
@@ -175,28 +197,134 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="org.sopt.appjamtest" />
+                <category android:name="org.sopt.linkbox" />
             </intent-filter>
         </receiver>
 
+        <!-- Main Activities Start -->
+        <!-- Box Activities Start -->
         <activity
-            android:name=".LinkEditorAdd"
-            android:label="@string/title_activity_link_editor_list"
-            android:parentActivityName=".LinkBoxActivity" >
+            android:name=".activity.mainPage.boxListPage.BoxListEditActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".LinkEditorList"
-            android:label="@string/title_activity_link_editor_add"
-            android:parentActivityName=".LinkBoxActivity" >
+            android:name=".activity.mainPage.boxListPage.InvitedBoxActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.mainPage.boxListPage.BoxListEditActivity"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
-            android:name=".LinkLoadingActivity"
-            android:label="@string/title_activity_link_loading"
-            android:noHistory="true" >
+            android:name=".activity.mainPage.boxListPage.BoxAddActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
         <activity
-            android:name=".LinkBoxEditActivity"
-            android:label="@string/title_activity_link_box_edit" >
+            android:name=".activity.mainPage.boxListPage.BoxEditActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+        <!-- Box Activities End -->
+        <!-- Editor Activities Start -->
+        <activity
+            android:name=".activity.mainPage.editorPage.BoxEditorAdd"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.mainPage.editorPage.BoxEditorList"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.mainPage.editorPage.BoxEditorList"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- Editor Activities End -->
+        <!-- URL Activities Start -->
+        <activity
+            android:name=".activity.mainPage.urlListingPage.LinkBoxActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.mainPage.urlListingPage.PhotoCropActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- URL Activities End -->
+        <!-- Setting Activities Start -->
+        <activity
+            android:name=".activity.settingPage.UserSettingActivity"
+            android:label="@string/app_name"
+            android:parentActivityName=".activity.mainPage.urlListingPage.LinkBoxActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- Setting Activities End -->
+
+        <activity
+            android:name=".activity.mainPage.LinkItActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" >
+            <intent-filter android:label="@string/app_name" >
+                <action android:name="android.intent.action.SEND" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="http"
+                    android:mimeType="text/plain" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.mainPage.boxListPage.BoxImageCropActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- Main Activities End -->
+
+        <activity
+            android:name=".activity.settingPage.AlarmDialogActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".activity.settingPage.ReadLaterDialogActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
+            android:name=".activity.mainPage.urlListingPage.DeleteDialogActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".activity.mainPage.urlListingPage.EditDialogActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".activity.mainPage.boxListPage.BoxDeleteDialogActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".activity.mainPage.boxListPage.WebviewActivity"
+            android:label="@string/title_activity_webview"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".activity.helpPage.TutorialActivity"
+            android:label="@string/title_activity_tutorial" >
+        </activity>
+        <activity
+            android:name=".activity.alarmPage.AlarmActivity"
+            android:label="@string/title_activity_alarm" >
         </activity>
     </application>
 

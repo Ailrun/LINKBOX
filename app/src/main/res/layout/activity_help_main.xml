@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/T_toolbar_link_box"
+        layout="@layout/layout_toolbar"/>
+
+    <RelativeLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/T_toolbar_link_box"
+        android:paddingTop="3dp"
+        android:background="@color/real_white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TV_start_help"
+            android:paddingStart="12dp"
+            android:layout_marginTop="10dp"/>
+
+        <RelativeLayout
+            android:id="@+id/RL_start_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TV_start_help"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Linkbox로 시작하세요!"
+                android:alpha="0.87"
+                android:textSize="20dp"
+                android:paddingStart="20dp"
+                android:textStyle="normal"
+                android:textColor="@color/real_black" />
+
+        </RelativeLayout>
+
+        <!-- divider start -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.12"
+            android:background="@color/grey"
+            android:layout_below="@id/RL_start_help"/>
+        <!-- divider end -->
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TV_functions_help"
+            android:layout_below="@id/RL_start_help"
+            android:layout_marginTop="10dp"
+            android:paddingStart="12dp"/>
+
+        <RelativeLayout
+            android:id="@+id/RL_open_linkbox_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TV_functions_help"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Linkbox에서 링크 열기"
+                android:alpha="0.87"
+                android:textSize="20dp"
+                android:paddingStart="20dp"
+                android:textStyle="normal"
+                android:textColor="@color/real_black" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RL_add_to_box_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/RL_open_linkbox_help"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="박스 추가하기"
+                android:alpha="0.87"
+                android:paddingStart="20dp"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:textColor="@color/real_black"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/RL_share_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/RL_add_to_box_help"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="박스 공유하기"
+                android:paddingStart="20dp"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:textColor="@color/real_black"/>
+
+        </RelativeLayout>
+
+
+        <!-- divider start -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:alpha="0.12"
+            android:background="@color/grey"
+            android:layout_below="@id/RL_share_help"/>
+        <!-- divider end -->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/TV_support_help"
+            android:layout_below="@id/RL_share_help"
+            android:layout_marginTop="10dp"
+            android:paddingStart="12dp" />
+
+        <RelativeLayout
+            android:id="@+id/RL_support_help"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TV_support_help"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이메일 보내기"
+                android:alpha="0.87"
+                android:paddingStart="20dp"
+                android:textSize="20dp"
+                android:textStyle="normal"
+                android:textColor="@color/real_black"/>
+
+        </RelativeLayout>
+
+        <!-- divider start -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"
+            android:alpha="0.12"
+            android:layout_below="@id/RL_support_help"/>
+        <!-- divider end -->
+
+    </RelativeLayout>
+
+</RelativeLayout>

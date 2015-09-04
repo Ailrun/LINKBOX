@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="66dp"
+    android:background="@color/real_white">
+
+    <org.sopt.linkbox.custom.widget.RoundedImageView
+        android:id="@+id/IV_profile_comment_webview"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/drawer_profile"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="40dp"
+        android:layout_toEndOf="@id/IV_profile_comment_webview">
+        <TextView
+            android:id="@+id/TV_name_comment_webview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"
+            android:textColor="@color/real_black"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/TV_contents_comment_webview"
+            android:layout_below="@id/TV_name_comment_webview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="이곳에는 댓글의 내용이 들어갑니다."
+            android:textColor="@color/real_black"/>
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/IB_comment_delete_webview"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:drawable/ic_delete"/>
+</RelativeLayout>
