@@ -590,7 +590,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             });
             lvUrlList.setSelection(0);
             srlUrlList.setProgressViewOffset(true, 80, 150);
-            srlUrlList.setColorScheme(getResources().getColor(R.color.indigo500));
+            //srlUrlList.setColorScheme(getResources().getColor(R.color.indigo500));
         }
         else {
             Log.e(TAG, "ERROR!!! inBox=" + LinkBoxController.inboxIndicator + " and currentBox=null");
@@ -606,7 +606,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvUrlList.setOnScrollListener(null);
         lvUrlList.setSelection(0);
         srlUrlList.setProgressViewOffset(true, 0, 70);
-        srlUrlList.setColorScheme(getResources().getColor(R.color.indigo500));
+        // srlUrlList.setColorScheme(getResources().getColor(R.color.indigo500));
     }
     //</editor-fold>
 
