@@ -268,7 +268,6 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
                         // LinkBoxController.notifyUrlDataSetChanged();
                         Log.e("들어는 왔다", String.valueOf(listMainServerData.object.get(i).tag));
                     }
-                    Log.e("UrlListData TAG", String.valueOf(urlListData.urlTags.get(0).tag));
 
                     initTagView();
                     initTagAdapterView(view);
