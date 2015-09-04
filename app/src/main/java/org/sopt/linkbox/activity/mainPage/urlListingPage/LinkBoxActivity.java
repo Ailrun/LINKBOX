@@ -159,14 +159,16 @@ public class LinkBoxActivity extends AppCompatActivity {
         Log.d(TAG, "In NewIntent : " + LinkBoxController.currentBox.toString());
         Log.d(TAG, "inBox? : " + getIntent().getBooleanExtra(MainStrings.inBox, false));
         LinkBoxController.inboxIndicator = getIntent().getBooleanExtra(MainStrings.inBox, false);
-        int index = 0;
-        int getIndex = getIntent().getIntExtra(MainStrings.urlKey, LinkBoxController.urlListSource.get(0).urlKey);
-        for (UrlListData u : LinkBoxController.urlListSource) {
-            index = u.urlKey == getIndex ? LinkBoxController.urlListSource.indexOf(u) : 0;
-        }
         initInBox();
         invalidateOptionsMenu();
-        lvUrlList.smoothScrollToPosition(index);
+        if (LinkBoxController.urlListSource.size() > 0) {
+            int index = 0;
+            int getIndex = getIntent().getIntExtra(MainStrings.urlKey, LinkBoxController.urlListSource.get(0).urlKey);
+            for (UrlListData u : LinkBoxController.urlListSource) {
+                index = u.urlKey == getIndex ? LinkBoxController.urlListSource.indexOf(u) : 0;
+            }
+            lvUrlList.smoothScrollToPosition(index);
+        }
     }
     @Override
     protected void onStart() {
