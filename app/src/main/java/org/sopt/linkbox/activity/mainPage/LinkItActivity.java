@@ -294,14 +294,17 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
 
                 urlListData.urlTags = new ArrayList<>();
 
+                /*
+                // String sTagData = "";
                 for (int i = 0; i < tagCompilation.size(); i++) {
                     TagListData addTag = new TagListData(tagCompilation.get(i).getTagName());
+                    // sTagData.concat(tagCompilation.get(i).getTagName());
                     urlListData.urlTags.add(addTag);
-                    Log.e("AddedTag", urlListData.urlTags.get(i).tag);
+                    // Log.e("AddedTag", urlListData.urlTags.get(i).tag);
                 }
+                */
 
                 urlListWrapper.add(urlListData, (BoxListData) sBox.getSelectedItem(), new UrlAddingCallback());
-
 
                 finish();
             }
@@ -425,6 +428,10 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
                 LinkBoxController.urlListSource.add(0, wrappedUrlListData.object);
                 LinkBoxController.notifyUrlDataSetChanged();
                 Toast.makeText(LinkItActivity.this, "URL이 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                for (int i = 0; i < tagCompilation.size(); i++) {
+                    urlListWrapper.tagAdd(wrappedUrlListData.object, tagCompilation.get(i).getTagName(), new TagAddingCallback(wrappedUrlListData.object));
+                }
                 finish();
             } else {
                 Toast.makeText(LinkItActivity.this, "URL을 저장하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
@@ -434,6 +441,35 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
 
         @Override
         public void failure(RetrofitError error) {
+            RetrofitDebug.debug(error);
+            finish();
+        }
+    }
+
+    private class TagAddingCallback implements Callback<MainServerData<TagListData>> {
+        private UrlListData urlListData = null;
+
+        public TagAddingCallback(UrlListData urlListData) {
+            this.urlListData = urlListData;
+        }
+
+        @Override
+        public void success(MainServerData<TagListData> tagListDataMainServerData, Response response) {
+            if (tagListDataMainServerData.result) {
+                urlListData.urlTags.add(tagListDataMainServerData.object);
+                Toast.makeText(LinkItActivity.this, "태그가 성공적으로 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                Log.e("태그 저장 완료", "됨");
+                finish();
+            } else {
+                Toast.makeText(LinkItActivity.this, "태그를 저장하는데 실패했습니다.", Toast.LENGTH_SHORT).show();
+                Log.e("태그 저장 실패", "함");
+                finish();
+            }
+        }
+
+        @Override
+        public void failure(RetrofitError error) {
+            Log.e("걍 실패임", "네 그렇다");
             RetrofitDebug.debug(error);
             finish();
         }
