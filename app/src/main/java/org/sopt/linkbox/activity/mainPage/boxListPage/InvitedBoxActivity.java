@@ -60,14 +60,11 @@ public class InvitedBoxActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
                 break;
-
             default :
                 return super.onOptionsItemSelected(item);
         }
