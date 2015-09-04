@@ -14,6 +14,8 @@ import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
 
+import java.util.logging.Handler;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -85,12 +87,16 @@ public class BoxDeleteDialogActivity extends Activity {
         @Override
         public void success(MainServerData<Object> wrapperObject, Response response) {
             if(wrapperObject.result) {
-                LinkBoxController.boxListSource.remove(boxListData);
-                LinkBoxController.notifyBoxDataSetChanged();
+                new android.os.Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LinkBoxController.boxListSource.remove(boxListData);
+                        LinkBoxController.notifyBoxDataSetChanged();
+                    }
+                }, 500);
                 finish();
             }
-            else
-            {
+            else {
                 Toast.makeText(BoxDeleteDialogActivity.this, "삭제에 실패했습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }

@@ -57,7 +57,6 @@ import retrofit.client.Response;
 
 /**
  * Created by Junyoung on 2015-06-30.
- *
  */
 
 /** T?O?D?O : make this as Single Instance
@@ -158,8 +157,14 @@ public class LinkBoxActivity extends AppCompatActivity {
         Log.d(TAG, "In NewIntent : " + LinkBoxController.currentBox.toString());
         Log.d(TAG, "inBox? : " + getIntent().getBooleanExtra(MainStrings.inBox, false));
         LinkBoxController.inboxIndicator = getIntent().getBooleanExtra(MainStrings.inBox, false);
+        int index = 0;
+        int getIndex = getIntent().getIntExtra(MainStrings.urlKey, LinkBoxController.urlListSource.get(0).urlKey);
+        for (UrlListData u : LinkBoxController.urlListSource) {
+            index = u.urlKey == getIndex ? LinkBoxController.urlListSource.indexOf(u) : 0;
+        }
         initInBox();
         invalidateOptionsMenu();
+        lvUrlList.smoothScrollToPosition(index);
     }
     @Override
     protected void onStart() {
@@ -199,19 +204,18 @@ public class LinkBoxActivity extends AppCompatActivity {
         if (abdtDrawer.onOptionsItemSelected(item)) {
             return true;
         }
-        switch (item.getItemId())
-        {
-            case R.id.action_search :
+        switch (item.getItemId()) {
+            case R.id.action_search:
                 Toast.makeText(LinkBoxActivity.this, "베타에서 만나요.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_alarms:
                 Toast.makeText(LinkBoxActivity.this, "베타에서 만나요.", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.action_editors :
+            case R.id.action_editors:
                 startActivity(new Intent(this, BoxEditorList.class));
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
-            default :
+            default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
@@ -228,22 +232,20 @@ public class LinkBoxActivity extends AppCompatActivity {
             iabHelper.dispose();
         }
         iabHelper = null;
-//        if (spProfile.getBoolean("floating", true)) {
-//            startService(new Intent(getApplicationContext(), LinkHeadService.class));
-//        }
+        //        if (spProfile.getBoolean("floating", true)) {
+        //            startService(new Intent(getApplicationContext(), LinkHeadService.class));
+        //        }
     }
 
     @Override
     public void onBackPressed() {
-        if(LinkBoxController.inboxIndicator)
-        {
+        if (LinkBoxController.inboxIndicator) {
             Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
             startActivity(intent);
             overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             invalidateOptionsMenu();
         }
-        else
-        {
+        else {
             Intent intent = new Intent(LinkBoxActivity.this, LinkBoxActivity.class);
             startActivity(intent);
             finish();
@@ -252,9 +254,9 @@ public class LinkBoxActivity extends AppCompatActivity {
     //</editor-fold>
 
     //<editor-fold desc="Default Initiate" defaultstate="collapsed">
-    private void initPreference(){
+    private void initPreference() {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(prefs != null){
+        if (prefs != null) {
             LinkBoxController.preference_readLater = prefs.getInt("read_later_preference", 2);
             int defaultAlarmIndicator = prefs.getInt("alarm_enable", 0);
             int defaultReadLaterIndicator = prefs.getInt("read_later_enable", 0);
@@ -263,40 +265,40 @@ public class LinkBoxActivity extends AppCompatActivity {
             int like_alarm = prefs.getInt("like_alarm", 0);
             int comment_alarm = prefs.getInt("comment_alarm", 0);
 
-            if(defaultAlarmIndicator == 1){
+            if (defaultAlarmIndicator == 1) {
                 LinkBoxController.defaultAlarm = true;
             }
-            else if(defaultAlarmIndicator == 0){
+            else if (defaultAlarmIndicator == 0) {
                 LinkBoxController.defaultAlarm = false;
             }
-            if(defaultReadLaterIndicator == 1){
+            if (defaultReadLaterIndicator == 1) {
                 LinkBoxController.defaultReadLater = true;
             }
-            else if(defaultReadLaterIndicator == 0){
+            else if (defaultReadLaterIndicator == 0) {
                 LinkBoxController.defaultReadLater = false;
             }
-            if(new_link_alarm == 1){
+            if (new_link_alarm == 1) {
                 LinkBoxController.new_link_alarm = true;
             }
-            else if(new_link_alarm == 0){
+            else if (new_link_alarm == 0) {
                 LinkBoxController.new_link_alarm = false;
             }
-            if(invited_box_alarm == 1){
+            if (invited_box_alarm == 1) {
                 LinkBoxController.invited_box_alarm = true;
             }
-            else if(invited_box_alarm == 0){
+            else if (invited_box_alarm == 0) {
                 LinkBoxController.invited_box_alarm = false;
             }
-            if(like_alarm == 1){
+            if (like_alarm == 1) {
                 LinkBoxController.like_alarm = true;
             }
-            else if(like_alarm == 0){
+            else if (like_alarm == 0) {
                 LinkBoxController.like_alarm = false;
             }
-            if(comment_alarm == 1){
+            if (comment_alarm == 1) {
                 LinkBoxController.comment_alarm = true;
             }
-            else if(comment_alarm == 0){
+            else if (comment_alarm == 0) {
                 LinkBoxController.comment_alarm = false;
             }
         }
@@ -352,9 +354,9 @@ public class LinkBoxActivity extends AppCompatActivity {
     private void initControl() {
         //TODO : Change To FavoriteBox's Adapter
         LinkBoxController.linkBoxBoxListAdapter =
-            new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
+                new LinkBoxBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
         LinkBoxController.linkBoxUrlListAdapter =
-            new LinkBoxUrlListAdapter(getApplicationContext(), LinkBoxController.urlListSource);
+                new LinkBoxUrlListAdapter(getApplicationContext(), LinkBoxController.urlListSource);
 
         lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
         lvFavoriteBoxList.setAdapter(LinkBoxController.linkBoxBoxListAdapter);
@@ -411,41 +413,36 @@ public class LinkBoxActivity extends AppCompatActivity {
         llUrlHeader = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_url_list_link_box, lvUrlList, false);
         tvBoxTitle = (TextView) llUrlHeader.findViewById(R.id.TV_box_title_link_box);
         tvUrlNum = (TextView) llUrlHeader.findViewById(R.id.TV_url_number_link_box);
-//        ViewGroup viewGroup = (ViewGroup) lvUrlList.getParent();
-//        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
-//        viewGroup.addView(llUrlEmptyView);
-//        lvUrlList.setEmptyView(llUrlEmptyView);
+        //        ViewGroup viewGroup = (ViewGroup) lvUrlList.getParent();
+        //        llUrlEmptyView = (LinearLayout) layoutInflater.inflate(R.layout.layout_url_list_empty_link_box, viewGroup, false);
+        //        viewGroup.addView(llUrlEmptyView);
+        //        lvUrlList.setEmptyView(llUrlEmptyView);
     }
     private void initMainListener() {
         srlUrlList.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                LinkBoxController.linkBoxUrlListAdapter.closeAllItems();
                 initInBox();
             }
         });
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    UrlListData urlListData = new UrlListData();
-                if(LinkBoxController.inboxIndicator)
-                    urlListData = LinkBoxController.urlListSource.get(position-1);
-                else
+                UrlListData urlListData = new UrlListData();
+                if (LinkBoxController.inboxIndicator) {
+                    urlListData = LinkBoxController.urlListSource.get(position - 1);
+                }
+                else {
                     urlListData = LinkBoxController.urlListSource.get(position);
-
-
-                    String url = ((UrlListData) lvUrlList.getItemAtPosition(position)).url;
-                    String urlTitle = urlListData.urlTitle.toString();
-                    int liked = urlListData.liked;
-                    Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
-                    intent.putExtra("url", url);
-                    intent.putExtra("title", urlTitle);
-                    intent.putExtra("liked", liked);
-                    intent.putExtra("position", position);
-                    intent.putExtra("urlkey", urlListData.urlKey);
-                    startActivity(intent);
-                   overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
-
+                }
+                String url = ((UrlListData) lvUrlList.getItemAtPosition(position)).url;
+                String urlTitle = urlListData.urlTitle.toString();
+                int liked = urlListData.liked;
+                Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
+                intent.putExtra(MainStrings.position, position);
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
             }
         });
     }
@@ -470,8 +467,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         ibDeleteLinkBox = (ImageButton) findViewById(R.id.IB_delete_link_box);
         ibEditLinkBox = (ImageButton) findViewById(R.id.IB_edit_link_box);
         ibShareLinkBox = (ImageButton) findViewById(R.id.IB_share_link_box);
-
-
     }
     private void initDrawerListener() {
         tvUserName.setText(LinkBoxController.usrListData.usrName);
@@ -486,17 +481,17 @@ public class LinkBoxActivity extends AppCompatActivity {
                 dlDrawer.closeDrawers();
             }
         });
-        rlMyBox.setOnClickListener(new View.OnClickListener(){
+        rlMyBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
-        rlBuyedBox.setOnClickListener(new View.OnClickListener(){
+        rlBuyedBox.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 Log.d(TAG, "BuyedBox Clicked");
             }
         });
@@ -519,7 +514,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         });
         abdtDrawer = new ActionBarDrawerToggle(this, dlDrawer,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+                                               R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -544,7 +539,6 @@ public class LinkBoxActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }
         });
-        
     }
     //</editor-fold>
     //<editor-fold desc="Initiate InBox" defaultstate="collapsed">
@@ -583,7 +577,8 @@ public class LinkBoxActivity extends AppCompatActivity {
                     tvBoxTitle.setAlpha((firstVisibleItem != 0 || v == null || v.getHeight() == 0) ? 1.0f : (1.0f + ((float) top) / titleSize));
                     if (top < -titleSize || firstVisibleItem != 0) {
                         tToolbar.setTitle(boxTitle);
-                    } else {
+                    }
+                    else {
                         tToolbar.setTitle("");
                     }
                 }
@@ -656,7 +651,6 @@ public class LinkBoxActivity extends AppCompatActivity {
             srlUrlList.setRefreshing(false);
             RetrofitDebug.debug(error);
             Toast.makeText(LinkBoxActivity.this, "서버와의 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
-
         }
     }
     //</editor-fold>

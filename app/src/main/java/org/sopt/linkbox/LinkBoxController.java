@@ -3,6 +3,7 @@ package org.sopt.linkbox;
 import android.app.Application;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -14,7 +15,7 @@ import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
-import org.sopt.linkbox.custom.adapters.listViewAdapter.WebviewReplyListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.WebviewCommentListAdapter;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
@@ -151,22 +152,30 @@ public class LinkBoxController extends Application {
     public static ArrayList<UrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
 
-    public static ArrayList<CommentListData> commentListSource = null;
-    public static WebviewReplyListAdapter webviewReplyListAdapter = null;
-
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.notifyDataSetChanged();
         }
-        if(webviewReplyListAdapter != null)
+        if(webviewCommentListAdapter != null)
         {
-            webviewReplyListAdapter.notifyDataSetChanged();
+            webviewCommentListAdapter.notifyDataSetChanged();
         }
 
     }
     public static void resetUrlDataSet() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.closeAllItems();
+        }
+    }
+
+
+    public static ArrayList<CommentListData> commentListSource = null;
+    public static WebviewCommentListAdapter webviewCommentListAdapter = null;
+
+    public static void notifyCommentDataSetChanged() {
+        if (webviewCommentListAdapter != null) {
+            webviewCommentListAdapter.notifyDataSetChanged();
+            Log.d("TEST", "aaa");
         }
     }
 

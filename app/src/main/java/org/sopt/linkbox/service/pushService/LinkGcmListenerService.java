@@ -17,6 +17,7 @@ import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.constant.AlarmType;
 import org.sopt.linkbox.constant.GCMString;
+import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 
 import me.leolin.shortcutbadger.ShortcutBadger;
@@ -115,6 +116,7 @@ public class LinkGcmListenerService extends GcmListenerService{
     private void goodNotification() {
         LinkBoxController.alarmCount++;
         Intent intent = new Intent(this, LinkBoxActivity.class);
+        intent.putExtra(MainStrings.urlKey, alarmListData.alarmUrlKey);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.logo);
