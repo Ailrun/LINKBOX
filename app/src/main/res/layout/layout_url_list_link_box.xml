@@ -44,6 +44,8 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_alignParentStart="true"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             android:background="@drawable/mainpage_image"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -113,8 +115,8 @@
                 android:textColor="#ff80cbc4"/>
         <ImageView
             android:id="@+id/IV_like_link_box"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/mainpage_bookmark_unchecked"/>
         </LinearLayout>
     </RelativeLayout>

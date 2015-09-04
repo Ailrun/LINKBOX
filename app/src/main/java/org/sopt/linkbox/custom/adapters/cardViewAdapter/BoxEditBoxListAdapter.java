@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import org.sopt.linkbox.activity.mainPage.boxListPage.BoxEditActivity;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.helper.BoxImageSaveLoad;
+import org.sopt.linkbox.custom.helper.CardViewHolder;
 import org.sopt.linkbox.custom.helper.ViewHolder;
 import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
 
@@ -78,43 +80,51 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
     }
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
+        final CardViewHolder vhContentsHolder;
+
         if (view == null) {
             view = layoutInflater.inflate(R.layout.layout_box_list_link_box, viewGroup, false);
+
+            vhContentsHolder = new CardViewHolder();
+            vhContentsHolder.tvBoxName = (TextView) view.findViewById(R.id.TV_box_title);
+            vhContentsHolder.ivBoxImage = (ImageView) view.findViewById(R.id.IV_box_image);
+            vhContentsHolder.ivFavoriteBtn = (ImageView) view.findViewById(R.id.IV_favorite_btn);
+            vhContentsHolder.ivModifyBtn = (ImageView) view.findViewById(R.id.IV_modify_btn);
+            vhContentsHolder.ivDeleteBtn = (ImageView) view.findViewById(R.id.IV_delete_btn);
+
+            view.setTag(vhContentsHolder);
+        }
+
+        else
+        {
+            vhContentsHolder = (CardViewHolder) view.getTag();
         }
         BoxListData boxListData = (BoxListData) getItem(i);
         Bitmap boxImage = boxImageSaveLoader.loadProfileImage(i);
 
         if (boxImage == null) {
-            boxImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.splash);
+            boxImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.box_default);
         }
 
-        TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_title);
-        ImageView tvBoxImage = ViewHolder.get(view, R.id.IV_box_image);
-        tvBoxName.setText(boxListData.boxName);
-        tvBoxImage.setImageBitmap(boxImage);
-
-
-        final ImageView ivFavorite = (ImageView) view.findViewById(R.id.IV_favorite_btn);
+        vhContentsHolder.tvBoxName.setText(boxListData.boxName);
+        vhContentsHolder.ivBoxImage.setImageBitmap(boxImage);
 
         if(boxListData.boxFavorite == 0 && bookmark != null){
-            ivFavorite.setImageBitmap(bookmark.getBitmap());
+            vhContentsHolder.ivFavoriteBtn.setImageBitmap(bookmark.getBitmap());
         }
         else if(boxListData.boxFavorite == 1 && bookmarkSelected != null){
-            ivFavorite.setImageBitmap(bookmarkSelected.getBitmap());
+            vhContentsHolder.ivFavoriteBtn.setImageBitmap(bookmarkSelected.getBitmap());
         }
 
-        ImageView modifyBtn = (ImageView) view.findViewById(R.id.IV_modify_btn);
-        ImageView deleteBtn = (ImageView) view.findViewById(R.id.IV_delete_btn);
-
-        ivFavorite.setOnClickListener(new View.OnClickListener() {
+        vhContentsHolder.ivFavoriteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((BoxListData)getItem(i)).boxFavorite = 1 - ((BoxListData)getItem(i)).boxFavorite;
-                boxListWrapper.favorite(((BoxListData)getItem(i)), new BoxFavoriteCallback(((BoxListData)getItem(i)), ivFavorite));
-                ivFavorite.setEnabled(false);
+                boxListWrapper.favorite(((BoxListData)getItem(i)), new BoxFavoriteCallback(((BoxListData)getItem(i)), vhContentsHolder.ivFavoriteBtn));
+                vhContentsHolder.ivFavoriteBtn.setEnabled(false);
             }
         });
-        modifyBtn.setOnClickListener(new View.OnClickListener(){
+        vhContentsHolder.ivModifyBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BoxEditActivity.class);
@@ -124,7 +134,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-        deleteBtn.setOnClickListener(new View.OnClickListener(){
+        vhContentsHolder.ivDeleteBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BoxDeleteDialogActivity.class);

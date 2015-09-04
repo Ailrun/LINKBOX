@@ -22,16 +22,12 @@ import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.EditDialogActivity;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
-import org.sopt.linkbox.custom.helper.DateCalculator;
 import org.sopt.linkbox.custom.helper.ViewHolder;
+import org.sopt.linkbox.custom.helper.DateCalculator;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
 
 import java.io.File;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -118,7 +114,9 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         tvUrlDate.setText(urlDate);
         tvLikeNum.setText(Integer.toString(urlListData.likedNum));
 
-        Glide.with(context).load(urlListData.urlThumbnail).into(ivUrlThumb);
+
+        Glide.with(context).load(urlListData.urlThumbnail).asBitmap().into(ivUrlThumb);
+
         ivLike.setImageResource(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,8 +182,19 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter {
         }
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
+            /*
             urlListData.liked = (1-urlListData.liked);
             urlListData.likedNum += 2*urlListData.liked - 1;
+            */
+            if(urlListData.liked == 0){
+                urlListData.liked = 1;
+                urlListData.likedNum += 1;
+            }
+            else if(urlListData.liked == 1){
+                urlListData.liked = 0;
+                urlListData.likedNum -= 1;
+            }
+
             ivLike.setImageResource(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
             ivLike.setEnabled(true);
             LinkBoxController.notifyUrlDataSetChanged();
