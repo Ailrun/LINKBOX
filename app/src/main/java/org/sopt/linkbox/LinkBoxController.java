@@ -158,9 +158,6 @@ public class LinkBoxController extends Application {
     public static ArrayList<UrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
 
-    public static ArrayList<CommentListData> commentListSource = null;
-    public static WebviewCommentListAdapter webviewCommentListAdapter = null;
-
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.notifyDataSetChanged();
