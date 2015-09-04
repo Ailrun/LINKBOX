@@ -289,7 +289,10 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
                 urlListData.urlWriterUsrKey = LinkBoxController.usrListData.usrKey;
                 urlListData.urlWriterUsrName = LinkBoxController.usrListData.usrName;
                 urlListData.urlTitle = etName.getText().toString();
-                urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                if (urlListData.urlTitle.replaceAll(" ", "").equals("")) {
+                    urlListData.urlTitle = urlListData.url;
+                }
+                //urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 // Log.e("UrlDate", urlListData.urlDate);
 
                 urlListData.urlTags = new ArrayList<>();
