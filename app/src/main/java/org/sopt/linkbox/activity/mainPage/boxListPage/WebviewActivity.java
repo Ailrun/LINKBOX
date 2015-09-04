@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
@@ -46,8 +47,9 @@ public class WebviewActivity extends AppCompatActivity {
     private WebSettings webSettings;
 
     private ListView lvComment;
-    private final int maxHeight = 20;
     private EditText etComment;
+    private TextView tvNumOfComment;
+    private final int maxHeight = 20;
     private ImageButton ibSendButton;
     private int position;
 
@@ -76,14 +78,11 @@ public class WebviewActivity extends AppCompatActivity {
         position = intent.getIntExtra("position", 0);
 
         urlListData = LinkBoxController.urlListSource.get(position);
-
-
-
+        
         initview();
         initToolbarView();
         initControl();
-
-
+        
         webSettings = webView.getSettings();
         webSettings.setSaveFormData(false);//Form 데이터 저장 여부
         webSettings.setJavaScriptEnabled(true);//javaScript 사용 여부
@@ -190,6 +189,7 @@ public class WebviewActivity extends AppCompatActivity {
             }
         });
         etComment = (EditText) findViewById(R.id.ET_comment_expandable_view_content);
+        tvNumOfComment = (TextView) findViewById(R.id.TV_number_of_reply_webview);//TODO 이거 숫자 어디서 어떻게 받아오지
         ibSendButton = (ImageButton) findViewById(R.id.IB_send_button_expandable_view_content);
 
         flHeaderLayout = (FrameLayout) findViewById(R.id.FL_expandable_headerlayout_webview);
@@ -262,12 +262,11 @@ public class WebviewActivity extends AppCompatActivity {
         animation = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1)
-                {
+                if(interpolatedTime == 1) {
                     v.setVisibility(View.GONE);
                     isOpened = false;
                 }
-                else{
+                else {
                     v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
                     v.requestLayout();
                 }
@@ -283,21 +282,17 @@ public class WebviewActivity extends AppCompatActivity {
         v.startAnimation(animation);
     }
 
-    public Boolean isOpened()
-    {
+    public Boolean isOpened() {
         return isOpened;
     }
 
     public void show() {
-        if (!isAnimationRunning)
-        {
+        if (!isAnimationRunning) {
             expand(flContentLayout);
             isAnimationRunning = true;
-            new Handler().postDelayed(new Runnable()
-            {
+            new Handler().postDelayed(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     isAnimationRunning = false;
                 }
             }, 200);
@@ -324,11 +319,11 @@ public class WebviewActivity extends AppCompatActivity {
         tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
         tToolbar.setTitle(urlListData.urlTitle);
         setSupportActionBar(tToolbar);
-        getSupportActionBar().setTitle(urlListData.urlTitle);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(urlListData.urlTitle);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private class UrlLikeCallback implements Callback<MainServerData<Object>> {

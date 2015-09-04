@@ -137,7 +137,7 @@ public class BoxEditorAdd extends AppCompatActivity {
         @Override
         public void success(MainServerData<Object> wrapperObject, Response response) {
             if (wrapperObject.result) {
-                Toast.makeText(BoxEditorAdd.this, "초대가 발송되었습니다!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(BoxEditorAdd.this, "초대를 발송했습니다.", Toast.LENGTH_SHORT).show();
                 finish();
             }
             else {

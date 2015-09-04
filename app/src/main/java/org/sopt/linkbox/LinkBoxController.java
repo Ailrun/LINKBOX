@@ -11,6 +11,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.okhttp.OkHttpClient;
 
 import org.sopt.linkbox.custom.adapters.cardViewAdapter.BoxEditBoxListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.AlarmListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
@@ -41,6 +42,7 @@ import retrofit.client.OkClient;
 
 /**
  * Created by Junyoung on 2015-07-07.
+ * 
  */
 public class LinkBoxController extends Application {
     private static LinkBoxController application;
@@ -98,10 +100,14 @@ public class LinkBoxController extends Application {
 
     public static ArrayList<AlarmListData> alarmBoxListSource = null;   // Added for invited box list
     public static InvitedBoxListAdapter invitedBoxListAdapter = null; // Added for invited box list Adapter
+    public static AlarmListAdapter alarmListAdapter = null;
 
     public static void notifyAlarmDataSetChanged() {
         if (invitedBoxListAdapter != null) {
             invitedBoxListAdapter.notifyDataSetChanged();
+        }
+        if (alarmListAdapter != null) {
+            alarmListAdapter.notifyDataSetChanged();
         }
     }
 
@@ -151,6 +157,9 @@ public class LinkBoxController extends Application {
 
     public static ArrayList<UrlListData> urlListSource = null;
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
+
+    public static ArrayList<CommentListData> commentListSource = null;
+    public static WebviewCommentListAdapter webviewCommentListAdapter = null;
 
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {

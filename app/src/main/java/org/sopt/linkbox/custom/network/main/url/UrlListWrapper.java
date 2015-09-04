@@ -65,8 +65,8 @@ public class UrlListWrapper {
         urlListInterface.tagList(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData.urlKey, callback);
     }
     public void tagAdd(UrlListData urlListData, String tag, Callback<MainServerData<TagListData>> callback) {
-        TagListData tagListData = new TagListData();
-        tagListData.tag = tag;
+        TagListData tagListData = new TagListData(tag);
+        // tagListData.tag = tag;
         urlListInterface.tagAdd(LinkBoxController.usrListData.usrKey, LinkBoxController.currentBox.boxKey, urlListData.urlKey, tagListData, callback);
     }
     public void tagRemove(UrlListData urlListData, TagListData tagListData, Callback<MainServerData<Object>> callback) {

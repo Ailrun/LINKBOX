@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.alarmPage.AlarmActivity;
 import org.sopt.linkbox.activity.helpPage.HelpActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.WebviewActivity;
@@ -57,6 +58,7 @@ import retrofit.client.Response;
 
 /**
  * Created by Junyoung on 2015-06-30.
+ *
  */
 
 /** T?O?D?O : make this as Single Instance
@@ -209,7 +211,8 @@ public class LinkBoxActivity extends AppCompatActivity {
                 Toast.makeText(LinkBoxActivity.this, "베타에서 만나요.", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.action_alarms:
-                Toast.makeText(LinkBoxActivity.this, "베타에서 만나요.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, AlarmActivity.class));
+                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
                 break;
             case R.id.action_editors:
                 startActivity(new Intent(this, BoxEditorList.class));
