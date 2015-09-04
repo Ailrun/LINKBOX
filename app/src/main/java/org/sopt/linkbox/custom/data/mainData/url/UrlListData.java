@@ -22,9 +22,9 @@ public class UrlListData implements Cloneable {
     public List<TagListData> urlTags;
     @Override
     public String toString(){
-        return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle
-                +", urlWriterUsrName="+ urlWriterUsrName +", urlDate="+ urlDate +", urlThumbnail"+ urlThumbnail
-                + (liked ==0?"True":"False") + "likedNum=" + likedNum;
+        return "urlKey="+ urlKey +", url="+ url +", urlTitle="+ urlTitle + "\n"
+                +"urlWriterUsrName="+ urlWriterUsrName +", urlDate="+ urlDate +", urlThumbnail"+ urlThumbnail + "\n"
+                + (liked ==0?"False":"True") + ", likedNum=" + likedNum;
     }
     @Override
     public UrlListData clone() {

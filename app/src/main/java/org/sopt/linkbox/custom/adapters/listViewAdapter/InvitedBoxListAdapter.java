@@ -83,23 +83,19 @@ public class InvitedBoxListAdapter extends BaseAdapter {
         setInvited();
         super.notifyDataSetChanged();
     }
-
     @Override
     public int getCount() {
         return (invitedAlarm != null) ? invitedAlarm.size() : 0;
     }
-
     @Override
     public Object getItem(int position) {
         return (invitedAlarm != null && position < invitedAlarm.size() && position >= 0) ?
                 invitedAlarm.get(position) : null;
     }
-
     @Override
     public long getItemId(int position) {
         return position;
     }
-
     @Override
     public View getView(final int position, View view, ViewGroup viewGroup) {
         if (view == null) {

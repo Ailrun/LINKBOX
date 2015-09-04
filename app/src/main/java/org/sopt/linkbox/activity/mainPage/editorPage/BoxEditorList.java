@@ -138,6 +138,7 @@ public class BoxEditorList extends AppCompatActivity {
             if (wrappedUsrListDatas.result) {
                 LinkBoxController.editorListSource.clear();
                 LinkBoxController.editorListSource.addAll(wrappedUsrListDatas.object);
+                LinkBoxController.notifyEditorDataSetChanged();
                 editor_number = LinkBoxController.editorListSource.size();
                 tvBoxName.setText(sBox_name + " (" + editor_number + ")");
             }

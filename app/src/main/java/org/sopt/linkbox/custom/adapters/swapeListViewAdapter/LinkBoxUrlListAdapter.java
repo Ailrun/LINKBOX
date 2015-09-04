@@ -69,7 +69,6 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         this.source = source;
         this.context = context;
         urlListWrapper = new UrlListWrapper();
-
         synchronized (Glide.class){
             if(!Glide.isSetup()){
                 File file = Glide.getPhotoCacheDir(context);
@@ -129,7 +128,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         tvUrlAddress.setText(urlListData.url);
         tvUrlWriter.setText(urlListData.urlWriterUsrName);
 
-        String urlDate = DateCalculator.compareDates(urlListData.urlDate);
+        final String urlDate = DateCalculator.compareDates(urlListData.urlDate);
         Log.e("Compared time", urlDate);
         tvUrlDate.setText(urlDate);
         tvLikeNum.setText(Integer.toString(urlListData.likedNum));
@@ -144,7 +143,9 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                urlListWrapper.like((UrlListData) getItem(i), (1 - ((UrlListData) getItem(i)).liked), new UrlLikeCallback((UrlListData) getItem(i), ivLike));
+                urlListWrapper.like((UrlListData)getItem(i), (1-((UrlListData)getItem(i)).liked), new UrlLikeCallback((UrlListData)getItem(i), ivLike));
+                Log.e(TAG, "this is " + i);
+                Log.e(TAG, "I'm " + getItem(i).toString());
                 ivLike.setEnabled(false);
             }
         });
@@ -227,14 +228,17 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
             urlListData.liked = (1-urlListData.liked);
             urlListData.likedNum += 2*urlListData.liked - 1;
             */
-            if(urlListData.liked == 0){
+            Log.e(TAG, urlListData.toString());
+            if(urlListData.liked == 0) {
                 urlListData.liked = 1;
                 urlListData.likedNum += 1;
+                Log.e(TAG, "hit!!!");
             }
-            else if(urlListData.liked == 1){
+            else {
                 urlListData.liked = 0;
                 urlListData.likedNum -= 1;
             }
+            Log.e(TAG, urlListData.toString());
 
             ivLike.setImageResource(urlListData.liked == 0 ? R.drawable.mainpage_bookmark_unchecked : R.drawable.mainpage_bookmark_checked);
             ivLike.setEnabled(true);

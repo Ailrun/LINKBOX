@@ -6,4 +6,6 @@ package org.sopt.linkbox.constant;
  */
 public class MainStrings {
     public static final String inBox = "inBox";
+    public static final String position = "position";
+    public static final String urlKey = "urlKey";
 }

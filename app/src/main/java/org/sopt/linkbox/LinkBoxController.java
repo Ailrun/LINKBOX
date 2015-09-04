@@ -3,6 +3,7 @@ package org.sopt.linkbox;
 import android.app.Application;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -15,7 +16,7 @@ import org.sopt.linkbox.custom.adapters.listViewAdapter.InvitedBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkEditorListAdapter;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.NotificationListAdapter;
-import org.sopt.linkbox.custom.adapters.listViewAdapter.WebviewReplyListAdapter;
+import org.sopt.linkbox.custom.adapters.listViewAdapter.WebviewCommentListAdapter;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
@@ -41,7 +42,7 @@ import retrofit.client.OkClient;
 
 /**
  * Created by Junyoung on 2015-07-07.
- *
+ * 
  */
 public class LinkBoxController extends Application {
     private static LinkBoxController application;
@@ -158,21 +159,32 @@ public class LinkBoxController extends Application {
     public static LinkBoxUrlListAdapter linkBoxUrlListAdapter = null;
 
     public static ArrayList<CommentListData> commentListSource = null;
-    public static WebviewReplyListAdapter webviewReplyListAdapter = null;
+    public static WebviewCommentListAdapter webviewCommentListAdapter = null;
 
     public static void notifyUrlDataSetChanged() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.notifyDataSetChanged();
         }
-        if(webviewReplyListAdapter != null)
+        if(webviewCommentListAdapter != null)
         {
-            webviewReplyListAdapter.notifyDataSetChanged();
+            webviewCommentListAdapter.notifyDataSetChanged();
         }
 
     }
     public static void resetUrlDataSet() {
         if (linkBoxUrlListAdapter != null) {
             linkBoxUrlListAdapter.closeAllItems();
+        }
+    }
+
+
+    public static ArrayList<CommentListData> commentListSource = null;
+    public static WebviewCommentListAdapter webviewCommentListAdapter = null;
+
+    public static void notifyCommentDataSetChanged() {
+        if (webviewCommentListAdapter != null) {
+            webviewCommentListAdapter.notifyDataSetChanged();
+            Log.d("TEST", "aaa");
         }
     }
 
@@ -197,8 +209,7 @@ public class LinkBoxController extends Application {
         initGcm();
         initNetworkServer();
     }
-    private void initData()
-    {
+    private void initData() {
         applicationID = Installation.id(this);
 
         currentBox = new BoxListData();
@@ -216,8 +227,7 @@ public class LinkBoxController extends Application {
             startService(intent);
         }
     }
-    private void initNetworkServer()
-    {
+    private void initNetworkServer() {
         CookieManager cookieManagerServer = new CookieManager();
         cookieManagerServer.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
         OkHttpClient clientServer = new OkHttpClient();
