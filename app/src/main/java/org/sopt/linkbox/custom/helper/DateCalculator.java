@@ -63,7 +63,7 @@ public class DateCalculator {
         // Calendar currentTime = Calendar.getInstance();
         // String sCurrent = currentTime.getTime().toString();
 
-        GregorianCalendar gcPrevious = new GregorianCalendar(previousYear, previousMonth - 1, previousDay, previousHour + 9, previousMinute, previousSecond);
+        GregorianCalendar gcPrevious = new GregorianCalendar(previousYear, previousMonth - 1, previousDay, previousHour + 18 , previousMinute, previousSecond);
         Date dPrevious = gcPrevious.getTime();
         // Date dCurrent = new Date();
 
