@@ -92,7 +92,7 @@ public class BoxListEditActivity extends AppCompatActivity {
                 final Intent intent = new Intent(BoxListEditActivity.this, LinkBoxActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(MainStrings.inBox, true);
-                Log.d("I'm Tag", "current Box : " + LinkBoxController.currentBox.toString());
+                Log.d(TAG, "current Box : " + LinkBoxController.currentBox.toString());
                 ActivityTransitionLauncher.with(BoxListEditActivity.this).from(view).launch(intent);
                 overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
             }

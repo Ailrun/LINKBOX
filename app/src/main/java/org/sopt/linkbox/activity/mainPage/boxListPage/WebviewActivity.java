@@ -19,6 +19,7 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -111,7 +112,6 @@ public class WebviewActivity extends AppCompatActivity {
             }
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -138,7 +138,6 @@ public class WebviewActivity extends AppCompatActivity {
         }
         return true;
     }
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem liked = menu.findItem(R.id.action_like);
@@ -152,7 +151,6 @@ public class WebviewActivity extends AppCompatActivity {
         }
         return true;
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -165,29 +163,10 @@ public class WebviewActivity extends AppCompatActivity {
         LinkBoxController.webviewCommentListAdapter = new WebviewCommentListAdapter(getApplicationContext(), LinkBoxController.commentListSource, urlListData);
         lvComment.setAdapter(LinkBoxController.webviewCommentListAdapter);
     }
-
     private void initview() {
 
         webView = (WebView) findViewById(R.id.WV_webview);
         lvComment = (ListView) findViewById(R.id.LV_container_expandable_view_content);
-        lvComment.setOnHierarchyChangeListener(new ViewGroup.OnHierarchyChangeListener() {
-            @Override
-            public void onChildViewAdded(View parent, View child) {
-                if (parent.getHeight() > maxHeight) {
-                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(lvComment.getLayoutParams());
-                    layoutParams.height = maxHeight;
-                    lvComment.setLayoutParams(layoutParams);
-                }
-            }
-            @Override
-            public void onChildViewRemoved(View parent, View child) {
-                if (!parent.isVerticalScrollBarEnabled()) {
-                    ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(lvComment.getLayoutParams());
-                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    lvComment.setLayoutParams(layoutParams);
-                }
-            }
-        });
         etComment = (EditText) findViewById(R.id.ET_comment_expandable_view_content);
         tvNumOfComment = (TextView) findViewById(R.id.TV_number_of_reply_webview);//TODO 이거 숫자 어디서 어떻게 받아오지
         ibSendButton = (ImageButton) findViewById(R.id.IB_send_button_expandable_view_content);
@@ -232,6 +211,17 @@ public class WebviewActivity extends AppCompatActivity {
             }
         });
     }
+    private void initToolbarView() {
+        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
+        tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
+        tToolbar.setTitle(urlListData.urlTitle);
+        setSupportActionBar(tToolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(urlListData.urlTitle);
+            getSupportActionBar().setHomeButtonEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
 
     private void expand(final View v) {
         urlListWrapper.commentList(urlListData, new CommentListCallback());
@@ -256,7 +246,6 @@ public class WebviewActivity extends AppCompatActivity {
         animation.setDuration(200);
         v.startAnimation(animation);
     }
-
     private void collapse(final View v) {
         final int initialHeight = v.getMeasuredHeight();
         animation = new Animation() {
@@ -299,30 +288,15 @@ public class WebviewActivity extends AppCompatActivity {
         }
     }
     public void hide() {
-        if (!isAnimationRunning)
-        {
+        if (!isAnimationRunning) {
             collapse(flContentLayout);
             isAnimationRunning = true;
-            new Handler().postDelayed(new Runnable()
-            {
+            new Handler().postDelayed(new Runnable() {
                 @Override
-                public void run()
-                {
+                public void run() {
                     isAnimationRunning = false;
                 }
             }, 200);
-        }
-    }
-
-    private void initToolbarView() {
-        tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
-        tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
-        tToolbar.setTitle(urlListData.urlTitle);
-        setSupportActionBar(tToolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(urlListData.urlTitle);
-            getSupportActionBar().setHomeButtonEnabled(true);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
 

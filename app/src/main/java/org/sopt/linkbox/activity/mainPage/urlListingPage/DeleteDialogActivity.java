@@ -2,6 +2,7 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -91,8 +92,13 @@ public class DeleteDialogActivity extends Activity {
         @Override
         public void success(MainServerData<Object> wrapperObject, Response response) {
             if(wrapperObject.result) {
-                LinkBoxController.urlListSource.remove(urlListData);
-                LinkBoxController.notifyUrlDataSetChanged();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LinkBoxController.urlListSource.remove(urlListData);
+                        LinkBoxController.notifyUrlDataSetChanged();
+                    }
+                }, 500);
                 finish();
                 overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
             }

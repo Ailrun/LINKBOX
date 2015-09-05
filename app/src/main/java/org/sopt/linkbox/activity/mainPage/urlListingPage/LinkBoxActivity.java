@@ -414,6 +414,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     //<editor-fold desc="Initiate Mains" defaultstate="collapsed">
     private void initMainView() {
         srlUrlList = (SwipeRefreshLayout) findViewById(R.id.SRL_url_list_link_box);
+        srlUrlList.setColorSchemeResources(R.color.indigo500);
         lvUrlList = (ListView) findViewById(R.id.LV_url_list_link_box);
         llUrlHeader = (LinearLayout) layoutInflater.inflate(R.layout.layout_header_url_list_link_box, lvUrlList, false);
         tvBoxTitle = (TextView) llUrlHeader.findViewById(R.id.TV_box_title_link_box);
@@ -590,7 +591,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             });
             lvUrlList.setSelection(0);
             srlUrlList.setProgressViewOffset(true, 80, 150);
-            srlUrlList.setColorScheme(R.color.indigo500);
+            srlUrlList.setColorSchemeResources(R.color.indigo500);
         }
         else {
             Log.e(TAG, "ERROR!!! inBox=" + LinkBoxController.inboxIndicator + " and currentBox=null");
@@ -606,7 +607,6 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvUrlList.setOnScrollListener(null);
         lvUrlList.setSelection(0);
         srlUrlList.setProgressViewOffset(true, 0, 70);
-        srlUrlList.setColorScheme(R.color.indigo500);
     }
     //</editor-fold>
 

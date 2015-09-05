@@ -131,8 +131,9 @@ public class BoxEditActivity extends Activity {
             @Override
             public void onClick(View view) {
                 BoxListData box = boxListData.clone();
-                box.boxName = etName.getText().toString();
-                if (box.boxName.replaceAll(" ", "").equals("")) {
+                boxName = etName.getText().toString();
+                box.boxName = boxName;
+                if (boxName.replaceAll(" ", "").equals("")) {
                     Toast.makeText(BoxEditActivity.this, "박스의 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }

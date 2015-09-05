@@ -94,9 +94,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
 
             view.setTag(vhContentsHolder);
         }
-
-        else
-        {
+        else {
             vhContentsHolder = (CardViewHolder) view.getTag();
         }
         BoxListData boxListData = (BoxListData) getItem(i);
