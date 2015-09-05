@@ -2,10 +2,13 @@ package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -54,11 +57,40 @@ public class BoxImageCropActivity extends AppCompatActivity {
                 // ivProfile.setImageURI(imgURI);
                 // filePath = getRealPathFromURI(imgURI);
                 Bitmap bmp = MediaStore.Images.Media.getBitmap(getContentResolver(), imgURI);
+
+                Log.e("Image Width", String.valueOf(bmp.getWidth()));
+                Log.e("Image Height", String.valueOf(bmp.getHeight()));
+
+                int targetWidth = bmp.getWidth();
+                int targetHeight = bmp.getHeight();
+
+                if(bmp.getWidth() > 4000 || bmp.getHeight() > 4000){
+                    targetWidth = bmp.getWidth() / 5;
+                    targetHeight = bmp.getHeight() / 5;
+                }
+                else if(bmp.getWidth() > 3000 || bmp.getHeight() > 3000){
+                    targetWidth = bmp.getWidth() / 4;
+                    targetHeight = bmp.getHeight() / 4;
+                }
+                else if(bmp.getWidth() > 1500 || bmp.getHeight() > 1500){
+                    targetWidth = bmp.getWidth() / 3;
+                    targetHeight = bmp.getHeight() / 3;
+                }
+                else if(bmp.getWidth() > 1000 || bmp.getHeight() > 1000){
+                    targetWidth = bmp.getWidth() / 2;
+                    targetHeight = bmp.getHeight() / 2;
+                }
+
+                // Bitmap croppedBitmap = Bitmap.createScaledBitmap(bmp, bmpWidth, bmpHeight, false);
+
+                Matrix m = new Matrix();
+                m.setRectToRect(new RectF(0, 0, bmp.getWidth(), bmp.getHeight()), new RectF(0, 0, targetWidth, targetHeight), Matrix.ScaleToFit.CENTER);
+                Bitmap croppedBitmap = Bitmap.createBitmap(bmp, 0, 0, bmp.getWidth(), bmp.getHeight(), m, true);
                 // LinkBoxController.temporaryImage = bmp;
                 // ivProfile.setImageBitmap(bmp);
                 // ivProfile.getCroppedBitmap(bmp, 15);
                 // ivProfile.setCropToPadding(true);
-                cropImageView.setImageBitmap(bmp);
+                cropImageView.setImageBitmap(croppedBitmap);
             }
             catch (Exception e) {
                 e.printStackTrace();
