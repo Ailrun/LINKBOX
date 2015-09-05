@@ -68,6 +68,7 @@
                 android:singleLine="true"
                 android:textColorHint="#E0E0E0"
                 android:textColor="@color/real_black"
+                android:inputType="textEmailAddress"
                 android:background="@color/real_white"
                 />
             <EditText

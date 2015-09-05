@@ -23,6 +23,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorAdd;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.helper.BoxImageSaveLoad;
@@ -130,8 +131,11 @@ public class BoxEditActivity extends Activity {
             @Override
             public void onClick(View view) {
                 BoxListData box = boxListData.clone();
-                boxName = etName.getText().toString();
-                box.boxName = boxName;
+                box.boxName = etName.getText().toString();
+                if (box.boxName.replaceAll(" ", "").equals("")) {
+                    Toast.makeText(BoxEditActivity.this, "박스의 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 boxListWrapper.edit(box, new BoxEditCallback(LinkBoxController.boxListSource.get(index)));
                 LinkBoxController.boxImage = null;
             }

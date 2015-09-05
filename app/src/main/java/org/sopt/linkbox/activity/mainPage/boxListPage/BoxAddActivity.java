@@ -100,6 +100,10 @@ public class BoxAddActivity extends Activity {
                 box.boxIndex = LinkBoxController.boxListSource.size();
                 Log.e("box index", String.valueOf(box.boxIndex));
                 box.boxName = etName.getText().toString();
+                if (box.boxName.replaceAll(" ", "").equals("")) {
+                    Toast.makeText(BoxAddActivity.this, "박스의 이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 box.boxFavorite = 0;
                 box.boxUrlNum = 0;
                 boxListWrapper.add(box, new BoxAddingCallback());

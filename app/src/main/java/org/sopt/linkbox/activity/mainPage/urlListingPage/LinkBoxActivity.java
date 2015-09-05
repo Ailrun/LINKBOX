@@ -434,18 +434,13 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                UrlListData urlListData = new UrlListData();
+                Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
                 if (LinkBoxController.inboxIndicator) {
-                    urlListData = LinkBoxController.urlListSource.get(position - 1);
+                    intent.putExtra(MainStrings.position, position-1);
                 }
                 else {
-                    urlListData = LinkBoxController.urlListSource.get(position);
+                    intent.putExtra(MainStrings.position, position);
                 }
-                String url = ((UrlListData) lvUrlList.getItemAtPosition(position)).url;
-                String urlTitle = urlListData.urlTitle.toString();
-                int liked = urlListData.liked;
-                Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
-                intent.putExtra(MainStrings.position, position);
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
             }
