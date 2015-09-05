@@ -292,7 +292,7 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
                 if (urlListData.urlTitle.replaceAll(" ", "").equals("")) {
                     urlListData.urlTitle = urlListData.url;
                 }
-                //urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                urlListData.urlDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
                 // Log.e("UrlDate", urlListData.urlDate);
 
                 urlListData.urlTags = new ArrayList<>();
