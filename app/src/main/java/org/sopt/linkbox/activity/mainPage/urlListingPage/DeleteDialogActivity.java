@@ -98,7 +98,7 @@ public class DeleteDialogActivity extends Activity {
                         LinkBoxController.urlListSource.remove(urlListData);
                         LinkBoxController.notifyUrlDataSetChanged();
                     }
-                }, 500);
+                }, 400);
                 finish();
                 overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
             }
