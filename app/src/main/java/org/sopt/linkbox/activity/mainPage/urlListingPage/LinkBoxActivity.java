@@ -436,6 +436,9 @@ public class LinkBoxActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
                 if (LinkBoxController.inboxIndicator) {
+                    if(position == 0) {
+                        return;
+                    }
                     intent.putExtra(MainStrings.position, position-1);
                 }
                 else {
