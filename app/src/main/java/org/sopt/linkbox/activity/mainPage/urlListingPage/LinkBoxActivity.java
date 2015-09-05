@@ -436,6 +436,9 @@ public class LinkBoxActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
                 if (LinkBoxController.inboxIndicator) {
+                    if(position == 0) {
+                        return;
+                    }
                     intent.putExtra(MainStrings.position, position-1);
                 }
                 else {
@@ -585,7 +588,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             });
             lvUrlList.setSelection(0);
             srlUrlList.setProgressViewOffset(true, 80, 150);
-            srlUrlList.setColorScheme(R.color.indigo500);
+            srlUrlList.setColorSchemeResources(R.color.indigo500);
         }
         else {
             Log.e(TAG, "ERROR!!! inBox=" + LinkBoxController.inboxIndicator + " and currentBox=null");
@@ -601,7 +604,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvUrlList.setOnScrollListener(null);
         lvUrlList.setSelection(0);
         srlUrlList.setProgressViewOffset(true, 0, 70);
-        srlUrlList.setColorScheme(R.color.indigo500);
+        srlUrlList.setColorSchemeResources(R.color.indigo500);
     }
     //</editor-fold>
 
