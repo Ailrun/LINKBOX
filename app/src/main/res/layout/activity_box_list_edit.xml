@@ -8,7 +8,6 @@
         layout="@layout/layout_toolbar"/>
 
     <GridView
-        android:paddingTop="3dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/GV_box_box_list_edit"
@@ -17,7 +16,6 @@
         android:numColumns="auto_fit"
         android:columnWidth="180dp"
         android:stretchMode="spacingWidthUniform"
-        android:verticalSpacing="3dp"
         android:layout_below="@+id/T_toolbar_edit_box" />
 
 </RelativeLayout>
