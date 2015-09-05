@@ -19,7 +19,7 @@
             android:layout_weight="3"
             android:background="@color/teal400"
             android:focusableInTouchMode="false"
-            android:hint="태그가 없습니다"
+            android:hint="0.0.60을 기다려주세요!"
             android:textColorHint="@color/real_white"
             android:imeOptions="actionDone"
             android:inputType="text|textNoSuggestions|textMultiLine"

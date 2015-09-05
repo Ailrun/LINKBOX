@@ -588,6 +588,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             });
             lvUrlList.setSelection(0);
             srlUrlList.setProgressViewOffset(true, 80, 150);
+            // srlUrlList.setColorScheme(R.color.indigo500);
             srlUrlList.setColorSchemeResources(R.color.indigo500);
         }
         else {
@@ -604,6 +605,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         lvUrlList.setOnScrollListener(null);
         lvUrlList.setSelection(0);
         srlUrlList.setProgressViewOffset(true, 0, 70);
+        // srlUrlList.setColorScheme(R.color.indigo500);
         srlUrlList.setColorSchemeResources(R.color.indigo500);
     }
     //</editor-fold>

@@ -269,8 +269,8 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
                         Log.e("들어는 왔다", String.valueOf(listMainServerData.object.get(i).tag));
                     }
 
-                    initTagView();
-                    initTagAdapterView(view);
+                    // initTagView();
+                    // initTagAdapterView(view);
                 }
             }
             else{
@@ -283,6 +283,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         }
     }
 
+    /*
     private void initTagView() {
 
         //urlListWrapper.tagList(urlListData, new TagLoadingCallback(urlListData));
@@ -346,4 +347,5 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         }
 
     }
+    */
 }
