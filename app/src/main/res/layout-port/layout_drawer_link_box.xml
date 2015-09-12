@@ -68,7 +68,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="0dp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="0dp"
         android:layout_marginBottom="8dp"
         android:background="#1f000000"/>
     <!-- divider end -->
@@ -126,7 +126,7 @@
         android:paddingStart="16dp"
         android:gravity="center_vertical"
         android:textSize="12dp"
-        android:textColor="#df000000"/>
+        android:textColor="@color/grey700"/>
     <ListView
         android:id="@+id/LV_favorite_box_link_box"
         android:layout_width="match_parent"

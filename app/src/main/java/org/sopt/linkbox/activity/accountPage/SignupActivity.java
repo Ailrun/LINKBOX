@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
 
         initView();
+        initTouchListener();
         initListener();
     }
     //</editor-fold>
@@ -62,6 +64,22 @@ public class SignupActivity extends AppCompatActivity {
         etName.setTypeface(typeface);
         etPassword.setTypeface(typeface);
         etPasswordCheck.setTypeface(typeface);
+    }
+    private void initTouchListener(){
+        bSignup.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    bSignup.setBackgroundResource(R.drawable.custom_sign_rectangle_white);
+                    bSignup.setTextColor(getResources().getColor(R.color.teal400));
+                } else {
+                    bSignup.setBackgroundResource(R.drawable.custom_sign_rectangle);
+                    bSignup.setTextColor(getResources().getColor(R.color.real_white));
+                }
+
+                return false;
+            }
+        });
     }
     private void initListener() {
         bSignup.setOnClickListener(new View.OnClickListener() {

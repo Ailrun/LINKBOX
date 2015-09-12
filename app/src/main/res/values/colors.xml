@@ -16,4 +16,6 @@
     <color name="bright_grey">#FFFAFAFA</color>
     <color name="black_54p">#8a000000</color>
     <color name="hint_black">#E0E0E0</color>
+    <color name="grey500">#9E9E9E</color>
+    <color name="grey700">#616161</color>
 </resources>

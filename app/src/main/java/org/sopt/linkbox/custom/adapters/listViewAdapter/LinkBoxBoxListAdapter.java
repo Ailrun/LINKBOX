@@ -1,7 +1,9 @@
 package org.sopt.linkbox.custom.adapters.listViewAdapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -22,6 +24,8 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
     private List<BoxListData> favoriteBox = null;
     private ArrayList<BoxListData> source = null;
     private LayoutInflater layoutInflater = null;
+    private TextView tvBoxName = null;
+    private View currentView = null;
 
     public LinkBoxBoxListAdapter(Context context, ArrayList<BoxListData> source) {
         layoutInflater =
@@ -61,8 +65,9 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
             view = layoutInflater.inflate(R.layout.layout_box_list_drawer, viewGroup, false);
         }
         BoxListData boxListData = (BoxListData) getItem(i);
-        TextView tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
+        tvBoxName = ViewHolder.get(view, R.id.TV_box_name_link_box);
         tvBoxName.setText(boxListData.boxName);
+
         return view;
     }
 
@@ -74,4 +79,5 @@ public class LinkBoxBoxListAdapter extends BaseAdapter {
             }
         }
     }
+
 }
