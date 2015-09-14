@@ -326,6 +326,10 @@
             android:name=".activity.alarmPage.AlarmActivity"
             android:label="@string/title_activity_alarm" >
         </activity>
+        <activity
+            android:name=".activity.mainPage.urlListingPage.SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
     </application>
 
 </manifest>

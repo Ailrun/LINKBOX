@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +28,7 @@ import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.EditDialogActivity;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.SearchActivity;
 import org.sopt.linkbox.custom.data.mainData.url.TagListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
@@ -34,11 +37,17 @@ import org.sopt.linkbox.custom.helper.DateCalculator;
 import org.sopt.linkbox.custom.helper.tagHelper.IndividualTag;
 import org.sopt.linkbox.custom.helper.tagHelper.TagCompletionView;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
+import org.sopt.linkbox.custom.widget.SoundSearcher;
 import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.io.File;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -55,6 +64,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
     private Context context = null;
     private UrlListData urlListData = null;
     private UrlListWrapper urlListWrapper = null;
+
 
     // Tag
     TagCompletionView tcvCompletionView;
@@ -143,7 +153,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         ivLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                urlListWrapper.like((UrlListData)getItem(i), (1-((UrlListData)getItem(i)).liked), new UrlLikeCallback((UrlListData)getItem(i), ivLike));
+                urlListWrapper.like((UrlListData) getItem(i), (1 - ((UrlListData) getItem(i)).liked), new UrlLikeCallback((UrlListData) getItem(i), ivLike));
                 Log.e(TAG, "this is " + i);
                 Log.e(TAG, "I'm " + getItem(i).toString());
                 ivLike.setEnabled(false);
@@ -198,6 +208,98 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
             }
         });
     }
+    // Filter Class
+
+   public void filter(String charText) {
+       charText = charText.toLowerCase();
+
+
+       int count = getCount();
+       final ArrayList<UrlListData> nlist = new ArrayList<UrlListData>(count);
+
+       String filterableString;
+
+       for(int i = 0; i < count; i++) {
+           filterableString = source.get(i).urlTitle.toLowerCase();
+           if(SoundSearcher.matchString(filterableString, charText)){
+               nlist.add(source.get(i));
+           }
+       }
+
+       Collections.sort(nlist, new UrlTitleCompare());
+       Collections.sort(nlist, new UrlTitleLengthCompare());
+
+       source = nlist;
+       notifyDataSetChanged();
+
+   }
+    static class UrlTitleCompare implements Comparator<UrlListData>{
+        @Override
+        public int compare(UrlListData arg0, UrlListData arg1){
+            return arg0.urlTitle.toLowerCase().compareTo(arg1.urlTitle.toLowerCase());
+        }
+    }
+    static class UrlTitleLengthCompare implements Comparator<UrlListData>{
+        @Override
+        public int compare(UrlListData arg0, UrlListData arg1){
+            return arg0.urlTitle.length() < arg1.urlTitle.length() ? -1 : arg0.urlTitle.length() > arg1.urlTitle.length() ? 1 : 0;
+        }
+    }
+
+    /*
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        worldpopulationlist.clear();
+        if (charText.length() == 0) {
+            worldpopulationlist.addAll(arraylist);
+        }
+        else
+        {
+            for (WorldPopulation wp : arraylist)
+            {
+                if (wp.getCountry().toLowerCase(Locale.getDefault()).contains(charText))
+                {
+                    worldpopulationlist.add(wp);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+*/
+    /*
+    private class ItemFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint){
+            String filterString = constraint.toString().toLowerCase();
+            FilterResults results = new FilterResults();
+
+            final ArrayList<UrlListData> list = source;
+
+            int count = list.size();
+            final ArrayList<UrlListData> nlist = new ArrayList<UrlListData>(count);
+
+            String filterableString;
+
+            for(int i = 0; i < count; i++){
+                filterableString = list.get(i).urlTitle.toLowerCase();
+                if(SoundSearcher.matchString(filterString, filterableString)){
+                    nlist.add(list.get(i));
+                }
+            }
+
+            results.values = nlist;
+            results.count = nlist.size();
+
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constrint, FilterResults results){
+            source = (ArrayList<UrlListData>) results.values;
+            notifyDataSetChanged();
+        }
+*/
 
     @Override
     public void onTokenAdded(IndividualTag individualTag) {

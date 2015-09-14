@@ -210,7 +210,8 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
         switch (item.getItemId()) {
             case R.id.action_search:
-                Toast.makeText(LinkBoxActivity.this, "베타에서 만나요.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, SearchActivity.class));
+                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
                 break;
             case R.id.action_alarms:
                 startActivity(new Intent(this, AlarmActivity.class));
@@ -558,7 +559,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     //<editor-fold desc="Inbox Submethods" defaultstate="collapsed">
     private void ifInBox() {
         if (LinkBoxController.currentBox != null) {
-            urlListWrapper.boxList(0, 20, new UrlLoading());
+            urlListWrapper.boxList(0, 50, new UrlLoading());
             boxTitle = LinkBoxController.currentBox.boxName;
             tToolbar.setTitle("");
             if (getSupportActionBar() != null) {
@@ -595,7 +596,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
     }
     private void elseInBox() {
-        urlListWrapper.allList(0, 20, new UrlLoading());
+        urlListWrapper.allList(0, 50, new UrlLoading());
         tToolbar.setTitle("최근 링크");
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("최근 링크");

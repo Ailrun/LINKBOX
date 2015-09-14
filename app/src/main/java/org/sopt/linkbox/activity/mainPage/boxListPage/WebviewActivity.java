@@ -87,10 +87,13 @@ public class WebviewActivity extends AppCompatActivity {
         webSettings = webView.getSettings();
         webSettings.setSaveFormData(false);//Form 데이터 저장 여부
         webSettings.setJavaScriptEnabled(true);//javaScript 사용 여부
+        webSettings.setAppCacheMaxSize(1024*1024*1);//캐시 최대크기. 나중에는 자동이 되므로 삭제될것
+        webSettings.setAppCacheEnabled(true);//캐시사용여부
+        webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());//캐시 경로
         webSettings.setSupportZoom(true);//줌 지원 여부
         webSettings.setBuiltInZoomControls(true); // 멀티터치 줌 지원
         webSettings.setDisplayZoomControls(false);//줌 컨트롤러 표시 여부
-        webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);//캐시 사용 모드
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);//캐시 사용 모드
 
         webView.setWebViewClient(new WebViewClientClass());
 
