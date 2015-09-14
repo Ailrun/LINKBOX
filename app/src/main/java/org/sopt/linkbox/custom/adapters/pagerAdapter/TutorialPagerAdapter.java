@@ -10,7 +10,7 @@ import org.sopt.linkbox.fragment.BackgroundFragment;
  * Created by sy on 2015-09-02.
  */
 public class TutorialPagerAdapter extends FragmentPagerAdapter {
-    private int pagerCount = 5;
+    private int pagerCount = 4;
 
 
     public TutorialPagerAdapter(FragmentManager fm) {

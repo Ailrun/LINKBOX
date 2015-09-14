@@ -37,19 +37,16 @@ public class BackgroundFragment extends Fragment{
             switch (getArguments().getInt(PAGE_COUNT))
             {
                 case 0:
-                    mBackground = R.drawable.page_1;
+                    mBackground = R.drawable.tutorial_image_01;
                     break;
                 case 1:
-                    mBackground = R.drawable.page_2;
+                    mBackground = R.drawable.tutorial_image_02;
                     break;
                 case 2:
-                    mBackground = R.drawable.page_3;
+                    mBackground = R.drawable.tutorial_image_03;
                     break;
                 case 3:
-                    mBackground = R.drawable.page_4;
-                    break;
-                case 4:
-                    mBackground = R.drawable.page_5;
+                    mBackground = R.drawable.tutorial_image_04;
                     break;
 
             }

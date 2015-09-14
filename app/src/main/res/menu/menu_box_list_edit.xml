@@ -6,13 +6,13 @@
     <item
         android:id="@+id/action_add_box"
         android:title="add box"
-        android:icon="@drawable/ic_drawer_mybox_24px"
+        android:icon="@drawable/ic_box_add"
         android:orderInCategory="0"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_invited_box"
         android:title="invited box"
-        android:icon="@drawable/ic_mainpage_editorinfo_24px"
+        android:icon="@drawable/mainpage_editorinfo"
         android:orderInCategory="1"
         app:showAsAction="ifRoom"/>
 </menu>

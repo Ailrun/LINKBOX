@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.view.inputmethod.InputMethodManager;
@@ -19,8 +18,6 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +29,7 @@ import org.sopt.linkbox.custom.data.mainData.url.CommentListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.network.main.url.UrlListWrapper;
+import org.sopt.linkbox.custom.widget.MaxHeightListView;
 import org.sopt.linkbox.debugging.RetrofitDebug;
 
 import java.util.List;
@@ -47,7 +45,7 @@ public class WebviewActivity extends AppCompatActivity {
     private WebView webView;
     private WebSettings webSettings;
 
-    private ListView lvComment;
+    private MaxHeightListView mhlvComment;
     private EditText etComment;
     private TextView tvNumOfComment;
     private final int maxHeight = 20;
@@ -164,12 +162,12 @@ public class WebviewActivity extends AppCompatActivity {
 
     private void initControl() {
         LinkBoxController.webviewCommentListAdapter = new WebviewCommentListAdapter(getApplicationContext(), LinkBoxController.commentListSource, urlListData);
-        lvComment.setAdapter(LinkBoxController.webviewCommentListAdapter);
+        mhlvComment.setAdapter(LinkBoxController.webviewCommentListAdapter);
     }
     private void initview() {
 
         webView = (WebView) findViewById(R.id.WV_webview);
-        lvComment = (ListView) findViewById(R.id.LV_container_expandable_view_content);
+        mhlvComment = (MaxHeightListView) findViewById(R.id.MHLV_container_expandable_view_content);
         etComment = (EditText) findViewById(R.id.ET_comment_expandable_view_content);
         tvNumOfComment = (TextView) findViewById(R.id.TV_number_of_reply_webview);//TODO 이거 숫자 어디서 어떻게 받아오지
         ibSendButton = (ImageButton) findViewById(R.id.IB_send_button_expandable_view_content);

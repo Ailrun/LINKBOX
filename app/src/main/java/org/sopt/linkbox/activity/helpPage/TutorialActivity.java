@@ -46,7 +46,7 @@ public class TutorialActivity extends AppCompatActivity {
             public void onPageSelected(int i) {
                 Log.d("OnPageChangeListener", "Current selected = " + i);
                 pageCount = i;
-                if(i==4)
+                if(i==3)
                 {
                     next.setText("시작하기");
                 }
@@ -73,7 +73,7 @@ public class TutorialActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(pageCount < 4) {
+                if(pageCount < 3) {
                     customViewpager.setCurrentItem(pageCount + 1);
                 }
                 else {

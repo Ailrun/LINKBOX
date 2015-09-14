@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -93,11 +94,15 @@ public class LinkBoxActivity extends AppCompatActivity {
     private TextView tvUserEmail = null;
 
     private RelativeLayout rlRecentLink = null;
+    private TextView tvRecentLinkText = null;
     private RelativeLayout rlMyBox = null;
+    private TextView tvMyBoxText = null;
     private RelativeLayout rlBuyedBox = null;
 
     private RelativeLayout rlToSetting = null;
+    private TextView tvToSettingText = null;
     private RelativeLayout rlToHelp = null;
+    private TextView tvToHelpText = null;
 
     private DrawerLayout dlDrawer = null;
     private ActionBarDrawerToggle abdtDrawer = null;
@@ -351,7 +356,7 @@ public class LinkBoxActivity extends AppCompatActivity {
 
         //main init
         initMainListener();
-
+        initDrawerTouchListener();
         //drawer init
         initDrawerListener();
         // initDrawerButtonHeaderListener();
@@ -458,19 +463,104 @@ public class LinkBoxActivity extends AppCompatActivity {
         tvUserName = (TextView) findViewById(R.id.TV_profile_name_link_box);
         tvUserEmail = (TextView) findViewById(R.id.TV_profile_email_link_box);
 
+        // * Drawer Layout
+        // ** RecentLink layout
         rlRecentLink = (RelativeLayout) findViewById(R.id.RL_recent_link_link_box);
+        tvRecentLinkText = (TextView) findViewById(R.id.TV_recent_link_box);
+        // ** MyBox Layout
         rlMyBox = (RelativeLayout) findViewById(R.id.RL_my_box_link_box);
+        tvMyBoxText = (TextView) findViewById(R.id.TV_my_box_link_box);
         rlBuyedBox = (RelativeLayout) findViewById(R.id.RL_buyed_box);
 
         lvFavoriteBoxList = (ListView) findViewById(R.id.LV_favorite_box_link_box);
         lvFavoriteBoxList.setOverScrollMode(View.OVER_SCROLL_NEVER);
         dlDrawer = (DrawerLayout) findViewById(R.id.DL_root_layout_link_box);
+        // ** ToSetting Layout
         rlToSetting = (RelativeLayout) findViewById(R.id.RL_setting_link_box);
+        tvToSettingText = (TextView) findViewById(R.id.TV_setting_link_box);
+        // ** ToHelp Layout
         rlToHelp = (RelativeLayout) findViewById(R.id.RL_help_link_box);
+        tvToHelpText = (TextView) findViewById(R.id.TV_help_link_box);
 
         ibDeleteLinkBox = (ImageButton) findViewById(R.id.IB_delete_link_box);
         ibEditLinkBox = (ImageButton) findViewById(R.id.IB_edit_link_box);
         ibShareLinkBox = (ImageButton) findViewById(R.id.IB_share_link_box);
+    }
+
+    private void initDrawerTouchListener(){
+        rlRecentLink.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rlRecentLink.setBackgroundResource(R.drawable.custom_drawer_selected);
+                    tvRecentLinkText.setTextColor(getResources().getColor(R.color.real_white));
+                } else {
+                    rlRecentLink.setBackgroundResource(R.drawable.custom_drawer_unselected);
+                    tvRecentLinkText.setTextColor(getResources().getColor(R.color.real_black));
+                }
+
+                return false;
+            }
+        });
+        rlMyBox.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rlMyBox.setBackgroundResource(R.drawable.custom_drawer_selected);
+                    tvMyBoxText.setTextColor(getResources().getColor(R.color.real_white));
+                } else {
+                    rlMyBox.setBackgroundResource(R.drawable.custom_drawer_unselected);
+                    tvMyBoxText.setTextColor(getResources().getColor(R.color.real_black));
+                }
+
+                return false;
+            }
+        });
+        rlToSetting.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rlToSetting.setBackgroundResource(R.drawable.custom_drawer_selected);
+                    tvToSettingText.setTextColor(getResources().getColor(R.color.real_white));
+                } else {
+                    rlToSetting.setBackgroundResource(R.drawable.custom_drawer_unselected);
+                    tvToSettingText.setTextColor(getResources().getColor(R.color.real_black));
+                }
+
+                return false;
+            }
+        });
+        rlToHelp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    rlToHelp.setBackgroundResource(R.drawable.custom_drawer_selected);
+                    tvToHelpText.setTextColor(getResources().getColor(R.color.real_white));
+                } else {
+                    rlToHelp.setBackgroundResource(R.drawable.custom_drawer_unselected);
+                    tvToHelpText.setTextColor(getResources().getColor(R.color.real_black));
+                }
+
+                return false;
+            }
+        });
+        /*
+        lvFavoriteBoxList.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(lvFavoriteBoxList.getSelectedView() == v){
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        rlToHelp.setBackgroundResource(R.drawable.custom_drawer_selected);
+                        tvToHelpText.setTextColor(getResources().getColor(R.color.real_white));
+                    } else {
+
+                    }
+                }
+
+                return false;
+            }
+        });
+        */
     }
     private void initDrawerListener() {
         tvUserName.setText(LinkBoxController.usrListData.usrName);

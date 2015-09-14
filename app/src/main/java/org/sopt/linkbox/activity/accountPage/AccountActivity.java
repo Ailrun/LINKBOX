@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -53,26 +54,29 @@ public class AccountActivity extends AppCompatActivity {
         initData();
         initAutoLogin();
         initView();
+        initTouchListener();
         initListener();
     }
+
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-        if(AccessToken.getCurrentAccessToken() !=null){
+        if (AccessToken.getCurrentAccessToken() != null) {
             startActivity(new Intent(getApplicationContext(), FacebookDataActivity.class));
             finish();
-        }
-        else{
+        } else {
             lbFacebookLogin.setVisibility(View.VISIBLE);
         }
     }
+
     @Override
     protected void onStop() {
         super.onStop();
         SessionSaver.saveSession(this);
     }
+
     @Override
-    protected void onActivityResult(int requestCode,int resultCode, Intent data){
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
@@ -82,6 +86,7 @@ public class AccountActivity extends AppCompatActivity {
     private void initData() {
         spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
     }
+
     private void initAutoLogin() {
         String usremail = spProfile.getString(AccountStrings.usrID, "");
         String pass = spProfile.getString(AccountStrings.usrPassword, "");
@@ -89,6 +94,7 @@ public class AccountActivity extends AppCompatActivity {
             loginLoading(usremail, pass);
         }
     }
+
     private void initView() {
         lbFacebookLogin = (LoginButton) findViewById(R.id.LB_login_account);
         bFacebookLogin = (Button) findViewById(R.id.B_facebook_login_account);
@@ -96,10 +102,70 @@ public class AccountActivity extends AppCompatActivity {
         bLogin = (Button) findViewById(R.id.B_login_account);
         bSignup = (Button) findViewById(R.id.B_signup_account);
     }
-    private void initListener() {
-        bLogin.setOnClickListener(new View.OnClickListener(){
+
+    private void initTouchListener() {
+        bLogin.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v){
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    bLogin.setBackgroundResource(R.drawable.custom_border_inverted);
+                    bLogin.setTextColor(getResources().getColor(R.color.indigo500));
+                } else {
+                    bLogin.setBackgroundResource(R.drawable.custom_border);
+                    bLogin.setTextColor(getResources().getColor(R.color.real_white));
+                }
+
+                return false;
+            }
+        });
+        bSignup.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    bSignup.setBackgroundResource(R.drawable.custom_border_inverted);
+                    bSignup.setTextColor(getResources().getColor(R.color.indigo500));
+                } else {
+                    bSignup.setBackgroundResource(R.drawable.custom_border);
+                    bSignup.setTextColor(getResources().getColor(R.color.real_white));
+                }
+
+                return false;
+            }
+        });
+        bFacebookLogin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    bFacebookLogin.setBackgroundResource(R.drawable.custom_border_inverted);
+                    bFacebookLogin.setTextColor(getResources().getColor(R.color.indigo500));
+                } else {
+                    bFacebookLogin.setBackgroundResource(R.drawable.custom_border);
+                    bFacebookLogin.setTextColor(getResources().getColor(R.color.real_white));
+                }
+
+                return false;
+            }
+        });
+        bGoogleLogin.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    bGoogleLogin.setBackgroundResource(R.drawable.custom_border_inverted);
+                    bGoogleLogin.setTextColor(getResources().getColor(R.color.indigo500));
+                } else {
+                    bGoogleLogin.setBackgroundResource(R.drawable.custom_border);
+                    bGoogleLogin.setTextColor(getResources().getColor(R.color.real_white));
+                }
+
+                return false;
+            }
+        });
+    }
+
+    private void initListener() {
+        bLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(AccountActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
@@ -111,9 +177,9 @@ public class AccountActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        bFacebookLogin.setOnClickListener(new View.OnClickListener(){
+        bFacebookLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 lbFacebookLogin.performClick();
             }
         });
@@ -138,16 +204,19 @@ public class AccountActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+
         @Override
         public void onCancel() {
             Log.d(TAG, "I cancel U!");
         }
+
         @Override
         public void onError(FacebookException e) {  // TODO: FACEBOOK ERROR NEEDS AN UPDATE
             FacebookDebug.debug(e);
             Toast.makeText(AccountActivity.this, "페이스북 로그인에 문제가 생겼습니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
     //</editor-fold>
     //<editor-fold desc="Account Helper Methods" defaultstate="collapsed">
     private void loginLoading(String usremail, String pass) {
