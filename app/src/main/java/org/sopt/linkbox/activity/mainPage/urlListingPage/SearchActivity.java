@@ -1,5 +1,6 @@
 package org.sopt.linkbox.activity.mainPage.urlListingPage;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,13 +9,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.boxListPage.WebviewActivity;
+import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
@@ -38,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
     private MenuItem menuItems = null;
 
     private ListView lvUrlList = null;
+    private TextView tvUrlNum = null;
 
     private UrlListData urlListData = null;
     private UrlListWrapper urlListWrapper = null;
@@ -53,12 +59,26 @@ public class SearchActivity extends AppCompatActivity {
         initToolbarView();
         initView();
         initControl();
+        initListener();
 
         urlListWrapper.allList(0, 50, new UrlLoading());
         lvUrlList.setOnScrollListener(null);
         lvUrlList.setSelection(0);
     }
 
+    private void initListener(){
+        lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(SearchActivity.this, WebviewActivity.class);
+
+                intent.putExtra(MainStrings.position, position);
+
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+            }
+        });
+    }
 
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_search);
@@ -75,6 +95,7 @@ public class SearchActivity extends AppCompatActivity {
         layoutInflater = getLayoutInflater();
 
         lvUrlList = (ListView)findViewById(R.id.LV_url_list_search);
+        tvUrlNum = (TextView)findViewById(R.id.TV_Url_Number_search);
 
     }
     private void initInterface() {
@@ -103,29 +124,7 @@ public class SearchActivity extends AppCompatActivity {
         svSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                if(query == ""){
-                    return false;
-                }
-                else {
-                    LinkBoxController.linkBoxUrlListAdapter.filter(query);
-                    lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
-                }
-/*
-                String sUrlTitle = null;
-                for(int i=0;i<iUrlNum; i++){
-                    sUrlTitle =  LinkBoxController.urlListSource.get(i).urlTitle;
 
-                    if(SoundSearcher.matchString(sUrlTitle,query)){
-
-                        LinkBoxController.linkBoxUrlListAdapter.getFilter().filter(query.toString());
-
-                        Toast.makeText(SearchActivity.this, query+"가 존재함", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-                Toast.makeText(SearchActivity.this, query+"를 검색했습니다.", Toast.LENGTH_SHORT).show();
-
-                */
                 return false;
             }
 
@@ -134,6 +133,7 @@ public class SearchActivity extends AppCompatActivity {
                     initControl();
                     LinkBoxController.linkBoxUrlListAdapter.filter(newText);
                     lvUrlList.setAdapter(LinkBoxController.linkBoxUrlListAdapter);
+                    tvUrlNum.setText("검색결과 : "+lvUrlList.getAdapter().getCount() + "개");
 
                 return false;
             }
@@ -153,7 +153,6 @@ public class SearchActivity extends AppCompatActivity {
                 LinkBoxController.urlListSource.addAll(wrappedUrlListDatas.object);
                 LinkBoxController.notifyUrlDataSetChanged();
 
-                iUrlNum = wrappedUrlListDatas.object.size();
             }
             else {
                 Toast.makeText(SearchActivity.this, "URL list data가 null입니다.", Toast.LENGTH_SHORT).show();
