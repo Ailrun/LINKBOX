@@ -65,12 +65,30 @@ public class SoundSearcher
         int slen = search.length();
         if(seof < 0)
             return false; //검색어가 더 길면 false를 리턴한다.
-        for(int i = 0;i <= seof;i++){
-            t = 0;
+        
+        for(int i = 0;i < slen;i++){
+
+            if(isInitialSound(search.charAt(i))==true && isHangul(value.charAt(i))){
+                //만약 현재 char이 초성이고 value가 한글이면
+                if(getInitialSound(value.charAt(i))==search.charAt(i))
+                    //각각의 초성끼리 같은지 비교한다
+                    t++;
+                else
+                    break;
+            } else {
+                //char이 초성이 아니라면
+                if(value.charAt(i)==search.charAt(i))
+                    //그냥 같은지 비교한다.
+                    t++;
+                else
+                    break;
+            }
+
+            /*
             while(t < slen){
                 if(isInitialSound(search.charAt(t))==true && isHangul(value.charAt(i+t))){
                     //만약 현재 char이 초성이고 value가 한글이면
-                    if(getInitialSound(value.charAt(t))==search.charAt(t))
+                    if(getInitialSound(value.charAt(i+t))==search.charAt(t))
                         //각각의 초성끼리 같은지 비교한다
                         t++;
                     else
@@ -86,7 +104,11 @@ public class SoundSearcher
             }
             if(t == slen)
                 return true; //모두 일치한 결과를 찾으면 true를 리턴한다.
+                */
         }
+        if(t == slen)
+            return true; //모두 일치한 결과를 찾으면 true를 리턴한다.
+
         return false; //일치하는 것을 찾지 못했으면 false를 리턴한다.
     }
 }
