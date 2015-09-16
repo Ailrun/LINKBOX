@@ -276,6 +276,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             int like_alarm = prefs.getInt("like_alarm", 0);
             int comment_alarm = prefs.getInt("comment_alarm", 0);
 
+
             if (defaultAlarmIndicator == 1) {
                 LinkBoxController.defaultAlarm = true;
             }

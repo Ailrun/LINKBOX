@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
@@ -49,6 +50,9 @@ public class AccountLoadingActivity extends Activity {
     private String usrPassword = null;
     private int usrType = 0;
 
+    private SharedPreferences pref = null;
+    private int login_count = 0;
+
     private SharedPreferences.Editor speProfile = null;
     //</editor-fold>
 
@@ -58,6 +62,7 @@ public class AccountLoadingActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         showDialog(PROGRESS_DIALOG);
+        initPreference();
         initWindow();
         initInterface();
         initData();
@@ -68,7 +73,13 @@ public class AccountLoadingActivity extends Activity {
     public void onResume() {
         super.onResume();
     }
+    private void initPreference() {
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        if (pref != null) {
+            login_count = pref.getInt("login_count", 0);
 
+        }
+    }
     @Override
     public Dialog onCreateDialog(int id)
     {
@@ -160,6 +171,11 @@ public class AccountLoadingActivity extends Activity {
                 speProfile.putString(AccountStrings.usrPassword, usrListData.usrPassword);
                 speProfile.apply();
                 boxListWrapper.list(new BoxLoadingCallback());
+
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putInt("login_count", 1);
+                editor.commit();
             }
             else {
                 Log.d(TAG, wrappedUserData.message);
@@ -211,7 +227,13 @@ public class AccountLoadingActivity extends Activity {
                     urlListWrapper.allList(0, 100, new UrlLoadingCallback());
                 }
                 else {
-                    Intent intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                    Intent intent;
+                    if(login_count != 0) {
+                        intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                    }
+                    else {
+                        intent = new Intent(AccountLoadingActivity.this, TutorialActivity.class);
+                    }
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                 }
@@ -219,7 +241,13 @@ public class AccountLoadingActivity extends Activity {
             else {
                 Log.d(TAG, wrappedBoxListDatas.message);
                 Toast.makeText(AccountLoadingActivity.this, "박스 로딩에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                Intent intent;
+                if(login_count != 0) {
+                    intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                }
+                else {
+                    intent = new Intent(AccountLoadingActivity.this, TutorialActivity.class);
+                }
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -240,14 +268,27 @@ public class AccountLoadingActivity extends Activity {
             if (wrappedUrlListDatas.result) {
                 List<UrlListData> urlListDatas = wrappedUrlListDatas.object;
                 LinkBoxController.urlListSource = (ArrayList<UrlListData>) urlListDatas;
-                Intent intent = new Intent(AccountLoadingActivity.this, TutorialActivity.class);
+                Intent intent;
+                if(login_count != 0) {
+                    intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                }
+                else {
+                    intent = new Intent(AccountLoadingActivity.this, TutorialActivity.class);
+                }
+
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
             else {
                 Log.d(TAG, wrappedUrlListDatas.message);
                 Toast.makeText(AccountLoadingActivity.this, "URL 로딩에 실패했습니다.", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                Intent intent;
+                if(login_count != 0) {
+                    intent = new Intent(AccountLoadingActivity.this, LinkBoxActivity.class);
+                }
+                else {
+                    intent = new Intent(AccountLoadingActivity.this, TutorialActivity.class);
+                }
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
