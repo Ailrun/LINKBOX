@@ -65,7 +65,7 @@ public class SoundSearcher
         int slen = search.length();
         if(seof < 0)
             return false; //검색어가 더 길면 false를 리턴한다.
-        
+
         for(int i = 0;i < slen;i++){
 
             if(isInitialSound(search.charAt(i))==true && isHangul(value.charAt(i))){

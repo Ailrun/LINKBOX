@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewDebug;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 import android.view.inputmethod.InputMethodManager;
@@ -18,6 +19,7 @@ import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +54,7 @@ public class WebviewActivity extends AppCompatActivity {
     private ImageButton ibSendButton;
     private int position;
 
+
     private InputMethodManager mInputMethodManager;
 
     private Boolean isAnimationRunning = false;
@@ -85,7 +88,7 @@ public class WebviewActivity extends AppCompatActivity {
         webSettings = webView.getSettings();
         webSettings.setSaveFormData(false);//Form 데이터 저장 여부
         webSettings.setJavaScriptEnabled(true);//javaScript 사용 여부
-        webSettings.setAppCacheMaxSize(1024*1024*1);//캐시 최대크기. 나중에는 자동이 되므로 삭제될것
+        webSettings.setAppCacheMaxSize(1024 * 1024 * 1);//캐시 최대크기. 나중에는 자동이 되므로 삭제될것
         webSettings.setAppCacheEnabled(true);//캐시사용여부
         webSettings.setAppCachePath(getApplicationContext().getCacheDir().getAbsolutePath());//캐시 경로
         webSettings.setSupportZoom(true);//줌 지원 여부
@@ -96,6 +99,16 @@ public class WebviewActivity extends AppCompatActivity {
         webView.setWebViewClient(new WebViewClientClass());
 
         webView.loadUrl(urlListData.url);
+
+
+
+LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new WebviewCommentListAdapter.NumberofCommentChange() {
+    @Override
+    public void NumberofCommentChange(int num) {
+        tvNumOfComment.setText(Integer.toString(num));
+    }
+});
+
     }
     @Override
     public void onBackPressed() {
@@ -163,6 +176,8 @@ public class WebviewActivity extends AppCompatActivity {
     private void initControl() {
         LinkBoxController.webviewCommentListAdapter = new WebviewCommentListAdapter(getApplicationContext(), LinkBoxController.commentListSource, urlListData);
         mhlvComment.setAdapter(LinkBoxController.webviewCommentListAdapter);
+
+        tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
     }
     private void initview() {
 
@@ -205,8 +220,7 @@ public class WebviewActivity extends AppCompatActivity {
                 if (etComment != null) {
                     //boxListWrapper.invite(twoString, new BoxInviteCallback()); 같은 콜백 부르기
                     urlListWrapper.commentAdd(urlListData, etComment.getText().toString(), new CommentAddCallback());
-                }
-                else {
+                } else {
                     Toast.makeText(WebviewActivity.this, "내용을 입력하세요", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -301,6 +315,8 @@ public class WebviewActivity extends AppCompatActivity {
         }
     }
 
+
+
     private class UrlLikeCallback implements Callback<MainServerData<Object>> {
         UrlListData urlListData = null;
         MenuItem item = null;
@@ -361,6 +377,7 @@ public class WebviewActivity extends AppCompatActivity {
                 LinkBoxController.commentListSource.add(wrappedCommentListData.object);
                 LinkBoxController.notifyUrlDataSetChanged();
                 etComment.setText("");
+                tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
             }
             else {
                 Toast.makeText(WebviewActivity.this, "댓글작성 실패.", Toast.LENGTH_SHORT).show();
