@@ -216,6 +216,13 @@
             android:screenOrientation="portrait" >
         </activity>
         <activity
+            android:name=".activity.mainPage.boxListPage.BoxMenuActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+        </activity>
+        <activity
             android:name=".activity.mainPage.boxListPage.BoxAddActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"

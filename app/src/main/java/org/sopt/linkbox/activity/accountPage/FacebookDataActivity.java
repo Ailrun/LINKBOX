@@ -39,12 +39,12 @@ public class FacebookDataActivity extends Activity {
         graph.setParameters(parameter);
         Log.d(TAG, graph.toString());
         Log.d(TAG, graph.getVersion());
-        graph.executeAsync();
-    }
-    @Override
-    protected void onResume(){
-        super.onResume();
-        if(AccessToken.getCurrentAccessToken() == null){
+            graph.executeAsync();
+        }
+        @Override
+        protected void onResume(){
+            super.onResume();
+            if(AccessToken.getCurrentAccessToken() == null){
             finish();
             Log.e("jsonObject", LinkBoxController.usrListData.usrProfile);
         }
@@ -65,6 +65,7 @@ public class FacebookDataActivity extends Activity {
                 String usrProfile = jsonObject.optJSONObject("picture").optJSONObject("data").optString("url");
                 String usrPassword = "#$^(@#" + "Facebook" + "%#@$" + jsonObject.optString("id");
                 Log.d(TAG, jsonObject.toString());
+                Toast.makeText(FacebookDataActivity.this, "Facebook과 정상적으로 연결되었습니다", Toast.LENGTH_LONG).show();
                 facebookLoading(jsonObject.optString("email"), jsonObject.optString("name"), usrProfile, usrPassword);
             }
             else {

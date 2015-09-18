@@ -1,6 +1,5 @@
 package org.sopt.linkbox.custom.adapters.swapeListViewAdapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -19,15 +18,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
-import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.tokenautocomplete.FilteredArrayAdapter;
-import com.tokenautocomplete.TokenCompleteTextView;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.DeleteDialogActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.EditDialogActivity;
+import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.SearchActivity;
 import org.sopt.linkbox.custom.data.mainData.url.TagListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
@@ -64,7 +61,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
     private Context context = null;
     private UrlListData urlListData = null;
     private UrlListWrapper urlListWrapper = null;
-
+    private BoxListData boxListData = null;
 
     // Tag
     TagCompletionView tcvCompletionView;
@@ -126,7 +123,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
 
     private void fillMainValues(final int i, View view) {
         TextView tvUrlTitle = ViewHolder.get(view, R.id.TV_url_name_link_box);
-        TextView tvUrlAddress = ViewHolder.get(view, R.id.TV_url_address_link_box);
+        TextView tvUrlBox = ViewHolder.get(view, R.id.TV_url_box_link_box);
         TextView tvUrlWriter = ViewHolder.get(view, R.id.TV_url_writer_link_box);
         TextView tvUrlDate = ViewHolder.get(view, R.id.TV_url_date_link_box);
         TextView tvLikeNum = ViewHolder.get(view, R.id.TV_like_num_link_box);
@@ -135,7 +132,19 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         final ImageView ivLike = ViewHolder.get(view, R.id.IV_like_link_box);
 
         tvUrlTitle.setText(urlListData.urlTitle);
-        tvUrlAddress.setText(urlListData.url);
+
+        for(int j = 0; j < LinkBoxController.boxListSource.size(); j++){
+            if(LinkBoxController.boxListSource.get(j).boxKey == urlListData.boxKey){
+                boxListData = LinkBoxController.boxListSource.get(j);
+            }
+        }
+        if(boxListData != null){
+            tvUrlBox.setText(boxListData.boxName);
+        }
+        else{
+            tvUrlBox.setText("박스 이름이 없습니다");
+        }
+
         tvUrlWriter.setText(urlListData.urlWriterUsrName);
 
         final String urlDate = DateCalculator.compareDates(urlListData.urlDate);
