@@ -72,7 +72,8 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SearchActivity.this, WebviewActivity.class);
 
-                intent.putExtra(MainStrings.position, position);
+                intent.putExtra(MainStrings.position, LinkBoxController.urlListSource.indexOf(LinkBoxController.linkBoxUrlListAdapter.getItem(position)));
+
 
                 startActivity(intent);
 
