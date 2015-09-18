@@ -17,6 +17,7 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.boxListPage.WebviewActivity;
 import org.sopt.linkbox.custom.data.mainData.url.CommentListData;
 import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
@@ -52,6 +53,8 @@ public class WebviewCommentListAdapter extends BaseAdapter {
         this.urlListData = urlListData;
         urlListWrapper = new UrlListWrapper();
 
+
+
         synchronized (Glide.class){
             if(!Glide.isSetup()){
                 File file = Glide.getPhotoCacheDir(context);
@@ -67,6 +70,15 @@ public class WebviewCommentListAdapter extends BaseAdapter {
     public void setSource(ArrayList<CommentListData> source) {
         this.source = source;
         notifyDataSetChanged();
+    }
+
+    public interface NumberofCommentChange{
+        public void NumberofCommentChange(int num);
+    }
+    private NumberofCommentChange mNumberofCommentChange;
+
+    public void setNumberofCommentChange(NumberofCommentChange numberofCommentChange){
+        this.mNumberofCommentChange = numberofCommentChange;
     }
 
     @Override
@@ -118,9 +130,12 @@ public class WebviewCommentListAdapter extends BaseAdapter {
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
             ibDelete.setEnabled(true);
+
             if (wrappedObject.result) {
                 LinkBoxController.commentListSource.remove(commentListData);
                 LinkBoxController.notifyCommentDataSetChanged();
+                if(mNumberofCommentChange != null)
+                    mNumberofCommentChange.NumberofCommentChange(getCount());
             }
             else {
                 Toast.makeText(context, "댓글 지우기 실패.", Toast.LENGTH_SHORT).show();

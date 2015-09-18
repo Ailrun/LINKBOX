@@ -70,7 +70,7 @@ public class LinkOpenHelpActivity extends AppCompatActivity {
         {
             case android.R.id.home:
                 finish();
-                overridePendingTransition(R.anim.anim_top_in, R.anim.anim_bottom_out);
+
                 break;
 
             default :
@@ -81,6 +81,6 @@ public class LinkOpenHelpActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.anim_top_in, R.anim.anim_bottom_out);
+
     }
 }

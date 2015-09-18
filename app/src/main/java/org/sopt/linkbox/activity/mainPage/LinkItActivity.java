@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -44,6 +45,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.accountPage.LoginActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.BoxAddActivity;
+import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.custom.adapters.spinnerAdapter.LinkItBoxListAdapter;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
 import org.sopt.linkbox.custom.data.mainData.url.TagListData;
@@ -79,6 +83,7 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
     private ImageView ivThumb = null;
     private EditText etName = null;
     private Button bLinkit = null, bCancel = null;
+    private ImageButton ibAddBox = null;
     // private CheckBox cbReadLater = null;
 
     private UrlListData urlListData = null;
@@ -101,22 +106,41 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this);
+        if(LinkBoxController.usrListData ==null){
+            Toast.makeText(LinkItActivity.this, "로그인을 해 주세요.", Toast.LENGTH_SHORT).show();
 
-        initInterface();
+            Intent intent;
+            intent = new Intent(LinkItActivity.this, LoginActivity.class);
 
-        initWindow();
+            startActivity(intent);
+            finish();
+        }
+        else {
+            FacebookSdk.sdkInitialize(this);
+            initInterface();
 
-        initData();
+            initWindow();
 
-        initView();
-        initListener();
-        initControl();
+            initData();
+
+            initView();
+            initListener();
+            initControl();
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+
+
     }
 
     @Override
@@ -168,6 +192,10 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
         LinkBoxController.linkItBoxListAdapter = new LinkItBoxListAdapter(getApplicationContext(), LinkBoxController.boxListSource);
 
         sBox.setAdapter(LinkBoxController.linkItBoxListAdapter);
+
+
+
+
     }
 
     private void initThumbnail() {
@@ -214,6 +242,7 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
         bLinkit = (Button) findViewById(R.id.B_linkit_link_it);
         bLinkit.setEnabled(false);
         bCancel = (Button) findViewById(R.id.B_cancel_link_it);
+        ibAddBox = (ImageButton)findViewById(R.id.IB_add_box_link_it);
         // Tag Init
         initTagView();
         initTagAdapterView();
@@ -316,6 +345,14 @@ public class LinkItActivity extends Activity implements TagCompletionView.TokenL
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        ibAddBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LinkItActivity.this, BoxAddActivity.class);
+                startActivity(intent);
             }
         });
     }

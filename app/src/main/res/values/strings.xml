@@ -27,4 +27,5 @@
     <string name="title_activity_webview">WebviewActivity</string>
     <string name="title_activity_tutorial">TutorialActivity</string>
     <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="title_activity_search">SearchActivity</string>
 </resources>

@@ -27,15 +27,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.login.LoginManager;
+
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.accountPage.AccountActivity;
 import org.sopt.linkbox.activity.alarmPage.AlarmActivity;
 import org.sopt.linkbox.activity.helpPage.HelpActivity;
+import org.sopt.linkbox.activity.loadingPage.AccountLoadingActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.BoxListEditActivity;
 import org.sopt.linkbox.activity.mainPage.boxListPage.WebviewActivity;
 import org.sopt.linkbox.activity.mainPage.editorPage.BoxEditorList;
 import org.sopt.linkbox.activity.settingPage.UserSettingActivity;
+import org.sopt.linkbox.constant.AccountStrings;
 import org.sopt.linkbox.constant.MainStrings;
+import org.sopt.linkbox.constant.SettingStrings;
+import org.sopt.linkbox.custom.network.main.usr.UsrListWrapper;
 import org.sopt.linkbox.custom.widget.RoundedImageView;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.LinkBoxBoxListAdapter;
 import org.sopt.linkbox.custom.adapters.swapeListViewAdapter.LinkBoxUrlListAdapter;
@@ -119,6 +126,11 @@ public class LinkBoxActivity extends AppCompatActivity {
     private ImageSaveLoad imageSaveLoader = null;
     private SharedPreferences prefs = null;
 
+
+    private SharedPreferences spProfile;
+    private SharedPreferences.Editor speProfile;
+    private UsrListWrapper usrListWrapper = null;
+
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
@@ -127,6 +139,19 @@ public class LinkBoxActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_box);
         Log.d(TAG, "num=" + LinkBoxController.urlListSource.size());
+
+        if(LinkBoxController.usrListData == null){
+            Toast.makeText(LinkBoxActivity.this, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show();
+            usrListWrapper = new UsrListWrapper();
+
+            spProfile = getSharedPreferences(SettingStrings.shared_user_profiles, 0);
+            speProfile = spProfile.edit();
+
+            speProfile.remove(AccountStrings.usrID);
+            speProfile.remove(AccountStrings.usrPassword);
+            LoginManager.getInstance().logOut();
+            usrListWrapper.logout(new LogoutCallback());
+        }
 
         initPreference();
         initInterface();
@@ -215,15 +240,16 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
         switch (item.getItemId()) {
             case R.id.action_search:
-                Toast.makeText(LinkBoxActivity.this, "베타에서 만나요.", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, SearchActivity.class));
+
                 break;
             case R.id.action_alarms:
                 startActivity(new Intent(this, AlarmActivity.class));
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
                 break;
             case R.id.action_editors:
                 startActivity(new Intent(this, BoxEditorList.class));
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -252,7 +278,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         if (LinkBoxController.inboxIndicator) {
             Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             invalidateOptionsMenu();
         }
         else {
@@ -274,6 +300,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             int invited_box_alarm = prefs.getInt("invited_box_alarm", 0);
             int like_alarm = prefs.getInt("like_alarm", 0);
             int comment_alarm = prefs.getInt("comment_alarm", 0);
+
 
             if (defaultAlarmIndicator == 1) {
                 LinkBoxController.defaultAlarm = true;
@@ -450,7 +477,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                     intent.putExtra(MainStrings.position, position);
                 }
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
             }
         });
     }
@@ -579,7 +606,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LinkBoxActivity.this, BoxListEditActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             }
         });
         rlBuyedBox.setOnClickListener(new View.OnClickListener() {
@@ -593,7 +620,7 @@ public class LinkBoxActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LinkBoxActivity.this, PhotoCropActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             }
         });
         lvFavoriteBoxList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -622,14 +649,14 @@ public class LinkBoxActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), UserSettingActivity.class));
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             }
         });
         rlToHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(getApplicationContext(), HelpActivity.class), RESULT_HELP);
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             }
         });
     }
@@ -648,7 +675,7 @@ public class LinkBoxActivity extends AppCompatActivity {
     //<editor-fold desc="Inbox Submethods" defaultstate="collapsed">
     private void ifInBox() {
         if (LinkBoxController.currentBox != null) {
-            urlListWrapper.boxList(0, 20, new UrlLoading());
+            urlListWrapper.boxList(0, 200, new UrlLoading());
             boxTitle = LinkBoxController.currentBox.boxName;
             tToolbar.setTitle("");
             if (getSupportActionBar() != null) {
@@ -685,7 +712,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         }
     }
     private void elseInBox() {
-        urlListWrapper.allList(0, 20, new UrlLoading());
+        urlListWrapper.allList(0, 200, new UrlLoading());
         tToolbar.setTitle("최근 링크");
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle("최근 링크");
@@ -744,6 +771,28 @@ public class LinkBoxActivity extends AppCompatActivity {
             srlUrlList.setRefreshing(false);
             RetrofitDebug.debug(error);
             Toast.makeText(LinkBoxActivity.this, "서버와의 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class LogoutCallback implements Callback<MainServerData<Object>> {
+        @Override
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            if (wrappedObject.result) {
+                Intent intent = new Intent(LinkBoxActivity.this, AccountActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
+            } else {
+                Log.d(TAG, "fail to Logout");
+                Toast.makeText(LinkBoxActivity.this, "로그아웃이 실패했습니다.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            RetrofitDebug.debug(error);
+            Toast.makeText(LinkBoxActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
     //</editor-fold>

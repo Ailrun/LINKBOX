@@ -79,7 +79,7 @@ public class DeleteDialogActivity extends Activity {
             @Override
             public void onClick(View v) {
                 finish();
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
             }
         });
     }
@@ -100,7 +100,7 @@ public class DeleteDialogActivity extends Activity {
                     }
                 }, 400);
                 finish();
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
             }
             else
             {
@@ -117,6 +117,6 @@ public class DeleteDialogActivity extends Activity {
     }
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
     }
 }

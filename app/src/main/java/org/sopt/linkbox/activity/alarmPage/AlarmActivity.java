@@ -64,7 +64,7 @@ public class AlarmActivity extends AppCompatActivity {
         {
             case android.R.id.home:
                 finish();
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
                 break;
 
             default :
@@ -76,7 +76,7 @@ public class AlarmActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
     }
     //</editor-fold>
 

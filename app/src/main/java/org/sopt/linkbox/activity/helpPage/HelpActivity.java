@@ -55,7 +55,7 @@ public class HelpActivity extends AppCompatActivity {
         {
             case android.R.id.home:
                 finish();
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
                 break;
 
             default :
@@ -66,7 +66,7 @@ public class HelpActivity extends AppCompatActivity {
 @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
     }
     //</editor-fold>
 
@@ -121,28 +121,28 @@ public class HelpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), StartHelpActivity.class));
-                overridePendingTransition(R.anim.anim_bottom_in, R.anim.anim_top_out);
+
             }
         });
         rlLinkboxLinkOpenHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), LinkOpenHelpActivity.class));
-                overridePendingTransition(R.anim.anim_bottom_in, R.anim.anim_top_out);
+
             }
         });
         rlAddBoxHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), BoxCreateHelpActivity.class));
-                overridePendingTransition(R.anim.anim_bottom_in, R.anim.anim_top_out);
+
             }
         });
         rlShareBoxHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), BoxShareHelpActivity.class));
-                overridePendingTransition(R.anim.anim_bottom_in, R.anim.anim_top_out);
+
             }
         });
         rlSupportHelp.setOnClickListener(new View.OnClickListener() {
