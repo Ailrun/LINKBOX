@@ -24,7 +24,7 @@ public class SplashActivity extends Activity {
         if (savedSession != null) {
             Intent intent = new Intent(this, savedSession.getClass());
             startActivity(intent);
-            overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_out);
+
             finish();
             return;
         }
@@ -32,10 +32,10 @@ public class SplashActivity extends Activity {
         new Handler().postDelayed(new Runnable() {  // 01 Gives the app how much time the splash screen will be on  (Related to async properties)
             @Override
             public void run() {
-                overridePendingTransition(0,android.R.anim.fade_in);
+
                 Intent intent = new Intent(SplashActivity.this, AccountActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_fade_in, R.anim.anim_fade_out);
+
                 finish();
             }
         },SPLASH_TIME);

@@ -49,11 +49,11 @@ public class BoxListEditActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_add_box:
                 startActivity(new Intent(this, BoxAddActivity.class));
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
                 break;
             case R.id.action_invited_box:
                 startActivity(new Intent(this, InvitedBoxActivity.class));
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -71,7 +71,7 @@ public class BoxListEditActivity extends AppCompatActivity {
         LinkBoxController.inboxIndicator = false;
 
         finish();
-        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
     }
     //</editor-fold>
 
@@ -94,7 +94,7 @@ public class BoxListEditActivity extends AppCompatActivity {
                 intent.putExtra(MainStrings.inBox, true);
                 Log.d(TAG, "current Box : " + LinkBoxController.currentBox.toString());
                 ActivityTransitionLauncher.with(BoxListEditActivity.this).from(view).launch(intent);
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             }
         });
     }

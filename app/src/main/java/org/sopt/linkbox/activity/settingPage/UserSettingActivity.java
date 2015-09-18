@@ -86,7 +86,7 @@ public class UserSettingActivity extends AppCompatActivity {
         {
             case android.R.id.home:
                 finish();
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
                 break;
 
             default :
@@ -97,7 +97,7 @@ public class UserSettingActivity extends AppCompatActivity {
 @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
     }
     //</editor-fold>
 
@@ -245,6 +245,7 @@ public class UserSettingActivity extends AppCompatActivity {
                 Intent intent = new Intent(UserSettingActivity.this, AccountActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
+                LinkBoxController.usrListData = null;
                 finish();
             } else {
                 Log.d(TAG, "fail to Logout");

@@ -61,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
         initControl();
         initListener();
 
-        urlListWrapper.allList(0, 50, new UrlLoading());
+        urlListWrapper.allList(0, 200, new UrlLoading());
         lvUrlList.setOnScrollListener(null);
         lvUrlList.setSelection(0);
     }
@@ -75,7 +75,7 @@ public class SearchActivity extends AppCompatActivity {
                 intent.putExtra(MainStrings.position, position);
 
                 startActivity(intent);
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
             }
         });
     }
@@ -145,6 +145,18 @@ public class SearchActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
     private class UrlLoading implements Callback<MainServerData<List<UrlListData>>> {
         @Override
         public void success(MainServerData<List<UrlListData>> wrappedUrlListDatas, Response response) {
@@ -164,14 +176,5 @@ public class SearchActivity extends AppCompatActivity {
             Toast.makeText(SearchActivity.this, "서버와의 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
         }
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-
-        return super.onOptionsItemSelected(item);
-    }
 }

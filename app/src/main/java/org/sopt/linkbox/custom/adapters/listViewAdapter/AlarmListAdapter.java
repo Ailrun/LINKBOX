@@ -142,10 +142,22 @@ public class AlarmListAdapter extends BaseAdapter {
 
                 case AlarmType.typeUrl:
                     tvMessage.setText(alarmListData.alarmSetUsrName + "님이 '" + alarmListData.alarmBoxName +"'박스에 " + alarmListData.alarmUrlTitle + "을 추가했습니다.");
+                    LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
                 break;
 
                 case AlarmType.typeGood:
                     tvMessage.setText(alarmListData.alarmSetUsrName + "님이'" + alarmListData.alarmUrlTitle + "'에 좋아요를 눌렀습니다.");
+                    LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
                     break;
             }
 
@@ -268,6 +280,44 @@ public class AlarmListAdapter extends BaseAdapter {
             else {
                 Log.d(TAG, "Fail to decline");
                 Toast.makeText(context, "Object.result가 false입니다..", Toast.LENGTH_SHORT).show();
+            }
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            Log.d(TAG, "Fail to decline at all");
+            Toast.makeText(context, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class UrlClickCallback implements Callback<MainServerData<Object>> {
+        @Override
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            if (wrappedObject.result) {
+                LinkBoxController.alarmBoxListSource.remove(alarmListData);
+                LinkBoxController.notifyAlarmDataSetChanged();
+            }
+            else {
+                Log.d(TAG, "Fail to go to url");
+                Toast.makeText(context, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            Log.d(TAG, "Fail to decline at all");
+            Toast.makeText(context, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private class LikeClickCallback implements Callback<MainServerData<Object>> {
+        @Override
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            if (wrappedObject.result) {
+                LinkBoxController.alarmBoxListSource.remove(alarmListData);
+                LinkBoxController.notifyAlarmDataSetChanged();
+            }
+            else {
+                Log.d(TAG, "Fail to go to like");
+                Toast.makeText(context, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
             }
         }
         @Override

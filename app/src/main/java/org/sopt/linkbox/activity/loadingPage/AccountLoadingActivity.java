@@ -142,6 +142,7 @@ public class AccountLoadingActivity extends Activity {
         @Override
         public void success(MainServerData<UsrListData> wrappedUserData, Response response) {
             if (wrappedUserData.result) {
+                LinkBoxController.usrListData = new UsrListData();
                 UsrListData usrListData = wrappedUserData.object;
                 LinkBoxController.usrListData = usrListData;
                 Log.d(TAG, usrListData.toString() + " ");
@@ -165,6 +166,7 @@ public class AccountLoadingActivity extends Activity {
         @Override
         public void success(MainServerData<UsrListData> wrappedUserData, Response response) {  // Server has succeeded in interacting with the Database.
             if (wrappedUserData.result) {   // Checks if the value for id and password exists in the server database
+                LinkBoxController.usrListData = new UsrListData();
                 UsrListData usrListData = wrappedUserData.object;
                 LinkBoxController.usrListData = usrListData;
                 speProfile.putString(AccountStrings.usrID, usrListData.usrID);

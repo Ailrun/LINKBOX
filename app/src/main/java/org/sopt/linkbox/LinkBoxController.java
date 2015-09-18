@@ -210,7 +210,7 @@ public class LinkBoxController extends Application {
         applicationID = Installation.id(this);
 
         currentBox = new BoxListData();
-        usrListData = new UsrListData();
+
 
         boxListSource = new ArrayList<>();
         urlListSource = new ArrayList<>();

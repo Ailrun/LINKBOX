@@ -68,7 +68,7 @@ public class BoxAddActivity extends Activity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
     }
     //</editor-fold>
 
@@ -116,7 +116,7 @@ public class BoxAddActivity extends Activity {
             @Override
             public void onClick(View view) {
                 finish();
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
                 LinkBoxController.boxImage = null;
             }
         });
@@ -165,12 +165,12 @@ public class BoxAddActivity extends Activity {
 
                 LinkBoxController.notifyBoxDataSetChanged();
                 finish();
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             }
             else {
                 Toast.makeText(BoxAddActivity.this, "Fail to add Box", Toast.LENGTH_LONG).show();
                 finish();
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             }
         }
         @Override

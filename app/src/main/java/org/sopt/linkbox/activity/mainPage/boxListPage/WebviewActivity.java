@@ -72,6 +72,8 @@ public class WebviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_webview);
 
+
+
         mInputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         urlListWrapper = new UrlListWrapper();
@@ -109,6 +111,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
     }
 });
 
+
     }
     @Override
     public void onBackPressed() {
@@ -122,7 +125,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
             else {
                 webView.clearCache(false);
                 finish();
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
             }
         }
     }
@@ -131,7 +134,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                overridePendingTransition(R.anim.anim_left_in, R.anim.anim_right_out);
+
                 break;
             case R.id.action_share:
                 Intent intent = new Intent(Intent.ACTION_SEND);

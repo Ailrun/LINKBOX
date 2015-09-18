@@ -69,7 +69,7 @@ public class BoxEditorAdd extends AppCompatActivity {
                 break;
             case android.R.id.home:
                 finish();
-                overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -91,7 +91,7 @@ public class BoxEditorAdd extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.anim_right_in, R.anim.anim_left_out);
+
     }
     //</editor-fold>
 
