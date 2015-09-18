@@ -9,6 +9,7 @@ import java.util.List;
  */
 public class UrlListData implements Cloneable {
     public int urlKey;
+    public int boxKey;
     public String url;
     public String urlTitle;
     public int urlWriterUsrKey;

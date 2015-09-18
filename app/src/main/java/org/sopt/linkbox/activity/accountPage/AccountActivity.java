@@ -201,11 +201,11 @@ public class AccountActivity extends AppCompatActivity {
         @Override
         public void onSuccess(LoginResult loginResult) {
             Intent intent = new Intent(getApplicationContext(), FacebookDataActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        startActivity(intent);
+        finish();
+    }
 
-        @Override
+    @Override
         public void onCancel() {
             Log.d(TAG, "I cancel U!");
         }

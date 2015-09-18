@@ -1,6 +1,7 @@
 package org.sopt.linkbox.custom.helper;
 
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -9,7 +10,10 @@ import android.widget.TextView;
 public class CardViewHolder {
     public TextView tvBoxName;
     public ImageView ivBoxImage;
-    public ImageView ivFavoriteBtn;
+    public ImageView ivMenuBtn;
+    public ImageView ivShareButton;
     public ImageView ivModifyBtn;
     public ImageView ivDeleteBtn;
+    public ProgressBar pbImageStatus;
+    public String currentImagePath;
 }
