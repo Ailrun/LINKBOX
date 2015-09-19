@@ -74,6 +74,7 @@ public class WebviewActivity extends AppCompatActivity {
 
 
 
+
         mInputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         urlListWrapper = new UrlListWrapper();
@@ -187,13 +188,15 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
         webView = (WebView) findViewById(R.id.WV_webview);
         mhlvComment = (MaxHeightListView) findViewById(R.id.MHLV_container_expandable_view_content);
         etComment = (EditText) findViewById(R.id.ET_comment_expandable_view_content);
-        tvNumOfComment = (TextView) findViewById(R.id.TV_number_of_reply_webview);//TODO 이거 숫자 어디서 어떻게 받아오지
+        tvNumOfComment = (TextView) findViewById(R.id.TV_number_of_reply_webview);
         ibSendButton = (ImageButton) findViewById(R.id.IB_send_button_expandable_view_content);
 
         flHeaderLayout = (FrameLayout) findViewById(R.id.FL_expandable_headerlayout_webview);
         flContentLayout = (FrameLayout) findViewById(R.id.FL_expandable_contentLayout_webview);
 
         flContentLayout.setVisibility(View.GONE);
+
+        tvNumOfComment.setText("0");
 
         flHeaderLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +207,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
                     else
                         expand(flContentLayout);
 
+                    tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
                     isAnimationRunning = true;
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -359,6 +363,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
                 LinkBoxController.commentListSource.clear();
                 LinkBoxController.commentListSource.addAll(wrappedCommentListDatas.object);
                 LinkBoxController.notifyCommentDataSetChanged();
+                tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
             }
             else {
                 Toast.makeText(WebviewActivity.this, "댓글 불러오기 실패.", Toast.LENGTH_SHORT).show();

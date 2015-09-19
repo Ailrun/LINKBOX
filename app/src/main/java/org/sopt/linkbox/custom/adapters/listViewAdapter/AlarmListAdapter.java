@@ -22,13 +22,16 @@ import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
 import org.sopt.linkbox.activity.alarmPage.AlarmActivity;
+import org.sopt.linkbox.activity.mainPage.boxListPage.WebviewActivity;
 import org.sopt.linkbox.activity.mainPage.urlListingPage.LinkBoxActivity;
 import org.sopt.linkbox.constant.AlarmType;
 import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 import org.sopt.linkbox.custom.data.mainData.BoxListData;
+import org.sopt.linkbox.custom.data.mainData.url.UrlListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
 import org.sopt.linkbox.custom.helper.ViewHolder;
+import org.sopt.linkbox.custom.network.main.alarm.AlarmListWrapper;
 import org.sopt.linkbox.custom.network.main.box.BoxListWrapper;
 
 import java.io.File;
@@ -50,6 +53,7 @@ public class AlarmListAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater = null;
     private Context context = null;
     private AlarmListData alarmListData = null;
+    private AlarmListWrapper alarmListWrapper = null;
     private BoxListWrapper boxListWrapper = null;
 
     public AlarmListAdapter(Context context, ArrayList<AlarmListData> source) {
@@ -60,6 +64,7 @@ public class AlarmListAdapter extends BaseAdapter {
 
         notifyDataSetChanged();
 
+        alarmListWrapper = new AlarmListWrapper();
         boxListWrapper = new BoxListWrapper();
         synchronized (Glide.class){
             if(!Glide.isSetup()){
@@ -119,7 +124,7 @@ public class AlarmListAdapter extends BaseAdapter {
         tvUsrName.setText(alarmListData.alarmSetUsrName);
         tvDate.setText(alarmListData.alarmDate);
 
-        LinearLayout LL_invited_box_header = ViewHolder.get(view, R.id.LL_invited_box_header);
+        final LinearLayout LL_invited_box_header = ViewHolder.get(view, R.id.LL_invited_box_header);
         final LinearLayout LL_invited_box_expandable = ViewHolder.get(view, R.id.LL_invited_box_expandable);
 
         LL_invited_box_expandable.setVisibility(View.GONE);
@@ -141,21 +146,33 @@ public class AlarmListAdapter extends BaseAdapter {
                     break;
 
                 case AlarmType.typeUrl:
-                    tvMessage.setText(alarmListData.alarmSetUsrName + "님이 '" + alarmListData.alarmBoxName +"'박스에 " + alarmListData.alarmUrlTitle + "을 추가했습니다.");
+                    tvMessage.setText(alarmListData.alarmSetUsrName + "님이 '" + alarmListData.alarmBoxName + "'박스에 " + alarmListData.alarmUrlTitle + "을 추가했습니다.");
+                    if(alarmListData.alarmRead == 0)
+                        LL_invited_box_header.setBackgroundResource(R.color.indigo200);
+                    else
+                        LL_invited_box_header.setBackgroundResource(R.color.real_white);
+
                     LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            LL_invited_box_header.setBackgroundResource(R.color.real_white);
+                            alarmListWrapper.read(alarmListData, new ReadCallback());
                         }
                     });
                 break;
 
                 case AlarmType.typeGood:
                     tvMessage.setText(alarmListData.alarmSetUsrName + "님이'" + alarmListData.alarmUrlTitle + "'에 좋아요를 눌렀습니다.");
+                    if(alarmListData.alarmRead == 0)
+                        LL_invited_box_header.setBackgroundResource(R.color.indigo200);
+                    else
+                        LL_invited_box_header.setBackgroundResource(R.color.real_white);
+
                     LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-
+                            LL_invited_box_header.setBackgroundResource(R.color.real_white);
+                            alarmListWrapper.read(alarmListData, new ReadCallback());
                         }
                     });
                     break;
@@ -289,12 +306,22 @@ public class AlarmListAdapter extends BaseAdapter {
         }
     }
 
-    private class UrlClickCallback implements Callback<MainServerData<Object>> {
+    private class ReadCallback implements Callback<MainServerData<Object>> {
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
             if (wrappedObject.result) {
-                LinkBoxController.alarmBoxListSource.remove(alarmListData);
-                LinkBoxController.notifyAlarmDataSetChanged();
+                alarmListData.alarmRead = 1;
+                Intent intent = new Intent(context, WebviewActivity.class);
+                int  key = LinkBoxController.linkBoxUrlListAdapter.getItemPostionAsKey(alarmListData.alarmUrlKey);
+                if(key <0)
+                {
+                    Toast.makeText(context, "url키가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra(MainStrings.position, key);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                context.startActivity(intent);
             }
             else {
                 Log.d(TAG, "Fail to go to url");
@@ -308,22 +335,4 @@ public class AlarmListAdapter extends BaseAdapter {
         }
     }
 
-    private class LikeClickCallback implements Callback<MainServerData<Object>> {
-        @Override
-        public void success(MainServerData<Object> wrappedObject, Response response) {
-            if (wrappedObject.result) {
-                LinkBoxController.alarmBoxListSource.remove(alarmListData);
-                LinkBoxController.notifyAlarmDataSetChanged();
-            }
-            else {
-                Log.d(TAG, "Fail to go to like");
-                Toast.makeText(context, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
-            }
-        }
-        @Override
-        public void failure(RetrofitError error) {
-            Log.d(TAG, "Fail to decline at all");
-            Toast.makeText(context, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
 }

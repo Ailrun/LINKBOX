@@ -255,6 +255,18 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
         }
     }
 
+    public int getItemPostionAsKey(int key){
+        int position;
+
+        for(position  = 0; position < getCount(); position++){
+            if(source.get(position).urlKey == key)
+                return position;
+
+        }
+        return -1;
+
+    }
+
     /*
     public void filter(String charText) {
         charText = charText.toLowerCase(Locale.getDefault());

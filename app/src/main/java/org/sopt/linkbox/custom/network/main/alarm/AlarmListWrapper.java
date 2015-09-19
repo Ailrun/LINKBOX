@@ -33,4 +33,7 @@ public class AlarmListWrapper {
     public void hidden(AlarmListData alarmListData, Callback<MainServerData<Object>> callback) {
         alarmListInterface.hidden(LinkBoxController.usrListData.usrKey, alarmListData.alarmKey, callback);
     }
+    public void read(AlarmListData alarmListData, Callback<MainServerData<Object>> callback){
+        alarmListInterface.read(LinkBoxController.usrListData.usrKey, alarmListData.alarmKey,  callback);
+    }
 }

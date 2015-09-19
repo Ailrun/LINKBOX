@@ -29,6 +29,7 @@ import org.sopt.linkbox.custom.network.embedly.EmbedlyInterface;
 import org.sopt.linkbox.custom.network.main.MainServerInterface;
 import org.sopt.linkbox.custom.network.main.alarm.AlarmListInterface;
 import org.sopt.linkbox.custom.network.main.box.BoxListInterface;
+import org.sopt.linkbox.custom.network.main.search.SearchInterface;
 import org.sopt.linkbox.custom.network.main.url.UrlListInterface;
 import org.sopt.linkbox.custom.network.main.usr.UsrListInterface;
 import org.sopt.linkbox.service.pushService.LinkRegistrationService;
@@ -72,6 +73,7 @@ public class LinkBoxController extends Application {
     private BoxListInterface boxListInterface;
     private UrlListInterface urlListInterface;
     private AlarmListInterface alarmListInterface;
+    private SearchInterface searchInterface;
     //</editor-fold>
     //<editor-fold desc="No Use" defaultstate="collapsed">
     public EmbedlyInterface getLinkNetworkEmbedlyInterface() {
@@ -90,6 +92,9 @@ public class LinkBoxController extends Application {
     }
     public AlarmListInterface getAlarmListInterface() {
         return alarmListInterface;
+    }
+    public SearchInterface getSearchInterface(){
+        return searchInterface;
     }
     //</editor-fold>
 
@@ -241,6 +246,7 @@ public class LinkBoxController extends Application {
         boxListInterface = restAdapterServer.create(BoxListInterface.class);
         urlListInterface = restAdapterServer.create(UrlListInterface.class);
         alarmListInterface = restAdapterServer.create(AlarmListInterface.class);
+        searchInterface = restAdapterServer.create(SearchInterface.class);
     }
 
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
