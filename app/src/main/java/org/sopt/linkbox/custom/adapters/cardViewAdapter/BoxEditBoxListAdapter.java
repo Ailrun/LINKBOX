@@ -187,6 +187,7 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
         return view;
     }
 
+
     private class BoxFavoriteCallback implements Callback<MainServerData<Object>> {
         BoxListData boxListData = null;
         ImageView ivFavorite = null;
@@ -254,8 +255,12 @@ public class BoxEditBoxListAdapter extends BaseAdapter {
                 return;
             }
             if(bitmap != null && currentImage != null){
-                currentImage.setVisibility(View.VISIBLE);
-                currentImage.setImageBitmap(bitmap);
+                if(currentImage.getTag().toString().equals(currentPath)){
+                    currentImage.setVisibility(View.VISIBLE);
+                    currentImage.setImageBitmap(bitmap);
+                }
+
+
             }
             else{
                 // currentImage.setVisibility(View.GONE);

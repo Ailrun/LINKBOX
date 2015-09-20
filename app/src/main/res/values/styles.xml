@@ -1,6 +1,5 @@
 <resources>
 
-
     <style name="button_style" parent="Widget.AppCompat.Button">
         <item name="android:background">@color/transparent</item>
         <item name="android:textColor">@color/indigo500</item>
@@ -9,12 +8,17 @@
         <item name="android:gravity">center_horizontal|center</item>
     </style>
 
-    <style name="toolbar_style" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="toolbar_style" parent="Theme.AppCompat">
         <item name="android:background">@color/indigo500</item>
         <item name="android:textColor">@color/real_white</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingEnd">15dp</item>
         <item name="android:minHeight">56dp</item>
+        <item name="drawerArrowStyle">@style/WhiteDrawerIconStyle</item>
+    </style>
+
+    <style name="WhiteDrawerIconStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/real_white</item>
     </style>
 
     <style name="SpinnerTheme" parent="android:Widget.Spinner">
@@ -53,5 +57,8 @@
         <item name="android:paddingTop">5dp</item>
         <item name="android:paddingBottom">5dp</item>
     </style>
+
+
+
 
 </resources>

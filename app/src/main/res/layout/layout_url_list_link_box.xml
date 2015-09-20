@@ -170,10 +170,10 @@
                 android:id="@+id/TV_comment_num_link_box"
                 android:maxWidth="50dp"
                 android:paddingBottom="5dp"
-                android:paddingEnd="2dp"
+                android:paddingEnd="5dp"
                 android:layout_gravity="bottom"
                 android:singleLine="true"
-                android:text="comm"
+                android:text="댓글"
                 android:layout_marginBottom="3dp"
                 android:textColor="#ff80cbc4"/>
         </LinearLayout>

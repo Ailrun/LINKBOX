@@ -3,10 +3,17 @@ package org.sopt.linkbox.activity.mainPage.urlListingPage;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -438,10 +445,13 @@ public class LinkBoxActivity extends AppCompatActivity {
     //<editor-fold desc="Initiate Toolbars" defaultstate="collapsed">
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
-        tToolbar.setNavigationIcon(R.drawable.abc_ic_menu_moreoverflow_mtrl_alpha);
+        tToolbar.setNavigationIcon(R.drawable.ic_box_add);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
+        //After instantiating your ActionBarDrawerToggle
+
         setSupportActionBar(tToolbar);
     }
+
     //</editor-fold>
     //<editor-fold desc="Initiate Mains" defaultstate="collapsed">
     private void initMainView() {
@@ -464,10 +474,10 @@ public class LinkBoxActivity extends AppCompatActivity {
             }
         });
         lvUrlList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
-                if (LinkBoxController.inboxIndicator) {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(LinkBoxActivity.this, WebviewActivity.class);
+                        if (LinkBoxController.inboxIndicator) {
                     if(position == 0) {
                         return;
                     }
@@ -634,8 +644,10 @@ public class LinkBoxActivity extends AppCompatActivity {
                 dlDrawer.closeDrawers();
             }
         });
+
         abdtDrawer = new ActionBarDrawerToggle(this, dlDrawer,
                                                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
+
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
@@ -645,6 +657,7 @@ public class LinkBoxActivity extends AppCompatActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
+
         dlDrawer.setDrawerListener(abdtDrawer);
         rlToSetting.setOnClickListener(new View.OnClickListener() {
             @Override

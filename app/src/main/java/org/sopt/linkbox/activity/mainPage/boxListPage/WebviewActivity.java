@@ -2,6 +2,8 @@ package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -104,6 +106,12 @@ public class WebviewActivity extends AppCompatActivity {
         webView.loadUrl(urlListData.url);
 
 
+        LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new WebviewCommentListAdapter.NumberofCommentChange() {
+            @Override
+            public void NumberofCommentChange(int num) {
+                tvNumOfComment.setText(Integer.toString(num));
+            }
+        });
 
 LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new WebviewCommentListAdapter.NumberofCommentChange() {
     @Override
@@ -148,10 +156,10 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
                 startActivity(intent);
                 break;
             case R.id.action_like:
-                urlListWrapper.like(urlListData, 1-urlListData.liked, new UrlLikeCallback(urlListData, item));
+                urlListWrapper.like(urlListData, 1 - urlListData.liked, new UrlLikeCallback(urlListData, item));
                 item.setEnabled(false);
                 break;
-            default :
+            default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
@@ -363,7 +371,6 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
                 LinkBoxController.commentListSource.clear();
                 LinkBoxController.commentListSource.addAll(wrappedCommentListDatas.object);
                 LinkBoxController.notifyCommentDataSetChanged();
-                tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
             }
             else {
                 Toast.makeText(WebviewActivity.this, "댓글 불러오기 실패.", Toast.LENGTH_SHORT).show();

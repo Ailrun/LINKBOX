@@ -142,7 +142,7 @@ public class LinkBoxUrlListAdapter extends BaseSwipeAdapter implements TagComple
             tvUrlBox.setText(boxListData.boxName);
         }
         else{
-            tvUrlBox.setText("박스 이름이 없습니다");
+            tvUrlBox.setText("-");
         }
 
         tvUrlWriter.setText(urlListData.urlWriterUsrName);

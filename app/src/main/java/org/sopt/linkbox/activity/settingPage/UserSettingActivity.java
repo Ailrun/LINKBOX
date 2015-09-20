@@ -3,6 +3,8 @@ package org.sopt.linkbox.activity.settingPage;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -134,6 +136,10 @@ public class UserSettingActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        // Code for changing the toolbar backbutton color
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        upArrow.setColorFilter(getResources().getColor(R.color.real_white), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
     }
     //</editor-fold>
     //<editor-fold desc="Initiate Main" defaultstate="collapsed">

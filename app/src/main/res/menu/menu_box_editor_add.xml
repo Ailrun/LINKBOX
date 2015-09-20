@@ -6,7 +6,7 @@
     <item
         android:id="@+id/action_send"
         android:title="send"
-        android:icon="@android:drawable/ic_menu_send"
+        android:icon="@drawable/ic_editor_add_white"
         android:orderInCategory="0"
         app:showAsAction="ifRoom"/>
 </menu>

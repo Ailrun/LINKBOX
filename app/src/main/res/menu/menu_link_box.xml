@@ -16,7 +16,7 @@
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_editors"
         android:title="editors"
-        android:icon="@drawable/ic_mainpage_editorinfo_24px"
+        android:icon="@drawable/ic_box_editor_list"
         android:orderInCategory="2"
         app:showAsAction="ifRoom"/>
 </menu>

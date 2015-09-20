@@ -132,6 +132,7 @@ public class AccountActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         bFacebookLogin.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -186,6 +187,7 @@ public class AccountActivity extends AppCompatActivity {
         bGoogleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "베타에서 만나요!", Toast.LENGTH_LONG).show();
             }
         });
 
