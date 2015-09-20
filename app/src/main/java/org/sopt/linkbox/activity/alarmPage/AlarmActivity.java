@@ -2,19 +2,25 @@ package org.sopt.linkbox.activity.alarmPage;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import org.sopt.linkbox.LinkBoxController;
 import org.sopt.linkbox.R;
+import org.sopt.linkbox.activity.mainPage.boxListPage.WebviewActivity;
+import org.sopt.linkbox.constant.AlarmType;
+import org.sopt.linkbox.constant.MainStrings;
 import org.sopt.linkbox.custom.adapters.listViewAdapter.AlarmListAdapter;
 import org.sopt.linkbox.custom.data.mainData.AlarmListData;
 import org.sopt.linkbox.custom.data.networkData.MainServerData;
@@ -32,6 +38,7 @@ public class AlarmActivity extends AppCompatActivity {
 
     //<editor-fold desc="Private Properties" defaultstate="collapsed">
     private AlarmListWrapper alarmListWrapper = null;
+    private AlarmListData alarmListData = null;
 
     private Toolbar tToolbar = null;
 
@@ -50,6 +57,8 @@ public class AlarmActivity extends AppCompatActivity {
         initView();
 
         initControl();
+
+        initListener();
     }
     @Override
     public void onResume() {
@@ -57,6 +66,32 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
 
+    public void initListener(){
+        lvAlarmList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                alarmListData = new AlarmListData();
+                alarmListData = (AlarmListData) parent.getItemAtPosition(position);
+                alarmListData.alarmRead = 1;
+                switch (alarmListData.alarmType)
+                {
+                    case AlarmType.typeUrl:
+                        view.setBackgroundResource(R.color.real_white);
+                        LinkBoxController.alarmListAdapter.notifyDataSetChanged();
+                        alarmListWrapper.read(alarmListData, new ReadCallback());
+
+                        break;
+
+                    case AlarmType.typeGood:
+                        view.setBackgroundResource(R.color.real_white);
+                        LinkBoxController.alarmListAdapter.notifyDataSetChanged();
+                        alarmListWrapper.read(alarmListData, new ReadCallback());
+
+                        break;
+                }
+            }
+        });
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -136,6 +171,35 @@ public class AlarmActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_alarm, menu);
         return true;
+    }
+
+
+    private class ReadCallback implements Callback<MainServerData<Object>> {
+        @Override
+        public void success(MainServerData<Object> wrappedObject, Response response) {
+            if (wrappedObject.result) {
+                Intent intent = new Intent(AlarmActivity.this, WebviewActivity.class);
+                int  key = LinkBoxController.linkBoxUrlListAdapter.getItemPostionAsKey(alarmListData.alarmUrlKey);
+                if(key <0)
+                {
+                    Toast.makeText(AlarmActivity.this, "url키가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra(MainStrings.position, key);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                startActivity(intent);
+            }
+            else {
+                Log.d(TAG, "Fail to go to url");
+                Toast.makeText(AlarmActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        @Override
+        public void failure(RetrofitError error) {
+            Log.d(TAG, "Fail to decline at all");
+            Toast.makeText(AlarmActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

@@ -152,13 +152,6 @@ public class AlarmListAdapter extends BaseAdapter {
                     else
                         LL_invited_box_header.setBackgroundResource(R.color.real_white);
 
-                    LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            LL_invited_box_header.setBackgroundResource(R.color.real_white);
-                            alarmListWrapper.read(alarmListData, new ReadCallback());
-                        }
-                    });
                 break;
 
                 case AlarmType.typeGood:
@@ -168,13 +161,6 @@ public class AlarmListAdapter extends BaseAdapter {
                     else
                         LL_invited_box_header.setBackgroundResource(R.color.real_white);
 
-                    LL_invited_box_header.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            LL_invited_box_header.setBackgroundResource(R.color.real_white);
-                            alarmListWrapper.read(alarmListData, new ReadCallback());
-                        }
-                    });
                     break;
             }
 
@@ -306,33 +292,5 @@ public class AlarmListAdapter extends BaseAdapter {
         }
     }
 
-    private class ReadCallback implements Callback<MainServerData<Object>> {
-        @Override
-        public void success(MainServerData<Object> wrappedObject, Response response) {
-            if (wrappedObject.result) {
-                alarmListData.alarmRead = 1;
-                Intent intent = new Intent(context, WebviewActivity.class);
-                int  key = LinkBoxController.linkBoxUrlListAdapter.getItemPostionAsKey(alarmListData.alarmUrlKey);
-                if(key <0)
-                {
-                    Toast.makeText(context, "url키가 존재하지 않습니다.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                intent.putExtra(MainStrings.position, key);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                context.startActivity(intent);
-            }
-            else {
-                Log.d(TAG, "Fail to go to url");
-                Toast.makeText(context, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
-            }
-        }
-        @Override
-        public void failure(RetrofitError error) {
-            Log.d(TAG, "Fail to decline at all");
-            Toast.makeText(context, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
 }
