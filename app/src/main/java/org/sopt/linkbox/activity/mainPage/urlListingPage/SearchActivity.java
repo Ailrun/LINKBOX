@@ -74,7 +74,8 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SearchActivity.this, WebviewActivity.class);
 
-                intent.putExtra(MainStrings.position, position);
+                intent.putExtra(MainStrings.position, LinkBoxController.urlListSource.indexOf(LinkBoxController.linkBoxUrlListAdapter.getItem(position)));
+                // 필터링 거친 것의 포지션에 해당되는 녀석의 인덱스를 포지션으로 보낸다.
 
                 startActivity(intent);
 

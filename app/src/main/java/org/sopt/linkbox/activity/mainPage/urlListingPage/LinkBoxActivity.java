@@ -138,6 +138,8 @@ public class LinkBoxActivity extends AppCompatActivity {
     private SharedPreferences.Editor speProfile;
     private UsrListWrapper usrListWrapper = null;
 
+    private boolean afterphoto = false;
+
     //</editor-fold>
 
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
@@ -171,13 +173,11 @@ public class LinkBoxActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                dlDrawer.closeDrawers();
-            }
-        }, 500);
+        if(afterphoto)
+            afterphoto = false;
+        else
+           dlDrawer.closeDrawers();
+          
     }
     @Override
     protected void onResume() {
@@ -628,6 +628,7 @@ public class LinkBoxActivity extends AppCompatActivity {
         ivProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                afterphoto = true;
                 Intent intent = new Intent(LinkBoxActivity.this, PhotoCropActivity.class);
                 startActivity(intent);
 

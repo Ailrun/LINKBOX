@@ -20,6 +20,7 @@ public class UrlListData implements Cloneable {
     public int hidden;
     public int readLater;
     public int likedNum;
+    public int commentCount;
     public List<TagListData> urlTags;
     @Override
     public String toString(){

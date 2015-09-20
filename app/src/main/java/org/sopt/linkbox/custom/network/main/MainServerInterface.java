@@ -28,4 +28,7 @@ public interface MainServerInterface {
     String startNumPath = "startNum";
     String urlNumPath = "urlNum";
     String deviceKeyPath = "deviceKey";
+
+    String searchPath = "/Search";
+    String searchType = "searchType";
 }

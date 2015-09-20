@@ -75,6 +75,8 @@ public class WebviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
 
 
+
+
         mInputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         urlListWrapper = new UrlListWrapper();
@@ -83,11 +85,11 @@ public class WebviewActivity extends AppCompatActivity {
         position = intent.getIntExtra("position", 0);
 
         urlListData = LinkBoxController.urlListSource.get(position);
-
+        
         initview();
         initToolbarView();
         initControl();
-
+        
         webSettings = webView.getSettings();
         webSettings.setSaveFormData(false);//Form 데이터 저장 여부
         webSettings.setJavaScriptEnabled(true);//javaScript 사용 여부
@@ -111,24 +113,31 @@ public class WebviewActivity extends AppCompatActivity {
             }
         });
 
+LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new WebviewCommentListAdapter.NumberofCommentChange() {
+    @Override
+    public void NumberofCommentChange(int num) {
+        tvNumOfComment.setText(Integer.toString(num));
+    }
+});
+
 
     }
-
     @Override
     public void onBackPressed() {
         if (flContentLayout.getVisibility() == View.VISIBLE) {
             collapse(flContentLayout);
-        } else {
+        }
+        else {
             if (webView.canGoBack()) {
                 webView.goBack();
-            } else {
+            }
+            else {
                 webView.clearCache(false);
                 finish();
 
             }
         }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -155,18 +164,19 @@ public class WebviewActivity extends AppCompatActivity {
         }
         return true;
     }
-
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem liked = menu.findItem(R.id.action_like);
-        if (urlListData.liked == 0) {
+        if(urlListData.liked == 0)
+        {
             liked.setIcon(R.drawable.mainpage_bookmark_unchecked);
-        } else {
+        }
+        else
+        {
             liked.setIcon(R.drawable.mainpage_bookmark_checked);
         }
         return true;
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -181,19 +191,20 @@ public class WebviewActivity extends AppCompatActivity {
 
         tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
     }
-
     private void initview() {
 
         webView = (WebView) findViewById(R.id.WV_webview);
         mhlvComment = (MaxHeightListView) findViewById(R.id.MHLV_container_expandable_view_content);
         etComment = (EditText) findViewById(R.id.ET_comment_expandable_view_content);
-        tvNumOfComment = (TextView) findViewById(R.id.TV_number_of_reply_webview);//TODO 이거 숫자 어디서 어떻게 받아오지
+        tvNumOfComment = (TextView) findViewById(R.id.TV_number_of_reply_webview);
         ibSendButton = (ImageButton) findViewById(R.id.IB_send_button_expandable_view_content);
 
         flHeaderLayout = (FrameLayout) findViewById(R.id.FL_expandable_headerlayout_webview);
         flContentLayout = (FrameLayout) findViewById(R.id.FL_expandable_contentLayout_webview);
 
         flContentLayout.setVisibility(View.GONE);
+
+        tvNumOfComment.setText("0");
 
         flHeaderLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,6 +215,7 @@ public class WebviewActivity extends AppCompatActivity {
                     else
                         expand(flContentLayout);
 
+                    tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
                     isAnimationRunning = true;
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -229,7 +241,6 @@ public class WebviewActivity extends AppCompatActivity {
             }
         });
     }
-
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
@@ -257,7 +268,6 @@ public class WebviewActivity extends AppCompatActivity {
                 v.getLayoutParams().height = (interpolatedTime == 1) ? RelativeLayout.LayoutParams.WRAP_CONTENT : (int) (targetHeight * interpolatedTime);
                 v.requestLayout();
             }
-
             @Override
             public boolean willChangeBounds() {
                 return true;
@@ -266,17 +276,17 @@ public class WebviewActivity extends AppCompatActivity {
         animation.setDuration(200);
         v.startAnimation(animation);
     }
-
     private void collapse(final View v) {
         final int initialHeight = v.getMeasuredHeight();
         animation = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if (interpolatedTime == 1) {
+                if(interpolatedTime == 1) {
                     v.setVisibility(View.GONE);
                     isOpened = false;
-                } else {
-                    v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
+                }
+                else {
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
                     v.requestLayout();
                 }
             }
@@ -307,7 +317,6 @@ public class WebviewActivity extends AppCompatActivity {
             }, 200);
         }
     }
-
     public void hide() {
         if (!isAnimationRunning) {
             collapse(flContentLayout);
@@ -322,6 +331,7 @@ public class WebviewActivity extends AppCompatActivity {
     }
 
 
+
     private class UrlLikeCallback implements Callback<MainServerData<Object>> {
         UrlListData urlListData = null;
         MenuItem item = null;
@@ -330,17 +340,17 @@ public class WebviewActivity extends AppCompatActivity {
             this.urlListData = urlListData;
             this.item = item;
         }
-
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
             /*
             urlListData.liked = (1-urlListData.liked);
             urlListData.likedNum += 2*urlListData.liked - 1;
             */
-            if (urlListData.liked == 0) {
+            if(urlListData.liked == 0) {
                 urlListData.liked = 1;
                 urlListData.likedNum += 1;
-            } else {
+            }
+            else {
                 urlListData.liked = 0;
                 urlListData.likedNum -= 1;
             }
@@ -348,7 +358,6 @@ public class WebviewActivity extends AppCompatActivity {
             item.setEnabled(true);
             LinkBoxController.notifyUrlDataSetChanged();
         }
-
         @Override
         public void failure(RetrofitError error) {
             item.setEnabled(true);
@@ -362,12 +371,12 @@ public class WebviewActivity extends AppCompatActivity {
                 LinkBoxController.commentListSource.clear();
                 LinkBoxController.commentListSource.addAll(wrappedCommentListDatas.object);
                 LinkBoxController.notifyCommentDataSetChanged();
-            } else {
+            }
+            else {
                 Toast.makeText(WebviewActivity.this, "댓글 불러오기 실패.", Toast.LENGTH_SHORT).show();
                 hide();
             }
         }
-
         @Override
         public void failure(RetrofitError error) {
             Toast.makeText(WebviewActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
@@ -384,18 +393,17 @@ public class WebviewActivity extends AppCompatActivity {
                 LinkBoxController.notifyUrlDataSetChanged();
                 etComment.setText("");
                 tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
-            } else {
+            }
+            else {
                 Toast.makeText(WebviewActivity.this, "댓글작성 실패.", Toast.LENGTH_SHORT).show();
             }
         }
-
         @Override
         public void failure(RetrofitError error) {
             Toast.makeText(WebviewActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
             RetrofitDebug.debug(error);
         }
     }
-
     //웹뷰 클라이언트
     private class WebViewClientClass extends WebViewClient {
         //페이지 로딩이 끝났을때 호출
@@ -403,11 +411,10 @@ public class WebviewActivity extends AppCompatActivity {
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
         }
-
         /**
-         * 웹뷰 내 링크 터치 시 새로운 창이 뜨지 않고
-         * 해당 웹뷰 안에서 새로운 페이지가 로딩되도록 함
-         */
+        * 웹뷰 내 링크 터치 시 새로운 창이 뜨지 않고
+	    * 해당 웹뷰 안에서 새로운 페이지가 로딩되도록 함
+	    */
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
