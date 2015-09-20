@@ -28,7 +28,7 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:background="#424242">
+                android:background="@color/indigo500">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -37,7 +37,6 @@
                     android:layout_marginStart="16dp"
                     android:text="댓글"
                     android:textColor="@color/real_white"
-                    android:textSize="20dp"
                     android:textStyle="bold"/>
                 <ImageView
                     android:id="@+id/IV_ballon_expandable_view_content"
@@ -46,7 +45,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
-                    android:src="@drawable/ballon"/>
+                    android:src="@drawable/ic_comment_white"/>
                 <TextView
                     android:id="@+id/TV_number_of_reply_webview"
                     android:layout_width="wrap_content"
@@ -86,6 +85,7 @@
                         android:layout_weight="0.87"
                         android:background="@color/real_white"
                         android:hint="댓글을 입력하세요."
+                        android:textSize="14dp"
                         android:paddingStart="16dp"
                         android:textColor="@color/real_black"/>
                     <ImageButton
@@ -97,7 +97,8 @@
                         android:adjustViewBounds="true"
                         android:background="@color/real_white"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/reply_send_button"/>
+                        android:padding="8dp"
+                        android:src="@drawable/ic_comment_add"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"

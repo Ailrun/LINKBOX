@@ -2,6 +2,8 @@ package org.sopt.linkbox.activity.mainPage.boxListPage;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -73,7 +75,6 @@ public class WebviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
 
 
-
         mInputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         urlListWrapper = new UrlListWrapper();
@@ -82,11 +83,11 @@ public class WebviewActivity extends AppCompatActivity {
         position = intent.getIntExtra("position", 0);
 
         urlListData = LinkBoxController.urlListSource.get(position);
-        
+
         initview();
         initToolbarView();
         initControl();
-        
+
         webSettings = webView.getSettings();
         webSettings.setSaveFormData(false);//Form 데이터 저장 여부
         webSettings.setJavaScriptEnabled(true);//javaScript 사용 여부
@@ -103,32 +104,31 @@ public class WebviewActivity extends AppCompatActivity {
         webView.loadUrl(urlListData.url);
 
 
+        LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new WebviewCommentListAdapter.NumberofCommentChange() {
+            @Override
+            public void NumberofCommentChange(int num) {
+                tvNumOfComment.setText(Integer.toString(num));
+            }
+        });
 
-LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new WebviewCommentListAdapter.NumberofCommentChange() {
-    @Override
-    public void NumberofCommentChange(int num) {
-        tvNumOfComment.setText(Integer.toString(num));
+
     }
-});
 
-
-    }
     @Override
     public void onBackPressed() {
         if (flContentLayout.getVisibility() == View.VISIBLE) {
             collapse(flContentLayout);
-        }
-        else {
+        } else {
             if (webView.canGoBack()) {
                 webView.goBack();
-            }
-            else {
+            } else {
                 webView.clearCache(false);
                 finish();
 
             }
         }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -147,27 +147,26 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
                 startActivity(intent);
                 break;
             case R.id.action_like:
-                urlListWrapper.like(urlListData, 1-urlListData.liked, new UrlLikeCallback(urlListData, item));
+                urlListWrapper.like(urlListData, 1 - urlListData.liked, new UrlLikeCallback(urlListData, item));
                 item.setEnabled(false);
                 break;
-            default :
+            default:
                 return super.onOptionsItemSelected(item);
         }
         return true;
     }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem liked = menu.findItem(R.id.action_like);
-        if(urlListData.liked == 0)
-        {
+        if (urlListData.liked == 0) {
             liked.setIcon(R.drawable.mainpage_bookmark_unchecked);
-        }
-        else
-        {
+        } else {
             liked.setIcon(R.drawable.mainpage_bookmark_checked);
         }
         return true;
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -182,6 +181,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
 
         tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
     }
+
     private void initview() {
 
         webView = (WebView) findViewById(R.id.WV_webview);
@@ -229,6 +229,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
             }
         });
     }
+
     private void initToolbarView() {
         tToolbar = (Toolbar) findViewById(R.id.T_toolbar_link_box);
         tToolbar.setTitleTextColor(getResources().getColor(R.color.real_white));
@@ -256,6 +257,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
                 v.getLayoutParams().height = (interpolatedTime == 1) ? RelativeLayout.LayoutParams.WRAP_CONTENT : (int) (targetHeight * interpolatedTime);
                 v.requestLayout();
             }
+
             @Override
             public boolean willChangeBounds() {
                 return true;
@@ -264,17 +266,17 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
         animation.setDuration(200);
         v.startAnimation(animation);
     }
+
     private void collapse(final View v) {
         final int initialHeight = v.getMeasuredHeight();
         animation = new Animation() {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1) {
+                if (interpolatedTime == 1) {
                     v.setVisibility(View.GONE);
                     isOpened = false;
-                }
-                else {
-                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                } else {
+                    v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
                     v.requestLayout();
                 }
             }
@@ -305,6 +307,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
             }, 200);
         }
     }
+
     public void hide() {
         if (!isAnimationRunning) {
             collapse(flContentLayout);
@@ -319,7 +322,6 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
     }
 
 
-
     private class UrlLikeCallback implements Callback<MainServerData<Object>> {
         UrlListData urlListData = null;
         MenuItem item = null;
@@ -328,17 +330,17 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
             this.urlListData = urlListData;
             this.item = item;
         }
+
         @Override
         public void success(MainServerData<Object> wrappedObject, Response response) {
             /*
             urlListData.liked = (1-urlListData.liked);
             urlListData.likedNum += 2*urlListData.liked - 1;
             */
-            if(urlListData.liked == 0) {
+            if (urlListData.liked == 0) {
                 urlListData.liked = 1;
                 urlListData.likedNum += 1;
-            }
-            else {
+            } else {
                 urlListData.liked = 0;
                 urlListData.likedNum -= 1;
             }
@@ -346,6 +348,7 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
             item.setEnabled(true);
             LinkBoxController.notifyUrlDataSetChanged();
         }
+
         @Override
         public void failure(RetrofitError error) {
             item.setEnabled(true);
@@ -359,12 +362,12 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
                 LinkBoxController.commentListSource.clear();
                 LinkBoxController.commentListSource.addAll(wrappedCommentListDatas.object);
                 LinkBoxController.notifyCommentDataSetChanged();
-            }
-            else {
+            } else {
                 Toast.makeText(WebviewActivity.this, "댓글 불러오기 실패.", Toast.LENGTH_SHORT).show();
                 hide();
             }
         }
+
         @Override
         public void failure(RetrofitError error) {
             Toast.makeText(WebviewActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
@@ -381,17 +384,18 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
                 LinkBoxController.notifyUrlDataSetChanged();
                 etComment.setText("");
                 tvNumOfComment.setText(Integer.toString(LinkBoxController.webviewCommentListAdapter.getCount()));
-            }
-            else {
+            } else {
                 Toast.makeText(WebviewActivity.this, "댓글작성 실패.", Toast.LENGTH_SHORT).show();
             }
         }
+
         @Override
         public void failure(RetrofitError error) {
             Toast.makeText(WebviewActivity.this, "서버와 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
             RetrofitDebug.debug(error);
         }
     }
+
     //웹뷰 클라이언트
     private class WebViewClientClass extends WebViewClient {
         //페이지 로딩이 끝났을때 호출
@@ -399,10 +403,11 @@ LinkBoxController.webviewCommentListAdapter.setNumberofCommentChange(new Webview
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
         }
+
         /**
-        * 웹뷰 내 링크 터치 시 새로운 창이 뜨지 않고
-	    * 해당 웹뷰 안에서 새로운 페이지가 로딩되도록 함
-	    */
+         * 웹뷰 내 링크 터치 시 새로운 창이 뜨지 않고
+         * 해당 웹뷰 안에서 새로운 페이지가 로딩되도록 함
+         */
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);

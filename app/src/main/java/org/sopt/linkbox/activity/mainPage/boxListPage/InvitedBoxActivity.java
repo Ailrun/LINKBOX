@@ -3,6 +3,8 @@ package org.sopt.linkbox.activity.mainPage.boxListPage;
 import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -89,6 +91,12 @@ public class InvitedBoxActivity extends AppCompatActivity {
         tToolbar.setTitleTextColor(Color.WHITE);
         tToolbar.setTitle("초대받은 박스");
         setSupportActionBar(tToolbar);
+
+        // Code for changing the toolbar backbutton color
+        final Drawable upArrow = getResources().getDrawable(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+        upArrow.setColorFilter(getResources().getColor(R.color.real_white), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
