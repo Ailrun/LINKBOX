@@ -727,9 +727,9 @@ public class LinkBoxActivity extends AppCompatActivity {
     }
     private void elseInBox() {
         urlListWrapper.allList(0, 200, new UrlLoading());
-        tToolbar.setTitle("최근 링크");
+        tToolbar.setTitle("홈");
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("최근 링크");
+            getSupportActionBar().setTitle("홈");
         }
         lvUrlList.removeHeaderView(llUrlHeader);
         lvUrlList.setOnScrollListener(null);

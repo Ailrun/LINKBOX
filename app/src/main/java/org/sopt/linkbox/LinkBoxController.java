@@ -6,6 +6,8 @@ import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.squareup.okhttp.OkHttpClient;
@@ -56,11 +58,31 @@ public class LinkBoxController extends Application {
     }
     public static boolean inboxIndicator = false;
 
+    // Google Analytics Tracker
+    private Tracker mTracker = null;
+    /*
+    synchronized public Tracker getDefaultTracker() {
+        if (mTracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+            mTracker = analytics.newTracker(R.xml.global_tracker);
+        }
+        return mTracker;
+    }
+    */
+
     //<editor-fold desc="Override Methods" defaultstate="collapsed">
     @Override
     public void onCreate() {
         super.onCreate();
         LinkBoxController.application = this;
+        if (mTracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+            mTracker = analytics.newTracker(R.xml.global_tracker);
+
+            mTracker.enableAutoActivityTracking(true);
+        }
         init();
     }
     //</editor-fold>
@@ -259,6 +281,12 @@ public class LinkBoxController extends Application {
         }
         return true;
     }
+
+
+    /**
+     * Gets the default {@link Tracker} for this {@link Application}.
+     * @return tracker
+     */
 
 /*    private void initNetworkEmbedly()
     {

@@ -8,7 +8,7 @@
         <item name="android:gravity">center_horizontal|center</item>
     </style>
 
-    <style name="toolbar_style" parent="Theme.AppCompat">
+    <style name="toolbar_style" parent="Base.Theme.AppCompat">
         <item name="android:background">@color/indigo500</item>
         <item name="android:textColor">@color/real_white</item>
         <item name="android:gravity">center_vertical</item>
